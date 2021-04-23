@@ -16,6 +16,7 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home() {
 		logger.info("메인페이지");
+		logger.info("김예지 완료");
 		return "home";
 	}
 
