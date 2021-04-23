@@ -6,3 +6,15 @@ Final_Project_team3/target/
 .settings/
 target/
 src/test/
+bin/.gitignore
+bin/.project
+bin/.springBeans
+bin/pom.xml
+bin/src/main/java/com/spring/main/HomeController.class
+bin/src/main/resources/log4j.xml
+bin/src/main/resources/config/aliase.xml
+bin/src/main/resources/props/globals.properties
+bin/src/main/webapp/WEB-INF/web.xml
+bin/src/main/webapp/WEB-INF/spring/root-context.xml
+bin/src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml
+bin/src/main/webapp/WEB-INF/views/home.jsp
