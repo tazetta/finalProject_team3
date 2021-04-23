@@ -12,5 +12,7 @@
 
 <P>박정훈</P>
 <p>김태환</p>
+<a href="groupListPage">공동구매</a>
+
 </body>
 </html>
