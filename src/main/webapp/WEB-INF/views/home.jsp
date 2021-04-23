@@ -11,6 +11,10 @@
 
 <P>박정훈</P>
 <p>김태환</p>
-<a href='#' onclick="location.href='./list'">리뷰페이지</a>
+
+
+<a href="groupListPage">공동구매</a>
+
+
 </body>
 </html>
