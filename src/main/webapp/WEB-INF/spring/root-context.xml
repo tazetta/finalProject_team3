@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<!-- DataSource 설정 (DB접속 정보) -->
+	<bean name="dataSource"	class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${Globals.driverClassName}" />
+		<property name="url" value="${Globals.url}" />
+		<property name="username" value="${Globals.username}" />
+		<property name="password" value="${Globals.password}" />
+	</bean>
+	
+	<!-- mybatis 설정 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations" value="classpath:com/spring/main/dao/*xml" />
+		<property name="configLocation" value="classpath:config/aliase.xml" />
+	</bean>
+	
+	<mybatis-spring:scan base-package="com.spring.main.dao"/>
+	
+	<!-- DB연결 정보 properties -->
+	<bean id="propertyConfiguer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:/props/*.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- properties를 java 소스안에서 사용할 수 있도록 설정 -->
+	<util:properties id="config" location="classpath:/props/*.properties" />
+	
+	<!-- DB연결 정보 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- @Transaction 어노테이션 사용 설정 -->
+	<tx:annotation-driven proxy-target-class="false"/>	
+		
+</beans>
