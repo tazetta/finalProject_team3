@@ -16,7 +16,7 @@
 
 
 <a href="groupListPage">공동구매</a>
-
+<a href="FAQ">고객센터</a>
 
 </body>
 </html>
