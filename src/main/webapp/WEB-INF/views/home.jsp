@@ -10,6 +10,6 @@
 	Hello world!  
 </h1>
 
-<P>이민주</P>
+<P>박정훈</P>
 </body>
 </html>
