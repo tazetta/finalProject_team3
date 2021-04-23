@@ -6,4 +6,6 @@ public interface GroupDAO {
 
 	int groupWrite(GroupDTO groupDTO);
 
+	GroupDTO groupDetail(String gpIdx);
+
 }

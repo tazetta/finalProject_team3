@@ -13,4 +13,8 @@
 		INSERT INTO groupPurchase(GPIDX, SUBJECT, CONTENT, CHATURL,PROGIDX, ID, MAXUSER, CURRUSER, DEADLINE, GPCTGIDX) 
 		VALUES(groupPurchase_seq.NEXTVAL, #{subject}, #{content}, #{chatURL},#{progIdx},#{id},#{maxUser},#{currUser},#{deadline},#{gpCtgIdx} )
 	</insert>
+	
+	<select id="groupDetail" resultType="group">
+	 SELECT GPIDX,SUBJECT,CONTENT,CHATURL,PROGIDX,ID,MAXUSER,CURRUSER,DEADLINE,GPCTGIDX,reg_date FROM groupPurchase WHERE GPIDX=#{gpIdx}
+	</select>
 </mapper>

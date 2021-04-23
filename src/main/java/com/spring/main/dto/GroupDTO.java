@@ -11,13 +11,20 @@ public class GroupDTO {
 	private String subject;
 	private String content;
 	private String chatURL;
-	private int progIdx;
+	private int progIdx; // 진행상황 1.진행중 2.인원미달마감 3.마감
 	private String id;
 	private int maxUser;
 	private int currUser;
 	private Date deadline;
-	private int gpCtgIdx;
+	private int gpCtgIdx; // 카테고리 1.공동구매 2.무료나눔
+	private Date  reg_date;
 	
+	public Date getReg_date() {
+		return reg_date;
+	}
+	public void setReg_date(Date reg_date) {
+		this.reg_date = reg_date;
+	}
 	public int getGpIdx() {
 		return gpIdx;
 	}

@@ -1,6 +1,5 @@
 package com.spring.main.controller;
 
-import java.text.ParseException;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
@@ -39,8 +38,13 @@ public class GroupController {
 	@RequestMapping(value = "/groupWrite", method = RequestMethod.POST)
 	public ModelAndView groupWrite( @RequestParam HashMap<String , String> params,HttpSession session) {
 		logger.info("공동구매 글쓰기 요청");
-		logger.info("params: {}" ,params);
-		
+		logger.info("params: {}" ,params);	
 		return groupService.groupWrite(params, session);
+	}
+	
+	@RequestMapping(value = "/groupDetail", method = RequestMethod.GET)
+	public ModelAndView groupDetail(@RequestParam String gpIdx) {
+		logger.info("공동구매 상세보기 요청: "+gpIdx);
+		return groupService.detail(gpIdx);
 	}
 }

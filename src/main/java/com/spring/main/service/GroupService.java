@@ -41,7 +41,7 @@ public class GroupService {
 			e.printStackTrace();
 		}
 		String transDate = dfm.format(utilDate);
-		Date deadline = Date.valueOf(transDate);
+		Date deadline = Date.valueOf(transDate); //sql DATE로 변환
 		
 		groupDTO.setGpCtgIdx(groupCtg);
 		groupDTO.setId(params.get("id"));
@@ -53,14 +53,29 @@ public class GroupService {
 		groupDTO.setProgIdx(1); // 진행중
 		groupDTO.setCurrUser(0); // 신청인원
 		int result = groupdao.groupWrite(groupDTO);
+		page = "groupList";
 
 		logger.info("groupWrite result:" + result);
 		if (result > 0) {
 			logger.info("idx: " + groupDTO.getGpIdx());
-			page = "groupList";
+			page="redirect:/groupDetail?gpIdx="+groupDTO.getGpIdx();
 			msg = "글쓰기에 성공하였습니다";
 		}
 		mav.addObject("msg", msg);
+		mav.setViewName(page);
+		return mav;
+	}
+
+	public  ModelAndView detail(String gpIdx) {
+		ModelAndView mav = new ModelAndView();
+		logger.info("상세보기 서비스");
+		GroupDTO dto = groupdao.groupDetail(gpIdx);
+		logger.info("groupDTO: "+dto);
+		page="groupList";
+		if(dto!=null) {
+			mav.addObject("dto", dto);
+			page="groupDetail";
+		}
 		mav.setViewName(page);
 		return mav;
 	}
