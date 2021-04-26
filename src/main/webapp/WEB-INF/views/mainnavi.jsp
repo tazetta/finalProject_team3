@@ -40,19 +40,19 @@
 </style>
 
 <div class="bar">
-    <a href="*">
+    <a href="*" target="_parent">
         <li>자유게시판</li>
     </a>
-    <a href="*">
+    <a href="*" target="_parent">
         <li>우리집 자랑</li>
     </a>
-    <a href="*">
+    <a href="*" target="_parent">
         <li>공동 구매</li>
     </a>
-    <a href="#">
+    <a href="*" target="_parent">
         <li>도와줘요 자취만렙</li>
     </a>
-    <a href="#">
+    <a href="*" target="_parent">
         <li>전문가 인테리어</li>
     </a>
 

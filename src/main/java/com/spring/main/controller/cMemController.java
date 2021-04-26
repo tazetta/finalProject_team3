@@ -15,11 +15,22 @@ public class cMemController {
 
 	@RequestMapping(value = "/companydetail", method = RequestMethod.GET)
 	public String home() {
-		logger.info("고객센터페이지입니다.");
+		logger.info("업체상세보기.");
 		return "companydetail";
 	}
 	@RequestMapping(value = "/companynavi", method = RequestMethod.GET)
 	public String mainnavi() {
+		logger.info("업체네비바실행");
 		return "companynavi";
+	}
+	@RequestMapping(value = "/estimatelist", method = RequestMethod.GET)
+	public String estimatelist() {
+		logger.info("견적서리스트");
+		return "estimatelist";
+	}
+	@RequestMapping(value = "/examlist", method = RequestMethod.GET)
+	public String examlist() {
+		logger.info("시공리스트");
+		return "examlist";
 	}
 }
