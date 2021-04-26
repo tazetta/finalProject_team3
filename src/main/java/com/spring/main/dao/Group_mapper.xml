@@ -43,5 +43,17 @@
 		SELECT COUNT(GPCTGIDX) FROM groupPurchase
 	</select>
 	
+	<select id="groupGetFileName" resultType="String">
+		SELECT newFileName FROM photos WHERE gpIdx=#{gpIdx}
+	</select>
+	
+	<delete id="groupPhotoDel">
+		DELETE FROM photos WHERE gpIdx=#{gpIdx}
+	</delete>
+	
+	<delete id="groupDel">
+		DELETE FROM groupPurchase WHERE gpIdx=#{gpIdx}
+	</delete>
+	
 	
 </mapper>

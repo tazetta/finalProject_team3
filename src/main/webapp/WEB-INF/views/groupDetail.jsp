@@ -53,6 +53,7 @@ table, td, th {
 		</tr>
 	</table>
 	<button onclick="location.href='groupListPage'">목록</button>
+	<button onclick="location.href='groupDel/${dto.gpIdx}'">삭제</button>
 
 </body>
 <script></script>

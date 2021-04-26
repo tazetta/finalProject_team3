@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.main.dao.GroupDAO;
 import com.spring.main.dto.GroupDTO;
@@ -165,6 +166,8 @@ public class GroupService {
 		return mav;
 	}
 
+	/* 파일삭제 */
+	@Transactional
 	public HashMap<String, Object> fileDelete(String fileName, HttpSession session) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		// File객체를 이용해 fileName으로 실제 파일 삭제
@@ -237,6 +240,35 @@ public class GroupService {
 		map.put("currPage", page);
 
 		return map;
+	}
+
+	/*게시글 삭제*/
+	@Transactional
+	public ModelAndView groupDel(int gpIdx, HttpSession session, RedirectAttributes rAttr) {
+		ModelAndView mav = new ModelAndView();
+		String newFileName = groupdao.groupGetFileName(gpIdx);
+		msg="삭제에 실패했습니다";
+		
+		logger.info("newFileName: " + newFileName);
+		if (newFileName != null) { // 파일이 있으면 
+			int success = groupdao.groupPhotoDel(gpIdx); //DB에서 삭제
+			logger.info("photos 삭제 결과:" + success);
+		}
+
+		int success = groupdao.groupDel(gpIdx);
+		logger.info("글 삭제결과: " + success);
+
+		
+		if (success > 0 && newFileName != null) {
+			HashMap<String, Object> map =fileDelete(newFileName, session);
+			int result = (int) map.get("success");
+			logger.info("result:"+result);
+		}
+		msg="삭제되었습니다.";
+		rAttr.addFlashAttribute("msg", msg);
+
+		mav.setViewName("redirect:/groupListPage"); 
+		return mav;
 	}
 
 }

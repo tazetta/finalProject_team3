@@ -9,12 +9,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.main.service.GroupService;
 
@@ -28,7 +30,7 @@ public class GroupController {
 
 	@RequestMapping(value = "/groupListPage", method = RequestMethod.GET)
 	public String home() {
-		logger.info("공동구매 리스트로 이동");
+		logger.info("공동구매 리스트 로 이동");
 		return "groupList";
 	}
 	
@@ -74,5 +76,12 @@ public class GroupController {
 			logger.info(fileName+" ->파일 삭제 요청");
 			
 			return groupService.fileDelete(fileName,session);
+		}
+		
+		//게시물 삭제(photo내의 데이터 삭제 > bbs내의 데이터 삭제 > 파일삭제)
+		@RequestMapping(value = "/groupDel/{gpIdx}", method = RequestMethod.GET)
+		public ModelAndView groupDel(@PathVariable int gpIdx, HttpSession session, RedirectAttributes rAttr) {
+			logger.info("삭제 요청: "+gpIdx);
+			return groupService.groupDel(gpIdx, session, rAttr);
 		}
 }

@@ -20,6 +20,12 @@ public interface GroupDAO {
 
 	ArrayList<GroupDTO> groupList(int start, int end);
 
+	String groupGetFileName(int gpIdx);
+
+	int groupPhotoDel(int gpIdx);
+
+	int groupDel(int gpIdx);
+
 
 	
 
