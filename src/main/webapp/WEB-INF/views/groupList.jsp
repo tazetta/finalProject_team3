@@ -108,15 +108,31 @@ function listCall(reqPage) {
 
 function listPrint(list) {
 	var content = "";
+	var category="";
+	var progress="";
 
 	for (var i = 0; i < list.length; i++) {
 		content += "<tr>"
 		content += "<td>"+list[i].gpIdx+"</td>" //글번호
-		content += "<td>"+list[i].gpCtgIdx+"</td>" //글종류
-		content += "<td>"+list[i].progIdx+"</td>" //현재상태
+		
+		if(list[i].gpCtgIdx == 1){
+			category ="공동구매";
+		}else{
+			category="무료나눔";
+		}
+		content += "<td>"+category+"</td>" //글종류
+		
+		if(list[i].progIdx ==1){
+			progress="진행중";
+		}if(list[i].progIdx ==2){
+			progress="인원부족마감";
+		}else{
+			progress="마감"
+		}
+		content += "<td>"+progress+"</td>" //현재상태
 		
 		//JAVA에서 가끔 날짜가 milliseconds로 나올 경우..
-		 var deadline = new Date(list[i].reg_date); 
+		 var deadline = new Date(list[i].deadline); 
 		content += "<td>"+deadline.toLocaleDateString("ko-KR")+"</td>" //마감날짜
 	
 		content += "<td>"+list[i].subject+"</td>" //제목
