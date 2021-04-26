@@ -135,5 +135,36 @@ public class GroupService {
 		
 		return mav;
 	}
+	
+	public HashMap<String, Object> fileDelete(String fileName, HttpSession session) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		// File객체를 이용해 fileName으로 실제 파일 삭제
+		File delFile = new File(root+"upload/"+fileName);
+		int success = 1;
+		try {
+			logger.info("delete File: "+delFile);
+			if(delFile.exists()) { //해당 경로에 실제 파일이 있으면
+				delFile.delete(); //삭제
+			}else {
+				logger.info("이미 삭제된 파일");
+			}
+			// session에 있는 fileList에서도 파일명 삭제 -> 변경된 내용 session에 저장
+			HashMap<String, String> fileList = (HashMap<String, String>) session.getAttribute("fileList");
+			if(fileList.get(fileName)!=null){ //session의 list안에 삭제한 파일이 있다면
+				fileList.remove(fileName); //실제로 지워진 파일이니까 파일명을 지정해서 session에서도 삭제
+				logger.info("삭제후 남은 파일 수:"+fileList.size());
+			};
+			session.setAttribute("fileList", fileList); // 변경된 내용을 다시 session에 저장
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			success = 0 ;
+		}finally {
+			// 결과를 map에 담아서 반환
+			map.put("success", success);
+		}
+		
+		return map;
+	}
 
 }

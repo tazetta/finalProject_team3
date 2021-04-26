@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -65,4 +66,12 @@ public class GroupController {
 		
 		return groupService.fileUpload(file, session);
 	}
+	
+	//비동기로 받기 때문에 @ResponseBody
+		@RequestMapping(value = "/groupFileDelete", method = RequestMethod.GET)
+		public @ResponseBody HashMap<String, Object> groupFileDelete(@RequestParam String fileName, HttpSession session) { //세션에서도 삭제
+			logger.info(fileName+" ->파일 삭제 요청");
+			
+			return groupService.fileDelete(fileName,session);
+		}
 }
