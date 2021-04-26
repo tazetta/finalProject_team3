@@ -47,5 +47,12 @@
 
 	<!-- @Transaction 어노테이션 사용 설정 -->
 	<tx:annotation-driven proxy-target-class="false"/>	
+	
+	 <!-- 파일첨부 설정 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="UTF-8"></property>
+		<property name="maxUploadSize" value="10000000"></property> <!-- upload size -->
+		<property name="maxInMemorySize" value="10000000"></property> <!-- buffer역할을 할 용량 -->
+	</bean>
 		
 </beans>
