@@ -17,4 +17,19 @@
 	<select id="groupDetail" resultType="group">
 	 SELECT GPIDX,SUBJECT,CONTENT,CHATURL,PROGIDX,ID,MAXUSER,CURRUSER,DEADLINE,GPCTGIDX,reg_date FROM groupPurchase WHERE GPIDX=#{gpIdx}
 	</select>
+	
+	<!-- 카테고리  -->
+	<select id="groupCtg" resultType="String">
+		SELECT category FROM gpCtg WHERE gpCtgIdx=#{gpCtgIdx}
+	</select>
+	
+	<!-- 진행상황 -->
+	<select id="gpProgress" resultType="String">
+		SELECT progress FROM gpProgress WHERE progIdx=#{progIdx}
+	</select>
+	
+	<insert id="groupWriteFile">
+		INSERT INTO photos (PHOTOIDX, NEWFILENAME, ORIFILENAME, GPIDX) 
+		VALUES (photos_seq.NEXTVAL, #{param1}, #{param2}, #{param3})
+	</insert>
 </mapper>
