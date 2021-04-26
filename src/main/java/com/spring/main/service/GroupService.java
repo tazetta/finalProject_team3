@@ -205,12 +205,12 @@ public class GroupService {
 
 		// pagePerCnt의 기준으로 몇 페이지나 만들 수 있는가?(마지막 페이지)
 		// -> 전체 게시글 수
-		int allCnt = groupdao.groupAllCount(); // 공동구매 전체 게시글 수
+		int allCnt = groupdao.groupAllCount(opt); // 공동구매 전체 게시글 수
 		logger.info("group Purchase allCnt:" + allCnt);
 
-		// 게시글 수 : 21개, 페이지 당 보여줄 수 : 5 =(나머지가 있는 경우 반올림해서)=> 최대 생성 가능한 페이지 : 5
+		// 게시글 수 : 21개, 페이지 당 보여줄 수 : 10 =(나머지가 있는 경우 반올림해서)=> 최대 생성 가능한 페이지 : 3
 		int range = allCnt % pagePerCnt > 0 ? Math.round(allCnt / pagePerCnt) + 1 : Math.round(allCnt / pagePerCnt);
-
+		System.out.println("range:"+range);
 		// 현재 페이지가 생성가능한 페이지보다 클 경우. .. 현재 페이지를 생성가능한 페이지로 맞춰준다.
 		page = page > range ? range : page;
 

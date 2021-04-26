@@ -16,7 +16,7 @@ public interface GroupDAO {
 	
 	String gpProgress(int progIdx);
 
-	int groupAllCount();
+	int groupAllCount(int opt);
 
 	ArrayList<GroupDTO> groupList(int start, int end, int opt);
 

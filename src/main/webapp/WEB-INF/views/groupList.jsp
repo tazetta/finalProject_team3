@@ -18,7 +18,7 @@ table {
 	margin-top: 10px;
 }
 
-table, td {
+table, td,th{
 	border: 1px solid;
 	border-collapse: collapse;
 	padding: 5px 10px;
@@ -41,14 +41,14 @@ head td, #paging {
 	<table>
 		<thead>
 			<tr>
-				<td>글번호</td>
-				<td>글종류</td>
-				<td>현재상태</td>
-				<td>마감날짜</td>
-				<td>제목</td>
-				<td>작성자</td>
-				<td>조회수</td>
-				<td>작성일</td>
+				<th>글번호</th>
+				<th>글종류</th>
+				<th>현재상태</th>
+				<th>마감날짜</th>
+				<th>제목</th>
+				<th>작성자</th>
+				<th>조회수</th>
+				<th>작성일</th>
 			</tr>
 
 		</thead>
@@ -98,6 +98,7 @@ function optSelect(e) {
 			dataType : "JSON",
 			success : function(data) {
 				console.log("success:"+data);
+				console.log("range:"+data.range);
 				showPage = data.currPage; //서비스에서 보낸 페이지를 현재 페이지에 넣기
 				listPrint(data.list); //list내용을 뿌려주는 함수 실행
 						

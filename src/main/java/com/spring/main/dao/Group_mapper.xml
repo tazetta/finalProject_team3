@@ -50,8 +50,14 @@
 		WHERE rnum BETWEEN #{param1} AND  #{param2}
 	</select>
 	
-	<select id="groupAllCount" resultType="int">
+	<select id="groupAllCount" parameterType="int" resultType="int">
 		SELECT COUNT(GPCTGIDX) FROM groupPurchase
+		<if test="value == 1">
+		 WHERE GPCTGIDX=1 
+		</if>
+		<if test="value == 2">
+		 WHERE GPCTGIDX=2 
+		</if>
 	</select>
 	
 	<select id="groupGetFileName" resultType="String">
