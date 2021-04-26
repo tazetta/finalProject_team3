@@ -8,4 +8,12 @@ public interface GroupDAO {
 
 	GroupDTO groupDetail(String gpIdx);
 
+	void groupWriteFile(String key, String string, int gpIdx);
+
+	String groupCtg(int gpCtgIdx);
+
+	String gpProgress(int progIdx);
+
+	
+
 }

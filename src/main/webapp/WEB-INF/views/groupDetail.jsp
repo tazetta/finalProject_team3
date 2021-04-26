@@ -30,12 +30,12 @@ div {
 		</tr>
 		<tr>
 			<td>${dto.gpIdx}</td>
-			<td><c:if test="${dto.gpCtgIdx ==1}">공동구매</c:if> <c:if
-					test="${dto.gpCtgIdx ==2}">무료나눔</c:if></td>
+			<td><%-- <c:if test="${dto.gpCtgIdx ==1}">공동구매</c:if> <c:if
+					test="${dto.gpCtgIdx ==2}">무료나눔</c:if> --%>
+					${dto.category }
+					</td>
 			<td>
-			<c:if test="${dto.progIdx ==1}">진행중</c:if> 
-			<c:if test="${dto.progIdx ==2}">인원미달마감</c:if>
-			<c:if test="${dto.progIdx ==3}">마감</c:if>
+			${dto.progress }
 			</td>
 			<td>${dto.subject}</td>
 			<td>${dto.id}</td>

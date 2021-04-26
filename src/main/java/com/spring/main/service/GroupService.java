@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -37,6 +38,7 @@ public class GroupService {
 	String page = "";
 	String msg = "";
 
+	@Transactional //글등록에 실패하면 저장한 파일내용 등록도 실행되지 않도록
 	public ModelAndView groupWrite(HashMap<String, String> params, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		GroupDTO groupDTO = new GroupDTO();
@@ -64,13 +66,30 @@ public class GroupService {
 		groupDTO.setProgIdx(1); // 진행중
 		groupDTO.setCurrUser(0); // 신청인원
 		int result = groupdao.groupWrite(groupDTO);
-		page = "groupList";
+		page = "redirect:/groupWriteForm";
 
 		logger.info("groupWrite result:" + result);
-		if (result > 0) {
-			logger.info("idx: " + groupDTO.getGpIdx());
+		
+		//1. session에서 fileList를 가져온다
+		HashMap<String, String> fileList = (HashMap<String, String>) session.getAttribute("fileList");
+				
+		if (result > 0) { //글쓰기 성공시
+			logger.info("idx: " + groupDTO.getGpIdx()); //공동구매 글 idx 뽑아오기
+			
+			//2. fileList에 저장된 파일이 있는지 확인한다.
+			 if(fileList.size()>0) {
+				 //3. 업로드한 파일이 있을 경우 저장한 파일내용을 DB에 기록
+				 //newFileName, originFileName, idx
+				 // 맵에 있는 모든 값을 빼서 DB에 넣는다
+				 for (String key : fileList.keySet()) { //여러개의 파일이 있을 수 있으므로 for문 사용
+					 groupdao.groupWriteFile(key,fileList.get(key),groupDTO.getGpIdx());
+				}
+			 }
+			
 			page="redirect:/groupDetail?gpIdx="+groupDTO.getGpIdx();
 			msg = "글쓰기에 성공하였습니다";
+		}else { //글쓰기 실패시
+			
 		}
 		mav.addObject("msg", msg);
 		mav.setViewName(page);
@@ -84,6 +103,11 @@ public class GroupService {
 		logger.info("groupDTO: "+dto);
 		page="groupList";
 		if(dto!=null) {
+			String category =groupdao.groupCtg(dto.getGpCtgIdx()); //카테고리 가져오기
+			dto.setCategory(category); //카테고리명 담기
+			
+			String progress = groupdao.gpProgress(dto.getProgIdx()); //진행상황 가져오기
+			dto.setProgress(progress); //진행상황 담기
 			mav.addObject("dto", dto);
 			page="groupDetail";
 		}
