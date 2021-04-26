@@ -19,8 +19,20 @@ public class AdminController {
 	
 	@RequestMapping(value = "/adminMain", method = RequestMethod.GET)
 	public ModelAndView adminMain() {
-		logger.info("관리자 메인페이지로 이동");
+		logger.info("관리자 메인페이지");
 		return service.cntNewMember();
+	}
+	
+	@RequestMapping(value = "/adminMemberList", method = RequestMethod.GET)
+	public String adminMemberList() {
+		logger.info("관리자 일반회원 목록보기");
+		return "adminMemberList";
+	}
+	
+	@RequestMapping(value = "/adminMemberDetail", method = RequestMethod.GET)
+	public String adminMemberDetail() {
+		logger.info("관리자 일반회원 상세보기");
+		return "adminMemberDetail";
 	}
 	
 }

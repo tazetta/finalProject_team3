@@ -12,5 +12,8 @@
 <br/>
 <hr>
 <a href="adminMain">관리자 메인페이지</a>
+<a href="adminMemberList">관리자 일반회원 리스트</a>
+<a href="adminMemberDetail">관리자 일반회원 상세보기</a>
+<hr>
 </body>
 </html>
