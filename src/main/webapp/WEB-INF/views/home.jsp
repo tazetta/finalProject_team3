@@ -5,18 +5,12 @@
 	<title>Home</title>
 </head>
 <body>
-<h1>
-	Hello world!  
-</h1>
-
-<P>박정훈</P>
-<p>김태환</p>
 
 <a href='#' onclick="location.href='./list'">리뷰페이지</a>
-
-
 <a href="groupListPage">공동구매</a>
 <a href="FAQ">고객센터</a>
-
+<br/>
+<hr>
+<a href="adminMain">관리자 메인페이지</a>
 </body>
 </html>
