@@ -42,7 +42,7 @@ li a:hover{
         <li><a href="./companydetail" target="_parent">업체 정보</a></li>
         <li><a href="./estimatelist" target="_parent">받은 견적서</a></li>
         <li><a href="./examlist"  target="_parent">시공 사례</a></li>
-        <li><a href="#">시공 리뷰</a></li>
+        <li><a href="./cMreviewlist" target="_parent">시공 리뷰</a></li>
             
             </ul>
 </body>
