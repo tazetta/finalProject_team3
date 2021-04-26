@@ -52,6 +52,7 @@ div {
 			</td>
 		</tr>
 	</table>
+	<button onclick="location.href='groupListPage'">목록</button>
 
 </body>
 <script></script>
