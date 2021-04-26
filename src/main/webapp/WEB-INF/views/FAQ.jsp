@@ -41,13 +41,12 @@
 
 
     <body>
-        <div style="height: 30px;width: 100%; background-color: red; margin-bottom: 1%;">네비바 들어가용~</div>
+        <iframe src="mainnavi" scrolling="no" frameborder="0" style="width: 100%;"></iframe>
        
         
-        <hr style="margin-bottom: 2%;"/>
 
         <div style="margin-left: 2%;font-size: 50px;"><strong style="color: coral;">고객센터</strong> <strong style="color: gray; font-size: 60px;"> | </strong><strong style="color: coral;">FAQ</strong></div>
-        <a href="https://www.naver.com/">고객의소리</a>
+        <a href="FAQsend">고객의소리</a>
 
         <div style=" margin-top: 10%; font-size: 25px;">
         <ul><strong onclick="view1()" style="font-size: 40px;color: coral; cursor: pointer;">Q</strong>.비밀번호 어떻게 바꾸나여?</ul>
