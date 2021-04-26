@@ -28,9 +28,15 @@ public class cMemController {
 		logger.info("견적서리스트");
 		return "estimatelist";
 	}
+	@RequestMapping(value = "/cMreviewlist", method = RequestMethod.GET)
+	public String cMreviewlist() {
+		logger.info("시공리뷰");
+		return "cMreviewlist";
+	}
 	@RequestMapping(value = "/examlist", method = RequestMethod.GET)
 	public String examlist() {
 		logger.info("시공리스트");
 		return "examlist";
 	}
+	
 }

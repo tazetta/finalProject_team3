@@ -2,10 +2,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
-<html>
 <head>
     <meta charset="UTF-8">
-    <title>견적서 상세보기</title>
+    <title>업체:시공 리뷰보기</title>
     </head>
     <style>
             tr,td{
@@ -31,19 +30,8 @@
             .페이지처리:hover, .페이지처리:active{
             background-color: dodgerblue;
             }
-            .시공작성{
-                border: 1px solid gray;
-                border-collapse: collapse;
-                height: 30px;
-                width: 200px;
-                border-radius: 5px;/*깍기*/
-                background-color: white;
-                color: gray;
-            }
-            .시공작성:hover, .시공작성:active{
-        background-color: whitesmoke;
-        }
-            .시공사례:hover{
+  
+            .시공리뷰보기:hover{
                 background-color: whitesmoke;
             }
             .시공글{
@@ -60,6 +48,7 @@
             height: 150px;
             float: right;
         }
+    
               .업체네비{
               position:absolute;
                top:-50px;
@@ -81,18 +70,18 @@
     
             <table style="width: 1000px; margin-left: 30%;">
             <tr>
-                <th style="float: left;">시공사례 &nbsp;<a style="color: deepskyblue;">갯수</a></th>
-               <th> <button class="시공작성" style="float: right;">시공사례작성하기</button></th>
+                <th style="float: left; margin-bottom: 1%;">시공리뷰 &nbsp;<a style="color: deepskyblue;">갯수</a></th>
+               
             </tr>
             
             <tr>
-                <td class="시공사례" colspan="2">
+                <td class="시공리뷰보기" colspan="2">
                     <div class="시공글">글내용 </div><div class="이미지">이미지</div>
                 </td>
             </tr>
         
             <tr>
-                <td class="시공사례" colspan="2">
+                <td class="시공리뷰보기" colspan="2">
                     <div class="시공글">글내용 </div><div class="이미지">이미지</div>
                 </td>
             </tr>

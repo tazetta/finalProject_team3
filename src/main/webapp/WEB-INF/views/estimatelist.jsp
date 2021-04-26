@@ -8,7 +8,7 @@
     </head>
         
         <style>
-            button{
+           .페이지처리{
                 border: none;
                 height: 30px;
                 width: 100px;
@@ -16,57 +16,22 @@
                 background-color: deepskyblue;
                 color: white;
             }
-            button:hover, button:active {
-        background-color: dodgerblue;
-        }
+            .페이지처리:hover, .페이지처리:active{
+            background-color: dodgerblue;
+            }
             th{
                 background-color: rgb(144, 209, 240);
                 color: white;
             }
             th,td{
                 height: 50px;
-                font-size: 25px;
+                font-size: 15px;
             }
             table,td,th,tr{
                 border-collapse: collapse;
                 border-top: 1px solid gray;
                 border-bottom: 1px solid gray;
                 text-align: center;
-            }
-            #hidden4{
-                border: 1px solid gray; 
-                width: 80px;
-                   height: 25px;
-                    color:black;
-                    background: white;
-                    border-radius: .25em;
-                    transition:0.3s;     
-                    line-height: normal;
-                    font-size: 15px;
-            }
-          
-            .업체정보{
-                border:1px solid gainsboro;
-                border-collapse: collapse;
-                width: 200px;
-                height: 200px;
-                position: absolute;
-                top:200px;
-                left:100px;
-                margin-top: 30px;
-                margin-left: 4%;
-                text-align: center;
-            }
-          .업체정보수정{
-                border:1px solid gray;
-                   width: 200px;
-                   height: 40px;
-                    color: gray;
-                    background: white;
-                    border-radius: .25em;
-                    transition:0.3s;     
-                    line-height: normal;
-                    font-size: 15px;
             }
               .업체네비{
               position:absolute;
@@ -109,11 +74,11 @@
                     <td>2021-04-26</td>
                 </tr>
                 <tr>
-                    <td colspan="3" style="border: 1px solid white; color: dodgerblue;">
-                       <button><strong>◀이전</strong></button>
-                        <Strong>1 2 3 4 5</Strong>
-                        <button><strong>다음▶</strong></button>
-                    </td>
+                     <td  colspan="3" style="border: 1px solid white; color: dodgerblue; text-align: center; line-height: 5;">
+                        <button class="페이지처리"><strong>◀이전</strong></button>
+                         <Strong>1 2 3 4 5</Strong>
+                         <button class="페이지처리"><strong>다음▶</strong></button>
+                     </td>
                     
                 </tr>
             
