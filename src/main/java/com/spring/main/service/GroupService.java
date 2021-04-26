@@ -200,7 +200,7 @@ public class GroupService {
 		return map;
 	}
 
-	public HashMap<String, Object> groupList(int pagePerCnt, int page) {
+	public HashMap<String, Object> groupList(int pagePerCnt, int page, int opt) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 
 		// pagePerCnt의 기준으로 몇 페이지나 만들 수 있는가?(마지막 페이지)
@@ -218,7 +218,7 @@ public class GroupService {
 		int end = page * pagePerCnt;
 		int start = end - pagePerCnt + 1;
 
-		ArrayList<GroupDTO> groupList = groupdao.groupList(start, end); // 리스트 담기
+		ArrayList<GroupDTO> groupList = groupdao.groupList(start, end, opt); // 리스트 담기
 		GroupDTO dto = null;
 		for (int i = 0; i < groupList.size(); i++) {
 

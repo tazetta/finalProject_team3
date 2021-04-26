@@ -18,7 +18,7 @@ public interface GroupDAO {
 
 	int groupAllCount();
 
-	ArrayList<GroupDTO> groupList(int start, int end);
+	ArrayList<GroupDTO> groupList(int start, int end, int opt);
 
 	String groupGetFileName(int gpIdx);
 

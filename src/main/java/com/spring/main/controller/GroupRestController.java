@@ -19,12 +19,13 @@ public class GroupRestController {
 	@Autowired GroupService groupService;
 
 	
-	//  url : list/보여줄 개수/페이지
-	@RequestMapping(value = "/groupList/{pagePerCnt}/{page}", method = RequestMethod.GET)
-	public HashMap<String, Object> list( @PathVariable int pagePerCnt, @PathVariable int page) {
-		HashMap<String , Object> map = new HashMap<String, Object>();		
+	//  url : list/보여줄 개수/페이지/옵션
+	@RequestMapping(value = "/groupList/{pagePerCnt}/{page}/{opt}", method = RequestMethod.GET)
+	public HashMap<String, Object> list( @PathVariable int pagePerCnt, @PathVariable int page,  @PathVariable int opt) {
+		HashMap<String , Object> map = new HashMap<String, Object>();	
+		logger.info("opt:"+opt);
 		logger.info("pagePerCnt :{}, page :{}", pagePerCnt, page);
 		logger.info("리스트 요청");
-		return groupService.groupList(pagePerCnt,page);
+		return groupService.groupList(pagePerCnt,page,opt);
 	}
 }

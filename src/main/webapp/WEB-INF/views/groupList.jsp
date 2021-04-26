@@ -33,7 +33,11 @@ head td, #paging {
 
 <button onclick="location.href='groupWriteForm'">글쓰기</button>
 <h3>리스트 페이지</h3>
-	
+		<select name="opt" id="opt" onchange="optSelect(this)">
+				<option value="0">전체보기</option>
+				<option value="1">공동구매</option>
+				<option value="2">무료나눔</option>
+			</select>
 	<table>
 		<thead>
 			<tr>
@@ -70,42 +74,53 @@ if(msg!=""){
 	 alert(msg);
 }
 
+
+//카테고리 옵션
+var opt=0;
+
 var showPage = 1;
 
 // 몇개/몇페이지 를 보여줄 것인지
-listCall(showPage); // 시작하자마자 이 함수를 호출
+listCall(showPage);  // 시작하자마자 이 함수를 호출
 
-
-function listCall(reqPage) {
-	var reqUrl = "./groupList/"+10+"/"+reqPage; 
-	$.ajax({
-		url : reqUrl,
-		type : "get",
-		data : {},
-		dataType : "JSON",
-		success : function(data) {
-			console.log("success:"+data);
-			showPage = data.currPage; //서비스에서 보낸 페이지를 현재 페이지에 넣기
-			listPrint(data.list); //list내용을 뿌려주는 함수 실행
-					
-			/* 플러그인 사용한 페이징 처리*/
-			$("#pagination").twbsPagination({
-				startPage:data.currPage, //시작 페이지
-				totalPages:data.range, //생성가능 최대 페이지
-				visiblePages:5, //5개씩 보여주겠다(1~5)
-				onPageClick:function(event,page){ //각 페이지를 클릭한 경우
-					console.log("event: "+event);
-					console.log("page: "+page);
-					listCall(page);
-				}
-			});
-		},
-		error : function(error) {
-			console.log("error:"+error);
-		}
-	});
+function optSelect(e) {
+	console.log("opt.val:"+$("#opt").val());
+	opt = $("#opt").val();
+	listCall(showPage); //옵션이 변경될때마다 호출
 }
 
+   function listCall(reqPage) {
+		var reqUrl = "./groupList/"+10+"/"+reqPage+"/"+opt;  //요청url/보여줄갯수/현재페이지/옵션
+		$.ajax({
+			url : reqUrl,
+			type : "get",
+			data : {},
+			dataType : "JSON",
+			success : function(data) {
+				console.log("success:"+data);
+				showPage = data.currPage; //서비스에서 보낸 페이지를 현재 페이지에 넣기
+				listPrint(data.list); //list내용을 뿌려주는 함수 실행
+						
+				/* 플러그인 사용한 페이징 처리*/
+				$("#pagination").twbsPagination({
+					startPage:data.currPage, //시작 페이지
+					totalPages:data.range, //생성가능 최대 페이지
+					visiblePages:5, //5개씩 보여주겠다(1~5)
+					onPageClick:function(event,page){ //각 페이지를 클릭한 경우
+						console.log("event: "+event);
+						console.log("page: "+page);
+						listCall(page);
+					}
+				});
+			},
+			error : function(error) {
+				console.log("error:"+error);
+			}
+		});
+	}
+
+
+ 
 function listPrint(list) {
 	var content = "";
 	var category="";

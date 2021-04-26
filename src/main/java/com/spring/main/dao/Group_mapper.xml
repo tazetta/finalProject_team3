@@ -33,9 +33,20 @@
 		VALUES (photos_seq.NEXTVAL, #{param1}, #{param2}, #{param3})
 	</insert>
 	
-	<select id="groupList" resultType="group">
+	<select id="groupList"  parameterType="int" resultType="group">
+			
 		SELECT GPIDX,SUBJECT,CONTENT,CHATURL,PROGIDX,ID,MAXUSER,CURRUSER,DEADLINE,GPCTGIDX,reg_date,gHit, rnum 
-		FROM (SELECT ROW_NUMBER() OVER (ORDER BY GPIDX DESC) AS rnum,GPIDX,SUBJECT,CONTENT,CHATURL,PROGIDX,ID,MAXUSER,CURRUSER,DEADLINE,GPCTGIDX,reg_date,gHit FROM groupPurchase) 
+		FROM (SELECT ROW_NUMBER() OVER (ORDER BY GPIDX DESC) AS rnum,GPIDX,SUBJECT,CONTENT,CHATURL,PROGIDX,ID,MAXUSER,CURRUSER,DEADLINE,GPCTGIDX,reg_date,gHit 
+		FROM groupPurchase
+
+		<if test="param3 == 1">
+		 WHERE GPCTGIDX=1 
+		</if>
+		<if test="param3 == 2">
+		 WHERE GPCTGIDX=2 
+		</if>
+		)
+
 		WHERE rnum BETWEEN #{param1} AND  #{param2}
 	</select>
 	

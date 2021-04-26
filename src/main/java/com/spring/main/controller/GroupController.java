@@ -29,9 +29,11 @@ public class GroupController {
 	@Autowired GroupService groupService;
 
 	@RequestMapping(value = "/groupListPage", method = RequestMethod.GET)
-	public String home() {
+	public ModelAndView home() {
 		logger.info("공동구매 리스트 로 이동");
-		return "groupList";
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("groupList");
+		return mav;
 	}
 	
 	@RequestMapping(value = "/groupWriteForm", method = RequestMethod.GET)
