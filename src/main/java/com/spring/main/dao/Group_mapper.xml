@@ -32,4 +32,16 @@
 		INSERT INTO photos (PHOTOIDX, NEWFILENAME, ORIFILENAME, GPIDX) 
 		VALUES (photos_seq.NEXTVAL, #{param1}, #{param2}, #{param3})
 	</insert>
+	
+	<select id="groupList" resultType="group">
+		SELECT GPIDX,SUBJECT,CONTENT,CHATURL,PROGIDX,ID,MAXUSER,CURRUSER,DEADLINE,GPCTGIDX,reg_date,gHit, rnum 
+		FROM (SELECT ROW_NUMBER() OVER (ORDER BY GPIDX DESC) AS rnum,GPIDX,SUBJECT,CONTENT,CHATURL,PROGIDX,ID,MAXUSER,CURRUSER,DEADLINE,GPCTGIDX,reg_date,gHit FROM groupPurchase) 
+		WHERE rnum BETWEEN #{param1} AND  #{param2}
+	</select>
+	
+	<select id="groupAllCount" resultType="int">
+		SELECT COUNT(GPCTGIDX) FROM groupPurchase
+	</select>
+	
+	
 </mapper>

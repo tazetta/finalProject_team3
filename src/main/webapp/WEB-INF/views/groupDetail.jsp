@@ -13,7 +13,7 @@ table, td, th {
 	border-collapse: collapse;
 }
 
-div {
+#kakaoLink {
 	border: 1px solid gray;
 }
 </style>
@@ -48,7 +48,7 @@ div {
 		</tr>
 		<tr>
 			<td colspan="6">${dto.content }
-				<div>오픈카카오톡 링크 : ${dto.chatURL }</div>
+				<div id="kakaoLink">오픈카카오톡 링크 : ${dto.chatURL }</div>
 			</td>
 		</tr>
 	</table>

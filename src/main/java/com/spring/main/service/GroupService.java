@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
@@ -191,6 +192,44 @@ public class GroupService {
 			map.put("success", success);
 		}
 		
+		return map;
+	}
+
+	public HashMap<String, Object> groupList(int pagePerCnt, int page) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+
+		// pagePerCnt의 기준으로 몇 페이지나 만들 수 있는가?(마지막 페이지)
+		// -> 전체 게시글 수
+		int allCnt = groupdao.groupAllCount(); // 공동구매 전체 게시글 수
+		logger.info("group Purchase allCnt:"+allCnt);
+
+		// 게시글 수 : 21개, 페이지 당 보여줄 수 : 5 =(나머지가 있는 경우 반올림해서)=> 최대 생성 가능한 페이지 : 5
+		int range = allCnt % pagePerCnt > 0 ? Math.round(allCnt / pagePerCnt) + 1 : Math.round(allCnt / pagePerCnt);
+		
+		// 현재 페이지가 생성가능한 페이지보다 클 경우. .. 현재 페이지를 생성가능한 페이지로 맞춰준다.
+		page = page > range ? range : page;
+
+		// 시작, 끝
+		int end = page * pagePerCnt;
+		int start = end - pagePerCnt + 1;
+		
+		ArrayList<GroupDTO> groupList =  groupdao.groupList(start, end); //리스트 담기
+	
+		for (int i = 0; i < groupList.size() ; i++) {
+			System.out.println("groupList:"+groupList.get(i));
+			/*
+			 * int gpCtgIdx =groupList.get(i).getGpCtgIdx(); //list에서 카테고리 idx 가져오기 String
+			 * groupCtg = groupdao.groupCtg(gpCtgIdx); //카테고리명 추출
+			 * groupList.add(dto.setCategory(groupCtg));
+			 */
+		}
+		
+		logger.info("groupList size: "+groupList.size());
+		
+		map.put("list", groupList);
+		map.put("range", range);
+		map.put("currPage", page);
+
 		return map;
 	}
 
