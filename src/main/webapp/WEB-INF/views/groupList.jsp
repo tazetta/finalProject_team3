@@ -110,8 +110,8 @@ function listPrint(list) {
 	var content = "";
 	var category="";
 	var progress="";
-
 	for (var i = 0; i < list.length; i++) {
+	console.log("진행상황:"+list[i].progIdx);
 		content += "<tr>"
 		content += "<td>"+list[i].gpIdx+"</td>" //글번호
 		
@@ -122,12 +122,12 @@ function listPrint(list) {
 		}
 		content += "<td>"+category+"</td>" //글종류
 		
-		if(list[i].progIdx ==1){
+		if(list[i].progIdx == 1){
 			progress="진행중";
-		}if(list[i].progIdx ==2){
+		}else if(list[i].progIdx == 2){
 			progress="인원부족마감";
 		}else{
-			progress="마감"
+			progress="마감";
 		}
 		content += "<td>"+progress+"</td>" //현재상태
 		

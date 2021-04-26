@@ -220,6 +220,7 @@ public class GroupService {
 		for (int i = 0; i < groupList.size(); i++) {
 
 			System.out.println("gpCtg:" + groupList.get(i).getGpCtgIdx());
+			System.out.println("getProgIdx:" + groupList.get(i).getProgIdx());
 
 			/*
 			 * int gpCtgIdx = groupList.get(i).getGpCtgIdx(); // list에서 카테고리 idx 가져오기 String
