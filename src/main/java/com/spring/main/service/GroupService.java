@@ -72,9 +72,9 @@ public class GroupService {
 		
 		//1. session에서 fileList를 가져온다
 		HashMap<String, String> fileList = (HashMap<String, String>) session.getAttribute("fileList");
-				
+		logger.info("fileList:"+fileList.size());
 		if (result > 0) { //글쓰기 성공시
-			logger.info("idx: " + groupDTO.getGpIdx()); //공동구매 글 idx 뽑아오기
+			logger.info("gpidx: " + groupDTO.getGpIdx()); //공동구매 글 idx 뽑아오기
 			
 			//2. fileList에 저장된 파일이 있는지 확인한다.
 			 if(fileList.size()>0) {
@@ -89,7 +89,10 @@ public class GroupService {
 			page="redirect:/groupDetail?gpIdx="+groupDTO.getGpIdx();
 			msg = "글쓰기에 성공하였습니다";
 		}else { //글쓰기 실패시
-			
+			for (String newFileName : fileList.keySet()) {
+				File file = new File(root+"upload/"+newFileName);
+				file.delete();
+			}
 		}
 		mav.addObject("msg", msg);
 		mav.setViewName(page);
