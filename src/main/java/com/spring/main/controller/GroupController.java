@@ -86,4 +86,11 @@ public class GroupController {
 			logger.info("삭제 요청: "+gpIdx);
 			return groupService.groupDel(gpIdx, session, rAttr);
 		}
+		
+		@RequestMapping(value = "/groupSearch", method = RequestMethod.GET)
+		public ModelAndView groupSearch( Model model,  @RequestParam HashMap<String , String> params, RedirectAttributes rAttr ) {
+			logger.info("search params: "+params);
+			return groupService.groupSearch(params,rAttr);
+		}
+		
 }
