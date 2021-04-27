@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Document</title>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <link rel="stylesheet" href="resources/css/loginCSS/login.css">
+    <link rel="stylesheet" href="resources/css/memberCSS/login.css">
     <style>
     </style>
 </head>
@@ -14,7 +14,7 @@
         <form action="login" method="POST">
            <div class="logo-area">
                <a href="main">
-                   <img src="resources/css/loginCSS/logo.png">
+                   <img src="resources/css/memberCSS/logo.png">
                </a>
            </div>
             <div class="input-area">
@@ -34,7 +34,7 @@
            </div>
         </form>
         <div class="link-area">
-            <a href="regist">일반 회원가입</a>   &nbsp; / &nbsp;
+            <a href="registForm">일반 회원가입</a>   &nbsp; / &nbsp;
             <a href="cRegist">업체 회원가입</a> &nbsp;&nbsp;|&nbsp;&nbsp;
             <a href="findId">아이디 찾기</a>  &nbsp; / &nbsp;
             <a href="findPw">비밀번호 찾기</a>
@@ -44,4 +44,10 @@
         </div>
     </div>
 </body>
+<script>
+	var msg = "${msg}";
+	if(msg != ""){
+		alert(msg);
+	}
+</script>
 </html>
