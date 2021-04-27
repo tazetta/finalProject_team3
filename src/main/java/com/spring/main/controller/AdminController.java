@@ -23,4 +23,10 @@ public class AdminController {
 		return service.cntNewMember();
 	}
 	
+	@RequestMapping(value = "/adminCompanyDetail", method = RequestMethod.GET)
+	public String adminCompanyDetail() {
+		logger.info("업체회원 상세보기 메인페이지로 이동");
+		return "adminCompanyDetail";
+	}
+	
 }

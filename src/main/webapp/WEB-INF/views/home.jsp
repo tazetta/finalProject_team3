@@ -13,5 +13,6 @@
 <br/>
 <hr>
 <a href="adminMain">관리자 메인페이지</a>
+<a href="adminCompanyDetail">업체 회원 상세보기</a>
 </body>
 </html>
