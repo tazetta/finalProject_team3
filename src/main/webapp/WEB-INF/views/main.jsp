@@ -24,6 +24,8 @@ integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKm
         <a href="" style="font-size:small; float: right; color: gray;">|회원가입</a>
         <a href="" style="font-size:small; float: right; color: gray;">로그인</a>
     </div>
+    
+    <jsp:include page="mainnavi.jsp"></jsp:include>
     <div class="container">
         <th>오늘의 땃쥐 룸</th>
         <hr/>
