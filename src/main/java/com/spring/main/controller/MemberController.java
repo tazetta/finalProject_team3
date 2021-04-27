@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.main.dto.CompanyMemberDTO;
 import com.spring.main.dto.MemberDTO;
 import com.spring.main.service.MemberService;
 
@@ -151,18 +152,18 @@ public class MemberController {
 		
 		@RequestMapping(value = "/comPwFind", method = RequestMethod.POST)
 		public ModelAndView comPwFind(@RequestParam HashMap<String, String> params) {
-			logger.info("일반회원 비밀번호 찾기 요청");
+			logger.info("업체회원 비밀번호 찾기 요청");
 			logger.info("params {} " , params);
 			ModelAndView mav = new ModelAndView();
-			MemberDTO dto = new MemberDTO();
+			CompanyMemberDTO dto = new CompanyMemberDTO();
 			String page = "pw_find";
 			String msg = "요청하신 정보로 찾을수 없습니다.";
-			dto = service.pwFind(params);
-			logger.info("findId {} " , dto.getId());
+			dto = service.comPwFind(params);
+			logger.info("findId {} " , dto.getComId());
 			logger.info("findPw {} ", dto.getPw());
-			String findId = dto.getId();
+			String findId = dto.getComId();
 			String findPw = dto.getPw();
-			if(findId != null && findPw != null) {
+			if(findId != null  && findPw != null) {
 				page ="pwReset";
 				msg ="비밀번호를 재설정 합니다.";
 			}	

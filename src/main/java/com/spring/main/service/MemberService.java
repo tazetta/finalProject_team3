@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.spring.main.dao.MemberDAO;
+import com.spring.main.dto.CompanyMemberDTO;
 import com.spring.main.dto.MemberDTO;
 
 @Service
@@ -66,6 +67,13 @@ public class MemberService {
 	public MemberDTO pwFind(HashMap<String, String> params) {
 
 		return dao.pwFind(params);
+	}
+
+
+
+	public CompanyMemberDTO comPwFind(HashMap<String, String> params) {
+		
+		return dao.comPwFind(params);
 	}
 
 }

@@ -2,6 +2,7 @@ package com.spring.main.dao;
 
 import java.util.HashMap;
 
+import com.spring.main.dto.CompanyMemberDTO;
 import com.spring.main.dto.MemberDTO;
 
 public interface MemberDAO {
@@ -17,6 +18,8 @@ public interface MemberDAO {
 	String comIdFind(HashMap<String, String> params);
 
 	MemberDTO pwFind(HashMap<String, String> params);
+
+	CompanyMemberDTO comPwFind(HashMap<String, String> params);
 
 
 

@@ -28,4 +28,8 @@
 	<select id="pwFind" resultType="com.spring.main.dto.MemberDTO" parameterType="Hashmap">
 		SELECT id , pw FROM generalmember WHERE name=#{name} AND id=#{id} AND email=#{email}
 	</select>
+	
+	<select id="comPwFind" resultType="com.spring.main.dto.CompanyMemberDTO" parameterType="hashmap">
+		SELECT comId , pw FROM companymember WHERE license = #{business_number} AND comId=#{id} AND phone=#{phone}
+	</select>
 </mapper>

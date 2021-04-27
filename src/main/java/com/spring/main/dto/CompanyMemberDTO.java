@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class CompanyMemberDTO {
 
-	private int comId ;
+	private String comId ;
 	private String pw ;
 	private String phone;
 	private String addr;
@@ -12,10 +12,10 @@ public class CompanyMemberDTO {
 	private String comName;
 	private int stateIdx;
 	private int license;
-	public int getComId() {
+	public String getComId() {
 		return comId;
 	}
-	public void setComId(int comId) {
+	public void setComId(String comId) {
 		this.comId = comId;
 	}
 	public String getPw() {
@@ -60,7 +60,5 @@ public class CompanyMemberDTO {
 	public void setLicense(int license) {
 		this.license = license;
 	}
-	
-	
 	
 }
