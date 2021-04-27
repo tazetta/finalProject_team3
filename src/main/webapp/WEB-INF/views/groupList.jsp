@@ -30,18 +30,19 @@ head td, #paging {
 </style>
 </head>
 <body>
+<form action="groupSearch" >
 
-<form action="list" >
-		<fieldset>
-			<select name="opt">
-				<option value="id">전체</option>
-				<option value="name">이름</option>
-				<option value="email">이메일</option>
+			<select id="searchOpt" name="opt">
+				<option value="all">전체</option>
+				<option value="subject">제목</option>
+				<option value="content">글내용</option>
+				<option value="id">작성자</option>
 			</select>
-			<input type="text" name="keyword" placeholder="검색어를 입력하세요"/>
-			<button>검색</button>
-		</fieldset>
-	</form>
+			<input id="keyword" type="text" name="keyword" placeholder="검색어를 입력하세요"/>
+			<input id="search" type="button" value="검색" onclick="searchGroup()" />
+
+</form>
+
 <h3>공동구매 리스트 페이지</h3>
 		<select name="opt" id="opt" onchange="optSelect(this)">
 				<option value="0">전체보기</option>
@@ -65,6 +66,7 @@ head td, #paging {
 		</thead>
 		<tbody id="list">
 			<!-- 불러온 데이터를 뿌리는 영역 -->
+			
 		</tbody>
 		<tr>
 			<td id="paging" colspan="8">
@@ -81,10 +83,18 @@ head td, #paging {
 </body>
 <script>
 var msg="${msg}";
+
 if(msg!=""){
 	 alert(msg);
 }
-
+//검색
+var keyword = $("#keyword").val();
+function searchGroup(){
+	console.log("keyword:"+keyword);
+	if(keyword !=""){
+		$("form").submit();
+	}
+}
 
 //카테고리 옵션
 var opt=0;
@@ -174,6 +184,9 @@ function listPrint(list) {
 	$("#list").empty(); //#list안의 내용을 버려라
 	$("#list").append(content);
 }
+
+
+
 
 </script>
 </html>

@@ -25,6 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.main.dao.GroupDAO;
 import com.spring.main.dto.GroupDTO;
+import com.spring.main.dto.MemberDTO;
 
 @Service
 public class GroupService {
@@ -273,4 +274,25 @@ public class GroupService {
 		return mav;
 	}
 
+	public ModelAndView groupSearch(HashMap<String, String> params,  RedirectAttributes rAttr) {
+		logger.info("공동구매 search 서비스");
+
+		ModelAndView mav = new ModelAndView();
+		String page = "groupSearchList"; // 성공여부 관계없이 list 페이지로
+
+		ArrayList<GroupDTO> list = groupdao.groupSearch(params);
+
+		String msg = params.get("keyword") + "에 대한 검색결과가 없습니다.";
+
+		if (list.size() > 0) { // 검색결과가 있으면
+			msg = params.get("keyword") + "에 대한 검색결과가 " + list.size() + "건 있습니다.";
+		}
+		logger.info(msg);
+		mav.addObject("list", list); //키워드에 해당하는 항목 list에 담아 보내기
+		mav.addObject("msg", msg);
+		mav.setViewName(page);
+		return mav;
+	}
+
+	
 }

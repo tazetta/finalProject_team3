@@ -1,8 +1,10 @@
 package com.spring.main.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.spring.main.dto.GroupDTO;
+import com.spring.main.dto.MemberDTO;
 
 public interface GroupDAO {
 
@@ -27,6 +29,11 @@ public interface GroupDAO {
 	int groupDel(int gpIdx);
 
 	void groupUpHit(String gpIdx);
+
+	
+	int groupSearchCount(String opt, String keyword);
+
+	ArrayList<GroupDTO> groupSearch(HashMap<String, String> params);
 
 
 	
