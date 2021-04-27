@@ -10,4 +10,14 @@ public interface ReviewDAO {
 
 	ArrayList<ReviewDTO> reviewList(int start, int end);
 
+	int reviewWrite(ReviewDTO reviewDTO);
+
+	void reviewWriteFile(String key, String string, int revIdx);
+
+	ReviewDTO reviewDetail(String revIdx);
+
+	int reviewUpdate(ReviewDTO reviewDTO);
+
+	int reviewDelete(String revIdx);
+
 }

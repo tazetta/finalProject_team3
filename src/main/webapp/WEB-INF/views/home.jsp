@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<a href='#' onclick="location.href='./list'">리뷰페이지</a>
+<a href="reviewList">리뷰페이지</a>
 <a href="groupListPage">공동구매</a>
 <a href="FAQ">고객센터</a>
 <a href="companydetail">업체 페이지</a>

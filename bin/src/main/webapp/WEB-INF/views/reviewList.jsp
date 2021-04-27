@@ -35,7 +35,6 @@
 </head>
 <body>
 	<h3>리뷰 리스트 페이지</h3>
-	<button onclick="location.href='./reviewWriteForm'">리뷰쓰기</button>
 	<table>
 		<thead>
 			<tr>
@@ -61,10 +60,6 @@
 	</table>
 </body>
 <script>
-var msg = "${msg}";
-if(msg != ""){
-	alert(msg);
-}
 	var showPage = 1;
 	//몇개를 보여줄 것인지 / 몇페이지
 	listCall(showPage); //시작하자마자 이 함수를 호출
@@ -106,9 +101,9 @@ if(msg != ""){
 		var content = "";
 		for (var i = 0; i < reviewList.length; i++) {
 			content += "<tr>"
-			content += "<td><a href='reviewDetail?revIdx="+reviewList[i].revIdx+"'>" + reviewList[i].subject + "</td>"
+			content += "<td>" + reviewList[i].subject + "</td>"
 			content += "<td>" + reviewList[i].id + "</td>"
-			content += "<td>★" + reviewList[i].rate + ".0</td>"
+			content += "<td>" + reviewList[i].rate + "</td>"
 			//java에서 가끔 날짜가 milliseconds로 나올 경우..
 			var date = new Date(reviewList[i].reg_date);
 			content += "<td>" + date.toLocaleDateString("ko-KR") + "</td>"
