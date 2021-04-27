@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.main.dto.MemberDTO;
 import com.spring.main.service.MemberService;
 
 @RestController
@@ -34,13 +35,15 @@ public class MemberController {
 	}
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public  ModelAndView login(Model model, @RequestParam String id, @RequestParam String pw , HttpSession session) {
-		logger.info("로그인 페이지 요청");
+		logger.info("로그인  요청");
+		logger.info("id : " + id  + "pw :" + pw);
 		ModelAndView mav = new ModelAndView();
 		String msg = "아이디와 패스워드를 확인해 주세요.";
 		String page = "login";
 		if(service.login(id,pw)) {
 			msg ="로그인에 성공 하였습니다.";
 			page="main";
+			session.setAttribute("loginId", id);
 		}
 		mav.addObject("msg", msg);
 		mav.setViewName(page);
@@ -70,12 +73,6 @@ public class MemberController {
 	public HashMap<String, Object> join(@RequestParam HashMap<String, String> params) {
 		logger.info("회원가입 요청");
 		ModelAndView mav = new ModelAndView();
-		String plan = params.get("pw");
-		logger.info("pw : " + params.get("pw"));
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		String hash = encoder.encode(plan);
-		logger.info("평문 : " + plan);
-		logger.info("암호문 : " + hash);
 		logger.info("params {} ",params);
 		boolean success = false;
 		if(service.join(params) > 0 ) {
@@ -87,4 +84,71 @@ public class MemberController {
 
 		return map;
 	}
+	
+	@RequestMapping(value = "/findId", method = RequestMethod.GET)
+	public ModelAndView findId() {
+		logger.info("아이디찾기 페이지 요청");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("id_find");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/findPw", method = RequestMethod.GET)
+	public ModelAndView findPw() {
+		logger.info("비밃번호찾기 페이지 요청");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("pw_find");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/idFind", method = RequestMethod.POST)
+	public ModelAndView idFind(@RequestParam HashMap<String, String> params) {
+		logger.info("일반회원 아이디 찾기 요청");
+		logger.info("params {} " , params);
+		ModelAndView mav = new ModelAndView();
+		String findId = service.idFind(params);
+		logger.info("findId {} " , findId);
+		
+		mav.addObject("findId", findId);
+		mav.setViewName("idResult");
+		return mav;
+	}
+	@RequestMapping(value = "/comIdFind", method = RequestMethod.POST)
+	public ModelAndView comIdFind(@RequestParam HashMap<String, String> params) {
+		logger.info("업체회원 아이디 찾기 요청");
+		logger.info("params {} " , params);
+		ModelAndView mav = new ModelAndView();
+		String findId = service.comIdFind(params);
+		logger.info("findId {} " , findId);
+		
+		mav.addObject("findId", findId);
+		mav.setViewName("idResult");
+		return mav;
+		
+	}
+		@RequestMapping(value = "/pwFind", method = RequestMethod.POST)
+		public ModelAndView pwFind(@RequestParam HashMap<String, String> params) {
+			logger.info("일반회원 비밀번호 찾기 요청");
+			logger.info("params {} " , params);
+			ModelAndView mav = new ModelAndView();
+			MemberDTO dto = new MemberDTO();
+			String page = "pw_find";
+			String msg = "요청하신 정보로 찾을수 없습니다.";
+			dto = service.pwFind(params);
+			logger.info("findId {} " , dto.getId());
+			logger.info("findPw {} ", dto.getPw());
+			String findId = dto.getId();
+			String findPw = dto.getPw();
+			if(findId != null && findPw != null) {
+				page ="pwReset";
+				msg ="비밀번호를 재설정 합니다.";
+			}	
+			mav.addObject("findId", findId);
+			mav.addObject("msg", msg);
+			mav.setViewName(page);
+			return mav;
+	}
+
+
 }
+
