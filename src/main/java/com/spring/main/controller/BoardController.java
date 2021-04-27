@@ -1,5 +1,9 @@
 package com.spring.main.controller;
 
+import java.util.HashMap;
+
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +47,33 @@ public class BoardController {
 	public ModelAndView boarddetail(@RequestParam String boardIdx) {
 		logger.info("게시글idx{}상세보기",boardIdx);
 		return BoardService.boarddetail(boardIdx);
+	}
+	@RequestMapping(value = "/boardWriteForm", method = RequestMethod.GET)
+	public String boardWriteForm(HttpSession session,@RequestParam String boardCtg) {
+		logger.info("{}카테고리글쓰기 페이지로 이동",boardCtg);
+		//업로드할 파일이름을 저장한 HashMap생성해서 session에 저장(upload메서드에서 여러파일을 관리하기위해)
+		HashMap<String, String> fileList = new HashMap<String, String>();
+		session.setAttribute("fileList", fileList);
+		String page="";
+		if(boardCtg.equals("1")) {
+			page="freeWriteForm";
+		}else if(boardCtg=="2") {
+			page="homeWriteForm";
+		}else if(boardCtg=="3") {
+			page="tipWriteForm";
+		}else if(boardCtg=="4") {
+			page="qnaWriteForm";
+		}else if(boardCtg=="5") {
+			page="examWriteForm";
+		}else if(boardCtg=="6") {
+			page="sgtWriteForm";
+		}
+		return page;
+	}
+	@RequestMapping(value = "/boardWrite", method = RequestMethod.POST)
+	public ModelAndView boardWrite( @RequestParam HashMap<String , String> params,HttpSession session) {
+		logger.info("{}번째 게시판 글쓰기 요청");
+		return BoardService.boardWrite(params, session);
 	}
 	
 }
