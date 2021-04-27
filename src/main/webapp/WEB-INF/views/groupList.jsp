@@ -39,7 +39,7 @@ head td, #paging {
 				<option value="id">작성자</option>
 			</select>
 			<input id="keyword" type="text" name="keyword" placeholder="검색어를 입력하세요"/>
-			<input id="search" type="button" value="검색" onclick="searchGroup()" />
+			<input id="search" type="submit" value="검색" onclick="searchGroup()" />
 
 </form>
 
@@ -87,15 +87,15 @@ var msg="${msg}";
 if(msg!=""){
 	 alert(msg);
 }
-//검색
-var keyword = $("#keyword").val();
+//검색 -> 왜 안되지
+/* var keyword = $("#keyword").val();
 function searchGroup(){
 	console.log("keyword:"+keyword);
-	if(keyword !=""){
+	if(keyword !=''){
 		$("form").submit();
 	}
 }
-
+ */
 //카테고리 옵션
 var opt=0;
 

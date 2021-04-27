@@ -66,6 +66,7 @@ ${msg }
 				<td>${list.gpCtgIdx }</td>
 				<td>${list.progIdx }</td>
 				<td>${list.deadline }</td>
+				<%-- <td><a href='groupDetail?gpIdx=${list.gpIdx }'>${list.subject }</a></td> --%>
 				<td>${list.subject }</td>
 				<td>${list.id }</td>
 				<td>${list.gHit }</td>

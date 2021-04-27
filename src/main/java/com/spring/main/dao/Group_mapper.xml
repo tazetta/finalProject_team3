@@ -103,4 +103,10 @@
 	</select>
 	
 	
+	<update id= "groupUpdate" parameterType="group">
+		UPDATE  groupPurchase SET SUBJECT=#{subject}, CONTENT=#{content}, CHATURL=#{chatURL},PROGIDX=#{progIdx},MAXUSER=#{maxUser},DEADLINE=#{deadline},GPCTGIDX=#{gpCtgIdx}
+		WHERE gpIdx=#{gpIdx}
+	</update>
+	
+	
 </mapper>

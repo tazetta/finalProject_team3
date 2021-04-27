@@ -102,7 +102,8 @@ public class GroupService {
 		return mav;
 	}
 
-	public ModelAndView detail(String gpIdx) {
+	@Transactional
+	public ModelAndView detail(int gpIdx) {
 		ModelAndView mav = new ModelAndView();
 		logger.info("상세보기 서비스");
 		GroupDTO dto = groupdao.groupDetail(gpIdx);
@@ -114,9 +115,11 @@ public class GroupService {
 
 			String progress = groupdao.gpProgress(dto.getProgIdx()); // 진행상황 가져오기
 			dto.setProgress(progress); // 진행상황 담기
+			
+			logger.info("progress:"+progress);
 			mav.addObject("dto", dto);
 			
-			groupdao.groupUpHit(gpIdx); //조회수 증가
+			//groupdao.groupUpHit(gpIdx); //조회수 증가
 			page = "groupDetail";
 		}
 		mav.setViewName(page);
@@ -291,6 +294,69 @@ public class GroupService {
 		mav.addObject("list", list); //키워드에 해당하는 항목 list에 담아 보내기
 		mav.addObject("msg", msg);
 		mav.setViewName(page);
+		return mav;
+	}
+
+	public ModelAndView updateForm(int gpIdx) {
+		ModelAndView mav = new ModelAndView();
+		logger.info("수정할 글 form 서비스");
+		GroupDTO dto = groupdao.groupDetail(gpIdx);
+		logger.info("groupDTO: " + dto);
+		page = "redirect:/groupDetail?gpIdx=" +gpIdx;
+		if (dto != null) {
+			String category = groupdao.groupCtg(dto.getGpCtgIdx()); // 카테고리 가져오기
+			dto.setCategory(category); // 카테고리명 담기
+
+			String progress = groupdao.gpProgress(dto.getProgIdx()); // 진행상황 가져오기
+			dto.setProgress(progress); // 진행상황 담기
+
+			mav.addObject("dto", dto);
+			
+			page = "groupUpdateForm";
+		}
+		mav.setViewName(page);
+		return mav;
+	
+	}
+
+	public ModelAndView groupUpdate(HashMap<String, String> params, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		GroupDTO groupDTO = new GroupDTO();
+		logger.info("글수정 서비스");
+
+		int maxUser = Integer.parseInt(params.get("maxUser").toString());
+		int gpCtgIdx = Integer.parseInt(params.get("gpCtgIdx").toString());
+		int gpIdx = Integer.parseInt(params.get("gpIdx").toString());
+		int progIdx = Integer.parseInt(params.get("progIdx").toString());
+
+		/*sql Date로 변환*/
+		String str = params.get("deadline");
+		SimpleDateFormat dfm = new SimpleDateFormat("yyyy-mm-dd");
+		java.util.Date utilDate = null;
+		try {
+			utilDate = dfm.parse(str);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		String transDate = dfm.format(utilDate);
+		Date deadline = Date.valueOf(transDate); 
+
+		groupDTO.setGpIdx(gpIdx);
+		groupDTO.setGpCtgIdx(gpCtgIdx);
+		groupDTO.setSubject(params.get("subject"));
+		groupDTO.setContent(params.get("content"));
+		groupDTO.setChatURL(params.get("chatURL"));
+		groupDTO.setMaxUser(maxUser);
+		groupDTO.setDeadline(deadline);
+		groupDTO.setProgIdx(progIdx); // 진행상황		
+		logger.info("groupdto:"+groupDTO);
+		
+			int result = groupdao.groupUpdate(groupDTO) ; //게시글 업데이트
+			logger.info("글 업데이트 결과:"+result);
+			if(result>0) {
+				page="redirect:/groupDetail?gpIdx=" + gpIdx;
+			}
+			mav.setViewName(page);
 		return mav;
 	}
 

@@ -67,6 +67,7 @@ font-size:130%;
 	</table>
 	<button onclick="location.href='groupListPage'">목록</button>
 	<button onclick="location.href='groupDel/${dto.gpIdx}'">삭제</button>
+	<button onclick="location.href='groupUpdateForm/${dto.gpIdx}'">수정</button>
 	
 	<hr/>
 	<b>댓글 <span>0</span></b>

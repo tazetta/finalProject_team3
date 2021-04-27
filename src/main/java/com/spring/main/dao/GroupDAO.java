@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.spring.main.dto.GroupDTO;
-import com.spring.main.dto.MemberDTO;
 
 public interface GroupDAO {
 
 	int groupWrite(GroupDTO groupDTO);
 
-	GroupDTO groupDetail(String gpIdx);
+	GroupDTO groupDetail(int gpIdx);
 
 	void groupWriteFile(String key, String string, int gpIdx);
 
@@ -28,12 +27,14 @@ public interface GroupDAO {
 
 	int groupDel(int gpIdx);
 
-	void groupUpHit(String gpIdx);
+	void groupUpHit(int gpIdx);
 
 	
 	int groupSearchCount(String opt, String keyword);
 
 	ArrayList<GroupDTO> groupSearch(HashMap<String, String> params);
+
+	int groupUpdate(GroupDTO groupDTO);
 
 
 	
