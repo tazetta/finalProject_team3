@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class cMemController {
+public class CompanyController {
 
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -23,20 +23,11 @@ public class cMemController {
 		logger.info("업체네비바실행");
 		return "companynavi";
 	}
-	@RequestMapping(value = "/estimatelist", method = RequestMethod.GET)
-	public String estimatelist() {
-		logger.info("견적서리스트");
-		return "estimatelist";
-	}
 	@RequestMapping(value = "/cMreviewlist", method = RequestMethod.GET)
 	public String cMreviewlist() {
-		logger.info("시공리뷰");
+		logger.info("업체시공리뷰홈페이지");
 		return "cMreviewlist";
 	}
-	@RequestMapping(value = "/examlist", method = RequestMethod.GET)
-	public String examlist() {
-		logger.info("시공리스트");
-		return "examlist";
-	}
+	
 	
 }
