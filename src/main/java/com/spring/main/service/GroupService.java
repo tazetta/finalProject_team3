@@ -154,7 +154,7 @@ public class GroupService {
 			// session에 내가 저장한 파일 내역을 저장한다.
 			HashMap<String, String> fileList = (HashMap<String, String>) session.getAttribute("fileList"); // writeForm에서
 																											// 세션에 저장했던
-																											// hashmap가져오고
+			logger.info("파일리스트:",fileList);															// hashmap가져오고
 			fileList.put(newFileName, fileName); // 중복되지 않는 newFileName를 키로 설정해서 새로운 파일명을 session에 저장
 			logger.info("현재 저장된 파일 수: " + fileList.size());
 			session.setAttribute("fileList", fileList); // 세션에 저장

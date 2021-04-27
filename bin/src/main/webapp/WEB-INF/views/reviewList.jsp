@@ -35,7 +35,6 @@
 </head>
 <body>
 	<h3>리뷰 리스트 페이지</h3>
-	<button onclick="location.href='./reviewWriteForm'">리뷰쓰기</button>
 	<table>
 		<thead>
 			<tr>

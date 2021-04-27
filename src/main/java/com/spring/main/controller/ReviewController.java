@@ -20,7 +20,7 @@ public class ReviewController {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired ReviewService service;
 	
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	@RequestMapping(value = "/reviewList", method = RequestMethod.GET)
 	public ModelAndView index(Model model) {
 		logger.info("리뷰 페이지 이동");
 		ModelAndView mav = new ModelAndView();
@@ -32,9 +32,15 @@ public class ReviewController {
 	//@PathVariable : 경로에 있는 변수 받기
 	@RequestMapping(value = "/reviewList/{page}", method = RequestMethod.GET)
 	public HashMap<String, Object> reviewList(@PathVariable int page) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
 		logger.info("page:{}",page);
 		return service.list(page);
+	}
+	
+	@RequestMapping(value = "/reviewWriteForm", method = RequestMethod.GET)
+	public ModelAndView reviewWriteForm() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("reviewWriteForm");
+		return mav;
 	}
 		
 	
