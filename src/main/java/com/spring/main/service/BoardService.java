@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
@@ -21,9 +22,14 @@ public class BoardService {
 	
 	@Autowired
 	BoardDAO boarddao;
-	String page = "";
-	String msg = "";
 	
+	// properties파일 내용 불러오기
+		@Value("#{config['Globals.root']}")
+		String root;
+
+		String page = "";
+		String msg = "";
+		
 	public ModelAndView boarddetail(String boardIdx) {
 		 ModelAndView mav = new ModelAndView();
 		 logger.info("상세보기 서비스 요청합니다.");
@@ -99,7 +105,7 @@ public class BoardService {
 			logger.info("카테고리번호{}글번호:{} ",boardctg,boarddto.getBoardIdx());
 			
 			// 2. fileList에 저장된 파일이 있는지 확인한다.
-		}if (fileList.size() > 0) {
+		if (fileList.size() > 0) {
 			// 3. 업로드한 파일이 있을 경우 저장한 파일내용을 DB에 기록
 			// newFileName, originFileName, idx
 			// 맵에 있는 모든 값을 빼서 DB에 넣는다
@@ -116,7 +122,6 @@ public class BoardService {
 				file.delete();
 			}
 		}
-		
 		mav.addObject("msg",msg);
 		mav.setViewName(page);
 		return mav;
