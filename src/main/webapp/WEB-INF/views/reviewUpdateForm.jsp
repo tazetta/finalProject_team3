@@ -14,7 +14,7 @@
 	}
 	
 	input[type='text'],textarea{
-		width: 90%;
+		width: 100%;
 	}
 	textarea{
 		height: 500px;
@@ -38,15 +38,19 @@
 </head>
 <body>
 <hr/>
-<form action="reviewWrite" method="post">
+	<form action="reviewUpdate" method="post">
+			<input type="hidden" name="revIdx" value="${dto.revIdx}"/>
 	<table>
+		
+		
 		<tr>
-			<th>업체</th>
-			<td><input type="text" name="comId" value="company1" readonly/></td><!-- 로그인 세션 받아올예정 -->
+			<th>업체명</th>
+			<td><input type="text" name="comId" id="comId" value="${dto.comId}" readonly/></td>
 		</tr>
 		<tr>
 			<th>별점</th>
 			<td>
+				<!-- 받아온값 c:if로 selected걸까? -->
 				<select name="rate" id="rate">
 					<option value="5.0">★5.0</option>
 					<option value="4.0">★4.0</option>
@@ -58,27 +62,26 @@
 		</tr>
 		<tr>
 			<th>작성자</th>
-			<td><input type="text" name="id" value="mingmang" readonly/></td><!-- 로그인 세션 받아올예정 -->
+			<td><input type="text" name="id" id="id" value="${dto.id}" readonly/></td>
 		</tr>
 		<tr>
 			<th>제목</th>
-			<td><input type="text" name="subject" id="subject"/></td>
+			<td><input type="text" name="subject" id="subject" value="${dto.subject}"/></td>
 		</tr>
 		<tr>
 			<th>내용</th>
-			<td>
-				<textarea name="content" id="content"></textarea>
-			</td>
+			<td><textarea name="content" id="content">${dto.content}</textarea></td>
 		</tr>
 	</table>
-	<input type="button" id="save" value="리뷰작성"/>	
-</form>
+	<input type="button" id="save" value="리뷰수정"/>
+	</form>
 </body>
 <script>
 var msg = "${msg}";
 if(msg != ""){
 	alert(msg);
 }
+
 $("#save").click(function(){
 	if($("#subject").val()==""||$("#content").val()==""){
 		console.log($("#subject").val()+"/"+$("#content").val())
@@ -87,5 +90,6 @@ $("#save").click(function(){
 		$("form").submit();
 	}
 });
+
 </script>
 </html>
