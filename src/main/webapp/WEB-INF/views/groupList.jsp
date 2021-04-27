@@ -31,13 +31,24 @@ head td, #paging {
 </head>
 <body>
 
-<button onclick="location.href='groupWriteForm'">글쓰기</button>
-<h3>리스트 페이지</h3>
+<form action="list" >
+		<fieldset>
+			<select name="opt">
+				<option value="id">전체</option>
+				<option value="name">이름</option>
+				<option value="email">이메일</option>
+			</select>
+			<input type="text" name="keyword" placeholder="검색어를 입력하세요"/>
+			<button>검색</button>
+		</fieldset>
+	</form>
+<h3>공동구매 리스트 페이지</h3>
 		<select name="opt" id="opt" onchange="optSelect(this)">
 				<option value="0">전체보기</option>
 				<option value="1">공동구매</option>
 				<option value="2">무료나눔</option>
 			</select>
+			<button onclick="location.href='groupWriteForm'">글쓰기</button>
 	<table>
 		<thead>
 			<tr>

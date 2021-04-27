@@ -18,6 +18,10 @@
 	 SELECT GPIDX,SUBJECT,CONTENT,CHATURL,PROGIDX,ID,MAXUSER,CURRUSER,DEADLINE,GPCTGIDX,reg_date FROM groupPurchase WHERE GPIDX=#{gpIdx}
 	</select>
 	
+	<update id="groupUpHit">
+		UPDATE groupPurchase SET gHit=gHit+1 WHERE gpIdx=#{gpIdx}
+	</update>
+	
 	<!-- 카테고리  -->
 	<select id="groupCtg" resultType="String">
 		SELECT category FROM gpCtg WHERE gpCtgIdx=#{gpCtgIdx}

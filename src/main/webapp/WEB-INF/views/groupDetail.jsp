@@ -55,7 +55,7 @@ font-size:130%;
 		</tr>
 		<tr>
 			<td colspan="6">
-				<div id="kakaoLink">오픈카카오톡 링크 : ${dto.chatURL }</div>
+				<div id="kakaoLink">오픈카카오톡 링크 : <a href="${dto.chatURL }" target="_blanck">${dto.chatURL }</a></div>
 				
 			</td>
 		</tr>
