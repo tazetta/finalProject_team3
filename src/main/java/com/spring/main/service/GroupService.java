@@ -114,6 +114,8 @@ public class GroupService {
 			String progress = groupdao.gpProgress(dto.getProgIdx()); // 진행상황 가져오기
 			dto.setProgress(progress); // 진행상황 담기
 			mav.addObject("dto", dto);
+			
+			groupdao.groupUpHit(gpIdx); //조회수 증가
 			page = "groupDetail";
 		}
 		mav.setViewName(page);

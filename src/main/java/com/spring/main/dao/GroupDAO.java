@@ -26,6 +26,8 @@ public interface GroupDAO {
 
 	int groupDel(int gpIdx);
 
+	void groupUpHit(String gpIdx);
+
 
 	
 
