@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+   "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+
+<mapper namespace="com.spring.main.dao.BoardDAO">
+<select id="Boarddetail" resultType="board">
+	 SELECT BOARDIDX,SUBJECT,CONTENT,ID,REG_DATE,ROOMSIZE,BUDGET,KEYITEMS,BHIT,BLIND,BRDCTGIDX,FORMIDX,EMAIL FROM BOARD WHERE BOARDIDX=#{boardIdx}
+	</select>
+
+<!--게시판카테고리 -->
+<select id="boardCtg" resultType="String">
+		SELECT category FROM boardCtg WHERE boardCtgIdx=#{boardCtgIdx}
+	</select>
+<!--주거형태카테고리-->
+<select id="formCtg" resultType="String">
+		SELECT category FROM formCtg WHERE formCtgIdx=#{formCtgIdx}
+	</select>
+	<!-- 조회수 증가 -->
+	<update id="boardUpHit">
+		UPDATE board SET bHit=bHit+1 WHERE boardIdx=#{boardIdx}
+	</update>
+</mapper>
