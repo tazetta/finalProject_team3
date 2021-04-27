@@ -66,8 +66,7 @@ ${msg }
 				<td>${list.gpCtgIdx }</td>
 				<td>${list.progIdx }</td>
 				<td>${list.deadline }</td>
-				<%-- <td><a href='groupDetail?gpIdx=${list.gpIdx }'>${list.subject }</a></td> --%>
-				<td>${list.subject }</td>
+				<td><a href='groupDetail?gpIdx=${list.gpIdx }'>${list.subject }</a></td> 
 				<td>${list.id }</td>
 				<td>${list.gHit }</td>
 				<td>${list.reg_date }</td>
@@ -88,5 +87,38 @@ ${msg }
 		</tr>
 	</table>
 </body>
-<script></script>
+<script>
+
+function listCall(reqPage) {
+		var reqUrl = "./groupSearchList/"+10+"/"+reqPage+"/"+opt;  //요청url/보여줄갯수/현재페이지/옵션
+		$.ajax({
+			url : reqUrl,
+			type : "get",
+			data : {""},
+			dataType : "JSON",
+			success : function(data) {
+				console.log("success:"+data);
+				console.log("range:"+data.range);
+				showPage = data.currPage; //서비스에서 보낸 페이지를 현재 페이지에 넣기
+				listPrint(data.list); //list내용을 뿌려주는 함수 실행
+						
+				/* 플러그인 사용한 페이징 처리*/
+				$("#pagination").twbsPagination({
+					startPage:data.currPage, //시작 페이지
+					totalPages:data.range, //생성가능 최대 페이지
+					visiblePages:5, //5개씩 보여주겠다(1~5)
+					onPageClick:function(event,page){ //각 페이지를 클릭한 경우
+						console.log("event: "+event);
+						console.log("page: "+page);
+						listCall(page);
+					}
+				});
+			},
+			error : function(error) {
+				console.log("error:"+error);
+			}
+		});
+	}
+
+</script>
 </html>

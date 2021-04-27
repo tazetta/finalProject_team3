@@ -119,7 +119,7 @@ public class GroupService {
 			logger.info("progress:"+progress);
 			mav.addObject("dto", dto);
 			
-			//groupdao.groupUpHit(gpIdx); //조회수 증가
+			groupdao.groupUpHit(gpIdx); //조회수 증가
 			page = "groupDetail";
 		}
 		mav.setViewName(page);
@@ -227,11 +227,7 @@ public class GroupService {
 		ArrayList<GroupDTO> groupList = groupdao.groupList(start, end, opt); // 리스트 담기
 		GroupDTO dto = null;
 		for (int i = 0; i < groupList.size(); i++) {
-
-			System.out.println("gpCtg:" + groupList.get(i).getGpCtgIdx());
-			System.out.println("getProgIdx:" + groupList.get(i).getProgIdx());
-
-			/*
+	/*
 			 * int gpCtgIdx = groupList.get(i).getGpCtgIdx(); // list에서 카테고리 idx 가져오기 String
 			 * String groupCtg = groupdao.groupCtg(gpCtgIdx); // 카테고리명 추출
 			 * System.out.println("카테고리명:"+ groupCtg); dto.setCategory(groupCtg);
@@ -277,6 +273,7 @@ public class GroupService {
 		return mav;
 	}
 
+	/*
 	public ModelAndView groupSearch(HashMap<String, String> params,  RedirectAttributes rAttr) {
 		logger.info("공동구매 search 서비스");
 
@@ -296,6 +293,28 @@ public class GroupService {
 		mav.setViewName(page);
 		return mav;
 	}
+	*/
+	
+	public ModelAndView groupSearch(HashMap<String, String> params,  RedirectAttributes rAttr) {
+		logger.info("공동구매 search 서비스");
+
+		ModelAndView mav = new ModelAndView();
+		String page = "groupSearchList"; // 성공여부 관계없이 list 페이지로
+
+		ArrayList<GroupDTO> list = groupdao.groupSearch(params);
+
+		String msg = params.get("keyword") + "에 대한 검색결과가 없습니다.";
+
+		if (list.size() > 0) { // 검색결과가 있으면
+			msg = params.get("keyword") + "에 대한 검색결과가 " + list.size() + "건 있습니다.";
+		}
+		logger.info(msg);
+		mav.addObject("list", list); //키워드에 해당하는 항목 list에 담아 보내기
+		mav.addObject("msg", msg);
+		mav.setViewName(page);
+		return mav;
+	}
+	
 
 	public ModelAndView updateForm(int gpIdx) {
 		ModelAndView mav = new ModelAndView();
@@ -319,6 +338,7 @@ public class GroupService {
 	
 	}
 
+	@Transactional
 	public ModelAndView groupUpdate(HashMap<String, String> params, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		GroupDTO groupDTO = new GroupDTO();
@@ -351,6 +371,8 @@ public class GroupService {
 		groupDTO.setProgIdx(progIdx); // 진행상황		
 		logger.info("groupdto:"+groupDTO);
 		
+		page = "redirect:/groupDetail?gpIdx=" + groupDTO.getGpIdx();
+		
 			int result = groupdao.groupUpdate(groupDTO) ; //게시글 업데이트
 			logger.info("글 업데이트 결과:"+result);
 			
@@ -369,9 +391,7 @@ public class GroupService {
 					for (String key : fileList.keySet()) { // 여러개의 파일이 있을 수 있으므로 for문 사용
 						groupdao.groupUpdateFile(key, fileList.get(key), groupDTO.getGpIdx());
 					}
-				}
-
-				page = "redirect:/groupDetail?gpIdx=" + groupDTO.getGpIdx();
+				}				
 				msg = "글수정에 성공하였습니다";
 			} else { // 글수정 실패시
 				for (String newFileName : fileList.keySet()) {
