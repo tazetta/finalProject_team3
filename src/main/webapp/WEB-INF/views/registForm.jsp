@@ -31,7 +31,7 @@
             <div id="pwChkMsg"></div>
         </div>
         <div class="input-area">
-            <input  id="name" type="text" name="name" placeholder="이름 입력"  oninput="this.value = this.value.replace(/[^a-z.]/g, '')"/>
+            <input  id="name" type="text" name="name" placeholder="이름 입력"  oninput="this.value = this.value.replace(/[^ㄱ-힣a-zA-Z).]/g, '')"/>
             <label for="name">이름</label>
         </div>
         <div class="input-area">
@@ -110,17 +110,17 @@
                 passChk = false;
            }
         });
+  
         var enId = false;
         function  engId(idValue){
             var check_num = /[0-9]/;
             var check_eng = /[a-zA-Z]/;
             var check_spc = /[~!@#$%^&*()_+|<>?:{}]/;
             var check_kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
-            if( check_eng.test(idValue) && !check_kor.test(idValue) && !check_num.test(idValue) && !check_spc.test(idValue)){
-                enId = true;
+             if(!check_kor.test(idValue) && !check_spc.test(idValue)){
+            	enId = true;
             }else{
                 enId = false;
-                alert('영문으로만 가능합니다.');
             }
         }
 
@@ -130,8 +130,8 @@
         $('.idChk').click(function(){
             var idLeng = $("#id").val().length;
             engId($("#id").val());
-            if(idLeng < 5){
-                alert('5자 이상 입력하세요.');
+            if(idLeng < 5 || enId == false){
+                alert('영문 또는 숫자로 5자 이상 입력하세요.');
             }else{
                 $.ajax({
                     type:'get'
@@ -188,8 +188,8 @@
                 if($id.val() ==''){
                     alert('아이디를 입력해 주세요.');
                     $id.focus();
-                // }else if(chkingId != $id){
-                //     alert('중복 확인을 해주세요.')
+                 }else if(chkingId != $id.val()){
+                     alert('중복 확인을 해주세요.')
                 }else if(passChk != true){
                     alert('비밀번호를 확인해 주세요');
                     $pw.focus();
@@ -234,7 +234,7 @@
                             console.log(data);
                             if(data.success == true){
                                 alert('회원 가입이 완료되었습니다.');
-                                location.href="login";
+                                location.href="membership";
                             }else{
                                 alert('잠시 후 다시 시도해 주세요.');
                             }

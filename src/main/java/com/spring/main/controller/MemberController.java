@@ -67,7 +67,7 @@ public class MemberController {
 		return map;
 	}
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
-	public ModelAndView join(@RequestParam HashMap<String, String> params) {
+	public HashMap<String, Object> join(@RequestParam HashMap<String, String> params) {
 		logger.info("회원가입 요청");
 		ModelAndView mav = new ModelAndView();
 		String plan = params.get("pw");
@@ -82,7 +82,9 @@ public class MemberController {
 			success = true;
 		}
 		logger.info("success {} ", success);
-		mav.addObject("success", success);
-		return mav;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("success", success);
+
+		return map;
 	}
 }
