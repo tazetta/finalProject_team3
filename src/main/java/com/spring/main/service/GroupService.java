@@ -353,8 +353,31 @@ public class GroupService {
 		
 			int result = groupdao.groupUpdate(groupDTO) ; //게시글 업데이트
 			logger.info("글 업데이트 결과:"+result);
-			if(result>0) {
-				page="redirect:/groupDetail?gpIdx=" + gpIdx;
+			
+			// 1. session에서 fileList를 가져온다
+			@SuppressWarnings("unchecked")
+			HashMap<String, String> fileList = (HashMap<String, String>) session.getAttribute("fileList");
+			logger.info("fileList:" + fileList.size());
+			if (result > 0) { // 글 수정 성공시
+				logger.info("gpidx: " + groupDTO.getGpIdx()); // 공동구매 글 idx 뽑아오기
+
+				// 2. fileList에 저장된 파일이 있는지 확인한다.
+				if (fileList.size() > 0) {
+					// 3. 업로드한 파일이 있을 경우 저장한 파일내용을 DB에 기록
+					// newFileName, originFileName, gpIdx
+					// 맵에 있는 모든 값을 빼서 DB에 넣는다
+					for (String key : fileList.keySet()) { // 여러개의 파일이 있을 수 있으므로 for문 사용
+						groupdao.groupUpdateFile(key, fileList.get(key), groupDTO.getGpIdx());
+					}
+				}
+
+				page = "redirect:/groupDetail?gpIdx=" + groupDTO.getGpIdx();
+				msg = "글수정에 성공하였습니다";
+			} else { // 글수정 실패시
+				for (String newFileName : fileList.keySet()) {
+					File file = new File(root + "upload/" + newFileName);
+					file.delete();
+				}
 			}
 			mav.setViewName(page);
 		return mav;

@@ -36,6 +36,8 @@ public interface GroupDAO {
 
 	int groupUpdate(GroupDTO groupDTO);
 
+	void groupUpdateFile(String key, String string, int gpIdx);
+
 
 	
 
