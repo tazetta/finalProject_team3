@@ -39,15 +39,16 @@
 	
 	<select id="groupList"  parameterType="int" resultType="group">
 			
-		SELECT GPIDX,SUBJECT,CONTENT,CHATURL,PROGIDX,ID,MAXUSER,CURRUSER,DEADLINE,GPCTGIDX,reg_date,gHit, rnum 
-		FROM (SELECT ROW_NUMBER() OVER (ORDER BY GPIDX DESC) AS rnum,GPIDX,SUBJECT,CONTENT,CHATURL,PROGIDX,ID,MAXUSER,CURRUSER,DEADLINE,GPCTGIDX,reg_date,gHit 
+		SELECT GPIDX,SUBJECT,CONTENT,CHATURL,PROGIDX,ID,MAXUSER,CURRUSER,DEADLINE,GPCTGIDX,reg_date,gHit, rnum ,blind
+		FROM (SELECT ROW_NUMBER() OVER (ORDER BY GPIDX DESC) AS rnum,GPIDX,SUBJECT,CONTENT,CHATURL,PROGIDX,ID,MAXUSER,CURRUSER,DEADLINE,GPCTGIDX,reg_date,gHit,blind 
 		FROM groupPurchase
 
+		WHERE blind='n'
 		<if test="param3 == 1">
-		 WHERE GPCTGIDX=1 
+		 AND GPCTGIDX=1 
 		</if>
 		<if test="param3 == 2">
-		 WHERE GPCTGIDX=2 
+		 AND GPCTGIDX=2 
 		</if>
 		)
 
@@ -56,12 +57,14 @@
 	
 	<select id="groupAllCount" parameterType="int" resultType="int">
 		SELECT COUNT(GPCTGIDX) FROM groupPurchase
+		WHERE blind='n'
 		<if test="value == 1">
-		 WHERE GPCTGIDX=1 
+		 AND GPCTGIDX=1 
 		</if>
 		<if test="value == 2">
-		 WHERE GPCTGIDX=2 
+		 AND GPCTGIDX=2 
 		</if>
+		
 	</select>
 	
 	
@@ -74,7 +77,7 @@
 	</delete>
 	
 	<delete id="groupDel">
-		DELETE FROM groupPurchase WHERE gpIdx=#{gpIdx}
+		UPDATE groupPurchase SET blind='y' WHERE gpIdx=#{gpIdx}
 	</delete>
 	
 	<select id="groupSearch" parameterType="hashMap" resultType="group">
@@ -113,6 +116,21 @@
 		SET PHOTOIDX=photos_seq.NEXTVAL, NEWFILENAME=#{param1}, ORIFILENAME =#{param2}  WHERE gpIdx=#{param3}
 	</update>
 	
+	<insert id="applyGroup">
+		INSERT INTO applicants (gpIdx,id) VALUES(#{param1},#{param2})
+	</insert>
+	
+	<update id="currUserUp">
+		 UPDATE groupPurchase SET currUser=currUser+1 WHERE gpIdx=#{param1}
+	</update>
+	
+	<delete id="cancelGroup">
+		DELETE FROM applicants WHERE gpIdx=#{param1} AND id= #{param2}
+	</delete>
+	
+	<update id="currUserDown">
+		 UPDATE groupPurchase SET currUser=currUser-1 WHERE gpIdx=#{param1}
+	</update>
 
 	
 </mapper>

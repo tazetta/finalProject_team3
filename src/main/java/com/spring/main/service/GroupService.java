@@ -44,9 +44,9 @@ public class GroupService {
 
 	@Transactional // 글등록에 실패하면 저장한 파일내용 등록도 실행되지 않도록
 	public ModelAndView groupWrite(HashMap<String, String> params, HttpSession session) {
-		
-		String loginId= "yezi"; //세션아이디 넣을예정
-		
+
+		String loginId = "yezi"; // 세션아이디 넣을예정
+
 		ModelAndView mav = new ModelAndView();
 		GroupDTO groupDTO = new GroupDTO();
 		int groupCtg = Integer.parseInt(params.get("groupCtg"));
@@ -95,8 +95,7 @@ public class GroupService {
 
 			page = "redirect:/groupDetail?gpIdx=" + groupDTO.getGpIdx();
 			msg = "글쓰기에 성공하였습니다";
-			
-			
+
 		} else { // 글쓰기 실패시
 			for (String newFileName : fileList.keySet()) {
 				File file = new File(root + "upload/" + newFileName);
@@ -107,9 +106,6 @@ public class GroupService {
 		mav.setViewName(page);
 		return mav;
 	}
-	
-	
-	
 
 	@Transactional
 	public ModelAndView detail(int gpIdx) {
@@ -124,11 +120,11 @@ public class GroupService {
 
 			String progress = groupdao.gpProgress(dto.getProgIdx()); // 진행상황 가져오기
 			dto.setProgress(progress); // 진행상황 담기
-			
-			logger.info("progress:"+progress);
+
+			logger.info("progress:" + progress);
 			mav.addObject("dto", dto);
-			
-			groupdao.groupUpHit(gpIdx); //조회수 증가
+
+			groupdao.groupUpHit(gpIdx); // 조회수 증가
 			page = "groupDetail";
 		}
 		mav.setViewName(page);
@@ -225,7 +221,7 @@ public class GroupService {
 
 		// 게시글 수 : 21개, 페이지 당 보여줄 수 : 10 =(나머지가 있는 경우 반올림해서)=> 최대 생성 가능한 페이지 : 3
 		int range = allCnt % pagePerCnt > 0 ? Math.round(allCnt / pagePerCnt) + 1 : Math.round(allCnt / pagePerCnt);
-		System.out.println("range:"+range);
+		System.out.println("range:" + range);
 		// 현재 페이지가 생성가능한 페이지보다 클 경우. .. 현재 페이지를 생성가능한 페이지로 맞춰준다.
 		page = page > range ? range : page;
 
@@ -236,7 +232,7 @@ public class GroupService {
 		ArrayList<GroupDTO> groupList = groupdao.groupList(start, end, opt); // 리스트 담기
 		GroupDTO dto = null;
 		for (int i = 0; i < groupList.size(); i++) {
-	/*
+			/*
 			 * int gpCtgIdx = groupList.get(i).getGpCtgIdx(); // list에서 카테고리 idx 가져오기 String
 			 * String groupCtg = groupdao.groupCtg(gpCtgIdx); // 카테고리명 추출
 			 * System.out.println("카테고리명:"+ groupCtg); dto.setCategory(groupCtg);
@@ -253,37 +249,52 @@ public class GroupService {
 		return map;
 	}
 
-	/*게시글 삭제*/
+	/* 게시글 삭제 */
 	@Transactional
 	public ModelAndView groupDel(int gpIdx, HttpSession session, RedirectAttributes rAttr) {
 		ModelAndView mav = new ModelAndView();
 		String newFileName = groupdao.groupGetFileName(gpIdx);
-		msg="삭제에 실패했습니다";
-		
+		msg = "삭제에 실패했습니다";
+
 		logger.info("newFileName: " + newFileName);
-		if (newFileName != null) { // 파일이 있으면 
-			int success = groupdao.groupPhotoDel(gpIdx); //DB에서 삭제
+		if (newFileName != null) { // 파일이 있으면
+			int success = groupdao.groupPhotoDel(gpIdx); // DB에서 삭제
 			logger.info("photos 삭제 결과:" + success);
 		}
 
 		int success = groupdao.groupDel(gpIdx);
 		logger.info("글 삭제결과: " + success);
 
-		
 		if (success > 0 && newFileName != null) {
-			HashMap<String, Object> map =fileDelete(newFileName, session);
+			HashMap<String, Object> map = fileDelete(newFileName, session);
 			int result = (int) map.get("success");
-			logger.info("result:"+result);
+			logger.info("result:" + result);
 		}
-		msg="삭제되었습니다.";
+		msg = "삭제되었습니다.";
 		rAttr.addFlashAttribute("msg", msg);
 
-		mav.setViewName("redirect:/groupListPage"); 
+		mav.setViewName("redirect:/groupListPage");
 		return mav;
 	}
 
 	/*
-	public ModelAndView groupSearch(HashMap<String, String> params,  RedirectAttributes rAttr) {
+	 * public ModelAndView groupSearch(HashMap<String, String> params,
+	 * RedirectAttributes rAttr) { logger.info("공동구매 search 서비스");
+	 * 
+	 * ModelAndView mav = new ModelAndView(); String page = "groupSearchList"; //
+	 * 성공여부 관계없이 list 페이지로
+	 * 
+	 * ArrayList<GroupDTO> list = groupdao.groupSearch(params);
+	 * 
+	 * String msg = params.get("keyword") + "에 대한 검색결과가 없습니다.";
+	 * 
+	 * if (list.size() > 0) { // 검색결과가 있으면 msg = params.get("keyword") +
+	 * "에 대한 검색결과가 " + list.size() + "건 있습니다."; } logger.info(msg);
+	 * mav.addObject("list", list); //키워드에 해당하는 항목 list에 담아 보내기 mav.addObject("msg",
+	 * msg); mav.setViewName(page); return mav; }
+	 */
+
+	public ModelAndView groupSearch(HashMap<String, String> params, RedirectAttributes rAttr) {
 		logger.info("공동구매 search 서비스");
 
 		ModelAndView mav = new ModelAndView();
@@ -297,40 +308,18 @@ public class GroupService {
 			msg = params.get("keyword") + "에 대한 검색결과가 " + list.size() + "건 있습니다.";
 		}
 		logger.info(msg);
-		mav.addObject("list", list); //키워드에 해당하는 항목 list에 담아 보내기
+		mav.addObject("list", list); // 키워드에 해당하는 항목 list에 담아 보내기
 		mav.addObject("msg", msg);
 		mav.setViewName(page);
 		return mav;
 	}
-	*/
-	
-	public ModelAndView groupSearch(HashMap<String, String> params,  RedirectAttributes rAttr) {
-		logger.info("공동구매 search 서비스");
-
-		ModelAndView mav = new ModelAndView();
-		String page = "groupSearchList"; // 성공여부 관계없이 list 페이지로
-
-		ArrayList<GroupDTO> list = groupdao.groupSearch(params);
-
-		String msg = params.get("keyword") + "에 대한 검색결과가 없습니다.";
-
-		if (list.size() > 0) { // 검색결과가 있으면
-			msg = params.get("keyword") + "에 대한 검색결과가 " + list.size() + "건 있습니다.";
-		}
-		logger.info(msg);
-		mav.addObject("list", list); //키워드에 해당하는 항목 list에 담아 보내기
-		mav.addObject("msg", msg);
-		mav.setViewName(page);
-		return mav;
-	}
-	
 
 	public ModelAndView updateForm(int gpIdx) {
 		ModelAndView mav = new ModelAndView();
 		logger.info("수정할 글 form 서비스");
 		GroupDTO dto = groupdao.groupDetail(gpIdx);
 		logger.info("groupDTO: " + dto);
-		page = "redirect:/groupDetail?gpIdx=" +gpIdx;
+		page = "redirect:/groupDetail?gpIdx=" + gpIdx;
 		if (dto != null) {
 			String category = groupdao.groupCtg(dto.getGpCtgIdx()); // 카테고리 가져오기
 			dto.setCategory(category); // 카테고리명 담기
@@ -339,12 +328,12 @@ public class GroupService {
 			dto.setProgress(progress); // 진행상황 담기
 
 			mav.addObject("dto", dto);
-			
+
 			page = "groupUpdateForm";
 		}
 		mav.setViewName(page);
 		return mav;
-	
+
 	}
 
 	@Transactional
@@ -358,7 +347,7 @@ public class GroupService {
 		int gpIdx = Integer.parseInt(params.get("gpIdx").toString());
 		int progIdx = Integer.parseInt(params.get("progIdx").toString());
 
-		/*sql Date로 변환*/
+		/* sql Date로 변환 */
 		String str = params.get("deadline");
 		SimpleDateFormat dfm = new SimpleDateFormat("yyyy-mm-dd");
 		java.util.Date utilDate = null;
@@ -368,7 +357,7 @@ public class GroupService {
 			e.printStackTrace();
 		}
 		String transDate = dfm.format(utilDate);
-		Date deadline = Date.valueOf(transDate); 
+		Date deadline = Date.valueOf(transDate);
 
 		groupDTO.setGpIdx(gpIdx);
 		groupDTO.setGpCtgIdx(gpCtgIdx);
@@ -377,40 +366,83 @@ public class GroupService {
 		groupDTO.setChatURL(params.get("chatURL"));
 		groupDTO.setMaxUser(maxUser);
 		groupDTO.setDeadline(deadline);
-		groupDTO.setProgIdx(progIdx); // 진행상황		
-		logger.info("groupdto:"+groupDTO);
-		
-		page = "redirect:/groupDetail?gpIdx=" + groupDTO.getGpIdx();
-		
-			int result = groupdao.groupUpdate(groupDTO) ; //게시글 업데이트
-			logger.info("글 업데이트 결과:"+result);
-			
-			// 1. session에서 fileList를 가져온다
-			@SuppressWarnings("unchecked")
-			HashMap<String, String> fileList = (HashMap<String, String>) session.getAttribute("fileList");
-			logger.info("fileList:" + fileList.size());
-			if (result > 0) { // 글 수정 성공시
-				logger.info("gpidx: " + groupDTO.getGpIdx()); // 공동구매 글 idx 뽑아오기
+		groupDTO.setProgIdx(progIdx); // 진행상황
+		logger.info("groupdto:" + groupDTO);
 
-				// 2. fileList에 저장된 파일이 있는지 확인한다.
-				if (fileList.size() > 0) {
-					// 3. 업로드한 파일이 있을 경우 저장한 파일내용을 DB에 기록
-					// newFileName, originFileName, gpIdx
-					// 맵에 있는 모든 값을 빼서 DB에 넣는다
-					for (String key : fileList.keySet()) { // 여러개의 파일이 있을 수 있으므로 for문 사용
-						groupdao.groupUpdateFile(key, fileList.get(key), groupDTO.getGpIdx());
-					}
-				}				
-				msg = "글수정에 성공하였습니다";
-			} else { // 글수정 실패시
-				for (String newFileName : fileList.keySet()) {
-					File file = new File(root + "upload/" + newFileName);
-					file.delete();
+		page = "redirect:/groupDetail?gpIdx=" + groupDTO.getGpIdx();
+		msg = "글 수정에 실패했습니다";
+		int result = groupdao.groupUpdate(groupDTO); // 게시글 업데이트
+		logger.info("글 업데이트 결과:" + result);
+
+		// 1. session에서 fileList를 가져온다
+		@SuppressWarnings("unchecked")
+		HashMap<String, String> fileList = (HashMap<String, String>) session.getAttribute("fileList");
+		logger.info("fileList:" + fileList.size());
+		if (result > 0) { // 글 수정 성공시
+			logger.info("gpidx: " + groupDTO.getGpIdx()); // 공동구매 글 idx 뽑아오기
+
+			// 2. fileList에 저장된 파일이 있는지 확인한다.
+			if (fileList.size() > 0) {
+				// 3. 업로드한 파일이 있을 경우 저장한 파일내용을 DB에 기록
+				// newFileName, originFileName, gpIdx
+				// 맵에 있는 모든 값을 빼서 DB에 넣는다
+				for (String key : fileList.keySet()) { // 여러개의 파일이 있을 수 있으므로 for문 사용
+					groupdao.groupUpdateFile(key, fileList.get(key), groupDTO.getGpIdx());
 				}
 			}
-			mav.setViewName(page);
+			msg = "글수정에 성공하였습니다";
+		} else { // 글수정 실패시
+			for (String newFileName : fileList.keySet()) {
+				File file = new File(root + "upload/" + newFileName);
+				file.delete();
+			}
+		}
+		mav.setViewName(page);
 		return mav;
 	}
 
-	
+	public ModelAndView applyGroup(int gpIdx, String applyId, RedirectAttributes rAttr) {
+		ModelAndView mav = new ModelAndView();
+		logger.info("공동구매 신청 서비스");
+
+		int applyResult = groupdao.applyGroup(gpIdx, applyId);
+		logger.info("공동구매 신청 result: " + applyResult);
+		int currResult = groupdao.currUserUp(gpIdx);
+		logger.info("현재인원 증가 result:" + currResult);
+
+		msg = "신청에 실패했습니다";
+		page = "redirect:/groupDetail?gpIdx=" + gpIdx;
+
+		if (applyResult > 0 && currResult > 0) {
+			msg = "신청되었습니다";
+		}
+		String state = "취소";
+		rAttr.addFlashAttribute("msg", msg);
+		mav.addObject("state", state);
+		mav.setViewName(page);
+		return mav;
+	}
+
+	public ModelAndView cancelGroup(int gpIdx, String applyId, RedirectAttributes rAttr) {
+		ModelAndView mav = new ModelAndView();
+		logger.info("공동구매 취소 서비스");
+
+		int applyResult = groupdao.cancelGroup(gpIdx, applyId);
+		logger.info("공동구매 취소 result: " + applyResult);
+		int currResult = groupdao.currUserDown(gpIdx);
+		logger.info("현재인원 감소 result:" + currResult);
+
+		msg = "취소에 실패했습니다";
+		page = "redirect:/groupDetail?gpIdx=" + gpIdx;
+
+		if (applyResult > 0 && currResult > 0) {
+			msg = "취소되었습니다";
+		}
+		String state = "신청";
+		rAttr.addFlashAttribute("msg", msg);
+		mav.addObject("state", state);
+		mav.setViewName(page);
+		return mav;
+	}
+
 }

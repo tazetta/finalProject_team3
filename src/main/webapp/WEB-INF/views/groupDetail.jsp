@@ -4,6 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
 <title>상세보기</title>
 <style>
 table, td, th {
@@ -50,7 +52,9 @@ font-size:130%;
 			</td>
 			<td style = "width:20%">현재인원/모집인원 : <span id="groupCnt">${dto.currUser }/${dto.maxUser}</span> <br />마감날짜 :
 				<b>${dto.deadline}</b><br/>
-				<button onclick="location.href='#'">신청</button>
+				
+				<input type="button" id="toggleApply" value="신청"/>
+				<input type="button" id="cancel" value="취소"/>
 				</td>
 		</tr>
 		<tr>
@@ -74,5 +78,31 @@ font-size:130%;
 	<div>현재 댓글이 없습니다</div>
 
 </body>
-<script></script>
+<script>
+
+var msg="${msg}";
+
+if(msg!=""){
+	 alert(msg);
+}
+
+//현재 신청상태 확인
+var state= "${state}";
+
+if(state !=""){
+	$("#toggleApply").attr("value",state);
+	console.log("state:"+state);
+}
+
+//신청-취소 toggle
+$("#toggleApply").click(function(){
+        location.href='applyGroup/${dto.gpIdx}/admin' ; //세션아이디 넣을 예정
+
+});
+
+$("#cancel").click(function(){
+        location.href='cancelGroup/${dto.gpIdx}/admin' ; //세션아이디 넣을 예정
+
+});
+</script>
 </html>

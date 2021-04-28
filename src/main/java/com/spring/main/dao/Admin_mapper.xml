@@ -5,7 +5,7 @@
 >
 
 <mapper namespace="com.spring.main.dao.AdminDAO">
-	<select id="listNewMember" resultType="com.spring.main.dto.MemberDTO">
+	    <select id="listNewMember" resultType="com.spring.main.dto.MemberDTO">
 		SELECT id FROM generalmember WHERE reg_date LIKE2 TO_DATE(#{param1}, 'yy/mm/dd')
 	</select>
 	<select id="cntNewMember" resultType="int">

@@ -38,6 +38,14 @@ public interface GroupDAO {
 
 	void groupUpdateFile(String key, String string, int gpIdx);
 
+	int applyGroup(int gpIdx, String applyId);
+
+	int currUserUp(int gpIdx);
+
+	int cancelGroup(int gpIdx, String applyId);
+
+	int currUserDown(int gpIdx);
+
 
 
 
