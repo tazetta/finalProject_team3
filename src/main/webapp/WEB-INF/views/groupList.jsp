@@ -109,7 +109,7 @@ var opt=0;
 
 var showPage = 1;
 
-// 몇개/몇페이지 를 보여줄 것인지
+
 listCall(showPage);  // 시작하자마자 이 함수를 호출
 
 function optSelect(e) {

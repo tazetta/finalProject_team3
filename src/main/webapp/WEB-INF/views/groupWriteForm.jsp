@@ -38,7 +38,8 @@ input[type='text'] {
 						<option value="2">무료나눔</option>
 				</select></td>
 				<td><input type="text" name="subject" />
-				<input type="hidden" name="id" value="yezi"/></td>
+				<input type="hidden" name="id" value="${sessionScope.loginId }"/> 
+				</td>
 			</tr>
 			<tr>
 				<td colspan="2">

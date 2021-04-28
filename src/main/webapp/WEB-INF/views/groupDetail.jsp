@@ -97,9 +97,9 @@ if(state !=""){
 
 //신청-취소 toggle
 $("#toggleApply").click(function(){
-        location.href='applyGroup/${dto.gpIdx}/admin' ; //세션아이디 넣을 예정
+        location.href='applyGroup/${dto.gpIdx}/${sessionScope.loginId}' ; //세션아이디 넣을 예정
         if(state=='취소'){
-        	  location.href='cancelGroup/${dto.gpIdx}/admin' ; //세션아이디 넣을 예정
+        	  location.href='cancelGroup/${dto.gpIdx}/${sessionScope.loginId}' ; //세션아이디 넣을 예정
         }
 
 });

@@ -45,8 +45,6 @@ public class GroupService {
 	@Transactional // 글등록에 실패하면 저장한 파일내용 등록도 실행되지 않도록
 	public ModelAndView groupWrite(HashMap<String, String> params, HttpSession session) {
 
-		String loginId = "yezi"; // 세션아이디 넣을예정
-
 		ModelAndView mav = new ModelAndView();
 		GroupDTO groupDTO = new GroupDTO();
 		int groupCtg = Integer.parseInt(params.get("groupCtg"));
