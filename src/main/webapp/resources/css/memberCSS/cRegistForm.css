@@ -18,10 +18,11 @@ body{
     font-size: 13px;
     text-align: center;
 }
-.input-area input {
-    height: 15px;
+.input-area input{
+    height: 20px;
     padding: 3px;
-    
+    border: 2px solid #166eca ;
+    border-radius: 6px;
 }
 .input-area label{
     position: absolute;
@@ -31,12 +32,17 @@ body{
     text-align: center;
    
 }
-.idChk{
+.idChk , .bn_lookUp , .addr_lookUp{
     position: absolute;
     left: 380px;
     top: 6px;
 }
-.idChk button{
+.cIdChk{
+    position: absolute;
+    left: 430px;
+    top: 6px;
+}
+.idChk button , .cIdChk button , .bn_lookUp button , .addr_lookUp button{
     background-color: #166cea;
     color: white;
     border: none;
@@ -71,4 +77,28 @@ input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;             
     margin: 0;         
+}
+#sample6_postcode{
+    margin-bottom: 100px;
+}
+#sample6_address{
+    position: absolute;
+    left: 195px;
+    top: 50px;
+    margin-bottom: 50px;
+    width: 300px;
+}
+#sample6_detailAddress{
+    position: absolute;
+    left: 195px;
+    top: 90px;
+    margin-bottom: 50px;
+    width: 150px;
+}
+#sample6_extraAddress{
+    position: absolute;
+    left: 360px;
+    top: 90px;
+    margin-bottom: 50px;
+    width: 150px;
 }

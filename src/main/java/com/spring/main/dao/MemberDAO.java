@@ -27,6 +27,8 @@ public interface MemberDAO {
 
 	String adLogin(String id, String pw);
 
+	String cLogin(String id, String pw);
+
 
 
 
