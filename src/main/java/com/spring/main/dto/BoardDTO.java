@@ -16,6 +16,9 @@ public class BoardDTO {
 	private int bhit;
 	private String category;
 	private String formcategory;
+	
+	
+	
 	public String getFormcategory() {
 		return formcategory;
 	}
