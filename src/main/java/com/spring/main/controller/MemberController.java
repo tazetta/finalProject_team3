@@ -34,6 +34,7 @@ public class MemberController {
 		mav.setViewName("login");
 		return mav;
 	}
+	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public  ModelAndView login(Model model, @RequestParam String id, @RequestParam String pw , HttpSession session) {
 		logger.info("로그인  요청");
@@ -90,7 +91,7 @@ public class MemberController {
 	public ModelAndView findId() {
 		logger.info("아이디찾기 페이지 요청");
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("id_find");
+		mav.setViewName("idFind");
 		return mav;
 	}
 	
@@ -98,7 +99,7 @@ public class MemberController {
 	public ModelAndView findPw() {
 		logger.info("비밃번호찾기 페이지 요청");
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("pw_find");
+		mav.setViewName("pwFind");
 		return mav;
 	}
 	
@@ -166,12 +167,36 @@ public class MemberController {
 			if(findId != null  && findPw != null) {
 				page ="pwReset";
 				msg ="비밀번호를 재설정 합니다.";
-			}	
+			}
 			mav.addObject("findId", findId);
 			mav.addObject("msg", msg);
 			mav.setViewName(page);
 			return mav;
 	}
-
+		
+		@RequestMapping(value = "/adminLogPage", method = RequestMethod.GET)
+		public ModelAndView adminLogPage() {
+			logger.info("관리자로그인 페이지 요청");
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("adminLogin");
+			return mav;
+		}	
+		@RequestMapping(value = "/adminLogin", method = RequestMethod.POST)
+		public  ModelAndView adminLogin(Model model, @RequestParam String id, @RequestParam String pw , HttpSession session) {
+			logger.info("관리자로그인  요청");
+			logger.info("id : " + id  + "pw :" + pw);
+			ModelAndView mav = new ModelAndView();
+			String msg = "아이디와 패스워드를 확인해 주세요.";
+			String page = "adminLogin";
+			String adminLoginId = service.adLogin(id,pw);
+			if(adminLoginId != null) {
+				msg ="로그인에 성공 하였습니다.";
+				page="adminMain";
+				session.setAttribute("adLoginId", adminLoginId);
+			}
+			mav.addObject("msg", msg);
+			mav.setViewName(page);
+			return mav;
+		}
 }
 

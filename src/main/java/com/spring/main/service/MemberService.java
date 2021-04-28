@@ -78,4 +78,11 @@ public class MemberService {
 		return dao.comPwFind(params);
 	}
 
+
+
+	public String adLogin(String id, String pw) {
+
+		return dao.adLogin(id,pw);
+	}
+
 }

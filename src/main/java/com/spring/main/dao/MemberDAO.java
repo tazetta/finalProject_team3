@@ -25,6 +25,8 @@ public interface MemberDAO {
 
 	int gradeCntComm(String id);
 
+	String adLogin(String id, String pw);
+
 
 
 

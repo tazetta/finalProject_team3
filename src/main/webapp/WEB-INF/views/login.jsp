@@ -40,7 +40,7 @@
             <a href="findPw">비밀번호 찾기</a>
         </div>
         <div class="admin">
-            <a href="admin">관리자 로그인</a>
+            <a href="adminLogPage">관리자 로그인</a>
         </div>
     </div>
 </body>
