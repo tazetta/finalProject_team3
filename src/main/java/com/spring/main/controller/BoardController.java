@@ -8,9 +8,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.service.AdminService;
@@ -75,5 +77,18 @@ public class BoardController {
 		logger.info("{}번째 게시판 글쓰기 요청");
 		return BoardService.boardWrite(params, session);
 	}
-	
+	@RequestMapping(value = "/boardUpdateForm/{boardIdx}", method = RequestMethod.GET)
+	public  @ResponseBody ModelAndView groupUpdateForm(@PathVariable String boardIdx,HttpSession session) {
+		logger.info("글수정하기 form 요청: "+boardIdx);
+		//업로드할 파일이름을 저장한 HashMap생성해서 session에 저장(upload메서드에서 여러파일을 관리하기위해)
+		HashMap<String, String> fileList = new HashMap<String, String>();
+		session.setAttribute("fileList", fileList);
+		return BoardService.updateForm(boardIdx);
+	}
+	@RequestMapping(value = "/boardUpdate", method = RequestMethod.POST)
+	public ModelAndView groupUpdate( @RequestParam HashMap<String , String> params,HttpSession session) {
+		logger.info("수정하기 요청");
+		logger.info("params: {}" ,params);	
+		return BoardService.boardUpdate(params, session);
+	}
 }
