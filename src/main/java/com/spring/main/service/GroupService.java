@@ -418,7 +418,7 @@ public class GroupService {
 		}
 		String state = "취소";
 		rAttr.addFlashAttribute("msg", msg);
-		mav.addObject("state", state);
+		rAttr.addFlashAttribute("state", state);
 		mav.setViewName(page);
 		return mav;
 	}
@@ -440,7 +440,7 @@ public class GroupService {
 		}
 		String state = "신청";
 		rAttr.addFlashAttribute("msg", msg);
-		mav.addObject("state", state);
+		rAttr.addFlashAttribute("state", state);
 		mav.setViewName(page);
 		return mav;
 	}

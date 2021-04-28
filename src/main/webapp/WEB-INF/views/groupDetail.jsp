@@ -54,7 +54,7 @@ font-size:130%;
 				<b>${dto.deadline}</b><br/>
 				
 				<input type="button" id="toggleApply" value="신청"/>
-				<input type="button" id="cancel" value="취소"/>
+				
 				</td>
 		</tr>
 		<tr>
@@ -97,12 +97,11 @@ if(state !=""){
 //신청-취소 toggle
 $("#toggleApply").click(function(){
         location.href='applyGroup/${dto.gpIdx}/admin' ; //세션아이디 넣을 예정
+        if(state=='취소'){
+        	  location.href='cancelGroup/${dto.gpIdx}/admin' ; //세션아이디 넣을 예정
+        }
 
 });
 
-$("#cancel").click(function(){
-        location.href='cancelGroup/${dto.gpIdx}/admin' ; //세션아이디 넣을 예정
-
-});
 </script>
 </html>
