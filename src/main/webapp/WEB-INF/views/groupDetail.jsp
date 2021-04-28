@@ -50,7 +50,8 @@ font-size:130%;
 		<tr>
 			<td colspan="5"  style = "padding:20px">${dto.content }
 			</td>
-			<td style = "width:20%">현재인원/모집인원 : <span id="groupCnt">${dto.currUser }/${dto.maxUser}</span> <br />마감날짜 :
+			<td style = "width:20%">현재인원/모집인원 : <span id="groupCnt">${dto.currUser }/${dto.maxUser}</span> 
+				<br />마감날짜 :
 				<b>${dto.deadline}</b><br/>
 				
 				<input type="button" id="toggleApply" value="신청"/>

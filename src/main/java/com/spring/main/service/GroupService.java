@@ -278,22 +278,6 @@ public class GroupService {
 	}
 
 	/*
-	 * public ModelAndView groupSearch(HashMap<String, String> params,
-	 * RedirectAttributes rAttr) { logger.info("공동구매 search 서비스");
-	 * 
-	 * ModelAndView mav = new ModelAndView(); String page = "groupSearchList"; //
-	 * 성공여부 관계없이 list 페이지로
-	 * 
-	 * ArrayList<GroupDTO> list = groupdao.groupSearch(params);
-	 * 
-	 * String msg = params.get("keyword") + "에 대한 검색결과가 없습니다.";
-	 * 
-	 * if (list.size() > 0) { // 검색결과가 있으면 msg = params.get("keyword") +
-	 * "에 대한 검색결과가 " + list.size() + "건 있습니다."; } logger.info(msg);
-	 * mav.addObject("list", list); //키워드에 해당하는 항목 list에 담아 보내기 mav.addObject("msg",
-	 * msg); mav.setViewName(page); return mav; }
-	 */
-
 	public ModelAndView groupSearch(HashMap<String, String> params, RedirectAttributes rAttr) {
 		logger.info("공동구매 search 서비스");
 
@@ -313,6 +297,7 @@ public class GroupService {
 		mav.setViewName(page);
 		return mav;
 	}
+	*/
 
 	public ModelAndView updateForm(int gpIdx) {
 		ModelAndView mav = new ModelAndView();
@@ -443,6 +428,45 @@ public class GroupService {
 		rAttr.addFlashAttribute("state", state);
 		mav.setViewName(page);
 		return mav;
+	}
+
+	public HashMap<String, Object> groupSearchList(int pagePerCnt, int page, String opt , String keyword) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		logger.info("검색리스트 서비스 ");
+		// pagePerCnt의 기준으로 몇 페이지나 만들 수 있는가?(마지막 페이지)
+		// -> 전체 게시글 수
+		int allCnt = groupdao.groupSearchCount(opt ,keyword); // 공동구매 검색 글 갯수
+		logger.info("group Purchase searchCnt:" + allCnt);
+
+		// 게시글 수 : 21개, 페이지 당 보여줄 수 : 10 =(나머지가 있는 경우 반올림해서)=> 최대 생성 가능한 페이지 : 3
+		int range = allCnt % pagePerCnt > 0 ? Math.round(allCnt / pagePerCnt) + 1 : Math.round(allCnt / pagePerCnt);
+		System.out.println("range:" + range);
+		// 현재 페이지가 생성가능한 페이지보다 클 경우. .. 현재 페이지를 생성가능한 페이지로 맞춰준다.
+		page = page > range ? range : page;
+
+		// 시작, 끝
+		int end = page * pagePerCnt;
+		int start = end - pagePerCnt + 1;
+		String startStr = Integer.toString(start);
+		String endStr = Integer.toString(end);
+		ArrayList<GroupDTO> groupList = groupdao.groupSearchList(startStr, endStr, opt, keyword ); // 리스트 담기
+		GroupDTO dto = null;
+		
+		logger.info("groupList size: " + groupList.size());
+		
+		String msg = keyword + "에 대한 검색결과가 없습니다.";
+
+		if (groupList.size() > 0) { // 검색결과가 있으면
+			msg = keyword + "에 대한 검색결과가 " + groupList.size() + "건 있습니다.";
+		}
+		logger.info(msg);
+
+		map.put("list", groupList);
+		map.put("searchMsg", msg);
+		map.put("range", range);
+		map.put("currPage", page);
+
+		return map;
 	}
 
 }

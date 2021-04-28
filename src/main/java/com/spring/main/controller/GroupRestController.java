@@ -23,6 +23,7 @@ public class GroupRestController {
 	@Autowired GroupService groupService;
 
 	
+	//기본 리스트
 	//  url : list/보여줄 개수/페이지/옵션
 	@RequestMapping(value = "/groupList/{pagePerCnt}/{page}/{opt}", method = RequestMethod.GET)
 	public HashMap<String, Object> list( @PathVariable int pagePerCnt, @PathVariable int page,  @PathVariable int opt) {
@@ -33,13 +34,14 @@ public class GroupRestController {
 		return groupService.groupList(pagePerCnt,page,opt);
 	}
 	
-	@RequestMapping(value = "/groupSearchList/{pagePerCnt}/{page}/{opt}", method = RequestMethod.GET)
-	public HashMap<String, Object> groupSearchList(  @PathVariable int pagePerCnt, @PathVariable int page,  @PathVariable int opt,  @RequestParam HashMap<String , String> params, RedirectAttributes rAttr ) {
-		logger.info("search params: "+params);
-		logger.info("opt:"+opt);
+	//검색리스트
+	@RequestMapping(value = "/groupSearchList/{pagePerCnt}/{page}/{searchOpt}/{keyword}", method = RequestMethod.GET)
+	public HashMap<String, Object> groupSearchList(  @PathVariable int pagePerCnt, @PathVariable int page,  @PathVariable String searchOpt, @PathVariable String keyword, RedirectAttributes rAttr ) {
+	
+		logger.info("opt:"+searchOpt+" / keyword:"+keyword);
 		logger.info("pagePerCnt :{}, page :{}", pagePerCnt, page);
-		logger.info("리스트 요청");
-		return null;
+		logger.info("검색 리스트 요청");
+		return groupService.groupSearchList(pagePerCnt,page,searchOpt,keyword);
 	}
 	
 	

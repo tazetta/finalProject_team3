@@ -29,10 +29,7 @@ public interface GroupDAO {
 
 	void groupUpHit(int gpIdx);
 
-	
-	int groupSearchCount(String opt, String keyword);
-
-	ArrayList<GroupDTO> groupSearch(HashMap<String, String> params);
+	/* ArrayList<GroupDTO> groupSearch(HashMap<String, String> params); */
 
 	int groupUpdate(GroupDTO groupDTO);
 
@@ -45,6 +42,10 @@ public interface GroupDAO {
 	int cancelGroup(int gpIdx, String applyId);
 
 	int currUserDown(int gpIdx);
+
+	int groupSearchCount(String opt, String keyword);
+
+	ArrayList<GroupDTO> groupSearchList(String startStr, String endStr, String opt, String keyword);
 
 
 
