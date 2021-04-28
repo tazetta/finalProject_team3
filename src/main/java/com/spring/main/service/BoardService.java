@@ -72,37 +72,38 @@ public class BoardService {
 	public ModelAndView boardWrite(HashMap<String, String> params, HttpSession session) {
 		ModelAndView mav =new ModelAndView();
 		BoardDTO boarddto=new BoardDTO();
-		int boardctg = Integer.parseInt(params.get("boardCtg"));//카테고리구별용
+		int boardctgidx = Integer.parseInt(params.get("boardCtgIdx"));//카테고리구별용
 		
-		boarddto.setBrdctgidx(boardctg);
+		boarddto.setBrdctgidx(boardctgidx);
 		boarddto.setSubject(params.get("subject"));
 		boarddto.setContent(params.get("content"));
 		boarddto.setId(params.get("id"));
-		if(boardctg==2) {//카테고리가 2 (우리집자랑)일경우
+		if(boardctgidx==2) {//카테고리가 2 (우리집자랑)일경우
+			boarddto.setKeyitems(params.get("keyitems"));//키아이템
 			boarddto.setRoomsize(Integer.parseInt(params.get("roomsize")));//평수
 			boarddto.setBudget(Integer.parseInt(params.get("budget")));//예산
-			boarddto.setFormcategory(params.get("formctg"));//주거형태
+			boarddto.setFormidx(Integer.parseInt(params.get("formidx")));//주거형태
 		}
 		int result = boarddao.boardWrite(boarddto);
 		//실패시 다시 카테고리에 맞는 수정폼으로 보내기
-		if(boardctg==1) {
+		if(boardctgidx==1) {
 			page = "redirect:/freeWriteForm";
-		}else if(boardctg==2) {
+		}else if(boardctgidx==2) {
 			page = "redirect:/homeWriteForm";
-		}else if(boardctg==3) {
+		}else if(boardctgidx==3) {
 			page = "redirect:/tipWriteForm";
-		}else if(boardctg==4) {
+		}else if(boardctgidx==4) {
 			page = "redirect:/qnaWriteForm";
-		}else if(boardctg==5) {
+		}else if(boardctgidx==5) {
 			page = "redirect:/examWriteForm";
-		}else if(boardctg==6) {
+		}else if(boardctgidx==6) {
 			page = "redirect:/sgtWriteForm";
 		}
 		// 1. session에서 fileList를 가져온다
 		HashMap<String, String> fileList = (HashMap<String, String>) session.getAttribute("fileList");
 		logger.info("fileList:" + fileList.size());
 		if (result > 0) {//글쓰기 성공시
-			logger.info("카테고리번호{}글번호:{} ",boardctg,boarddto.getBoardIdx());
+			logger.info("카테고리번호{}글번호:{} ",boardctgidx,boarddto.getBoardIdx());
 			
 			// 2. fileList에 저장된 파일이 있는지 확인한다.
 		if (fileList.size() > 0) {

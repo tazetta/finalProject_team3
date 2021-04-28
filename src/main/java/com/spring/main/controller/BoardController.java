@@ -49,23 +49,23 @@ public class BoardController {
 		return BoardService.boarddetail(boardIdx);
 	}
 	@RequestMapping(value = "/boardWriteForm", method = RequestMethod.GET)
-	public String boardWriteForm(HttpSession session,@RequestParam String boardCtg) {
-		logger.info("{}카테고리글쓰기 페이지로 이동",boardCtg);
+	public String boardWriteForm(HttpSession session,@RequestParam String boardCtgIdx) {
+		logger.info("{}카테고리글쓰기 페이지로 이동",boardCtgIdx);
 		//업로드할 파일이름을 저장한 HashMap생성해서 session에 저장(upload메서드에서 여러파일을 관리하기위해)
 		HashMap<String, String> fileList = new HashMap<String, String>();
 		session.setAttribute("fileList", fileList);
 		String page="";
-		if(boardCtg.equals("1")) {
+		if(boardCtgIdx.equals("1")) {
 			page="freeWriteForm";
-		}else if(boardCtg=="2") {
+		}else if(boardCtgIdx=="2") {
 			page="homeWriteForm";
-		}else if(boardCtg=="3") {
+		}else if(boardCtgIdx=="3") {
 			page="tipWriteForm";
-		}else if(boardCtg=="4") {
+		}else if(boardCtgIdx=="4") {
 			page="qnaWriteForm";
-		}else if(boardCtg=="5") {
+		}else if(boardCtgIdx=="5") {
 			page="examWriteForm";
-		}else if(boardCtg=="6") {
+		}else if(boardCtgIdx=="6") {
 			page="sgtWriteForm";
 		}
 		return page;

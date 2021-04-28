@@ -21,4 +21,47 @@
 	<update id="boardUpHit">
 		UPDATE board SET bHit=bHit+1 WHERE boardIdx=#{boardIdx}
 	</update>
+	<!--글작성하기-->
+	<insert id="boardWrite" 
+		useGeneratedKeys="true"
+		keyProperty="boardIdx"
+		keyColumn="boardIdx"
+		parameterType="board">
+		<if test="boardctg==1">
+		INSERT INTO board(BOARDIDX, SUBJECT, CONTENT, ID,BRDCTGIDX) 
+		VALUES
+		(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{boardCtgIdx})
+		</if>
+		<if test="boardctg==2">
+		INSERT INTO board(BOARDIDX, SUBJECT, CONTENT, ID,BRDCTGIDX,FORMIDX,ROOMSIZE,BUDGET,KEYITEMS) 
+		VALUES
+		(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{boardCtgIdx},#{formIdx},#{roomSize},#{budget},#{keyItems})
+		</if>
+		<if test="boardctg==3">
+		INSERT INTO board(BOARDIDX, SUBJECT, CONTENT, ID,BRDCTGIDX) 
+		VALUES
+		(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{boardCtgIdx})
+		</if>
+		<if test="boardctg==4">
+		INSERT INTO board(BOARDIDX, SUBJECT, CONTENT, ID,BRDCTGIDX) 
+		VALUES
+		(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{boardCtgIdx})
+		</if>
+		<if test="boardctg==5">
+		INSERT INTO board(BOARDIDX, SUBJECT, CONTENT, ID,BRDCTGIDX) 
+		VALUES
+		(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{boardCtgIdx})
+		</if>
+		<if test="boardctg==6">
+		INSERT INTO board(BOARDIDX, SUBJECT, CONTENT, ID,BRDCTGIDX) 
+		VALUES
+		(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{boardCtgIdx})
+		</if>
+	</insert>
+	<!--글작성파일추가-->
+	<insert id="boardWriteFile">
+		INSERT INTO photos (PHOTOIDX, NEWFILENAME, ORIFILENAME, BOARDIDX) 
+		VALUES (photos_seq.NEXTVAL, #{param1}, #{param2}, #{param3})
+	</insert>
+	
 </mapper>
