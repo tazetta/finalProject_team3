@@ -53,9 +53,9 @@
 		(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{boardCtgIdx})
 		</if>
 		<if test="boardctg==6">
-		INSERT INTO board(BOARDIDX, SUBJECT, CONTENT, ID,BRDCTGIDX) 
+		INSERT INTO board(BOARDIDX, SUBJECT, CONTENT, ID,BRDCTGIDX,EMAIL) 
 		VALUES
-		(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{boardCtgIdx})
+		(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{boardCtgIdx},#{email})
 		</if>
 	</insert>
 	<!--글작성파일추가-->
@@ -63,5 +63,36 @@
 		INSERT INTO photos (PHOTOIDX, NEWFILENAME, ORIFILENAME, BOARDIDX) 
 		VALUES (photos_seq.NEXTVAL, #{param1}, #{param2}, #{param3})
 	</insert>
-	
+	<!--글수정하기 -->
+	<update id= "boardUpdate" parameterType="board">
+	<if test="brdCtgIdx==1">
+		UPDATE  board SET SUBJECT=#{subject}, CONTENT=#{content},BrdCtgIDX=#{brdCtgIdx}
+		WHERE boardIdx=#{boardIdx}
+		</if>
+		<if test="brdCtgIdx==2">
+		UPDATE  board SET SUBJECT=#{subject}, CONTENT=#{content},BrdCtgIDX=#{brdCtgIdx},roomSize=#{roomSize},budget=#{budget},formIdx=#{formIdx}
+		WHERE boardIdx=#{boardIdx}
+		</if>
+		<if test="brdCtgIdx==3">
+		UPDATE  board SET SUBJECT=#{subject}, CONTENT=#{content},BrdCtgIDX=#{brdCtgIdx}
+		WHERE boardIdx=#{boardIdx}
+		</if>
+		<if test="brdCtgIdx==4">
+		UPDATE  board SET SUBJECT=#{subject}, CONTENT=#{content},BrdCtgIDX=#{brdCtgIdx}
+		WHERE boardIdx=#{boardIdx}
+		</if>
+		<if test="brdCtgIdx==5">
+		UPDATE  board SET SUBJECT=#{subject}, CONTENT=#{content},BrdCtgIDX=#{brdCtgIdx}
+		WHERE boardIdx=#{boardIdx}
+		</if>
+		<if test="brdCtgIdx==6">
+		UPDATE  board SET SUBJECT=#{subject}, CONTENT=#{content},BrdCtgIDX=#{brdCtgIdx},EMAIL=#{email}
+		WHERE boardIdx=#{boardIdx}
+		</if>
+	</update>
+	<!--사진 수정-->
+	<update id="groupUpdateFile">
+		UPDATE photos  
+		SET PHOTOIDX=photos_seq.NEXTVAL, NEWFILENAME=#{param1}, ORIFILENAME =#{param2}  WHERE boardIdx=#{param3}
+	</update>
 </mapper>

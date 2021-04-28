@@ -80,27 +80,47 @@
 		UPDATE groupPurchase SET blind='y' WHERE gpIdx=#{gpIdx}
 	</delete>
 	
-	<select id="groupSearch" parameterType="hashMap" resultType="group">
+	<!-- <select id="groupSearch" parameterType="hashMap" resultType="group">
 		SELECT * FROM groupPurchase 
 		<where>
 			<if test="opt == 'subject' and !keyword.equals('')">subject LIKE '%'||#{keyword}||'%' </if>
 			<if test="opt == 'content' and !keyword.equals('')">content LIKE '%'||#{keyword}||'%' </if>
 			<if test="opt == 'id' and !keyword.equals('')"> id LIKE '%'||#{keyword}||'%' </if>
 		</where>
+	</select> -->
+	
+	<select id="groupSearchList"  parameterType="String" resultType="group">
+			
+		SELECT GPIDX,SUBJECT,CONTENT,CHATURL,PROGIDX,ID,MAXUSER,CURRUSER,DEADLINE,GPCTGIDX,reg_date,gHit, rnum ,blind
+		FROM (SELECT ROW_NUMBER() OVER (ORDER BY GPIDX DESC) AS rnum,GPIDX,SUBJECT,CONTENT,CHATURL,PROGIDX,ID,MAXUSER,CURRUSER,DEADLINE,GPCTGIDX,reg_date,gHit,blind 
+		FROM groupPurchase
+
+		WHERE blind='n'
+			<if test="param3.equals('all') and !param4.equals('')"> AND  subject LIKE '%'||#{param4}||'%' OR content LIKE '%'||#{param4}||'%' </if>
+			<if test="param3.equals('subject') and !param4.equals('')"> AND subject LIKE '%'||#{param4}||'%' </if>
+			<if test="param3.equals('content') and !param4.equals('')">AND content LIKE '%'||#{param4}||'%' </if>
+			<if test="param3.equals('id') and !param4.equals('')">AND  id LIKE '%'||#{param4}||'%' </if>
+		)
+
+		WHERE rnum BETWEEN #{param1} AND  #{param2}
 	</select>
+	
 	
 	<!-- 검색옵션 페이징 카운트 -->
 	<select id="groupSearchCount" parameterType="String" resultType="int">
 		SELECT COUNT(GPCTGIDX) FROM groupPurchase
 		<where>
-		<if test="opt.equals('subject')">
-		  subject LIKE '%'||#{keyword}||'%'
+		<if test="param1.equals('all')">
+		  subject LIKE '%'||#{param2}||'%' OR content LIKE '%'||#{param2}||'%'
 		</if>
-		<if test="opt.equals('content')">
-		 content LIKE '%'||#{keyword}||'%' 
+		<if test="param1.equals('subject')">
+		  subject LIKE '%'||#{param2}||'%'
 		</if>
-		<if test="opt.equals('id')">
-		 id LIKE '%'||#{keyword}||'%' 
+		<if test="param1.equals('content')">
+		 content LIKE '%'||#{param2}||'%' 
+		</if>
+		<if test="param1.equals('id')">
+		 id LIKE '%'||#{param2}||'%' 
 		</if>
 		</where>
 	</select>
