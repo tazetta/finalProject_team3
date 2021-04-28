@@ -1,78 +1,93 @@
- body{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            
-        }
-        .all-area{
-            width: 600px;
-            background-color: aliceblue;
-        }
-        .tab-area{
-            width: 600px;
-            text-align: center;
-            border-top: 1px solid black;
-        }
-        .tab-area button{
-            background-color: white;
-            padding: 20px;
-            width: 300px;
-            border: none;
-        
-            
-        }
-        .tab-area button:hover{
-            cursor: pointer;
-            opacity: 0.4;
-        }
-        .input-area{
-        
-        }
-        .member-area{
-            text-align: center;
-        }
-        .member-area input{
-            display: block;
-            width: 300px;
-            padding: 7px;
-            margin-top: 30px;
-            margin-left: 150px;
-        } 
-        .company-area input{
-            display: block;
-            width: 300px;
-            padding: 7px;
-            margin-top: 30px;
-            margin-left: 150px;
-        } 
-        .company-area{
-            display: none;
-        }
-        .btn-area{
-            text-align: center;
-            margin-top: 50px;
-        }
-        #btn{
-            border: none;
-            background-color: #166eca;
-            color: white;
-            width: 200px;
-            padding: 12px;
-            margin-bottom: 20px;
-        }
-        #btn:hover{
-            cursor: pointer;
-            opacity: 0.9;
-        }
-        #member-tab{
-            background-color: aliceblue;
-            font-weight: bold;
-          
-           
-        }
-        #company-tab{
-            
-            font-weight: bold;
-            background-color: rgb(187, 193, 199);
-        }
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    
+}
+.all-area{
+    width: 600px;
+    
+}
+.tab-area{
+    width: 600px;
+    text-align: center;
+    border: 2px solid #166eca;
+}
+.tab-area button{
+    background-color: white;
+    padding: 20px;
+    width: 300px;
+    border: none;
+    
+}
+.tab-area:hover button{
+    opacity: 0.8;
+}
+.tab-area button:hover{
+    cursor: pointer;
+    opacity: 1;
+}
+#member-tab{
+    transition: 0.2s;
+    background-color: #166eca;
+    color: white;
+    font-size: 17px;
+
+}
+#company-tab{
+    transition: 0.2s;
+    color: black;
+    font-size: 17px;
+    background-color: rgb(187, 193, 199);
+}
+#member-tab:hover{
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+#company-tab:hover{
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+input{
+    border: 2px solid #166eca ;
+    border-radius: 6px;
+}
+.member-area{
+    text-align: center;
+}
+.member-area input{
+    display: block;
+    width: 350px;
+    padding: 7px;
+    margin-top: 30px;
+    margin-left: 125px;
+    height: 30px;
+} 
+.company-area input{
+    display: block;
+    width: 350px;
+    padding: 7px;
+    margin-top: 30px;
+    margin-left: 125px;
+    height: 30px;
+} 
+.company-area{
+    display: none;
+}
+.btn-area{
+    text-align: center;
+    margin-top: 50px;
+}
+#btn1 ,#btn2{
+    border: none;
+    background-color: #166eca;
+    color: white;
+    width: 200px;
+    padding: 12px;
+    margin-bottom: 20px;
+    opacity: 0.9;
+}
+#btn1:hover ,#btn2:hover{
+    cursor: pointer;
+    opacity: 1;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 3px 10px 0 rgba(0,0,0,0.19);
+}
