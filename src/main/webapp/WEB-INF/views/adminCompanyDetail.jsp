@@ -148,12 +148,14 @@ select:hover {
 		
 
 				</table>
-				<div style="text-align: center;"><input type="button" class="inputs" value="창 닫기"/></div>
+				<div style="text-align: center;"><input type="button" class="inputs" value="창 닫기" onclick="closePopUp()"/></div>
 			</form>
 		</div>
 	</div>
 </body>
 <script>
-
+	function closePopUp() {
+		window.close();
+	}
 </script>
 </html>

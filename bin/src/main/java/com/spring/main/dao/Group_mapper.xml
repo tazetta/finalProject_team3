@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+   "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+
+<mapper namespace="com.spring.main.dao.GroupDAO">
+<insert id="groupWrite" 
+		useGeneratedKeys="true"
+		keyProperty="gpIdx"
+		keyColumn="gpIdx"
+		parameterType="group">
+		INSERT INTO groupPurchase(GPIDX, SUBJECT, CONTENT, CHATURL,PROGIDX, ID, MAXUSER, CURRUSER, DEADLINE, GPCTGIDX) 
+		VALUES(groupPurchase_seq.NEXTVAL, #{subject}, #{content}, #{chatURL},#{progIdx},#{id},#{maxUser},#{currUser},#{deadline},#{gpCtgIdx} )
+	</insert>
+	
+	<select id="groupDetail" resultType="group">
+	 SELECT GPIDX,SUBJECT,CONTENT,CHATURL,PROGIDX,ID,MAXUSER,CURRUSER,DEADLINE,GPCTGIDX,reg_date FROM groupPurchase WHERE GPIDX=#{gpIdx}
+	</select>
+	
+	<update id="groupUpHit">
+		UPDATE groupPurchase SET gHit=gHit+1 WHERE gpIdx=#{gpIdx}
+	</update>
+	
+	<!-- 카테고리  -->
+	<select id="groupCtg" resultType="String">
+		SELECT category FROM gpCtg WHERE gpCtgIdx=#{gpCtgIdx}
+	</select>
+	
+	<!-- 진행상황 -->
+	<select id="gpProgress" resultType="String">
+		SELECT progress FROM gpProgress WHERE progIdx=#{progIdx}
+	</select>
+	
+	<insert id="groupWriteFile">
+		INSERT INTO photos (PHOTOIDX, NEWFILENAME, ORIFILENAME, GPIDX) 
+		VALUES (photos_seq.NEXTVAL, #{param1}, #{param2}, #{param3})
+	</insert>
+	
+	<select id="groupList"  parameterType="int" resultType="group">
+			
+		SELECT GPIDX,SUBJECT,CONTENT,CHATURL,PROGIDX,ID,MAXUSER,CURRUSER,DEADLINE,GPCTGIDX,reg_date,gHit, rnum 
+		FROM (SELECT ROW_NUMBER() OVER (ORDER BY GPIDX DESC) AS rnum,GPIDX,SUBJECT,CONTENT,CHATURL,PROGIDX,ID,MAXUSER,CURRUSER,DEADLINE,GPCTGIDX,reg_date,gHit 
+		FROM groupPurchase
+
+		<if test="param3 == 1">
+		 WHERE GPCTGIDX=1 
+		</if>
+		<if test="param3 == 2">
+		 WHERE GPCTGIDX=2 
+		</if>
+		)
+
+		WHERE rnum BETWEEN #{param1} AND  #{param2}
+	</select>
+	
+	<select id="groupAllCount" parameterType="int" resultType="int">
+		SELECT COUNT(GPCTGIDX) FROM groupPurchase
+		<if test="value == 1">
+		 WHERE GPCTGIDX=1 
+		</if>
+		<if test="value == 2">
+		 WHERE GPCTGIDX=2 
+		</if>
+	</select>
+	
+	<select id="groupGetFileName" resultType="String">
+		SELECT newFileName FROM photos WHERE gpIdx=#{gpIdx}
+	</select>
+	
+	<delete id="groupPhotoDel">
+		DELETE FROM photos WHERE gpIdx=#{gpIdx}
+	</delete>
+	
+	<delete id="groupDel">
+		DELETE FROM groupPurchase WHERE gpIdx=#{gpIdx}
+	</delete>
+	
+	
+</mapper>

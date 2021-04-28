@@ -16,6 +16,26 @@
  	
 	<select id="allCount" resultType="Integer">
 		SELECT COUNT(REVIDX) FROM REVIEW
-	</select>
+	</select>      
+ 
+	<insert id="reviewWrite" 
+		useGeneratedKeys="true"
+		keyProperty="revIdx"
+		keyColumn="revIdx"
+		parameterType="com.spring.main.dto.ReviewDTO">
+		INSERT INTO review(REVIDX, SUBJECT, CONTENT, RATE,COMID, ID) 
+		VALUES(REVIEW_seq.NEXTVAL, #{subject}, #{content}, #{rate},#{comId},#{id})
+	</insert>
 	
+	<select id="reviewDetail" resultType="com.spring.main.dto.ReviewDTO">
+	 SELECT REVIDX, SUBJECT, CONTENT, RATE,COMID, ID,reg_date FROM review WHERE REVIDX=#{revIdx}
+	</select>
+
+	<update id="reviewUpdate" parameterType="com.spring.main.dto.ReviewDTO">
+		UPDATE REVIEW SET subject=#{subject}, content=#{content}, rate=#{rate} WHERE REVIDX=#{revIdx}
+	</update>
+	
+	<delete id="reviewDelete">
+		DELETE FROM REVIEW WHERE REVIDX=#{param1}
+	</delete>
 </mapper>

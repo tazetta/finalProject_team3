@@ -5,7 +5,7 @@
 >
 
 <mapper namespace="com.spring.main.dao.MemberDAO">
-	<select id="login" resultType="int" parameterType="String">
+	<select id="login" resultType="String" parameterType="String">
 		SELECT pw FROM generalmember WHERE id = #{id}
 	</select>
 	
@@ -17,7 +17,25 @@
 		INSERT INTO generalmember (id,pw,name,gender,phone,email)VALUES(#{id},#{pw},#{name},#{gender},#{phone},#{email})
 	</insert>
 	
-		<update id="gradeCntBoard">
+
+	<select id="idFind" resultType="String" parameterType="hashmap">
+		SELECT id FROM generalmember WHERE name=#{name} AND email=#{email}
+	</select>
+	
+	<select id="comIdFind" resultType="String" parameterType="hashmap">
+		SELECT comId FROM companymember WHERE  license =#{business_number} AND phone = #{phone}
+	</select>
+	
+	<select id="pwFind" resultType="com.spring.main.dto.MemberDTO" parameterType="Hashmap">
+		SELECT id , pw FROM generalmember WHERE name=#{name} AND id=#{id} AND email=#{email}
+	</select>
+	
+	<select id="comPwFind" resultType="com.spring.main.dto.CompanyMemberDTO" parameterType="hashmap">
+		SELECT comId , pw FROM companymember WHERE license = #{business_number} AND comId=#{id} AND phone=#{phone}
+	</select>
+	
+	
+	<update id="gradeCntBoard">
 		UPDATE generalMember
 		SET cntBoard=cntBoard+1 WHERE id=#{param1}
 	</update>
@@ -26,4 +44,5 @@
 		UPDATE generalMember
 		SET cntComm=cntComm+1 WHERE id=#{param1}
 	</update> 
+
 </mapper>

@@ -1,0 +1,78 @@
+ body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            
+        }
+        .all-area{
+            width: 600px;
+            background-color: aliceblue;
+        }
+        .tab-area{
+            width: 600px;
+            text-align: center;
+            border-top: 1px solid black;
+        }
+        .tab-area button{
+            background-color: white;
+            padding: 20px;
+            width: 300px;
+            border: none;
+        
+            
+        }
+        .tab-area button:hover{
+            cursor: pointer;
+            opacity: 0.4;
+        }
+        .input-area{
+        
+        }
+        .member-area{
+            text-align: center;
+        }
+        .member-area input{
+            display: block;
+            width: 300px;
+            padding: 7px;
+            margin-top: 30px;
+            margin-left: 150px;
+        } 
+        .company-area input{
+            display: block;
+            width: 300px;
+            padding: 7px;
+            margin-top: 30px;
+            margin-left: 150px;
+        } 
+        .company-area{
+            display: none;
+        }
+        .btn-area{
+            text-align: center;
+            margin-top: 50px;
+        }
+        #btn{
+            border: none;
+            background-color: #166eca;
+            color: white;
+            width: 200px;
+            padding: 12px;
+            margin-bottom: 20px;
+        }
+        #btn:hover{
+            cursor: pointer;
+            opacity: 0.9;
+        }
+        #member-tab{
+            background-color: aliceblue;
+            font-weight: bold;
+          
+           
+        }
+        #company-tab{
+            
+            font-weight: bold;
+            background-color: rgb(187, 193, 199);
+        }

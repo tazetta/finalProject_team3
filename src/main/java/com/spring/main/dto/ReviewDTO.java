@@ -7,7 +7,7 @@ public class ReviewDTO {
 	private int revIdx;
 	private String subject;
 	private String content;
-	private int rate;
+	private float rate;
 	private String comId;
 	private String id;
 	private Date reg_date;
@@ -30,10 +30,10 @@ public class ReviewDTO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public int getRate() {
+	public float getRate() {
 		return rate;
 	}
-	public void setRate(int rate) {
+	public void setRate(float rate) {
 		this.rate = rate;
 	}
 	public String getComId() {
