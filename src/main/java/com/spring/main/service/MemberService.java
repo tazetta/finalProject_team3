@@ -38,5 +38,7 @@ public class MemberService {
 	public int join(HashMap<String, String> params) {
 		return dao.join(params);
 	}
+	
+
 
 }

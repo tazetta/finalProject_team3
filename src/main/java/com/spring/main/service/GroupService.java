@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.main.dao.GroupDAO;
+import com.spring.main.dao.MemberDAO;
 import com.spring.main.dto.GroupDTO;
 import com.spring.main.dto.MemberDTO;
 
@@ -43,6 +44,9 @@ public class GroupService {
 
 	@Transactional // 글등록에 실패하면 저장한 파일내용 등록도 실행되지 않도록
 	public ModelAndView groupWrite(HashMap<String, String> params, HttpSession session) {
+		
+		String loginId= "yezi"; //세션아이디 넣을예정
+		
 		ModelAndView mav = new ModelAndView();
 		GroupDTO groupDTO = new GroupDTO();
 		int groupCtg = Integer.parseInt(params.get("groupCtg"));
@@ -91,6 +95,8 @@ public class GroupService {
 
 			page = "redirect:/groupDetail?gpIdx=" + groupDTO.getGpIdx();
 			msg = "글쓰기에 성공하였습니다";
+			
+			
 		} else { // 글쓰기 실패시
 			for (String newFileName : fileList.keySet()) {
 				File file = new File(root + "upload/" + newFileName);
@@ -101,6 +107,9 @@ public class GroupService {
 		mav.setViewName(page);
 		return mav;
 	}
+	
+	
+	
 
 	@Transactional
 	public ModelAndView detail(int gpIdx) {

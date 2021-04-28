@@ -16,4 +16,14 @@
 	<insert id="join" parameterType="hashmap">
 		INSERT INTO generalmember (id,pw,name,gender,phone,email)VALUES(#{id},#{pw},#{name},#{gender},#{phone},#{email})
 	</insert>
+	
+		<update id="gradeCntBoard">
+		UPDATE generalMember
+		SET cntBoard=cntBoard+1 WHERE id=#{param1}
+	</update>
+
+	<update id="gradeCntComm">
+		UPDATE generalMember
+		SET cntComm=cntComm+1 WHERE id=#{param1}
+	</update> 
 </mapper>

@@ -10,6 +10,11 @@ public interface MemberDAO {
 
 	int join(HashMap<String, String> params);
 
+	int gradeCntBoard(String id);
+
+	int gradeCntComm(String id);
+
+
 
 
 }

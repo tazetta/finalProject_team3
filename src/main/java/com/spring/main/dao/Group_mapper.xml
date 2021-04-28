@@ -113,5 +113,6 @@
 		SET PHOTOIDX=photos_seq.NEXTVAL, NEWFILENAME=#{param1}, ORIFILENAME =#{param2}  WHERE gpIdx=#{param3}
 	</update>
 	
+
 	
 </mapper>
