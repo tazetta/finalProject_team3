@@ -5,7 +5,7 @@
 >
 
 <mapper namespace="com.spring.main.dao.GroupDAO">
-<insert id="groupWrite" 
+	<insert id="groupWrite" 
 		useGeneratedKeys="true"
 		keyProperty="gpIdx"
 		keyColumn="gpIdx"
@@ -17,6 +17,10 @@
 	<select id="groupDetail" resultType="group">
 	 SELECT GPIDX,SUBJECT,CONTENT,CHATURL,PROGIDX,ID,MAXUSER,CURRUSER,DEADLINE,GPCTGIDX,reg_date FROM groupPurchase WHERE GPIDX=#{gpIdx}
 	</select>
+	
+	<update id="groupUpHit" >
+		UPDATE groupPurchase SET gHit=gHit+1 WHERE gpIdx=#{gpIdx}
+	</update>
 	
 	<!-- 카테고리  -->
 	<select id="groupCtg" resultType="String">
@@ -32,4 +36,82 @@
 		INSERT INTO photos (PHOTOIDX, NEWFILENAME, ORIFILENAME, GPIDX) 
 		VALUES (photos_seq.NEXTVAL, #{param1}, #{param2}, #{param3})
 	</insert>
+	
+	<select id="groupList"  parameterType="int" resultType="group">
+			
+		SELECT GPIDX,SUBJECT,CONTENT,CHATURL,PROGIDX,ID,MAXUSER,CURRUSER,DEADLINE,GPCTGIDX,reg_date,gHit, rnum 
+		FROM (SELECT ROW_NUMBER() OVER (ORDER BY GPIDX DESC) AS rnum,GPIDX,SUBJECT,CONTENT,CHATURL,PROGIDX,ID,MAXUSER,CURRUSER,DEADLINE,GPCTGIDX,reg_date,gHit 
+		FROM groupPurchase
+
+		<if test="param3 == 1">
+		 WHERE GPCTGIDX=1 
+		</if>
+		<if test="param3 == 2">
+		 WHERE GPCTGIDX=2 
+		</if>
+		)
+
+		WHERE rnum BETWEEN #{param1} AND  #{param2}
+	</select>
+	
+	<select id="groupAllCount" parameterType="int" resultType="int">
+		SELECT COUNT(GPCTGIDX) FROM groupPurchase
+		<if test="value == 1">
+		 WHERE GPCTGIDX=1 
+		</if>
+		<if test="value == 2">
+		 WHERE GPCTGIDX=2 
+		</if>
+	</select>
+	
+	
+	<select id="groupGetFileName" resultType="String">
+		SELECT newFileName FROM photos WHERE gpIdx=#{gpIdx}
+	</select>
+	
+	<delete id="groupPhotoDel">
+		DELETE FROM photos WHERE gpIdx=#{gpIdx}
+	</delete>
+	
+	<delete id="groupDel">
+		DELETE FROM groupPurchase WHERE gpIdx=#{gpIdx}
+	</delete>
+	
+	<select id="groupSearch" parameterType="hashMap" resultType="group">
+		SELECT * FROM groupPurchase 
+		<where>
+			<if test="opt == 'subject' and !keyword.equals('')">subject LIKE '%'||#{keyword}||'%' </if>
+			<if test="opt == 'content' and !keyword.equals('')">content LIKE '%'||#{keyword}||'%' </if>
+			<if test="opt == 'id' and !keyword.equals('')"> id LIKE '%'||#{keyword}||'%' </if>
+		</where>
+	</select>
+	
+	<!-- 검색옵션 페이징 카운트 -->
+	<select id="groupSearchCount" parameterType="String" resultType="int">
+		SELECT COUNT(GPCTGIDX) FROM groupPurchase
+		<where>
+		<if test="opt.equals('subject')">
+		  subject LIKE '%'||#{keyword}||'%'
+		</if>
+		<if test="opt.equals('content')">
+		 content LIKE '%'||#{keyword}||'%' 
+		</if>
+		<if test="opt.equals('id')">
+		 id LIKE '%'||#{keyword}||'%' 
+		</if>
+		</where>
+	</select>
+	
+	
+	<update id= "groupUpdate" parameterType="group">
+		UPDATE  groupPurchase SET SUBJECT=#{subject}, CONTENT=#{content}, CHATURL=#{chatURL},PROGIDX=#{progIdx},MAXUSER=#{maxUser},DEADLINE=#{deadline},GPCTGIDX=#{gpCtgIdx}
+		WHERE gpIdx=#{gpIdx}
+	</update>
+	
+	<update id="groupUpdateFile">
+		UPDATE photos  
+		SET PHOTOIDX=photos_seq.NEXTVAL, NEWFILENAME=#{param1}, ORIFILENAME =#{param2}  WHERE gpIdx=#{param3}
+	</update>
+	
+	
 </mapper>

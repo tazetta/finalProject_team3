@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+   "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+<mapper namespace="com.spring.main.dao.ReviewDAO">
+	
+	<select id="reviewList" resultType="com.spring.main.dto.ReviewDTO">
+	SELECT REVIDX,SUBJECT,CONTENT,RATE,COMID,ID,reg_date,rnum 
+	FROM( 
+	 		SELECT REVIDX,SUBJECT,CONTENT,RATE,COMID,ID,reg_date, 
+	 		ROW_NUMBER() OVER(ORDER BY REVIDX DESC) AS rnum FROM REVIEW
+	 		)
+	WHERE rnum between #{param1} AND #{param2}
+	</select>
+ 	
+	<select id="allCount" resultType="Integer">
+		SELECT COUNT(REVIDX) FROM REVIEW
+	</select>
+	
+</mapper>

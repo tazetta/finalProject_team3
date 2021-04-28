@@ -18,10 +18,22 @@ public class GroupDTO {
 	private Date deadline;
 	private int gpCtgIdx; // 카테고리 1.공동구매 2.무료나눔
 	private Date  reg_date;
+	private int gHit;
+	
+	
 	/*gpCtg 테이블*/
 	private String category;
 	/*gpProgress 테이블*/
 	private String progress;
+	
+	
+	public int getgHit() {
+		return gHit;
+	}
+	public void setgHit(int gHit) {
+		this.gHit = gHit;
+	}
+	
 	
 	public String getProgress() {
 		return progress;

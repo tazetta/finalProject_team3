@@ -6,14 +6,18 @@
 </head>
 <body>
 
-<a href='#' onclick="location.href='./list'">리뷰페이지</a>
+<a href="reviewList">리뷰페이지</a>
 <a href="groupListPage">공동구매</a>
 <a href="FAQ">고객센터</a>
+<a href="companydetail">업체 페이지</a>
 <br/>
 <hr>
 <a href="adminMain">관리자 메인페이지</a>
 <a href="adminMemberList">관리자 일반회원 리스트</a>
 <a href="adminMemberDetail">관리자 일반회원 상세보기</a>
-<hr>
+<a href="adminCompanyDetail">업체 회원 상세보기</a>
+<a href="adminSoundList">고객의소리 리스트</a>
+<a href="NewFile">test</a>
+
 </body>
 </html>

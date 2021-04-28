@@ -18,3 +18,4 @@ bin/src/main/webapp/WEB-INF/web.xml
 bin/src/main/webapp/WEB-INF/spring/root-context.xml
 bin/src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml
 bin/src/main/webapp/WEB-INF/views/home.jsp
+bin/
