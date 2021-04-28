@@ -34,7 +34,18 @@ public class AdminController {
 		logger.info("관리자 일반회원 상세보기");
 		return "adminMemberDetail";
 	}
-
+	
+	@RequestMapping(value = "/adminCompanyList", method = RequestMethod.GET)
+	public String adminCompanyList() {
+		logger.info("관리자 일반회원 목록보기");
+		return "adminCompanyList";
+	}
+	
+	@RequestMapping(value = "/adminCompanyDetail", method = RequestMethod.GET)
+	public String adminCompanyDetail() {
+		logger.info("관리자 업체회원 상세보기");
+		return "adminCompanyDetail";
+	}
 	
 	@RequestMapping(value = "/adminSoundList", method = RequestMethod.GET)
 	public String adminSoundList() {
@@ -46,6 +57,18 @@ public class AdminController {
 	public String adminSoundDetail() {
 		logger.info("관리자 고객의 소리 상세보기 팝업");
 		return "adminSoundDetail";
+	}
+	
+	@RequestMapping(value = "/adminReportedBrdList", method = RequestMethod.GET)
+	public String adminReportedBrdList() {
+		logger.info("신고된 게시글 리스트");
+		return "adminReportedBrdList";
+	}
+	
+	@RequestMapping(value = "/adminReportedCommList", method = RequestMethod.GET)
+	public String adminReportedCommList() {
+		logger.info("신고된 댓글 리스트");
+		return "adminReportedCommList";
 	}
 	
 	@RequestMapping(value = "/NewFile", method = RequestMethod.GET)
