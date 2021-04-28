@@ -85,6 +85,9 @@ public class BoardService {
 			boarddto.setBudget(Integer.parseInt(params.get("budget")));//예산
 			boarddto.setFormidx(Integer.parseInt(params.get("formidx")));//주거형태
 		}
+		if(boardctgidx==6) {
+			boarddto.setEmail(params.get("email"));
+		}
 		int result = boarddao.boardWrite(boarddto);
 		//실패시 다시 카테고리에 맞는 수정폼으로 보내기
 		if(boardctgidx==1) {
@@ -179,6 +182,9 @@ public class BoardService {
 			dto.setRoomsize(Integer.parseInt(params.get("roomsize")));//평수
 			dto.setBudget(Integer.parseInt(params.get("budget")));//예산
 			dto.setFormidx(Integer.parseInt(params.get("formidx")));//주거형태
+		}
+		if(brdCtgIdx==6) {
+			dto.setEmail(params.get("email"));
 		}
 		int result = boarddao.boardUpdate(dto);//성공시 dao실행
 		//실패시 다시 카테고리에 맞는 수정으로 보내기
