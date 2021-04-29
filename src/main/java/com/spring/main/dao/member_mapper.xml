@@ -10,7 +10,7 @@
 	</select>
 	
 	<select id="cLogin" resultType="String">
-		SELECT pw FROM companymember WHERE comId=#{id}
+		SELECT comId FROM companymember WHERE comId=#{param1} AND pw=#{param2}
 	</select>
 	
 	<select id="adLogin" resultType="String" parameterType="String">
@@ -38,17 +38,9 @@
 		SELECT id , pw FROM generalmember WHERE name=#{name} AND id=#{id} AND email=#{email}
 	</select>
 	
-	<select id="comPwFind" resultType="String" parameterType="hashmap">
-		SELECT comId  FROM companymember WHERE license = #{business_number} AND comId=#{cId} AND phone=#{phone}
+	<select id="comPwFind" resultType="com.spring.main.dto.CompanyMemberDTO" parameterType="hashmap">
+		SELECT comId , pw FROM companymember WHERE license = #{business_number} AND comId=#{id} AND phone=#{phone}
 	</select>
-	
-	<update id="resetPw" parameterType="String">
-		UPDATE generalmember SET pw=#{param2} WHERE id=#{param1} 
-	</update>
-	
-	<update id="resetCPw" parameterType="String">
-		UPDATE companymember SET pw=#{param2} WHERE comId=#{param1}
-	</update>
 	
 	
 	<update id="gradeCntBoard">

@@ -15,15 +15,15 @@ public interface BoardDAO {
 	BoardDTO Boarddetail(String boardIdx);
 	//게시글 작성
 	int boardWrite(BoardDTO boarddto);
-	//게시글작성(파일추가)
+	//게시글작성(사진)
 	void boardWriteFile(String key, String string, int boardIdx);
 	//게시글 수정
 	int boardUpdate(BoardDTO dto);
-	//게시글 수정(파일찾기)
+	//게시글 수정(사진)
 	void boardUpdateFile(String key, String string, int boardIdx);
 	//게시글 파일찾기
 	String boardGetFileName(String boardIdx);
-	//게시글 사진삭제
+	//게시글 삭제(사진)
 	int boardPhotoDel(String boardIdx);
 	//게시글 삭제
 	int boardDel(String boardIdx);

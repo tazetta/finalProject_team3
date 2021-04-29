@@ -40,6 +40,15 @@ a.button2:hover {
 	color: rgba(255, 255, 255, 0.85);
 	box-shadow: rgb(255, 210, 180) 0 0px 0px 40px inset;
 }
+span:hover {
+        color: black;
+    }
+
+    #btn:hover {
+        color: rgb(143, 201, 248);
+        box-shadow: rgb(143, 201, 248) 0 0px 0px 40px inset;
+    }
+
 
 </style>
 </head>
@@ -49,15 +58,19 @@ a.button2:hover {
  
     
     <div class="container" style="text-align: center; padding-top: 10px;">
-        <input type="text" size="75" style="border-radius: 5px; border: 2px solid rgb(203, 228, 248); " placeholder="검색어를 입력해주세요.">
+        <input type="text" size="75" style="border-radius: 5px; border: 2px solid rgb(203, 228, 248); "
+            placeholder="검색어를 입력해주세요.">
         &nbsp;
-        <button id="btn" style="border-radius: 5px; background-color: rgb(203, 228, 248); border: 2px solid rgb(203, 228, 248); font-weight: bold; color: white;">검색</button>
-        <span><a href="" style="font-size:small; float: right; color: gray; font-weight: bold;">|고객센터</a></span>
-        <span><a href="" style="font-size:small; float: right; color: gray; font-weight: bold;" >|회원가입</a></span>
-        <span><a href="" style="font-size:small; float: right; color: gray; font-weight: bold;">로그인</a></span>
+        <button id="btn"
+            style="border-radius: 5px; background-color: rgb(203, 228, 248); border: 2px solid rgb(203, 228, 248); font-weight: bold; color: white;">검색</button>
+        <a href="" style="font-size:small; float: right; color: gray; padding-left: 5px;  font-weight: bold;">|<span
+                style="padding-left: 5px; font-weight: bold; ">고객센터</span></a>
+        <a href="" style="font-size:small; float: right; color: gray; padding-left: 5px; font-weight: bold;">|<span
+                style="padding-left: 5px;  font-weight: bold;">회원가입</span></a>
+        <a href="" style="font-size:small; float: right; color: gray;  font-weight: bold; "><span>로그인</span></a>
+        <br />
     </div>
-   <br/>
-
+    <br />
     <div class="container"  style="height:200px; background-color: rgb(184, 185, 190); text-align:center;">
   
         <h1 style="padding-top: 50px; font-weight: bold;">질문하기</h1>
@@ -82,7 +95,7 @@ a.button2:hover {
            
             <a href="#" class="button" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; float: right;">취소</a>
             
-         </div> 
-         </div>    
+      </div>    
+    </div>     
     </body>
 </html>

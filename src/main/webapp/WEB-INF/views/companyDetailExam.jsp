@@ -37,15 +37,15 @@
 </style>
 </head>
 <body>
-	<h3>리뷰 리스트 페이지</h3>
+	<h3>시공사례전체보기</h3>
 	<input type="hidden" id ="comId" value="${comId}" readonly/>
 	<jsp:include page="companyDetailnavi.jsp" />
 	<table>
 		<thead>
 			<tr>
 				<td>제목</td>
-				<td>작성자</td>
-				<td>별점</td>
+				<td>업체명</td>
+				<td>조회수</td>
 				<td>작성일</td>
 			</tr>
 		</thead>
@@ -74,11 +74,10 @@ if(msg != ""){
 	listCall(showPage); //시작하자마자 이 함수를 호출
 
 	function listCall(reqPage) {
-		//Restful service는 ajax를 통해 호출하여 사용하는 경우가 많지만
-		//restful service가 곧 ajax라고 생각해서는 안된다.
+		console.log("리스트콜 호출");
 		var comId = $('#comId').val();
 		console.log(comId);
-		var reqUrl = './reviewList/' + reqPage+"/"+comId;
+		var reqUrl = './comExamList/' + reqPage+"/"+comId;
 		$.ajax({
 			url : reqUrl,
 			type : 'GET',
@@ -87,7 +86,7 @@ if(msg != ""){
 			success : function(data) {
 				console.log(data);
 				showPage = data.currPage;
-				listPrint(data.reviewList);
+				listPrint(data.list);
 				//플러그인 사용
 				$('#pagination').twbsPagination({
 					startPage : data.currPage, //시작 페이지
@@ -106,17 +105,17 @@ if(msg != ""){
 		});
 	}
 	
-	function listPrint(reviewList) {
+	function listPrint(list) {
 		console.log("listprint실행");
-		console.log(reviewList.length);
+		console.log(list.length);
 		var content = "";
-		for (var i = 0; i < reviewList.length; i++) {
+		for (var i = 0; i < list.length; i++) {
 			content += "<tr>"
-			content += "<td><a href='reviewDetail?revIdx="+reviewList[i].revIdx+"'>" + reviewList[i].subject + "</td>"
-			content += "<td>" + reviewList[i].id + "</td>"
-			content += "<td>★" + reviewList[i].rate + ".0</td>"
+			content += "<td><a href='examDetail?combrdIdx="+list[i].combrdIdx+"'>" + list[i].subject + "</td>"
+			content += "<td>" + list[i].comId + "</td>"
+			content += "<td>" + list[i].bHit + "</td>"
 			//java에서 가끔 날짜가 milliseconds로 나올 경우..
-			var date = new Date(reviewList[i].reg_date);
+			var date = new Date(list[i].reg_date);
 			content += "<td>" + date.toLocaleDateString("ko-KR") + "</td>"
 			content += "</tr>"
 		}

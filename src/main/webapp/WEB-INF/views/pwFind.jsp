@@ -28,7 +28,7 @@
                 </form>
         </div>
          <div class="company-area">
-                <form action="cPwFind" method="post" onsubmit="return cFindSubmit()"> 
+                <form action="findCpw" method="post" onsubmit="return cFindSubmit()"> 
                     <input id="business_number" type="text" name="business_number" placeholder="사업자 번호 입력( - ) 없이"/>
                     <input id="cId" type="text" name="cId" placeholder="아이디 입력 "/>
                     <input id="phone" type="text" name="phone" placeholder="휴대폰 번호 입력( - 없이) "/>

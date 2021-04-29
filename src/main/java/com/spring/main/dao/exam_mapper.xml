@@ -55,4 +55,37 @@
 	<select id="interiorCompanyDetail" resultType="exam">
 		SELECT * FROM COMPANYMEMBER WHERE COMID=#{param1}
 	</select>
+	
+	<select id="comExamList" resultType="exam">
+	SELECT COMBRDIDX,SUBJECT,CONTENT,COMID,reg_date,rnum
+	FROM( 
+	 		SELECT COMBRDIDX,SUBJECT,CONTENT,COMID,reg_date, 
+	 		ROW_NUMBER() OVER(ORDER BY COMBRDIDX DESC) AS rnum FROM COMPANYBOARD WHERE COMID=#{param3}
+	 		)
+	WHERE rnum between #{param1} AND #{param2}
+	</select>
+	
+	<select id="allCount" resultType="Integer">
+		SELECT COUNT(COMBRDIDX) FROM COMPANYBOARD WHERE COMID=#{param1}
+	</select> 
+	
+	<select id="examSemiList" resultType="exam">
+		SELECT COMBRDIDX,SUBJECT,CONTENT,COMID,reg_date,rnum
+	FROM( 
+	 		SELECT COMBRDIDX,SUBJECT,CONTENT,COMID,reg_date, 
+	 		ROW_NUMBER() OVER(ORDER BY COMBRDIDX DESC) AS rnum FROM COMPANYBOARD WHERE COMID=#{param1}
+	 		)
+	WHERE rnum between 1 AND 5
+	
+	</select>
+	
+	<select id="reviewSemiList" resultType="review">
+	SELECT REVIDX,SUBJECT,CONTENT,RATE,COMID,ID,reg_date,rnum 
+	FROM( 
+	 		SELECT REVIDX,SUBJECT,CONTENT,RATE,COMID,ID,reg_date, 
+	 		ROW_NUMBER() OVER(ORDER BY REVIDX DESC) AS rnum FROM REVIEW WHERE COMID=#{param1}
+	 		)
+	WHERE rnum between 1 AND 5
+	</select>
+	
 </mapper>
