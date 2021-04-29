@@ -25,11 +25,12 @@
 <a href="adminCompanyDetail">업체 회원 상세보기</a>
 <br/>
 <a href="adminSoundList">고객의소리 리스트</a>
-
 <br/>
 <a href="adminReportedBrdList">신고된 게시글 리스트</a>
 <a href="adminReportedCommList">신고된 댓글 리스트</a>
 <a href="NewFile">test</a>
+<br/>
+<a href="myInteriorHistory">내 인테리어 변천사</a>
 
 </body>
 </html>
