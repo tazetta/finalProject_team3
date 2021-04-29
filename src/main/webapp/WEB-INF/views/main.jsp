@@ -56,7 +56,7 @@
         <br />
         <div>
             <br />
-            <jsp:include page="mainnavi.jsp"></jsp:include>
+            <jsp:include page=""></jsp:include>
             <div class="container">
                 <h4>오늘의 땃쥐 룸</h4>
                 <br/>
