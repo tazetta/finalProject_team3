@@ -7,28 +7,34 @@
 		<style></style>
 		<link rel="stylesheet" href="resources/css/memberCSS/idResult.css"/>
 	</head>
- <div class="all-area">
+<body>
+    <div class="all-area">
         <div class="title">
             <h3>아이디 찾기 결과</h3>
         </div>
          <!--c:if 따라서 결과 내용1-->
-         <span class="result-msg">
-             회원님의 정보로 가입된 아이디가 있습니다.    
-         </span>
-        <div class="result-area">
-            <div>
-                <span class="id">${id}</span>
-                <span class="reg_date">${reg_date}</span>
-                <span>가입</span>
-            </div>
-        </div>
+         <c:set var="userId" value="${findId}"/>
+         <c:if test="${userId != null}">
+		         <span class="result-msg">
+				             회원님의 정보로 가입된 아이디가 있습니다.    
+		         </span>
+	           <div class="result-area">
+		           <div>
+		               <span class="id">${userId}</span>
+		               <span class="reg_date">${reg_date}</span>
+		               <span>가입</span>
+		           </div>
+		       </div>
+	     </c:if>
         <!--c:if 따라서 결과 내용2-->
-   
+   		<c:set var="userId" value="${userId}"/>
+   		<c:if test="${userId == null}">
         <div class="result-area">
-           <span class="result-msg2">
-               회원님의 정보로 가입된 정보가 없습니다. <a href="membership">회원가입</a> 하러가기
-           </span>
+           <div class="result-msg2">
+               	회원님의 정보로 가입된 정보가 없습니다. <a href="membership">회원가입</a> 하러가기
+           </div>
         </div>
+   		</c:if>
 
         <!--버튼 div-->
         <div class="btn-area">
@@ -39,7 +45,6 @@
                 <button class="btn2" onclick="location.href='membership'">로그인 </button>
             </div>
         </div>
-     
     </div>
 </body>
 </html>

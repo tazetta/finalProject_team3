@@ -60,14 +60,14 @@ public class MemberService {
 
 
 
-	public String idFind(HashMap<String, String> params) {
+	public MemberDTO idFind(HashMap<String, String> params) {
 		
 		return dao.idFind(params);
 	}
 
 
 
-	public String comIdFind(HashMap<String, String> params) {
+	public CompanyMemberDTO comIdFind(HashMap<String, String> params) {
 		
 		return dao.comIdFind(params);
 	}

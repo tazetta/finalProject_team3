@@ -18,7 +18,7 @@
             <button id="member-tab" type="button" onclick="memberTab()">일반 회원</button><button id="company-tab" type="button"onclick="companyTab()">업체 회원</button>
         </div>
         <div class="member-area">
-                <form action="idFind" method="post" onsubmit="return findSubmit()">
+                <form action="pwFind" method="post" onsubmit="return findSubmit()">
                     <input id="name" type="text" name="name" placeholder="이름 입력"/>
                     <input id="id" type="text" name="id" placeholder="아이디 입력 "/>
                     <input id="email"type="text" name="email" placeholder="이메일 입력 "/>
@@ -28,7 +28,7 @@
                 </form>
         </div>
          <div class="company-area">
-                <form action="comIdFind" method="post" onsubmit="return cFindSubmit()"> 
+                <form action="findCpw" method="post" onsubmit="return cFindSubmit()"> 
                     <input id="business_number" type="text" name="business_number" placeholder="사업자 번호 입력( - ) 없이"/>
                     <input id="cId" type="text" name="cId" placeholder="아이디 입력 "/>
                     <input id="phone" type="text" name="phone" placeholder="휴대폰 번호 입력( - 없이) "/>
@@ -96,6 +96,11 @@
         }else{
             return true;
         }
+    }
+    
+    var msg = "${msg}";
+    if(msg != ""){
+    	alert(msg);
     }
 </script>
 </html>
