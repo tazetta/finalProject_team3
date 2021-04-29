@@ -139,10 +139,12 @@ public class BoardController {
 		return BoardService.boardDel(boardIdx,brdCtgIdx,session,rAttr);
 	}
 	// 비동기로 받기 때문에 @ResponseBody
-		@RequestMapping(value = "/boardFileDelete", method = RequestMethod.GET)
-		public @ResponseBody HashMap<String, Object> boardFileDelete(@RequestParam String fileName, HttpSession session) { // 세션에서도
-																															// 삭제
-			logger.info(fileName + " ->파일 삭제 요청");
-			return BoardService.fileDelete(fileName, session);
-		}
+	@RequestMapping(value = "/boardFileDelete", method = RequestMethod.GET)
+	public @ResponseBody HashMap<String, Object> boardFileDelete(@RequestParam String fileName, HttpSession session) { // 세션에서도
+																														// 삭제
+		logger.info(fileName + " ->파일 삭제 요청");
+		return BoardService.fileDelete(fileName, session);
+	}
+	
+	
 }
