@@ -6,13 +6,13 @@
 </head>
 <body>
 
+<h3 href="main">메인페이지</h3>
 <a href="reviewList">리뷰페이지</a>
 <a href="groupListPage">공동구매</a>
 <a href="FAQ">고객센터</a>
 <a href="Freelist">자유게시판</a>
 <a href="companydetail">업체 페이지</a>
 <a href="interiorexamList">전문가인테리어</a>
-<a href="Freeview">프리뷰</a>
 <br/>
 <hr>
 <a href="adminMain">관리자 메인페이지</a>

@@ -30,6 +30,9 @@ a {
     
 	
 }
+.row{
+width: 400px;
+}
 a.button2 {
 	color: rgba(30, 22, 54, 0.6);
 	box-shadow: rgb(255, 210, 180) 0 0px 0px 2px inset;

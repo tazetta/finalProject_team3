@@ -37,6 +37,11 @@ public class BoardController {
 		logger.info("고객센터페이지입니다.");
 		return "FAQ";
 	}
+	@RequestMapping(value = "/main", method = RequestMethod.GET)
+	public String Main() {
+		logger.info("main");
+		return "main";
+	}
 	@RequestMapping(value = "/Freeview", method = RequestMethod.GET)
 	public String Freeview() {
 		logger.info("프리뷰.");
@@ -46,6 +51,11 @@ public class BoardController {
 	public String Freelist() {
 		logger.info("자유게시판");
 		return "Freelist";
+	}
+	@RequestMapping(value = "/helpMain", method = RequestMethod.GET)
+	public String helpmain() {
+		logger.info("helpMain");
+		return "helpMain";
 	}
 	@RequestMapping(value = "/FAQsend", method = RequestMethod.GET)
 	public String FAQsend() {
