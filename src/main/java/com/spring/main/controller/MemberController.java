@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.main.dto.CompanyMemberDTO;
 import com.spring.main.dto.MemberDTO;
@@ -48,7 +47,7 @@ public class MemberController {
 		if(mode.equals("member")) {
 			if(service.login(id,pw)) {
 				msg ="로그인에 성공 하였습니다.";
-				page="main";
+				page="redirect:/main";
 				session.setAttribute("loginId", id);
 				
 			}
@@ -62,7 +61,6 @@ public class MemberController {
 		}
 		
 		logger.info("세션 아이디 : {}", session.getAttribute("loginId"));
-		logger.info("업체세션 아이디 : {}", session.getAttribute("cLoginId"));
 		mav.addObject("msg", msg);
 		mav.setViewName(page);
 		return mav;
@@ -130,7 +128,6 @@ public class MemberController {
 		return mav;
 	}
 	
-		
 	@RequestMapping(value = "/idFind", method = RequestMethod.POST)
 	public ModelAndView idFind(@RequestParam HashMap<String, String> params) {
 		logger.info("일반회원 아이디 찾기 요청");
@@ -175,7 +172,7 @@ public class MemberController {
 			if(dto != null) {
 				logger.info("findId {} " , dto.getId());
 				logger.info("findPw {} ", dto.getPw());				
-				page ="memberPwReset";
+				page ="pwReset";
 				msg ="비밀번호를 재설정 합니다.";
 				mav.addObject("id", dto.getId());
 			}
@@ -189,14 +186,19 @@ public class MemberController {
 			logger.info("업체회원 비밀번호 찾기 요청");
 			logger.info("params {} " , params);
 			ModelAndView mav = new ModelAndView();
+			CompanyMemberDTO dto = new CompanyMemberDTO();
 			String page = "pw_find";
 			String msg = "요청하신 정보로 찾을수 없습니다.";
-			String findId =	service.comPwFind(params);
-			if(findId != null) {
-				page ="memberCPwReset";
+			dto = service.comPwFind(params);
+			logger.info("findId {} " , dto.getComId());
+			logger.info("findPw {} ", dto.getPw());
+			String findId = dto.getComId();
+			String findPw = dto.getPw();
+			if(findId != null  && findPw != null) {
+				page ="pwReset";
 				msg ="비밀번호를 재설정 합니다.";
 			}
-			mav.addObject("id", findId);
+			mav.addObject("findId", findId);
 			mav.addObject("msg", msg);
 			mav.setViewName(page);
 			return mav;
@@ -227,42 +229,19 @@ public class MemberController {
 			mav.setViewName(page);
 			return mav;
 		}
-		
-		@RequestMapping(value = "/resetPw", method = RequestMethod.POST)
-		public ModelAndView resetPw(@RequestParam String id , String rPw ,RedirectAttributes rAttr) {
-			logger.info("비밀번호 재설정  요청");
-			logger.info("재설정 아이디" + id +"/" + "재설정 비밀번호" + rPw);
+		@RequestMapping(value = "/myprofile", method = RequestMethod.GET)
+		public ModelAndView myprofile() {
+			logger.info("myprofile 페이지 요청");
 			ModelAndView mav = new ModelAndView();
-			boolean success = false;
-			String msg = "실패 하였습니다.";
-			String page = "findPw";
-			if(service.resetPw(id,rPw) >0 ) {
-				success = true;
-				msg = "비밀번호를 재설정 하였습니다.";
-				page ="redirect:/membership";
-			}
-
-			rAttr.addFlashAttribute("msg", msg);
-			mav.setViewName(page);
+			mav.setViewName("myprofile");
 			return mav;
-		}	
-		@RequestMapping(value = "/resetCPw", method = RequestMethod.POST)
-		public ModelAndView resetCPw(@RequestParam String id , String rPw ,RedirectAttributes rAttr) {
-			logger.info("비밀번호 재설정  요청");
-			logger.info("재설정 아이디" + id +"/" + "재설정 비밀번호" + rPw);
+		}
+		@RequestMapping(value = "/mynavi", method = RequestMethod.GET)
+		public ModelAndView mynavi() {
+			logger.info("mynavi 페이지 요청");
 			ModelAndView mav = new ModelAndView();
-			boolean success = false;
-			String msg = "실패 하였습니다.";
-			String page = "findPw";
-			if(service.resetCPw(id,rPw) >0 ) {
-				success = true;
-				msg = "비밀번호를 재설정 하였습니다.";
-				page ="redirect:/membership";
-			}
-
-			rAttr.addFlashAttribute("msg", msg);
-			mav.setViewName(page);
+			mav.setViewName("mynavi");
 			return mav;
-		}	
+		}
 }
 

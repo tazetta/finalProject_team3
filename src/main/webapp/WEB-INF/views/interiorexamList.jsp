@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<%String comId = (String)request.getSession().getAttribute("comId"); %>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -38,9 +37,9 @@
 <body>
 	<h3>시공사례 리스트 페이지</h3>
 	<!-- 업체세션있는 사람만 글쓰기 보이게 -->
-	<%-- <c:if test="${comId ne null}">--%>
+	<c:if test="${sessionScope.cLoginId ne null}">
 		<button onclick="location.href='./examWriteForm'">시공사례쓰기</button>
-	<%--</c:if> --%>
+	</c:if>
 	<table>
 		<thead>
 			<tr>
@@ -75,7 +74,7 @@
 	</table>
 </body>
 <script>
-/* var msg = "${msg}";
+/*var msg = "${msg}";
 if(msg != ""){
 	alert(msg);
 }

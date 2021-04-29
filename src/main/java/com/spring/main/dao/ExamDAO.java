@@ -4,12 +4,13 @@ import java.util.ArrayList;
 
 import com.spring.main.dto.BoardDTO;
 import com.spring.main.dto.ExamDTO;
+import com.spring.main.dto.ReviewDTO;
 
 public interface ExamDAO {
 
 	ArrayList<BoardDTO> interiorexamList(int start, int end);
 
-	int allCount();
+	int allCount(String comId);
 
 	int examWrite(ExamDTO examDTO);
 
@@ -32,5 +33,11 @@ public interface ExamDAO {
 	ArrayList<ExamDTO> list();
 
 	ExamDTO interiorCompanyDetail(String comId);
+
+	ArrayList<ReviewDTO> comExamList(int start, int end, String comId);
+
+	ArrayList<ExamDTO> examSemiList(String comId);
+
+	ArrayList<ReviewDTO> reviewSemiList(String comId);
 
 }

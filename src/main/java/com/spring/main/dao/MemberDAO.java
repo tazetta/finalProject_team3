@@ -19,7 +19,7 @@ public interface MemberDAO {
 
 	MemberDTO pwFind(HashMap<String, String> params);
 
-	String comPwFind(HashMap<String, String> params);
+	CompanyMemberDTO comPwFind(HashMap<String, String> params);
 
 	int gradeCntBoard(String id);
 
@@ -27,13 +27,7 @@ public interface MemberDAO {
 
 	String adLogin(String id, String pw);
 
-	String cLogin(String id);
-
-	int resetPw(String id, String encrypt);
-
-	int resetCPw(String id, String encrypt);
-
-	
+	String cLogin(String id, String pw);
 
 
 

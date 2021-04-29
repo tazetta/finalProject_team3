@@ -8,7 +8,7 @@ public interface ReviewDAO {
 
 	int allCount();
 
-	ArrayList<ReviewDTO> reviewList(int start, int end);
+	ArrayList<ReviewDTO> reviewList(int start, int end,String comId);
 
 	int reviewWrite(ReviewDTO reviewDTO);
 

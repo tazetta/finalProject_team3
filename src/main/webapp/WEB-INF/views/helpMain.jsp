@@ -126,13 +126,13 @@ a.page-link:hover{
     <div class="col">
        
         <ul class="pagination justify-content-center">
-            <li class="page-item"><a class="page-link" href="#" style="color: gray;">이전</a></li>
-            <li class="page-item"><a class="page-link" href="#" style="color: rgb(44, 43, 43); font-weight: bold;">1</a></li>
-            <li class="page-item"><a class="page-link" href="#" style="color: rgb(44, 43, 43); font-weight: bold;">2</a></li>
-            <li class="page-item"><a class="page-link" href="#" style="color: rgb(44, 43, 43); font-weight: bold;">3</a></li>
-            <li class="page-item"><a class="page-link" href="#" style="color: rgb(44, 43, 43); font-weight: bold;">4</a></li>
-            <li class="page-item"><a class="page-link" href="#" style="color: rgb(44, 43, 43); font-weight: bold;">5</a></li>
-            <li class="page-item"><a class="page-link" href="#" style="color: gray;">다음</a></li>
+            <li class="page-item"><a class="page-link" href="#">이전</a></li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">4</a></li>
+            <li class="page-item"><a class="page-link" href="#">5</a></li>
+            <li class="page-item"><a class="page-link" href="#">다음</a></li>
         </ul>
     </div>
 </div>

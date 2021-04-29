@@ -51,6 +51,8 @@ public interface GroupDAO {
 
 	ArrayList<GroupDTO> applyList(int gpIdx);
 
+	int progUpdate(int gpIdx, int progIdx);
+
 
 
 
