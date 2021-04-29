@@ -56,7 +56,7 @@ public class MemberController {
 			if(service.cLogin(id,pw)) {
 				msg ="로그인에 성공 하였습니다.";
 				page="main";
-				session.setAttribute("loginId", id);
+				session.setAttribute("cLoginId", id);
 			}
 		}
 		
@@ -65,6 +65,7 @@ public class MemberController {
 		mav.setViewName(page);
 		return mav;
 	}
+	
 	@RequestMapping(value = "/registForm", method = RequestMethod.GET)
 	public ModelAndView registForm() {
 		logger.info("회원가입 페이지 요청");
@@ -72,6 +73,15 @@ public class MemberController {
 		mav.setViewName("registForm");
 		return mav;
 	}
+	
+	@RequestMapping(value = "/cRegistForm", method = RequestMethod.GET)
+	public ModelAndView cRegistForm() {
+		logger.info("업체회원가입 페이지 요청");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("memberCregistForm");
+		return mav;
+	}
+	
 	@RequestMapping(value = "/overlay", method = RequestMethod.GET)
 	public HashMap<String, Object> overlay(Model model , @RequestParam HashMap<String, String> params) {
 		logger.info("아이디 중복확인  요청");
@@ -85,6 +95,7 @@ public class MemberController {
 		map.put("success", success);
 		return map;
 	}
+	
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
 	public HashMap<String, Object> join(@RequestParam HashMap<String, String> params) {
 		logger.info("회원가입 요청");
@@ -122,50 +133,55 @@ public class MemberController {
 		logger.info("일반회원 아이디 찾기 요청");
 		logger.info("params {} " , params);
 		ModelAndView mav = new ModelAndView();
-		String findId = service.idFind(params);
-		logger.info("findId {} " , findId);
-		
-		mav.addObject("findId", findId);
+		MemberDTO dto = service.idFind(params);
+		if(dto != null) {
+			logger.info("찾아낸 아이디 {} " , dto.getId());
+			logger.info("찾아낸 아이디 가입날짜 {} " + dto.getReg_date());
+			mav.addObject("findId", dto.getId());
+			mav.addObject("reg_date", dto.getReg_date());			
+		}
 		mav.setViewName("idResult");
 		return mav;
 	}
+	
 	@RequestMapping(value = "/comIdFind", method = RequestMethod.POST)
 	public ModelAndView comIdFind(@RequestParam HashMap<String, String> params) {
 		logger.info("업체회원 아이디 찾기 요청");
 		logger.info("params {} " , params);
 		ModelAndView mav = new ModelAndView();
-		String findId = service.comIdFind(params);
-		logger.info("findId {} " , findId);
+		CompanyMemberDTO dto = service.comIdFind(params);
+		if(dto != null) {
+			mav.addObject("findId", dto.getComId());
+			mav.addObject("reg_date" , dto.getReg_date());
+		}
 		
-		mav.addObject("findId", findId);
 		mav.setViewName("idResult");
 		return mav;
 		
 	}
+	
 		@RequestMapping(value = "/pwFind", method = RequestMethod.POST)
 		public ModelAndView pwFind(@RequestParam HashMap<String, String> params) {
 			logger.info("일반회원 비밀번호 찾기 요청");
 			logger.info("params {} " , params);
 			ModelAndView mav = new ModelAndView();
-			MemberDTO dto = new MemberDTO();
-			String page = "pw_find";
+			
+			String page = "pwFind";
 			String msg = "요청하신 정보로 찾을수 없습니다.";
-			dto = service.pwFind(params);
-			logger.info("findId {} " , dto.getId());
-			logger.info("findPw {} ", dto.getPw());
-			String findId = dto.getId();
-			String findPw = dto.getPw();
-			if(findId != null && findPw != null) {
+			MemberDTO dto = service.pwFind(params);
+			if(dto != null) {
+				logger.info("findId {} " , dto.getId());
+				logger.info("findPw {} ", dto.getPw());				
 				page ="pwReset";
 				msg ="비밀번호를 재설정 합니다.";
-			}	
-			mav.addObject("findId", findId);
+				mav.addObject("id", dto.getId());
+			}
 			mav.addObject("msg", msg);
 			mav.setViewName(page);
 			return mav;
 	}
 		
-		@RequestMapping(value = "/comPwFind", method = RequestMethod.POST)
+		@RequestMapping(value = "/cPwFind", method = RequestMethod.POST)
 		public ModelAndView comPwFind(@RequestParam HashMap<String, String> params) {
 			logger.info("업체회원 비밀번호 찾기 요청");
 			logger.info("params {} " , params);

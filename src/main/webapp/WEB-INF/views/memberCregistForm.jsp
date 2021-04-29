@@ -5,7 +5,7 @@
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
 		<style></style>
-		<link rel="stylesheet" href="resources/css/memberCSS/cRegist.css/">
+		<link rel="stylesheet" href="resources/css/memberCSS/cRegistForm.css/">
 		 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	</head>
 	<body>
