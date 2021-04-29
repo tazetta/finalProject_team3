@@ -497,4 +497,12 @@ public class GroupService {
 	}
 */
 
+	public HashMap<String, Object> applyList(int gpIdx, RedirectAttributes rAttr, HttpSession session) {
+		HashMap<String, Object> map = new HashMap<String, Object> ();
+		ArrayList<GroupDTO> list = groupdao.applyList(gpIdx);
+		logger.info("신청자  수:"+list.size());
+		map.put("list", list);
+		return map;
+	}
+
 }

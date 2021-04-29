@@ -24,9 +24,14 @@ table, td, th {
 	color: red;
 	font-size: 130%;
 }
+
+#applyMember{
+margin:10px;
+}
 </style>
 </head>
 <body>
+<a href="/main/logout">로그아웃</a>
 	<table>
 		<tr>
 			<th>idx</th>
@@ -60,6 +65,7 @@ table, td, th {
 
 			</td>
 		</tr>
+		<c:if test ="${state eq 'true'  || dto.id == sessionScope.loginId }">
 		<tr>
 			<td colspan="6">
 				<div id="kakaoLink">
@@ -70,9 +76,14 @@ table, td, th {
 		</tr>
 		<tr>
 			<td colspan="6">신청자
-				<div id="applicant"></div>
+				<div id="applicant">
+					<!-- <ul >
+						<li></li>
+					</ul> -->
+				</div>
 			</td>
 		</tr>
+		</c:if>
 	</table>
 	<button onclick="location.href='groupListPage'">목록</button>
 	<button onclick="location.href='groupDel/${dto.gpIdx}'">삭제</button>
@@ -85,7 +96,6 @@ table, td, th {
 </body>
 <script>
 	var msg = "${msg}";
-
 	if (msg != "") {
 		alert(msg);
 	}
@@ -120,6 +130,37 @@ table, td, th {
 	$("#toggleApply").click(function() {
 		location.href = '/main/applyGroup/${dto.gpIdx}/${sessionScope.loginId}'; 
 	});
+	
+	
+	
+	/* 신청자 명단 가져오기 */
+	applyList();
+	
+	function applyList() {
+		var reqUrl = './applyList/${dto.gpIdx}'; 
+		$.ajax({
+			url : reqUrl,
+			type : "get",
+			data : {},
+			dataType : "JSON",
+			success : function(data) {
+				console.log("success:",data);
+				
+				for (var i = 0; i < data.list.length; i++) {
+				console.log("id:"+data.list[i].id);
+				var content ="";
+				
+				content += "<span id='applyMember'>"+data.list[i].id+"</span>";
+				
+				$("#applicant").append(content);
+				}
+			
+			},
+			error : function(error) {
+				console.log("error:",error);
+			}
+		});
+	}
 	
 
 	

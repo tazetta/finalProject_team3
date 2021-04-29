@@ -155,6 +155,10 @@
 	<update id="currUserDown">
 		 UPDATE groupPurchase SET currUser=currUser-1 WHERE gpIdx=#{param1}
 	</update>
+	
+	<select id="applyList" resultType="group">
+		SELECT id FROM applicants WHERE gpIdx=#{param1}
+	</select>
 
 	
 </mapper>

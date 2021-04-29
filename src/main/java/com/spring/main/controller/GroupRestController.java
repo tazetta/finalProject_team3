@@ -22,6 +22,28 @@ public class GroupRestController {
 
 	@Autowired GroupService groupService;
 
+
+	@RequestMapping(value = "/groupListPage", method = RequestMethod.GET)
+	public ModelAndView home() {
+		logger.info("공동구매 리스트 로 이동");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("groupList");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/groupSearch", method = RequestMethod.GET)
+	public ModelAndView groupSearch(Model model, @RequestParam HashMap<String, String> params,
+			RedirectAttributes rAttr) {
+		logger.info("search params: " + params);
+		ModelAndView mav = new ModelAndView();
+		String opt = params.get("opt");
+		String keyword = params.get("keyword");
+		mav.addObject("searchOpt", opt);
+		mav.addObject("keyword", keyword);
+
+		mav.setViewName("groupSearchList");
+		return mav;
+	}
 	
 	//기본 리스트
 	//  url : list/보여줄 개수/페이지/옵션
