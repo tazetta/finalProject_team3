@@ -27,35 +27,35 @@
 		keyProperty="boardIdx"
 		keyColumn="boardIdx"
 		parameterType="board">
-		<if test="boardctg==1">
+		<if test="brdctgidx==1">
 		INSERT INTO board(BOARDIDX, SUBJECT, CONTENT, ID,BRDCTGIDX) 
 		VALUES
-		(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{boardCtgIdx})
+		(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{brdctgidx})
 		</if>
-		<if test="boardctg==2">
+		<if test="brdctgidx==2">
 		INSERT INTO board(BOARDIDX, SUBJECT, CONTENT, ID,BRDCTGIDX,FORMIDX,ROOMSIZE,BUDGET,KEYITEMS) 
 		VALUES
-		(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{boardCtgIdx},#{formIdx},#{roomSize},#{budget},#{keyItems})
+		(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{brdctgidx},#{formIdx},#{roomSize},#{budget},#{keyItems})
 		</if>
-		<if test="boardctg==3">
+		<if test="brdctgidx==3">
 		INSERT INTO board(BOARDIDX, SUBJECT, CONTENT, ID,BRDCTGIDX) 
 		VALUES
-		(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{boardCtgIdx})
+		(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{brdctgidx})
 		</if>
-		<if test="boardctg==4">
+		<if test="brdctgidx==4">
 		INSERT INTO board(BOARDIDX, SUBJECT, CONTENT, ID,BRDCTGIDX) 
 		VALUES
-		(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{boardCtgIdx})
+		(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{brdctgidx})
 		</if>
-		<if test="boardctg==5">
+		<if test="brdctgidx==5">
 		INSERT INTO board(BOARDIDX, SUBJECT, CONTENT, ID,BRDCTGIDX) 
 		VALUES
-		(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{boardCtgIdx})
+		(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{brdctgidx})
 		</if>
-		<if test="boardctg==6">
+		<if test="brdctgidx==6">
 		INSERT INTO board(BOARDIDX, SUBJECT, CONTENT, ID,BRDCTGIDX,EMAIL) 
 		VALUES
-		(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{boardCtgIdx},#{email})
+		(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{brdctgidx},#{email})
 		</if>
 	</insert>
 	<!--글작성파일추가-->

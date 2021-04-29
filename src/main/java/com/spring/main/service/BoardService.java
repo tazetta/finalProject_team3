@@ -1,6 +1,10 @@
 package com.spring.main.service;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
@@ -11,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -120,14 +125,28 @@ public class BoardService {
 			}
 		}
 		
-		page="redirect:/boardDetail?boardIdx="+boarddto.getBoardIdx();
+			/* page="redirect:/boardDetail?boardIdx="+boarddto.getBoardIdx(); */
+		if(boardctgidx==1) {
+		page="redirect:/Freelist";
 		msg="글쓰기 성공했습니다.";
+		}else if(boardctgidx==2) {
+			page = "redirect:/homelist";
+		}else if(boardctgidx==3) {
+			page = "redirect:/tiplist";
+		}else if(boardctgidx==4) {
+			page = "redirect:/qnalist";
+		}else if(boardctgidx==5) {
+			page = "redirect:/examlist";
+		}else if(boardctgidx==6) {
+			page = "redirect:/sgtlist";
+		}
 		}else{//글쓰기 실패시
 			for (String newFileName : fileList.keySet()) {
 				File file = new File(root + "upload/" + newFileName);
 				file.delete();
 			}
 		}
+		
 		mav.addObject("msg",msg);
 		mav.setViewName(page);
 		return mav;
@@ -251,5 +270,51 @@ public class BoardService {
 	public HashMap<String, Object> fileDelete(String newFileName, HttpSession session) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public ModelAndView boardUpload(MultipartFile file, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		logger.info("파일업로드 서비스");
+		/* file Upload 시작 */
+		// 1. 경로 설정
+		File dir = new File(root + "upload/");
+
+		// 2. 경로가 없으면 폴더 생성
+		if (!dir.exists()) {
+			logger.info("폴더없음, 폴더생성");
+			dir.mkdir();
+		}
+
+		// 3. 파일명 추출
+		String fileName = file.getOriginalFilename();
+
+		// 4. 새 파일명 생성(현재시간을 m/s단위로 환산한 이름)
+		String newFileName = System.currentTimeMillis() + fileName.substring(fileName.lastIndexOf("."));
+		logger.info(fileName + "=> " + newFileName);
+
+		// 5. 파일 저장(JAVA nio활용 -> java7부터 가능)
+		try {
+			// MultipartFile에서 바이너리 데이터를 추출
+			byte[] bytes = file.getBytes();
+			// 저장할 경로 지정
+			Path filePath = Paths.get(root + "upload/" + newFileName);
+			// 파일 저장
+			Files.write(filePath, bytes);
+
+			// session에 내가 저장한 파일 내역을 저장한다.
+			HashMap<String, String> fileList = (HashMap<String, String>) session.getAttribute("fileList"); // writeForm에서
+																											// 세션에 저장했던
+																											// hashmap가져오고
+			fileList.put(newFileName, fileName); // 중복되지 않는 newFileName를 키로 설정해서 새로운 파일명을 session에 저장
+			logger.info("현재 저장된 파일 수: " + fileList.size());
+			session.setAttribute("fileList", fileList); // 세션에 저장
+			mav.addObject("path", "/photo/" + newFileName); // server에서 설정했던 path= /photo
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		mav.setViewName("boardUploadForm");
+
+		return mav;
 	}
 }
