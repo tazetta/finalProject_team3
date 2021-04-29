@@ -5,7 +5,27 @@
 <head>
 <meta charset="utf-8" />
 <title>내 인테리어 변천사</title>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+<script type="text/javascript">
+	//<![CDATA[ 
+	$(document).ready(function() {
+		$('.bxslider').bxSlider({
+			auto : true,
+			autoControls : true,
+			stopAutoOnClick : true,
+			pager : true,
+			slideWidth : 400,
+			slideHeight : 250
+		});
+	});
+	//]]>
+</script>
 <style>
 table, td, th {
 	border-collapse: collapse;
@@ -77,84 +97,47 @@ h2 {
 	background-color: cornflowerblue;
 }
 
-.eventImage {
-	width: 400px;
-	height: 250px;
-	border: 1px solid lightgray;
+.wraping {
+	height: 400px;
 	float: left;
-	background: url('event1.png');
-	position: relative;
-	margin: 15px;
-}
-
-.arrow {
-	border: solid black;
-	border-width: 0 3px 3px 0;
-	display: inline-block;
-	padding: 6px;
-	margin-bottom: 80px;
-	cursor: pointer;
-}
-
-.right {
-	transform: rotate(-45deg);
-	-webkit-transform: rotate(-45deg);
-	position: absolute;
-	top: 50%;
-	right: 2%;
-}
-
-.left {
-	transform: rotate(135deg);
-	-webkit-transform: rotate(135deg);
-	position: absolute;
-	top: 50%;
-	left: 2%;
 }
 </style>
 </head>
 <body>
 	<div>
-		<iframe src="mainnavi.html" scrolling="no" frameborder="0" style="width: 100%;"></iframe>
+		<iframe src="mainnavi.html" scrolling="no" frameborder="0"
+			style="width: 100%;"></iframe>
 	</div>
 	<div class="flexBox">
-		<div style="border-bottom: 2px solid #f2f2f2; border-top: 2px solid #f2f2f2;">
+		<div
+			style="border-bottom: 2px solid #f2f2f2; border-top: 2px solid #f2f2f2;">
 			<div class="sideBar" style="margin-right: 15px;">
-				<iframe src="mynavi.html" scrolling="no" frameborder="0" style="height: 650px; float: left; width: 160px;"></iframe>
+				<iframe src="mynavi.html" scrolling="no" frameborder="0"
+					style="height: 650px; float: left; width: 160px;"></iframe>
 			</div>
-			<div class="eventImage">
-				<i class="arrow left" onclick="imageSlider2()"></i> 
-				<i class="arrow right" onclick="imageSlider()"></i>
-			</div>
-			<div class="eventImage">
-				<i class="arrow left" onclick="imageSlider2()"></i> 
-				<i class="arrow right" onclick="imageSlider()"></i>
+			<!-- <div id="eventImage">
+				<i class="arrow left" onclick="imageSlider2()"></i> <i
+					class="arrow right" onclick="imageSlider()"></i>
+			</div> -->
+			<div class="wraping">
+				<div class="bxslider">
+					<div>
+						<img src="resources/images/interior1.jpg" width="400px"
+							height="250px">
+					</div>
+					<div>
+						<img src="resources/images/interior2.jpg" width="400px"
+							height="250px">
+					</div>
+					<div>
+						<img src="resources/images/interior3.jpg" width="400px"
+							height="250px">
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
 </body>
 <script>
-var eventImage = document.getElementById('eventImage');
-var images = ['./event1.png','./event2.png','./event3.png','./event4.png'];
-var now = 0;
-var i = 1;
-
-function imageSlider(){
-    if(i==images.length){
-        i = 0;
-    }
-    eventImage.style.background = 'url('+images[i]+')';
-    console.log(i);
-    i++;
-}
-
-function imageSlider2(){
-    if(i<=0){
-        i = 4;
-    }
-    i--;
-    console.log(i);
-    eventImage.style.background = 'url('+images[i]+')';
-}
 </script>
 </html>
