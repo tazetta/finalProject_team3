@@ -24,7 +24,7 @@ public class ReviewService {
 	String page = "";
 	String msg = "";
 	
-	public HashMap<String, Object> list(int page) {
+	public HashMap<String, Object> list(int page,String comId) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		int allCnt = reviewDAO.allCount();//전체 게시글 수
@@ -39,7 +39,7 @@ public class ReviewService {
 		int end = page * 10;
 		int start = end-10+1;
 		
-		map.put("reviewList", reviewDAO.reviewList(start,end));
+		map.put("reviewList", reviewDAO.reviewList(start,end,comId));
 		//pagePerCnt의 기준으로 몇페이지나 만들수 있는가? 
 		map.put("range",range);
 		map.put("currPage", page);

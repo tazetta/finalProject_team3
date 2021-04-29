@@ -60,31 +60,31 @@ li a:hover, .navi li ul:hover {
 
 	<DIV>
 		<ul class="navi">
-			<li><a href="myinfo">회원 정보</a></li>
-			<li><a href="mywrite">내 작성글</a>
+			<li><a href="myprofile" target="_parent">회원 정보</a></li>
+			<li><a href="mywrite" target="_parent">내 작성글</a>
+				<ul>
+					<li><a href="mywrite" target="_parent">우리집 자랑</a></li>
+					<li><a href="mywriteboard" target="_parent">자유게시판</a></li>
+					<li><a href="mywritetip" target="_parent">꿀팁</a></li>
+					<li><a href="mywriteqna" target="_parent">질문 및 답변</a></li>
+				</ul></li>
+			<li><a href="myscrappage" target="_parent">스크랩북</a>
 				<ul>
 					<li><a href="#">우리집 자랑</a></li>
-					<li><a href="#">자유게시판</a></li>
-					<li><a href="#">꿀팁</a></li>
-					<li><a href="#">질문 및 답변</a></li>
-				</ul></li>
-			<li><a href="#">스크랩북</a>
-				<ul>
-					<li><a href="#">우리집 자랑</a></li>
 					<li><a href="#">꿀팁</a></li>
 				</ul></li>
-			<li><a href="#">쪽지</a>
+			<li><a href="msgpage" target="_parent">쪽지</a>
 				<ul>
-					<li><a href="#">받은 쪽지함</a></li>
-					<li><a href="#">보낸 쪽지함</a></li>
+					<li><a href="msgreceivepage" target="_parent">받은 쪽지함</a></li>
+					<li><a href="msgsendpage" target="_parent">보낸 쪽지함</a></li>
 				</ul></li>
-			<li><a href="#">내 견적서</a></li>
-			<li><a href="#">공동구매 내역</a>
+			<li><a href="myestimate" target="_parent">내 견적서</a></li>
+			<li><a href="mygrouppage" target="_parent">공동구매 내역</a>
 				<ul>
-					<li><a href="#">신청한 공동구매</a></li>
-					<li><a href="#">작성한 공동구매</a></li>
+					<li><a href="mygroupbuy" target="_parent">신청한 공동구매</a></li>
+					<li><a href="mygroupwrite" target="_parent">작성한 공동구매</a></li>
 				</ul></li>
-			<li><a href="#">인테리어 변천사</a></li>
+			<li><a href="myInteriorHistory" target="_parent">인테리어 변천사</a></li>
 		</ul>
 	</DIV>
 </body>

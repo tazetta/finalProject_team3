@@ -29,12 +29,12 @@ public class MemberService {
 		return encoder.matches(pw, encrypt_pass);
 	}
 	public boolean cLogin(String id, String pw) {
-		String encrypt_pass = dao.cLogin(id);
-		logger.info(pw + " == " + encrypt_pass);
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-	
-		logger.info("success {} " , encrypt_pass);
-		return encoder.matches(pw, encrypt_pass);
+		String cId = dao.cLogin(id,pw);
+		boolean success = false;
+		if(cId != null) {
+			success = true;
+		}
+		return success;
 	}
 
 
@@ -81,32 +81,16 @@ public class MemberService {
 
 
 
-	public String comPwFind(HashMap<String, String> params) {
+	public CompanyMemberDTO comPwFind(HashMap<String, String> params) {
 		
 		return dao.comPwFind(params);
 	}
 
 
 
-	public String adLogin(String id, String rPw) {
+	public String adLogin(String id, String pw) {
 
-		return dao.adLogin(id,rPw);
-	}
-	public int resetPw(String id, String rPw) {
-		String plain = rPw;
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		String encrypt = encoder.encode(plain);
-		logger.info(plain  + "=>" + encrypt);
-		
-		
-		return dao.resetPw(id,encrypt);
-	}
-	public int resetCPw(String id, String rPw) {
-		String plain = rPw;
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		String encrypt = encoder.encode(plain);
-		logger.info(plain  + "=>" + encrypt);
-		return dao.resetCPw(id,encrypt);
+		return dao.adLogin(id,pw);
 	}
 
 
