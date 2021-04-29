@@ -27,35 +27,35 @@
 		keyProperty="boardIdx"
 		keyColumn="boardIdx"
 		parameterType="board">
-		<if test="boardctg==1">
+		<if test="brdctgidx==1">
 		INSERT INTO board(BOARDIDX, SUBJECT, CONTENT, ID,BRDCTGIDX) 
 		VALUES
-		(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{boardCtgIdx})
+		(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{brdctgidx})
 		</if>
-		<if test="boardctg==2">
+		<if test="brdctgidx==2">
 		INSERT INTO board(BOARDIDX, SUBJECT, CONTENT, ID,BRDCTGIDX,FORMIDX,ROOMSIZE,BUDGET,KEYITEMS) 
 		VALUES
-		(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{boardCtgIdx},#{formIdx},#{roomSize},#{budget},#{keyItems})
+		(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{brdctgidx},#{formIdx},#{roomSize},#{budget},#{keyItems})
 		</if>
-		<if test="boardctg==3">
+		<if test="brdctgidx==3">
 		INSERT INTO board(BOARDIDX, SUBJECT, CONTENT, ID,BRDCTGIDX) 
 		VALUES
-		(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{boardCtgIdx})
+		(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{brdctgidx})
 		</if>
-		<if test="boardctg==4">
+		<if test="brdctgidx==4">
 		INSERT INTO board(BOARDIDX, SUBJECT, CONTENT, ID,BRDCTGIDX) 
 		VALUES
-		(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{boardCtgIdx})
+		(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{brdctgidx})
 		</if>
-		<if test="boardctg==5">
+		<if test="brdctgidx==5">
 		INSERT INTO board(BOARDIDX, SUBJECT, CONTENT, ID,BRDCTGIDX) 
 		VALUES
-		(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{boardCtgIdx})
+		(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{brdctgidx})
 		</if>
-		<if test="boardctg==6">
+		<if test="brdctgidx==6">
 		INSERT INTO board(BOARDIDX, SUBJECT, CONTENT, ID,BRDCTGIDX,EMAIL) 
 		VALUES
-		(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{boardCtgIdx},#{email})
+		(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{brdctgidx},#{email})
 		</if>
 	</insert>
 	<!--글작성파일추가-->
@@ -90,9 +90,21 @@
 		WHERE boardIdx=#{boardIdx}
 		</if>
 	</update>
+	<!--게시글안에있는 사진찾기-->
+	<select id="boardGetFileName" resultType="String">
+		SELECT newFileName FROM photos WHERE boardIdx=#{boardIdx}
+	</select>
 	<!--사진 수정-->
 	<update id="groupUpdateFile">
 		UPDATE photos  
 		SET PHOTOIDX=photos_seq.NEXTVAL, NEWFILENAME=#{param1}, ORIFILENAME =#{param2}  WHERE boardIdx=#{param3}
 	</update>
+	<!--사진삭제(정말로 데이터삭제)-->
+	<delete id="boardPhotoDel">
+		DELETE FROM photos WHERE boardIdx=#{boardIdx}
+	</delete>
+	<!-- 게시글 삭제(블라인드처리하기) -->
+	<delete id="boardDel">
+		UPDATE BOARD SET blind='y' WHERE boardIdx=#{boardIdx}
+	</delete>
 </mapper>

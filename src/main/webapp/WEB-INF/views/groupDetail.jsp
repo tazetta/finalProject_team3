@@ -25,13 +25,22 @@ table, td, th {
 	font-size: 130%;
 }
 
-#applyMember{
-margin:10px;
+#applyMember {
+	margin: 10px;
+}
+
+#deadlinSpan {
+	display: block;
+	width: 90px;
+	margin:0 auto;
+	background-color : lightgray;
+
+
 }
 </style>
 </head>
 <body>
-<a href="/main/logout">로그아웃</a>
+	<a href="/main/logout">로그아웃</a>
 	<table>
 		<tr>
 			<th>idx</th>
@@ -51,38 +60,38 @@ margin:10px;
 			<td>${dto.subject}</td>
 			<td>${dto.id}</td>
 			<td>${dto.reg_date}</td>
-			<td>${dto.progress }</td>
+			<td>${dto.progress}</td>
 		</tr>
 		<tr>
 			<td colspan="5" style="padding: 20px">${dto.content }</td>
 			<td style="width: 20%">현재인원/모집인원 : <span id="groupCnt">${dto.currUser }/${dto.maxUser}</span>
-				<br />마감날짜 : <b>${dto.deadline}</b><br /> <c:if
-					test="${state eq 'false' ||  empty state }">
+				<br />마감날짜 : <b>${dto.deadline}</b> <br /> <%-- <c:if test="${state eq 'false' ||  empty state && dto.progIdx ne '3'}"> --%>
+				<c:if test="${state eq 'false' ||  empty state }">
 					<input type="button" id="toggleApply" value="신청" />
-				</c:if> <c:if test="${state eq 'true'}">
+				</c:if> <c:if test="${state eq 'true'  && dto.progIdx ne '3'}">
 					<input type="button" id="toggleApply" value="취소" />
+				</c:if> <br /> <c:if test="${dto.currUser == dto.maxUser}">
+					<span id="deadlinSpan">마감</span>
 				</c:if>
 
-			</td>
-		</tr>
-		<c:if test ="${state eq 'true'  || dto.id == sessionScope.loginId }">
-		<tr>
-			<td colspan="6">
-				<div id="kakaoLink">
-					오픈카카오톡 링크 : <a href="${dto.chatURL }" target="_blanck">${dto.chatURL }</a>
-				</div>
 
 			</td>
 		</tr>
-		<tr>
-			<td colspan="6">신청자
-				<div id="applicant">
-					<!-- <ul >
-						<li></li>
-					</ul> -->
-				</div>
-			</td>
-		</tr>
+		<c:if test="${state eq 'true'  || dto.id == sessionScope.loginId }">
+			<tr>
+				<td colspan="6">
+					<div id="kakaoLink">
+						오픈카카오톡 링크 : <a href="${dto.chatURL }" target="_blanck">${dto.chatURL }</a>
+					</div>
+
+				</td>
+			</tr>
+			<tr>
+				<td colspan="6"><b>신청자</b>
+					<div id="applicant">
+						<!-- 신청자 명단 불러올 영역 -->
+					</div></td>
+			</tr>
 		</c:if>
 	</table>
 	<button onclick="location.href='groupListPage'">목록</button>
@@ -100,69 +109,65 @@ margin:10px;
 		alert(msg);
 	}
 
-	/*신청상태 확인*/
-	/* var loginId =${sessionScope.loginId} ; */
-	//groupApplyChk();
-	//+${dto.gpIdx}+"/"+"${sessionScope.loginId}"
-	  function groupApplyChk() {
-			var reqUrl = "./groupApplyChk";
-			
-			$.ajax({
-				url : reqUrl,
-				type : "get",
-				data : {},
-				dataType : "JSON",
-				success : function(data) {
-					console.log("success:"+data);
-				
-				},
-				error : function(error) {
-					console.log(error);
-				}
-			});
-		}
-
-	  
 	var state = "${state}";
 	console.log("State:" + state);
 
 	//신청-취소 toggle
-	$("#toggleApply").click(function() {
-		location.href = '/main/applyGroup/${dto.gpIdx}/${sessionScope.loginId}'; 
-	});
-	
-	
-	
+	$("#toggleApply")
+			.click(
+					function() {
+						location.href = '/main/applyGroup/${dto.gpIdx}/${sessionScope.loginId}';
+					});
+
 	/* 신청자 명단 가져오기 */
 	applyList();
-	
+
 	function applyList() {
-		var reqUrl = './applyList/${dto.gpIdx}'; 
+		var reqUrl = './applyList/${dto.gpIdx}';
 		$.ajax({
 			url : reqUrl,
 			type : "get",
 			data : {},
 			dataType : "JSON",
 			success : function(data) {
-				console.log("success:",data);
-				
+				console.log("success:", data);
+
 				for (var i = 0; i < data.list.length; i++) {
-				console.log("id:"+data.list[i].id);
-				var content ="";
-				
-				content += "<span id='applyMember'>"+data.list[i].id+"</span>";
-				
-				$("#applicant").append(content);
+					console.log("id:" + data.list[i].id);
+					var content = "";
+
+					content += "<span id='applyMember'>" + data.list[i].id
+							+ "</span>";
+
+					$("#applicant").append(content);
 				}
-			
+
 			},
 			error : function(error) {
-				console.log("error:",error);
+				console.log("error:", error);
 			}
 		});
 	}
-	
 
-	
+	if ("${dto.currUser}" == "${dto.maxUser}") { ///모집완료시 마감으로 변경
+		progUpdate();
+	}
+
+	function progUpdate() {
+		var reqUrl = './progUpdate/${dto.gpIdx}/${dto.progIdx}';
+		$.ajax({
+			url : reqUrl,
+			type : "get",
+			data : {},
+			dataType : "JSON",
+			success : function(data) {
+				console.log("success: ", data);
+
+			},
+			error : function(error) {
+				console.log("error:", error);
+			}
+		});
+	}
 </script>
 </html>
