@@ -165,6 +165,7 @@
         chkingPw = true;
           }
         }
+        
         emailChk = false;
         $('#email').focusout(()=>{
         if($('#email').val().indexOf('@')<0 ||$('#email').val().indexOf('.')<0 ){
