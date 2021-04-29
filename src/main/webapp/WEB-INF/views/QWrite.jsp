@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>FAQ게시물</title>
+<title>질문하기</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" 
 integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 <!-- JavaScript Bundle with Popper -->
@@ -60,46 +60,29 @@ a.button2:hover {
 
     <div class="container"  style="height:200px; background-color: rgb(184, 185, 190); text-align:center;">
   
-        <h1 style="padding-top: 50px; font-weight: bold;">질문 및 답변</h1>
+        <h1 style="padding-top: 50px; font-weight: bold;">질문하기</h1>
         <br/>
-        초보 user1 2021.04.09 조회수 답변2
-        <div>
-            <a href="#" class="button" style="max-width: 75; margin-right: 10px; margin-left: 20px; padding: 10px 20px; font-weight: bold; float: right;">수정</a>
-           
-            <a href="#" class="button" style="max-width: 75; padding: 10px 20px; font-weight: bold; float: right;">삭제</a>
-        </div>
-       
+        <h>홈페이지 관련 문의가 필요하시다면 <a href="">문의하러 가기</a></h>
     </div>
-    <br/>
     <br/>
     <div class="container">
         <table class="table">
-           
-            <tbody>
-                <span style="font-size: x-large; font-weight: bold; color:rgb(131, 130, 130) ;"><span style="color: rgb(235, 179, 76);">Q.</span>질문</span>
-               
-                <tr>
-                    <td>내용물</td>
-                </tr>
-             </tbody>
-                   
+            <tr>
+                <td><input type="text" class="form-control" placeholder="제목을 입력해주세요" name="content" maxlength="40"></td>
+            </tr>
+            <tr>
+                <td><textarea type="text" class="form-control" placeholder="내용을 10000자 이내로 입력해주세요" name="contentDetail" maxlength="1024" style="height: 400px;"></textarea></td>
+            </tr>
         </table>
         <div class="container">
-            <a href="#" class="button" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; float: right;">목록</a>
-        </div>
-        <br/>
-        <br/> 
-        <br/>
-        <span style="font-size: x-large; font-weight: bold; color:rgb(131, 130, 130) ;"><span style="color: rgb(235, 179, 76);">A.</span>답변</span>
-        <br/>
-        <br/>
-        <div class="container">
-            <tr>
-                <td>
-                    <b>user</b> : <input type="text" size="75" placeholder="댓글을 입력해주세요."> 
-                    <a href="#" class="button2" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold;">저장</a>
-                </td>
-            </tr>
-        </div>  
-        </body>
-    </html>
+            <a href="#" class="button" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; ">첨부파일</a>
+            <div class="row" style="float: right;">
+                <a href="#" class="button2" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; ">저장</a>
+            </div>
+           
+            <a href="#" class="button" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; float: right;">취소</a>
+            
+              </div>    
+    </div>          
+    </body>
+</html>
