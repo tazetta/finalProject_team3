@@ -108,13 +108,7 @@ public class GroupController {
 		return groupService.applyGroup(gpIdx, applyId, rAttr,session);
 	}
 	
-	/*
-	 * @RequestMapping(value = "/groupApplyChk/{gpIdx}/{applyId}", method =
-	 * RequestMethod.GET) public HashMap<String, Object> groupApplyChk(@PathVariable
-	 * String gpIdx, @PathVariable String applyId, HttpSession session) {
-	 * logger.info("공동구매 실시간 확인 요청: " + gpIdx + "/" + applyId); return
-	 * groupService.groupApplyChk(gpIdx, applyId); }
-	 */
+	
 	
 	@RequestMapping(value = "/applyList/{gpIdx}", method = RequestMethod.GET)
 	@ResponseBody HashMap<String, Object> applyList(@PathVariable int gpIdx,HttpSession session,

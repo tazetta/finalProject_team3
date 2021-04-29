@@ -152,9 +152,20 @@
 		SELECT id FROM applicants WHERE gpIdx=#{param1}
 	</select>
 	
-	<update id="progUpdate">
-	 	UPDATE groupPurchase SET PROGIDX='3' WHERE gpIdx=#{param1}
+	<update id="progUpdate" parameterType="int" >
+	 	UPDATE groupPurchase 
+	 	<if test="param2 ==2 ">
+	 		SET PROGIDX='2'
+	 	</if>
+	 	<if test="param2 ==3 ">
+	 		SET PROGIDX='3'
+	 	</if>
+	 	 WHERE gpIdx=#{param1}
 	</update>
+	
+	<select id="deadlineChk" resultType="group">
+		SELECT deadline, currUser,gpIdx, maxUser FROM groupPurchase
+	</select>
 
 	
 </mapper>

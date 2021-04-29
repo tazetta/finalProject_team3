@@ -1,8 +1,10 @@
 package com.spring.main.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.spring.main.dto.CompanyMemberDTO;
+import com.spring.main.dto.GroupDTO;
 import com.spring.main.dto.MemberDTO;
 
 public interface MemberDAO {
@@ -32,6 +34,8 @@ public interface MemberDAO {
 	int resetPw(String id, String encrypt);
 
 	int resetCPw(String id, String encrypt);
+
+
 
 	
 

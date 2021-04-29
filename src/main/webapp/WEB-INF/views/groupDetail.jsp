@@ -104,6 +104,13 @@ table, td, th {
 
 </body>
 <script>
+
+var date = new Date();
+var month = date.﻿getMonth()+1;
+console.log("date:"+date.﻿getFullYear()+"-"+month+"-"+date.﻿getDate());
+console.log("deadline:"+"${dto.deadline}");
+
+
 	var msg = "${msg}";
 	if (msg != "") {
 		alert(msg);

@@ -34,7 +34,7 @@ public class GroupRestController {
 	@RequestMapping(value = "/groupSearch", method = RequestMethod.GET)
 	public ModelAndView groupSearch(Model model, @RequestParam HashMap<String, String> params,
 			RedirectAttributes rAttr) {
-		logger.info("search params: " + params);
+		logger.info("공동구매 검색 리스트로 이동 = > search params: " + params);
 		ModelAndView mav = new ModelAndView();
 		String opt = params.get("opt");
 		String keyword = params.get("keyword");

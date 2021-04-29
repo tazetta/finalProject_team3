@@ -16,6 +16,13 @@
 			<!--  아래 클래스로 이동시켜라 -->
 			<bean class="com.spring.main.service.MemberInterceptor" />
 		</mvc:interceptor>
+		<mvc:interceptor>
+			<!--  요청에 대해 -->
+			<mvc:mapping path="/groupListPage"/>
+			
+			<!--  아래 클래스로 이동시켜라 -->
+			<bean class="com.spring.main.service.DateInterceptor" />
+		</mvc:interceptor>
 	</mvc:interceptors>
 
 

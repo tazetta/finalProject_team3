@@ -51,7 +51,9 @@ public interface GroupDAO {
 
 	ArrayList<GroupDTO> applyList(int gpIdx);
 
-	int progUpdate(int gpIdx, int progIdx);
+	int progUpdate(int gpIdx, int updateProg);
+
+	ArrayList<GroupDTO> deadlineChk();
 
 
 

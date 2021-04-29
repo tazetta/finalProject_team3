@@ -60,7 +60,7 @@ public class GroupService {
 			e.printStackTrace();
 		}
 		String transDate = dfm.format(utilDate);
-		Date deadline = Date.valueOf(transDate); // sql DATE로 변환
+		Date deadline = Date.valueOf(transDate); //str -> sql DATE로 변환
 
 		groupDTO.setGpCtgIdx(groupCtg);
 		groupDTO.setId(params.get("id"));
@@ -247,12 +247,13 @@ public class GroupService {
 		ArrayList<GroupDTO> groupList = groupdao.groupList(start, end, opt); // 리스트 담기
 		GroupDTO dto = null;
 		for (int i = 0; i < groupList.size(); i++) {
+			
 			/*
-			 * int gpCtgIdx = groupList.get(i).getGpCtgIdx(); // list에서 카테고리 idx 가져오기 String
-			 * String groupCtg = groupdao.groupCtg(gpCtgIdx); // 카테고리명 추출
-			 * System.out.println("카테고리명:"+ groupCtg); dto.setCategory(groupCtg);
-			 * groupList.set(i, dto.getCategory());
+			  int gpCtgIdx = groupList.get(i).getGpCtgIdx(); // list에서 카테고리 idx 가져오기 String
+			  String groupCtg = groupdao.groupCtg(gpCtgIdx); // 카테고리명 추출
+			  System.out.println("카테고리명:"+ groupCtg); dto.setCategory(groupCtg);
 			 */
+			 
 		}
 
 		logger.info("groupList size: " + groupList.size());
@@ -477,10 +478,11 @@ public class GroupService {
 	}
 
 	public ModelAndView progUpdate(int gpIdx, int progIdx, RedirectAttributes rAttr, HttpSession session) {
-			logger.info("진행상황 실시간 업데이트 서비스");
+			logger.info("진행상황 실시간 마감 업데이트 서비스");
 			String loginId = (String) session.getAttribute("loginId");
 			 ModelAndView mav = new ModelAndView();
-			int result = groupdao.progUpdate(gpIdx,progIdx);
+			int  updateProg = 3;
+			int result = groupdao.progUpdate(gpIdx,updateProg);
 			logger.info("진행상황 업데이트 result:"+result);
 			page = "redirect:/groupDetail?gpIdx=" + gpIdx+"&loginId="+loginId;
 			mav.setViewName(page);
