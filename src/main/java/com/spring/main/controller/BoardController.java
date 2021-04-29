@@ -4,16 +4,17 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -70,30 +71,48 @@ public class BoardController {
 
 	@RequestMapping(value = "/boardWriteForm", method = RequestMethod.GET)
 	public String boardWriteForm(HttpSession session, @RequestParam String boardCtgIdx) {
-		logger.info("{}카테고리글쓰기 페이지로 이동", boardCtgIdx);
+		logger.info("{} 카테고리글쓰기 페이지로 이동", boardCtgIdx);
 		// 업로드할 파일이름을 저장한 HashMap생성해서 session에 저장(upload메서드에서 여러파일을 관리하기위해)
 		HashMap<String, String> fileList = new HashMap<String, String>();
 		session.setAttribute("fileList", fileList);
 		String page = "";
 		if (boardCtgIdx.equals("1")) {
-			page = "FreeWriteForm";
-		} else if (boardCtgIdx == "2") {
+			page = "freeWriteForm";
+			logger.info("1 카테고리글쓰기 페이지로 이동");
+		} else if (boardCtgIdx.equals("2")) {
 			page = "HomeWriteForm";
-		} else if (boardCtgIdx == "3") {
+			logger.info("2 카테고리글쓰기 페이지로 이동");
+		} else if (boardCtgIdx.equals("3")) {
 			page = "TipWriteForm";
-		} else if (boardCtgIdx == "4") {
+			logger.info("3 카테고리글쓰기 페이지로 이동");
+		} else if (boardCtgIdx.equals("4")) {
 			page = "QnaWriteForm";
-		} else if (boardCtgIdx == "5") {
+			logger.info("4 카테고리글쓰기 페이지로 이동");
+		} else if (boardCtgIdx.equals("5")) {
 			page = "examWriteForm";
-		} else if (boardCtgIdx == "6") {
+			logger.info("5 카테고리글쓰기 페이지로 이동");
+		} else if (boardCtgIdx.equals("6")) {
 			page = "SgtWriteForm";
+			logger.info("6 카테고리글쓰기 페이지로 이동");
 		}
 		return page;
 	}
+	@RequestMapping(value = "/boardUploadForm", method = RequestMethod.GET)
+	public String groupUploadForm() {
 
+		logger.info("업로드폼열기");
+		return "boardUploadForm";
+	}
+	@RequestMapping(value = "/boardUpload", method = RequestMethod.POST)
+	public ModelAndView groupUpload(MultipartFile file, HttpSession session) { // groupUploadForm.jsp에서 보내는 file객체를 받고,
+																				// session도 생성
+		logger.info("파일업로드 요청");
+
+		return BoardService.boardUpload(file, session);
+	}
 	@RequestMapping(value = "/boardWrite", method = RequestMethod.POST)
 	public ModelAndView boardWrite(@RequestParam HashMap<String, String> params, HttpSession session) {
-		logger.info("{}번째 게시판 글쓰기 요청");
+		logger.info("{}번째 게시판 글쓰기 요청",params);
 		return BoardService.boardWrite(params, session);
 	}
 
