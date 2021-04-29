@@ -4,6 +4,7 @@ import java.io.File;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
@@ -17,15 +18,18 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.spring.main.dao.EstimateDAO;
 import com.spring.main.dao.ExamDAO;
 import com.spring.main.dto.ExamDTO;
 import com.spring.main.dto.GroupDTO;
+import com.spring.main.dto.ReviewDTO;
 
 @Service
 public class ExamService {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired ExamDAO examDAO;
+	@Autowired EstimateDAO estimateDAO;
 	
 	@Value("#{config['Globals.root']}")
 	String root;
@@ -33,27 +37,27 @@ public class ExamService {
 	String page = "";
 	String msg = "";
 	
-	public HashMap<String, Object> list(int page) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		
-		int allCnt = examDAO.allCount();//전체 게시글 수
-		//게시글수 :21개 ,페이지당 보여줄 수 : 5 = 최대 생성 가능한 페이지 : 5
-		//예 : 21/5 =4.1이면 소수점을 버리고 1을 더해 5가 된다. 딱 떨어지면 그대로.
-		int range = allCnt%10 > 0 ? Math.round(allCnt/10)+1 : Math.round(allCnt/10);
-		
-		//생성 가능한 페이지 보다 현재 페이지가 클 경우..현재페이지를 생성 가능한 페이지로 맞춰준다.
-		page = page>range ? range : page;
-		
-		//시작,끝
-		int end = page * 10;
-		int start = end-10+1;
-		
-		map.put("interiorexamList", examDAO.interiorexamList(start,end));
-		//pagePerCnt의 기준으로 몇페이지나 만들수 있는가? 
-		map.put("range",range);
-		map.put("currPage", page);
-		return map;
-	}
+//	public HashMap<String, Object> list(int page) {
+//		HashMap<String, Object> map = new HashMap<String, Object>();
+//		
+//		int allCnt = examDAO.allCount();//전체 게시글 수
+//		//게시글수 :21개 ,페이지당 보여줄 수 : 5 = 최대 생성 가능한 페이지 : 5
+//		//예 : 21/5 =4.1이면 소수점을 버리고 1을 더해 5가 된다. 딱 떨어지면 그대로.
+//		int range = allCnt%10 > 0 ? Math.round(allCnt/10)+1 : Math.round(allCnt/10);
+//		
+//		//생성 가능한 페이지 보다 현재 페이지가 클 경우..현재페이지를 생성 가능한 페이지로 맞춰준다.
+//		page = page>range ? range : page;
+//		
+//		//시작,끝
+//		int end = page * 10;
+//		int start = end-10+1;
+//		
+//		map.put("interiorexamList", examDAO.interiorexamList(start,end));
+//		//pagePerCnt의 기준으로 몇페이지나 만들수 있는가? 
+//		map.put("range",range);
+//		map.put("currPage", page);
+//		return map;
+//	}
 
 	@Transactional // 글등록에 실패하면 저장한 파일내용 등록도 실행되지 않도록
 	public ModelAndView examWrite(HashMap<String, String> params, HttpSession session) {
@@ -234,5 +238,23 @@ public class ExamService {
 
 		return map;
 	}
+
+	public ModelAndView list() {
+		ModelAndView mav = new ModelAndView();
+		ArrayList<ExamDTO> list = examDAO.list();
+		mav.addObject("list",list);
+		mav.setViewName("interiorexamList");
+		return mav;
+	}
+
+	public ModelAndView interiorCompanyDetail(String comId) {
+		ModelAndView mav = new ModelAndView();
+		ExamDTO dto = examDAO.interiorCompanyDetail(comId);
+		mav.addObject("dto",dto);
+		mav.setViewName("interiorCompanyDetail");
+		return mav;
+	}
+
+	
 
 }

@@ -35,7 +35,7 @@
         </form>
         <div class="link-area">
             <a href="registForm">일반 회원가입</a>   &nbsp; / &nbsp;
-            <a href="cRegist">업체 회원가입</a> &nbsp;&nbsp;|&nbsp;&nbsp;
+            <a href="cRegistForm">업체 회원가입</a> &nbsp;&nbsp;|&nbsp;&nbsp;
             <a href="findId">아이디 찾기</a>  &nbsp; / &nbsp;
             <a href="findPw">비밀번호 찾기</a>
         </div>

@@ -24,15 +24,6 @@
 		width:60%;
 	}
 	
-	#editable{
-		width: 99%;
-		height: 500px;
-		border: 1px solid gray;
-		text-align: left;
-		overflow: auto;
-		margin:5px;
-		padding:5px;
-	}
 
 </style>
 </head>
@@ -58,7 +49,7 @@
 		</tr>
 		<tr>
 			<th>작성자</th>
-			<td><input type="text" name="id" value="mingmang" readonly/></td><!-- 로그인 세션 받아올예정 -->
+			<td><input type="text" name="id" value="${sessionScope.loginId}" readonly/></td><!-- 로그인 세션 받아올예정 -->
 		</tr>
 		<tr>
 			<th>제목</th>

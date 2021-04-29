@@ -26,12 +26,12 @@
 	</insert>
 	
 
-	<select id="idFind" resultType="String" parameterType="hashmap">
-		SELECT id FROM generalmember WHERE name=#{name} AND email=#{email}
+	<select id="idFind" resultType="com.spring.main.dto.MemberDTO" parameterType="hashmap">
+		SELECT id , reg_date FROM generalmember WHERE name=#{name} AND email=#{email}
 	</select>
 	
-	<select id="comIdFind" resultType="String" parameterType="hashmap">
-		SELECT comId FROM companymember WHERE  license =#{business_number} AND phone = #{phone}
+	<select id="comIdFind" resultType="com.spring.main.dto.CompanyMemberDTO" parameterType="hashmap">
+		SELECT comId ,reg_date FROM companymember WHERE  license =#{business_number} AND phone = #{phone}
 	</select>
 	
 	<select id="pwFind" resultType="com.spring.main.dto.MemberDTO" parameterType="Hashmap">

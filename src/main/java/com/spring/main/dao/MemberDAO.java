@@ -13,9 +13,9 @@ public interface MemberDAO {
 
 	int join(HashMap<String, String> params);
 
-	String idFind(HashMap<String, String> params);
+	MemberDTO idFind(HashMap<String, String> params);
 
-	String comIdFind(HashMap<String, String> params);
+	CompanyMemberDTO comIdFind(HashMap<String, String> params);
 
 	MemberDTO pwFind(HashMap<String, String> params);
 
