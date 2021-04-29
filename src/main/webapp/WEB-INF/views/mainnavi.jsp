@@ -52,7 +52,7 @@
     <a href="*" target="_parent">
         <li>도와줘요 자취만렙</li>
     </a>
-    <a href="*" target="_parent">
+    <a href="interiorexamList" target="_parent">
         <li>전문가 인테리어</li>
     </a>
 

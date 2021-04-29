@@ -5,11 +5,11 @@
 >
 <mapper namespace="com.spring.main.dao.ReviewDAO">
 	
-	<select id="reviewList" resultType="com.spring.main.dto.ReviewDTO">
+	<select id="reviewList" resultType="review">
 	SELECT REVIDX,SUBJECT,CONTENT,RATE,COMID,ID,reg_date,rnum 
 	FROM( 
 	 		SELECT REVIDX,SUBJECT,CONTENT,RATE,COMID,ID,reg_date, 
-	 		ROW_NUMBER() OVER(ORDER BY REVIDX DESC) AS rnum FROM REVIEW
+	 		ROW_NUMBER() OVER(ORDER BY REVIDX DESC) AS rnum FROM REVIEW WHERE COMID=#{param3}
 	 		)
 	WHERE rnum between #{param1} AND #{param2}
 	</select>
