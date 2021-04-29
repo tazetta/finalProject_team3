@@ -6,6 +6,7 @@
 <meta charset="utf-8" />
 <title>내 인테리어 변천사</title>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="resources/js/jquery.jscroll.js"></script>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
 <script
@@ -25,6 +26,13 @@
 		});
 	});
 	//]]>
+	$(document).ready(function () {
+		 $('#autoScroll').jscroll({
+		  autoTrigger: true,
+		  loadingHtml: '<div class="next">loading...</div>',
+		  nextSelector: 'a.nextPage:last'
+		 });
+		});
 </script>
 <style>
 table, td, th {
@@ -98,8 +106,31 @@ h2 {
 }
 
 .wraping {
+	margin: 15px;
 	height: 400px;
 	float: left;
+}
+
+.headDESC {
+	font-size: 25px;
+	font-weight: 600;
+	color: tomato;
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-bottom: 0px;
+}
+
+.myPhotos {
+	    box-shadow: 0 0 5px #ccc;
+    border: 5px solid #fff;
+    background: #fff;
+    margin: 9px;
+    float: left;
+}
+
+.something{
+margin: 15px;
+    float: left;
 }
 </style>
 </head>
@@ -108,18 +139,19 @@ h2 {
 		<iframe src="mainnavi.html" scrolling="no" frameborder="0"
 			style="width: 100%;"></iframe>
 	</div>
+			<div class="sideBar" style="margin-right: 15px; ">
+				<iframe src="mynavi.html" scrolling="no" frameborder="0"
+					style="height: 650px; float: left; width: 160px; position: fixed;"></iframe>
+			</div>
 	<div class="flexBox">
 		<div
-			style="border-bottom: 2px solid #f2f2f2; border-top: 2px solid #f2f2f2;">
-			<div class="sideBar" style="margin-right: 15px;">
-				<iframe src="mynavi.html" scrolling="no" frameborder="0"
-					style="height: 650px; float: left; width: 160px;"></iframe>
-			</div>
+			style="border-top: 2px solid #f2f2f2; max-width: 880px;">
 			<!-- <div id="eventImage">
 				<i class="arrow left" onclick="imageSlider2()"></i> <i
 					class="arrow right" onclick="imageSlider()"></i>
 			</div> -->
-			<div class="wraping">
+			<div>
+			<div class="wraping" style="height: 300px">
 				<div class="bxslider">
 					<div>
 						<img src="resources/images/interior1.jpg" width="400px"
@@ -132,6 +164,55 @@ h2 {
 					<div>
 						<img src="resources/images/interior3.jpg" width="400px"
 							height="250px">
+					</div>
+				</div>
+			</div>
+			<div class="wraping" style="height: 300px">
+				<div class="bxslider">
+					<div>
+						<img src="resources/images/interior1.jpg" width="400px"
+							height="250px">
+					</div>
+					<div>
+						<img src="resources/images/interior2.jpg" width="400px"
+							height="250px">
+					</div>
+					<div>
+						<img src="resources/images/interior3.jpg" width="400px"
+							height="250px">
+					</div>
+				</div>
+			</div>
+			<div class="something" >
+				<div class="headDESC" style="border-bottom: 2px solid lightgray;">내 사진들</div>
+				<div class="box" style="max-width: 845px">
+					<div class="myPhotos">
+						<img src="resources/images/interior1.jpg" width="253px"
+							height="125px">
+					</div>
+					<div class="myPhotos">
+						<img src="resources/images/interior2.jpg" width="253px"
+							height="125px">
+					</div>
+					<div class="myPhotos">
+						<img src="resources/images/interior3.jpg" width="253px"
+							height="125px">
+					</div>
+					<div class="myPhotos">
+						<img src="resources/images/interior4.jpg" width="253px"
+							height="125px">
+					</div>
+					<div class="myPhotos">
+						<img src="resources/images/interior5.jpg" width="253px"
+							height="125px">
+					</div>
+					<div class="myPhotos">
+						<img src="resources/images/interior6.jpg" width="253px"
+							height="125px">
+					</div>
+					<div class="myPhotos">
+						<img src="resources/images/interior7.jpg" width="253px"
+							height="125px">
 					</div>
 				</div>
 			</div>
