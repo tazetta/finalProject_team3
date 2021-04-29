@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.main.dao.BoardDAO;
 import com.spring.main.dto.BoardDTO;
@@ -220,5 +221,35 @@ public class BoardService {
 		}
 		mav.setViewName(page);
 		return mav;
+	}
+	/* 게시글 삭제 */
+	@Transactional
+	public ModelAndView boardDel(String boardIdx ,String brdCtgIdx, HttpSession session,RedirectAttributes rAttr) {
+		ModelAndView mav = new ModelAndView();
+		String newFileName = boarddao.boardGetFileName(boardIdx);//보드파일찾기
+		if (newFileName != null) { // 파일이 있으면
+			int success = boarddao.boardPhotoDel(boardIdx); // DB에서 삭제
+			logger.info("photos 삭제 결과:" + success);
+		}
+		int success = boarddao.boardDel(boardIdx);
+		logger.info("글 삭제결과: " + success);
+		
+		if (success > 0 && newFileName != null) {
+			HashMap<String, Object> map = fileDelete(newFileName, session);
+			int result = (int) map.get("success");
+			logger.info("result:" + result);
+		}
+		msg = "삭제되었습니다.";
+		rAttr.addFlashAttribute("msg", msg);
+
+		mav.setViewName("redirect:/groupListPage");
+		return mav;
+	}
+	
+	/*파일 삭제*/
+	@Transactional
+	public HashMap<String, Object> fileDelete(String newFileName, HttpSession session) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
