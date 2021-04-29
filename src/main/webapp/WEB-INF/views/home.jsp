@@ -13,7 +13,7 @@
 <a href="companydetail">업체 페이지</a>
 <a href="interiorexamList">전문가인테리어</a>
 <a href="Freeview">프리뷰</a>
-
+<a href="myprofile">마이프로필</a>
 <br/>
 <hr>
 <a href="adminMain">관리자 메인페이지</a>

@@ -213,5 +213,19 @@ public class MemberController {
 			mav.setViewName(page);
 			return mav;
 		}
+		@RequestMapping(value = "/myprofile", method = RequestMethod.GET)
+		public ModelAndView myprofile() {
+			logger.info("myprofile 페이지 요청");
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("myprofile");
+			return mav;
+		}
+		@RequestMapping(value = "/mynavi", method = RequestMethod.GET)
+		public ModelAndView mynavi() {
+			logger.info("mynavi 페이지 요청");
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("mynavi");
+			return mav;
+		}
 }
 
