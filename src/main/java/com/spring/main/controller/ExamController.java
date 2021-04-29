@@ -81,14 +81,7 @@ public class ExamController {
 		return examService.interiorCompanyDetail(comId);
 	}
 	
-	@RequestMapping(value = "/companyReportForm", method = RequestMethod.GET)
-	public ModelAndView examWrcompanyReportForm(HttpSession session,@RequestParam String comId) {
-		logger.info("신고새창 페이지로 이동");
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("comId",comId);
-		mav.setViewName("companyReportForm");
-		return mav;
-	}
+	
 	
 		
 }
