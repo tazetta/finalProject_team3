@@ -62,7 +62,7 @@ a.button2:hover {
   
         <h1 style="padding-top: 50px; font-weight: bold;">꿀팁 게시판</h1>
         <br/>
-        <h>글 수정하기</a></h>
+        <h>글 수정하기</h>
     </div>
     <br/>
     <div class="container">
