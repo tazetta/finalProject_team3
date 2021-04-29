@@ -119,17 +119,17 @@ public class GroupController {
 	}
 
 	@RequestMapping(value = "/applyGroup/{gpIdx}/{applyId}", method = RequestMethod.GET)
-	public ModelAndView applyGroup(@PathVariable int gpIdx, @PathVariable String applyId, HttpSession session,
+	public ModelAndView applyGroup(@PathVariable String gpIdx, @PathVariable String applyId, HttpSession session,
 			RedirectAttributes rAttr) {
 		logger.info("공동구매 신청 요청: " + gpIdx + "/" + applyId);
 		return groupService.applyGroup(gpIdx, applyId, rAttr);
 	}
-
-	@RequestMapping(value = "/cancelGroup/{gpIdx}/{applyId}", method = RequestMethod.GET)
-	public ModelAndView cancelGroup(@PathVariable int gpIdx, @PathVariable String applyId, HttpSession session,
-			RedirectAttributes rAttr) {
-		logger.info("공동구매 취소 요청: " + gpIdx + "/" + applyId);
-		return groupService.cancelGroup(gpIdx, applyId, rAttr);
+	
+	@RequestMapping(value = "/groupApplyChk/{gpIdx}/{applyId}", method = RequestMethod.GET)
+	public HashMap<String, Object> groupApplyChk(@PathVariable String gpIdx, @PathVariable String applyId, HttpSession session) {
+		logger.info("공동구매 실시간 확인 요청: " + gpIdx + "/" + applyId);
+		return groupService.groupApplyChk(gpIdx, applyId);
 	}
+	
 
 }

@@ -136,6 +136,10 @@
 		SET PHOTOIDX=photos_seq.NEXTVAL, NEWFILENAME=#{param1}, ORIFILENAME =#{param2}  WHERE gpIdx=#{param3}
 	</update>
 	
+	<select id="applyCheck" resultType="String">
+		SELECT id FROM applicants WHERE gpIdx=#{param1} AND id=#{param2}
+	</select>
+	
 	<insert id="applyGroup">
 		INSERT INTO applicants (gpIdx,id) VALUES(#{param1},#{param2})
 	</insert>
