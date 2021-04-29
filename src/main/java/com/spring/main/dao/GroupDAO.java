@@ -49,6 +49,8 @@ public interface GroupDAO {
 
 	String applyCheck(int gpIdx, String applyId);
 
+	ArrayList<GroupDTO> applyList(int gpIdx);
+
 
 
 
