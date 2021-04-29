@@ -29,40 +29,40 @@
 </head>
 <body>
 <hr/>
-<form action="reviewWrite" method="post">
+<form action="estimateWrite" method="post">
 	<table>
 		<tr>
 			<th>업체</th>
-			<td><input type="text" name="comId" value="company1" readonly/></td><!-- 로그인 세션 받아올예정 -->
-		</tr>
-		<tr>
-			<th>별점</th>
-			<td>
-				<select name="rate" id="rate">
-					<option value="5.0">★5.0</option>
-					<option value="4.0">★4.0</option>
-					<option value="3.0">★3.0</option>
-					<option value="2.0">★2.0</option>
-					<option value="1.0">★1.0</option>
-				</select>
-			</td>
+			<td><input type="text" name="comId" value="company1" readonly/></td><!-- 업체명 받아올예정 -->
 		</tr>
 		<tr>
 			<th>작성자</th>
 			<td><input type="text" name="id" value="mingmang" readonly/></td><!-- 로그인 세션 받아올예정 -->
 		</tr>
 		<tr>
-			<th>제목</th>
-			<td><input type="text" name="subject" id="subject"/></td>
+			<th>주소</th>
+			<td><input type="text" name="address" id="address"/></td>
 		</tr>
 		<tr>
-			<th>내용</th>
+			<th>연락저</th>
+			<td><input type="text" name="phone" id="phone"/></td>
+		</tr>
+		<tr>
+			<th>평수</th>
+			<td><input type="number" name="roomsize" id="roomsize"/> 평</td>
+		</tr>
+		<tr>
+			<th>예산</th>
+			<td><input type="number" name="budget" id="budget"/> 만원</td>
+		</tr>
+		<tr>
+			<th>세부사항</th>
 			<td>
 				<textarea name="content" id="content"></textarea>
 			</td>
 		</tr>
 	</table>
-	<input type="button" id="save" value="리뷰작성"/>	
+	<input type="button" id="save" value="견적서보내기"/>	
 </form>
 </body>
 <script>
@@ -71,9 +71,8 @@ if(msg != ""){
 	alert(msg);
 }
 $("#save").click(function(){
-	if($("#subject").val()==""||$("#content").val()==""){
-		console.log($("#subject").val()+"/"+$("#content").val())
-		alert("제목과 내용을 모두 작성해주세요");
+	if($("#address").val()==""||$("#roomsize").val()==""||$("#budget").val()==""){
+		alert("평수,예산,주소를 모두 작성해주세요");
 	}else{
 		$("form").submit();
 	}

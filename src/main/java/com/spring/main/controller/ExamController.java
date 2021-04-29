@@ -74,6 +74,21 @@ public class ExamController {
 		logger.info("params: {}" ,params);	
 		return examService.examUpdate(params, session);
 	}
-		
+	
+	@RequestMapping(value = "/interiorCompanyDetail", method = RequestMethod.GET)
+	public ModelAndView examWriteForm(HttpSession session,@RequestParam String comId ) {
+		logger.info("인테리어업체 상세보기 페이지로 이동");
+		return examService.interiorCompanyDetail(comId);
+	}
+	
+	@RequestMapping(value = "/companyReportForm", method = RequestMethod.GET)
+	public ModelAndView examWrcompanyReportForm(HttpSession session,@RequestParam String comId) {
+		logger.info("신고새창 페이지로 이동");
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("comId",comId);
+		mav.setViewName("companyReportForm");
+		return mav;
+	}
+	
 		
 }

@@ -22,18 +22,16 @@ public class ExamRestController {
 	
 	@RequestMapping(value = "/interiorexamList", method = RequestMethod.GET)
 	public ModelAndView index(Model model) {
-		logger.info("리뷰 페이지 이동");
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("interiorexamList");
-		return mav;
+		logger.info("전문가인테리어 페이지 이동");
+		return examService.list();
 	}
 	
 	//list/보여줄개수/페이지
 	//@PathVariable : 경로에 있는 변수 받기
-	@RequestMapping(value = "/interiorexamList/{page}", method = RequestMethod.GET)
-	public HashMap<String, Object> reviewList(@PathVariable int page) {
-		logger.info("page:{}",page);
-		return examService.list(page);
-	}
+//	@RequestMapping(value = "/interiorexamList/{page}", method = RequestMethod.GET)
+//	public HashMap<String, Object> reviewList(@PathVariable int page) {
+//		logger.info("page:{}",page);
+//		return examService.list(page);
+//	}
 	
 }
