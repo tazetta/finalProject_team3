@@ -30,6 +30,7 @@
 	<aop:aspectj-autoproxy />
 		<beans:bean id="logAspect" class="com.spring.aop.aspect.LogAspect" />
 		
-	
+	<!-- interceptor 설정 -->
+	<beans:import resource="classpath:config/memberInterceptor.xml"/>
 	
 </beans:beans>
