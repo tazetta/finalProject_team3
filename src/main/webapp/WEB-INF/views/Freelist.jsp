@@ -60,7 +60,7 @@ integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroa
             </tbody>
         </table>
         <hr/>
-        <button class="btn" id="comment" style="border-radius: 5px; background-color:rgb(170, 187, 247) ; font-weight: bold;  color: white;" >글쓰기</button>
+        <button class="btn" id="comment" style="border-radius: 5px; background-color:rgb(170, 187, 247) ; font-weight: bold;  color: white;" onclick="location.href='boardWriteForm?boardCtgIdx=1'"  >글쓰기</button>
         </div>
         </body>
         </html>

@@ -40,13 +40,13 @@
 </style>
 
 <div class="bar">
-    <a href="*" target="_parent">
+    <a href="Freelist" target="_parent">
         <li>자유게시판</li>
     </a>
     <a href="*" target="_parent">
         <li>우리집 자랑</li>
     </a>
-    <a href="*" target="_parent">
+    <a href="groupListPage" target="_parent">
         <li>공동 구매</li>
     </a>
     <a href="*" target="_parent">
