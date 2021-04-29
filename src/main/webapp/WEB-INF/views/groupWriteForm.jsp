@@ -37,7 +37,7 @@ input[type='text'] {
 						<option value="1">공동구매</option>
 						<option value="2">무료나눔</option>
 				</select></td>
-				<td><input type="text" name="subject" />
+				<td><input type="text" name="subject"  id="subject" required="required" />
 				<input type="hidden" name="id" value="${sessionScope.loginId }"/> 
 				</td>
 			</tr>
@@ -49,32 +49,44 @@ input[type='text'] {
 			</tr>
 			<tr>
 				<td>오픈카카오톡 URL</td>
-				<td><input type="text" name="chatUrl" /></td>
+				<td><input type="text" name="chatUrl" id="chatUrl"/></td>
 			</tr>
 			<tr>
 				<td>최대참여자</td>
-				<td><input type="text" name="maxUser"></td>
+				<td><input type="number" name="maxUser"  id="maxUser"></td>
 			</tr>
 			<tr>
 				<td>마감날짜</td>
 				<td><!-- <input type="date" name="deadline" /> -->
 				
-				<input type="Date" name="deadline" /></td>
+				<input type="Date" name="deadline" id="deadline" /></td>
 			</tr>
 		</table>
 	</form>
 	<input type="button" value="파일업로드" onclick="fileUp()" />
 	<button onclick="location.href='groupListPage'">취소</button>
-	<button id="save">작성완료</button>
+	<input type="button" id="save" value ="작성완료" />
 
 </body>
 <script>
 	$("#save").click(function() {
-		console.log($("#editable").html());
-		$("#editable>a").find("b").remove(); //a태그안 b태그 삭제
-		$("#editable>a").removeAttr("onclick"); //del(this) 무효화
-		$("#content").val($("#editable").html());
-		$("form").submit();
+		
+		/* 유효성 검사 */
+		
+		var subject = $("#subject").val();
+		var content = $("#content").val();
+		var chatUrl = $("#chatUrl").val();
+		var maxUser = $("#maxUser").val();
+		var deadline = $("#deadline").val();
+		if(subject==''|| content==''|| chatUrl=='' || maxUser=='' ||deadline=='' ){
+			alert("모든 양식을 작성해주세요");
+		}else{
+			
+				$("#editable>a").find("b").remove(); //a태그안 b태그 삭제
+				$("#editable>a").removeAttr("onclick"); //del(this) 무효화
+				$("#content").val($("#editable").html());
+				 $("form").submit(); 
+		}		
 	});
 	
 	/* 파일업로드 새창*/

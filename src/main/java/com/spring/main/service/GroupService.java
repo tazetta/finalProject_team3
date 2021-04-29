@@ -371,6 +371,9 @@ public class GroupService {
 				for (String key : fileList.keySet()) { // 여러개의 파일이 있을 수 있으므로 for문 사용
 					groupdao.groupUpdateFile(key, fileList.get(key), groupDTO.getGpIdx());
 				}
+				
+				
+
 			}
 			msg = "글수정에 성공하였습니다";
 		} else { // 글수정 실패시
@@ -426,21 +429,6 @@ public class GroupService {
 		return mav;
 	}
 
-	/*
-	 * public ModelAndView cancelGroup(int gpIdx, String applyId, RedirectAttributes
-	 * rAttr) { ModelAndView mav = new ModelAndView(); logger.info("공동구매 취소 서비스");
-	 * 
-	 * int applyResult = groupdao.cancelGroup(gpIdx, applyId);
-	 * logger.info("공동구매 취소 result: " + applyResult); int currResult =
-	 * groupdao.currUserDown(gpIdx); logger.info("현재인원 감소 result:" + currResult);
-	 * 
-	 * msg = "취소에 실패했습니다"; page = "redirect:/groupDetail?gpIdx=" + gpIdx;
-	 * 
-	 * if (applyResult > 0 && currResult > 0) { msg = "취소되었습니다"; } String state =
-	 * "신청"; rAttr.addFlashAttribute("msg", msg); rAttr.addFlashAttribute("state",
-	 * state); mav.setViewName(page); return mav; }
-	 */
-
 	public HashMap<String, Object> groupSearchList(int pagePerCnt, int page, String opt, String keyword) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		logger.info("검색리스트 서비스 ");
@@ -479,23 +467,6 @@ public class GroupService {
 
 		return map;
 	}
-	/*
-	public HashMap<String, Object> groupApplyChk(String gpIdx, String applyId) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		String id = groupdao.applyCheck(gpIdx, applyId);
-		logger.info("신청자 명단 id:"+id);
-		String state = "";
-		if (id != null) {
-			state = "true"; //신청함
-			logger.info("state:"+state);
-		} else {
-			state = "false"; //신청안함
-			logger.info("state:"+state);
-		}
-		map.put("state", state);
-		return map;
-	}
-*/
 
 	public HashMap<String, Object> applyList(int gpIdx, RedirectAttributes rAttr, HttpSession session) {
 		HashMap<String, Object> map = new HashMap<String, Object> ();
@@ -503,6 +474,17 @@ public class GroupService {
 		logger.info("신청자  수:"+list.size());
 		map.put("list", list);
 		return map;
+	}
+
+	public ModelAndView progUpdate(int gpIdx, int progIdx, RedirectAttributes rAttr, HttpSession session) {
+			logger.info("진행상황 실시간 업데이트 서비스");
+			String loginId = (String) session.getAttribute("loginId");
+			 ModelAndView mav = new ModelAndView();
+			int result = groupdao.progUpdate(gpIdx,progIdx);
+			logger.info("진행상황 업데이트 result:"+result);
+			page = "redirect:/groupDetail?gpIdx=" + gpIdx+"&loginId="+loginId;
+			mav.setViewName(page);
+		return mav;
 	}
 
 }
