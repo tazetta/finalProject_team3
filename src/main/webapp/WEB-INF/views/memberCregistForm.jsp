@@ -3,14 +3,13 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-	 <title>회원가입 - 땃쥐</title>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <link rel="stylesheet" href="resources/css/memberCSS/registForm.css">
-    <style>
-    </style>
-</head>
-<body>
-    <div class="form-area">
+		<title>Insert title here</title>
+		<style></style>
+		<link rel="stylesheet" href="resources/css/memberCSS/cRegist.css/">
+		 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	</head>
+	<body>
+	  <div class="form-area">
         <div class="title">
             <h3>회원가입</h3>
         </div>
@@ -22,7 +21,7 @@
             </div>
         </div>
         <div class="input-area">
-            <input  id="pw" type="password"  name="pw" placeholder="숫자 영문 특주문자 포함 8자리이상"/>
+            <input  id="pw" type="password" name="pw" placeholder="숫자 영문 특주문자 포함 8자리이상"/>
             <label for="pw">비밀번호</label>
         </div>
         <div class="input-area">
@@ -31,14 +30,18 @@
             <div id="pwChkMsg"></div>
         </div>
         <div class="input-area">
-            <input  id="name" type="text" name="name" placeholder="이름 입력"  oninput="this.value = this.value.replace(/[^ㄱ-힣a-zA-Z).]/g, '')"/>
-            <label for="name">이름</label>
+            <input  id="company_name" type="text" name="name" placeholder="업체명 입력"/>
+            <label for="company_name">업체명</label>
         </div>
         <div class="input-area">
-            <input  id="gender" type="radio" name="gender" value="남" />남
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <input  id="gender" type="radio" name="gender" value="여" />여
-            <label for="gender">성별</label>
+            <input  id="business_number" type="text" name="business_number" placeholder="사업자 번호"/>
+            <label for="gender">사업자 번호</label>
+            <div class="cIdChk">
+                <button>중복확인</button>
+            </div>
+            <div class="bn_lookUp">
+                <button>조회</button>
+            </div>
         </div>
         <div class="input-area">
             <input id="phone" type="text"  maxlength="11"  name="phone"  
@@ -46,8 +49,14 @@
             <label for="phone">전화번호</label>
         </div>
         <div class="input-area">
-            <input  id="email" type="email" name="email" placeholder="이메일 입력"/>
-            <label for="email">이메일</label>
+            <input  id="sample6_postcode" type="email" name="email" placeholder="주소를 조회해주세요."/>
+            <input  id="sample6_address" type="email" name="email" placeholder="주소 입력"/>
+            <input  id="sample6_detailAddress" type="email" name="email" placeholder="상세주소 입력"/>
+            <input  id="sample6_extraAddress" type="email" name="email" placeholder="참고사항 입력"/>
+            <label for="email">주소</label>
+            <div class="addr_lookUp">
+                <button onclick="sample6_execDaumPostcode()">조회</button>
+            </div>
         </div>
         <div class="join">
             <button id="joinBtn">회원가입</button>
@@ -55,21 +64,6 @@
     </div>
     </body>
     <script>
-       
-        // var idChk = false;
-        // $('.idChk').click(function(){
-        //     var idLeng = $('#id').val().length;
-        //     console.log(idLeng);
-        //     if(idLeng >= 5){
-        //         idChk = true;
-        //         console.log(idChk);
-        //     }else{
-        //         idChk = false;
-        //         console.log(idChk);
-        //         alert('5자이상 입력하세요.');
-        //     }
-        // });
-       
         
         $("#pw").keyup(function(){
           var pcm = $("#pwchk").val();
@@ -250,5 +244,59 @@
     	if(msg != ""){
     		alert(msg);
     	}
+        new daum.Postcode({
+        oncomplete: function(data) {
+            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+            // 예제를 참고하여 다양한 활용법을 확인해 보세요.
+        }
+    }).open();
+
+    function sample6_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var addr = ''; // 주소 변수
+                var extraAddr = ''; // 참고항목 변수
+
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+
+                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                if(data.userSelectedType === 'R'){
+                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                        extraAddr += data.bname;
+                    }
+                    // 건물명이 있고, 공동주택일 경우 추가한다.
+                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                    if(extraAddr !== ''){
+                        extraAddr = ' (' + extraAddr + ')';
+                    }
+                    // 조합된 참고항목을 해당 필드에 넣는다.
+                    document.getElementById("sample6_extraAddress").value = extraAddr;
+                
+                } else {
+                    document.getElementById("sample6_extraAddress").value = '';
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('sample6_postcode').value = data.zonecode;
+                document.getElementById("sample6_address").value = addr;
+                // 커서를 상세주소 필드로 이동한다.
+                document.getElementById("sample6_detailAddress").focus();
+            }
+        }).open();
+    }
     </script>
 </html>

@@ -17,6 +17,10 @@ public interface BoardDAO {
 	int boardWrite(BoardDTO boarddto);
 
 	void boardWriteFile(String key, String string, int boardIdx);
+
+	int boardUpdate(BoardDTO dto);
+
+	void boardUpdateFile(String key, String string, int boardIdx);
 	
 
 

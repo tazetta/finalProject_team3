@@ -36,17 +36,31 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public  ModelAndView login(Model model, @RequestParam String id, @RequestParam String pw , HttpSession session) {
+	public  ModelAndView login(Model model, @RequestParam String id, @RequestParam String pw 
+			,@RequestParam String mode , HttpSession session) {
 		logger.info("로그인  요청");
-		logger.info("id : " + id  + "pw :" + pw);
+		logger.info("id : " + id  + "pw :" + pw +"mode :" + mode);
 		ModelAndView mav = new ModelAndView();
 		String msg = "아이디와 패스워드를 확인해 주세요.";
 		String page = "login";
-		if(service.login(id,pw)) {
-			msg ="로그인에 성공 하였습니다.";
-			page="main";
-			session.setAttribute("loginId", id);
+		
+		if(mode.equals("member")) {
+			if(service.login(id,pw)) {
+				msg ="로그인에 성공 하였습니다.";
+				page="main";
+				session.setAttribute("loginId", id);
+				
+			}
+			
+		}else if(mode.equals("company")) {
+			if(service.cLogin(id,pw)) {
+				msg ="로그인에 성공 하였습니다.";
+				page="main";
+				session.setAttribute("loginId", id);
+			}
 		}
+		
+		logger.info("세션 아이디 : {}", session.getAttribute("loginId"));
 		mav.addObject("msg", msg);
 		mav.setViewName(page);
 		return mav;
@@ -192,8 +206,9 @@ public class MemberController {
 			if(adminLoginId != null) {
 				msg ="로그인에 성공 하였습니다.";
 				page="adminMain";
-				session.setAttribute("adLoginId", adminLoginId);
+				session.setAttribute("adminLoginId", adminLoginId);
 			}
+			logger.info("세션 아이디 : " + adminLoginId);
 			mav.addObject("msg", msg);
 			mav.setViewName(page);
 			return mav;

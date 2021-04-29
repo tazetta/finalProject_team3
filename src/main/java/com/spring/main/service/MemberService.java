@@ -28,6 +28,14 @@ public class MemberService {
 		logger.info("success {} " , encrypt_pass);
 		return encoder.matches(pw, encrypt_pass);
 	}
+	public boolean cLogin(String id, String pw) {
+		String cId = dao.cLogin(id,pw);
+		boolean success = false;
+		if(cId != null) {
+			success = true;
+		}
+		return success;
+	}
 
 
 
@@ -84,5 +92,8 @@ public class MemberService {
 
 		return dao.adLogin(id,pw);
 	}
+
+
+
 
 }

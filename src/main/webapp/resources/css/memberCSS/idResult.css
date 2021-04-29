@@ -1,0 +1,52 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.result-area{
+    border: 3px solid #166eac;
+    border-radius: 3px;
+    margin-bottom: 10px;
+    height: 50px;
+   
+}
+.result-msg{
+    
+}
+.id{
+    display: inline-block;
+    padding : 12px 10px;
+    margin-left: 30px;
+}
+.reg_date{
+    display: inline;
+    margin-left: 200px;
+}
+
+.btn-area{
+    text-align: center;
+    margin-top: 40px;
+}
+.btn-area button{
+    text-align: center;
+    background-color: #166eca;
+    color: white;
+    border: none;
+    width: 200px;
+    margin-bottom: 10px;
+    padding: 12px;
+    opacity: 0.9;
+}
+.result-msg2{
+    display: block;
+    height: 50px;
+    padding: 15px 13px;
+    font-size: 15px;
+    
+}
+.btn1:hover , .btn2:hover{
+    cursor: pointer;
+opacity: 1;
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 3px 10px 0 rgba(0,0,0,0.19);
+} 
