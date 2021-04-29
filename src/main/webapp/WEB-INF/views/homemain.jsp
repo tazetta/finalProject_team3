@@ -2,7 +2,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -26,19 +25,36 @@ integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroa
 	text-decoration: none;
 }
 
-    
+span:hover {
+        color: black;
+    }
+
+    #btn:hover {
+        color: rgb(143, 201, 248);
+        box-shadow: rgb(143, 201, 248) 0 0px 0px 40px inset;
+    }
+    #btn2:hover {
+        color: rgb(143, 201, 248);
+        box-shadow: rgb(143, 201, 248) 0 0px 0px 40px inset;
+    }
+
 	
 </style>
 </head>
 <body>
     <div class="container" style="text-align: center; padding-top: 10px;">
-        <input type="text" size="75" style="border-radius: 5px; border: 2px solid rgb(203, 228, 248); " placeholder="검색어를 입력해주세요.">
+        <input type="text" size="75" style="border-radius: 5px; border: 2px solid rgb(203, 228, 248); "
+            placeholder="검색어를 입력해주세요.">
         &nbsp;
-        <button id="btn" style="border-radius: 5px; background-color: rgb(203, 228, 248); border: 2px solid rgb(203, 228, 248); font-weight: bold; color: white;">검색</button>
-        <span><a href="" style="font-size:small; float: right; color: gray; font-weight: bold;">|고객센터</a></span>
-        <span><a href="" style="font-size:small; float: right; color: gray; font-weight: bold;" >|회원가입</a></span>
-        <span><a href="" style="font-size:small; float: right; color: gray; font-weight: bold;">로그인</a></span>
-    </div>
+        <button id="btn"
+            style="border-radius: 5px; background-color: rgb(203, 228, 248); border: 2px solid rgb(203, 228, 248); font-weight: bold; color: white;">검색</button>
+        <a href="" style="font-size:small; float: right; color: gray; padding-left: 5px;  font-weight: bold;">|<span
+                style="padding-left: 5px; font-weight: bold; ">고객센터</span></a>
+        <a href="" style="font-size:small; float: right; color: gray; padding-left: 5px; font-weight: bold;">|<span
+                style="padding-left: 5px;  font-weight: bold;">회원가입</span></a>
+        <a href="" style="font-size:small; float: right; color: gray;  font-weight: bold; "><span>로그인</span></a>
+       </div>
+   <br/>
    <br/>
     <div class="container" style="text-align: center;">
         <select name="idx" id="idx" style="border-radius: 5px; border: 2px solid gray; ">
@@ -71,44 +87,107 @@ integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroa
         
    
        <div style="float: right;">
-           <button class="btn" id="comment">글쓰기</button>
+        <button id="btn"
+        style="border-radius: 5px; background-color: rgb(95, 176, 241); border: 2px solid rgb(203, 228, 248); font-weight: bold; color: white;">글쓰기</button>
         </div>
 
     </div>
     <br/>
    
-    <div id="mainBox">
-		<!-- 상단 타이틀 -->
-		
-			<div class="mainContent1">
-			
-				<div class="bestItem">
-					<c:forEach items="${list}" var="best">
-					<a href="" class="alink">
-					<table>
-						<tr>
-							<td rowspan="3" class="bestImage" >
-								<img id="itemImage1" src=""  alt="${oriFileName}"width="300px" height="398px" style="border-radius: 5px;" />
-							</td>
-							<td class="subject">
-								${subject}
-							</td>
-						</tr>
-						<tr>
-							<td class="id">
-								${id}
-							</td>
-						</tr>
-						<tr>
-							<td class="scrapidx">${scrapidx} </td>
-						</tr>
-					</table>
-					</a>
-					</c:forEach>
-				</div>
-				
-			</div>
-		</div>
-	</div>
+    <div class="container" style="font-size: large; font-weight: bold; padding-left: 40px;">
+        <br />
+        <h4  style=" font-weight: bold;">우리 집 자랑</h4>
+        <div class="container" style="padding-top: 100px;">
+
+
+            <div style="display: flex;  justify-content: center; border: 1px solid rgb(255, 255, 255);">
+                <div style="border-radius:20px; border: 5px solid white; margin-right: 90px; box-shadow:0 0 5px lightslategray;">
+                    <img src="C:\Users\user\Desktop\BootStrap\interior1.jpg" width="250" height="250" style=" border-radius:20px;">
+                    <table class="table">
+                        <tr>
+                            <th style="border-color: white;">새로운글</th>
+                        </tr>
+                        <td>중수 아이디 날짜 조회 댓글 추천</td>
+                    </table>
+                </div>
+
+            
+
+
+                <div style=" border-radius:20px; border: 5px solid white; margin-right: 90px; box-shadow:0 0 5px lightslategray;">
+                    <img src="C:\Users\user\Desktop\BootStrap\interior2.jpg" width="250" height="250"  style=" border-radius:20px;" >
+                    <table class="table" >
+                        <tr>
+                            <th style="border-color: white;">에바야</th>
+                        </tr>
+                        <tr>
+                            <td>중수 아이디 날짜 조회 댓글 추천</td>
+
+                        </tr>
+                    </table>
+
+
+                </div>
+                <div style="  border-radius:20px;  border: 5px solid white; margin-right: 90px; box-shadow:0 0 5px lightslategray;">
+                    <img src="C:\Users\user\Desktop\BootStrap\interior3.jpg" width="250" height="250"  style=" border-radius:20px;">
+                    <table class="table">
+                        <tr>
+                            <th style="border-color: white;">힘들다</th>
+                        </tr>
+                        <tr>
+                        <td>중수 아이디 날짜 조회 댓글 추천</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <br />
+            <div style="display: flex;  justify-content: center; border: 1px solid rgb(255, 255, 255);">
+                <div style="border-radius:20px; border: 5px solid white; margin-right: 90px; box-shadow:0 0 5px lightslategray;">
+                    <img src="C:\Users\user\Desktop\BootStrap\interior1.jpg" width="250" height="250" style=" border-radius:20px;">
+                    <table class="table">
+                        <tr>
+                            <th style="border-color: white;">새로운글</th>
+                        </tr>
+                        <tr>
+                        <td>중수 아이디 날짜 조회 댓글 추천</td>
+                        </tr>
+                    </table>
+                </div>
+
+            
+                <div style=" border-radius:20px; border: 5px solid white; margin-right: 90px; box-shadow:0 0 5px lightslategray;">
+                    <img src="C:\Users\user\Desktop\BootStrap\interior2.jpg" width="250" height="250"  style=" border-radius:20px;" >
+                    <table class="table" >
+                        <tr>
+                            <th style="border-color: white;">에바야</th>
+                        </tr>
+                        <tr>
+                            <td>중수 아이디 날짜 조회 댓글 추천</td>
+
+                        </tr>
+                    </table>
+
+
+                </div>
+                <div style="  border-radius:20px;  border: 5px solid white; margin-right: 90px; box-shadow:0 0 5px lightslategray;">
+                    <img src="C:\Users\user\Desktop\BootStrap\interior3.jpg" width="250" height="250"  style=" border-radius:20px;">
+                    <table class="table">
+                        <tr>
+                            <th style="border-color: white;">힘들다</th>
+                        </tr>
+                        <tr>
+                        <td>중수 아이디 날짜 조회 댓글 추천</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+
+
+
+        </div>
+    </div>  
 </body>
 </html>
+
+
