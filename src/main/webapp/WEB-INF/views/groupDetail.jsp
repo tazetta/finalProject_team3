@@ -52,9 +52,9 @@ table, td, th {
 			<td colspan="5" style="padding: 20px">${dto.content }</td>
 			<td style="width: 20%">현재인원/모집인원 : <span id="groupCnt">${dto.currUser }/${dto.maxUser}</span>
 				<br />마감날짜 : <b>${dto.deadline}</b><br /> <c:if
-					test="${state eq '취소' ||  empty state }">
+					test="${state eq 'false' ||  empty state }">
 					<input type="button" id="toggleApply" value="신청" />
-				</c:if> <c:if test="${state eq '신청'}">
+				</c:if> <c:if test="${state eq 'true'}">
 					<input type="button" id="toggleApply" value="취소" />
 				</c:if>
 
@@ -92,10 +92,10 @@ table, td, th {
 
 	/*신청상태 확인*/
 	/* var loginId =${sessionScope.loginId} ; */
-	groupApplyChk();
-	
+	//groupApplyChk();
+	//+${dto.gpIdx}+"/"+"${sessionScope.loginId}"
 	  function groupApplyChk() {
-			var reqUrl = "./groupApplyChk/"+${dto.gpIdx}+"/"+"${sessionScope.loginId}" ; 
+			var reqUrl = "./groupApplyChk";
 			
 			$.ajax({
 				url : reqUrl,
@@ -107,7 +107,7 @@ table, td, th {
 				
 				},
 				error : function(error) {
-					console.log("error:"+error);
+					console.log(error);
 				}
 			});
 		}
@@ -118,7 +118,7 @@ table, td, th {
 
 	//신청-취소 toggle
 	$("#toggleApply").click(function() {
-		location.href = 'applyGroup/${dto.gpIdx}/${sessionScope.loginId}'; 
+		location.href = '/main/applyGroup/${dto.gpIdx}/${sessionScope.loginId}'; 
 	});
 	
 

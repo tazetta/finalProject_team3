@@ -35,19 +35,19 @@ public interface GroupDAO {
 
 	void groupUpdateFile(String key, String string, int gpIdx);
 
-	int applyGroup(String gpIdx, String applyId);
+	int applyGroup(int gpIdx, String applyId);
 
-	int currUserUp(String gpIdx);
+	int currUserUp(int gpIdx);
 
-	int cancelGroup(String gpIdx, String applyId);
+	int cancelGroup(int gpIdx, String applyId);
 
-	int currUserDown(String gpIdx);
+	int currUserDown(int gpIdx);
 
 	int groupSearchCount(String opt, String keyword);
 
 	ArrayList<GroupDTO> groupSearchList(String startStr, String endStr, String opt, String keyword);
 
-	String applyCheck(String gpIdx, String applyId);
+	String applyCheck(int gpIdx, String applyId);
 
 
 

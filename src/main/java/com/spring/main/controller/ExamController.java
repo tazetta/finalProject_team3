@@ -74,6 +74,14 @@ public class ExamController {
 		logger.info("params: {}" ,params);	
 		return examService.examUpdate(params, session);
 	}
-		
+	
+	@RequestMapping(value = "/interiorCompanyDetail", method = RequestMethod.GET)
+	public ModelAndView examWriteForm(HttpSession session,@RequestParam String comId ) {
+		logger.info("인테리어업체 상세보기 페이지로 이동");
+		return examService.interiorCompanyDetail(comId);
+	}
+	
+	
+	
 		
 }

@@ -29,4 +29,8 @@ public interface ExamDAO {
 
 	int examDel(int combrdIdx);
 
+	ArrayList<ExamDTO> list();
+
+	ExamDTO interiorCompanyDetail(String comId);
+
 }

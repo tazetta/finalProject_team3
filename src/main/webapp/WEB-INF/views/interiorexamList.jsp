@@ -46,9 +46,19 @@
 			<tr>
 				<td>제목</td>
 				<td>업체명</td>
+				<td>조회수</td>
 				<td>작성일</td>
 			</tr>
 		</thead>
+		<c:forEach items="${list}" var="list">
+				<tr>
+					<td><a href="examDetail?combrdIdx=${list.combrdIdx}">${list.subject}</a></td>
+					<td><a href="interiorCompanyDetail?comId=${list.comId}">${list.comId}</a></td>
+					<td>${list.bHit}</td>
+					<td>${list.reg_date}</td>
+				</tr>
+		</c:forEach>
+		
 		<!-- <tbody id="list">
 			불러온 데이터 뿌리는 영역
 		</tbody> -->

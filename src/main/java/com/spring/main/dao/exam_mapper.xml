@@ -13,6 +13,10 @@
 		VALUES(COMPANYBOARD_SEQ.NEXTVAL, #{subject}, #{content},#{comId})
 	</insert>
 	
+	<select id="list" resultType="exam">
+		SELECT * FROM COMPANYBOARD ORDER BY reg_date DESC
+	</select>
+	
 	<insert id="examWriteFile">
 		INSERT INTO photos (PHOTOIDX, NEWFILENAME, ORIFILENAME, COMBRDIDX) 
 		VALUES (photos_seq.NEXTVAL, #{param1}, #{param2}, #{param3})
@@ -47,4 +51,8 @@
 	<delete id="examDel">
 		UPDATE COMPANYBOARD SET blind='y' WHERE combrdIdx=#{combrdIdx}
 	</delete>
+	
+	<select id="interiorCompanyDetail" resultType="exam">
+		SELECT * FROM COMPANYMEMBER WHERE COMID=#{param1}
+	</select>
 </mapper>
