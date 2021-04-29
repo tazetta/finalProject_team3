@@ -47,7 +47,7 @@ public class MemberController {
 		if(mode.equals("member")) {
 			if(service.login(id,pw)) {
 				msg ="로그인에 성공 하였습니다.";
-				page="redirect:/main";
+				page="main";
 				session.setAttribute("loginId", id);
 				
 			}
