@@ -62,9 +62,15 @@
                 <br/>
                 <div class="container">
                     <div style="display: flex;  justify-content: center; border: 1px solid rgb(255, 255, 255); height: 100%;">
-                        <div style="width: 250px;height: 250px; border: 1px solid black; margin-right: 90px;" ></div>
-                        <div style="width: 250px;height: 250px;border: 1px solid black;  margin-right: 90px;"></div>
-                        <div style="width: 250px;height: 250px;border: 1px solid black;"></div>
+                        <div style="border: 5px solid white; margin-right: 90px; box-shadow:0 0 5px lightslategray;" >
+                            <img src="C:\Users\user\Desktop\BootStrap\interior1.jpg" width="250" height="250">
+                        </div>
+                        <div style="border: 5px solid white; margin-right: 90px; box-shadow:0 0 5px lightslategray;" >
+                            <img src="C:\Users\user\Desktop\BootStrap\interior2.jpg" width="250" height="250">
+                        </div>
+                        <div style="border: 5px solid white; margin-right: 90px; box-shadow:0 0 5px lightslategray;" >
+                            <img src="C:\Users\user\Desktop\BootStrap\interior3.jpg" width="250" height="250">
+                        </div>
                     </div>
                 </div>
                 <br/>
