@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+   "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+<mapper namespace="com.spring.main.dao.ReviewDAO">
+	
+	<select id="reviewList" resultType="review">
+	SELECT REVIDX,SUBJECT,CONTENT,RATE,COMID,ID,reg_date,rnum 
+	FROM( 
+	 		SELECT REVIDX,SUBJECT,CONTENT,RATE,COMID,ID,reg_date, 
+	 		ROW_NUMBER() OVER(ORDER BY REVIDX DESC) AS rnum FROM REVIEW WHERE COMID=#{param3}
+	 		)
+	WHERE rnum between #{param1} AND #{param2}
+	</select>
+ 	
+	<select id="allCount" resultType="Integer">
+		SELECT COUNT(REVIDX) FROM REVIEW
+	</select>      
+ 
+	<insert id="reviewWrite" 
+		useGeneratedKeys="true"
+		keyProperty="revIdx"
+		keyColumn="revIdx"
+		parameterType="com.spring.main.dto.ReviewDTO">
+		INSERT INTO review(REVIDX, SUBJECT, CONTENT, RATE,COMID, ID) 
+		VALUES(REVIEW_seq.NEXTVAL, #{subject}, #{content}, #{rate},#{comId},#{id})
+	</insert>
+	
+	<select id="reviewDetail" resultType="com.spring.main.dto.ReviewDTO">
+	 SELECT REVIDX, SUBJECT, CONTENT, RATE,COMID, ID,reg_date FROM review WHERE REVIDX=#{revIdx}
+	</select>
+
+	<update id="reviewUpdate" parameterType="com.spring.main.dto.ReviewDTO">
+		UPDATE REVIEW SET subject=#{subject}, content=#{content}, rate=#{rate} WHERE REVIDX=#{revIdx}
+	</update>
+	
+	<delete id="reviewDelete">
+		DELETE FROM REVIEW WHERE REVIDX=#{param1}
+	</delete>
+</mapper>
