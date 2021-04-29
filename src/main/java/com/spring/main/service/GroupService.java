@@ -44,8 +44,7 @@ public class GroupService {
 
 	@Transactional // 글등록에 실패하면 저장한 파일내용 등록도 실행되지 않도록
 	public ModelAndView groupWrite(HashMap<String, String> params, HttpSession session) {
-
-		String loginId = "yezi"; // 세션아이디 넣을예정
+		String loginId = (String) session.getAttribute("loginId");
 
 		ModelAndView mav = new ModelAndView();
 		GroupDTO groupDTO = new GroupDTO();
@@ -93,8 +92,8 @@ public class GroupService {
 				}
 			}
 
-			page = "redirect:/groupDetail?gpIdx=" + groupDTO.getGpIdx();
-			msg = "글쓰기에 성공하였습니다";
+			page = "redirect:/groupDetail?gpIdx=" + groupDTO.getGpIdx()+"&loginId="+loginId;
+			
 
 		} else { // 글쓰기 실패시
 			for (String newFileName : fileList.keySet()) {
@@ -102,13 +101,13 @@ public class GroupService {
 				file.delete();
 			}
 		}
-		mav.addObject("msg", msg);
+
 		mav.setViewName(page);
 		return mav;
 	}
 
 	@Transactional
-	public ModelAndView detail(int gpIdx) {
+	public ModelAndView detail(int gpIdx, String loginId) {
 		ModelAndView mav = new ModelAndView();
 		logger.info("상세보기 서비스");
 		GroupDTO dto = groupdao.groupDetail(gpIdx);
@@ -125,11 +124,27 @@ public class GroupService {
 			mav.addObject("dto", dto);
 
 			groupdao.groupUpHit(gpIdx); // 조회수 증가
+			
+			String state ="";
+			String applyId = groupdao.applyCheck(gpIdx, loginId);
+			logger.info("신청 아이디:"+ applyId);
+
+			if(applyId!=null) {
+				state ="true"; //신청함
+				logger.info("신청상태:"+state);
+				
+			}else {
+				state="false"; //신청안함
+				logger.info("신청상태:"+state);
+
+			}
+			mav.addObject("state",state);
 			page = "groupDetail";
 		}
 		mav.setViewName(page);
 		return mav;
 	}
+	
 
 	public ModelAndView fileUpload(MultipartFile file, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
@@ -277,34 +292,15 @@ public class GroupService {
 		return mav;
 	}
 
-	/*
-	public ModelAndView groupSearch(HashMap<String, String> params, RedirectAttributes rAttr) {
-		logger.info("공동구매 search 서비스");
 
-		ModelAndView mav = new ModelAndView();
-		String page = "groupSearchList"; // 성공여부 관계없이 list 페이지로
 
-		ArrayList<GroupDTO> list = groupdao.groupSearch(params);
-
-		String msg = params.get("keyword") + "에 대한 검색결과가 없습니다.";
-
-		if (list.size() > 0) { // 검색결과가 있으면
-			msg = params.get("keyword") + "에 대한 검색결과가 " + list.size() + "건 있습니다.";
-		}
-		logger.info(msg);
-		mav.addObject("list", list); // 키워드에 해당하는 항목 list에 담아 보내기
-		mav.addObject("msg", msg);
-		mav.setViewName(page);
-		return mav;
-	}
-	*/
-
-	public ModelAndView updateForm(int gpIdx) {
+	public ModelAndView updateForm(int gpIdx, HttpSession session) {
+		String loginId = (String) session.getAttribute("loginId");
 		ModelAndView mav = new ModelAndView();
 		logger.info("수정할 글 form 서비스");
 		GroupDTO dto = groupdao.groupDetail(gpIdx);
 		logger.info("groupDTO: " + dto);
-		page = "redirect:/groupDetail?gpIdx=" + gpIdx;
+		page = "redirect:/groupDetail?gpIdx=" + gpIdx+"&loginId="+loginId;
 		if (dto != null) {
 			String category = groupdao.groupCtg(dto.getGpCtgIdx()); // 카테고리 가져오기
 			dto.setCategory(category); // 카테고리명 담기
@@ -323,6 +319,7 @@ public class GroupService {
 
 	@Transactional
 	public ModelAndView groupUpdate(HashMap<String, String> params, HttpSession session) {
+		String loginId = (String) session.getAttribute("loginId");
 		ModelAndView mav = new ModelAndView();
 		GroupDTO groupDTO = new GroupDTO();
 		logger.info("글수정 서비스");
@@ -354,7 +351,7 @@ public class GroupService {
 		groupDTO.setProgIdx(progIdx); // 진행상황
 		logger.info("groupdto:" + groupDTO);
 
-		page = "redirect:/groupDetail?gpIdx=" + groupDTO.getGpIdx();
+		page = "redirect:/groupDetail?gpIdx=" + groupDTO.getGpIdx()+"&loginId="+loginId;
 		msg = "글 수정에 실패했습니다";
 		int result = groupdao.groupUpdate(groupDTO); // 게시글 업데이트
 		logger.info("글 업데이트 결과:" + result);
@@ -386,56 +383,70 @@ public class GroupService {
 		return mav;
 	}
 
-	public ModelAndView applyGroup(int gpIdx, String applyId, RedirectAttributes rAttr) {
+	public ModelAndView applyGroup(int gpIdx, String applyId, RedirectAttributes rAttr, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		logger.info("공동구매 신청 서비스");
+		String applyCheck = groupdao.applyCheck(gpIdx, applyId);
+		logger.info("공동구매 신청 여부:" + applyCheck);
 
-		int applyResult = groupdao.applyGroup(gpIdx, applyId);
-		logger.info("공동구매 신청 result: " + applyResult);
-		int currResult = groupdao.currUserUp(gpIdx);
-		logger.info("현재인원 증가 result:" + currResult);
-
+		String state = "";
 		msg = "신청에 실패했습니다";
-		page = "redirect:/groupDetail?gpIdx=" + gpIdx;
 
-		if (applyResult > 0 && currResult > 0) {
-			msg = "신청되었습니다";
+		if (applyCheck != null) { // 이미 신청했다면
+			int applyResult = groupdao.cancelGroup(gpIdx, applyId);
+			logger.info("공동구매 취소 result: " + applyResult);
+			int currResult = groupdao.currUserDown(gpIdx);
+			logger.info("현재인원 감소 result:" + currResult);
+
+			if (applyResult > 0 && currResult > 0) {
+				msg = "신청취소 되었습니다";
+				state = "false";
+				logger.info("state:"+state);
+			}
+
+		} else {
+			int applyResult = groupdao.applyGroup(gpIdx, applyId);
+			logger.info("공동구매 신청 result: " + applyResult);
+			int currResult = groupdao.currUserUp(gpIdx);
+			logger.info("현재인원 증가 result:" + currResult);
+
+			if (applyResult > 0 && currResult > 0) {
+				msg = "신청되었습니다";
+				state = "true";
+				logger.info("state:"+state);
+			}
+
 		}
-		String state = "취소";
+
+		page = "redirect:/groupDetail?gpIdx=" + gpIdx+"&loginId="+applyId;
+
 		rAttr.addFlashAttribute("msg", msg);
 		rAttr.addFlashAttribute("state", state);
 		mav.setViewName(page);
 		return mav;
 	}
 
-	public ModelAndView cancelGroup(int gpIdx, String applyId, RedirectAttributes rAttr) {
-		ModelAndView mav = new ModelAndView();
-		logger.info("공동구매 취소 서비스");
+	/*
+	 * public ModelAndView cancelGroup(int gpIdx, String applyId, RedirectAttributes
+	 * rAttr) { ModelAndView mav = new ModelAndView(); logger.info("공동구매 취소 서비스");
+	 * 
+	 * int applyResult = groupdao.cancelGroup(gpIdx, applyId);
+	 * logger.info("공동구매 취소 result: " + applyResult); int currResult =
+	 * groupdao.currUserDown(gpIdx); logger.info("현재인원 감소 result:" + currResult);
+	 * 
+	 * msg = "취소에 실패했습니다"; page = "redirect:/groupDetail?gpIdx=" + gpIdx;
+	 * 
+	 * if (applyResult > 0 && currResult > 0) { msg = "취소되었습니다"; } String state =
+	 * "신청"; rAttr.addFlashAttribute("msg", msg); rAttr.addFlashAttribute("state",
+	 * state); mav.setViewName(page); return mav; }
+	 */
 
-		int applyResult = groupdao.cancelGroup(gpIdx, applyId);
-		logger.info("공동구매 취소 result: " + applyResult);
-		int currResult = groupdao.currUserDown(gpIdx);
-		logger.info("현재인원 감소 result:" + currResult);
-
-		msg = "취소에 실패했습니다";
-		page = "redirect:/groupDetail?gpIdx=" + gpIdx;
-
-		if (applyResult > 0 && currResult > 0) {
-			msg = "취소되었습니다";
-		}
-		String state = "신청";
-		rAttr.addFlashAttribute("msg", msg);
-		rAttr.addFlashAttribute("state", state);
-		mav.setViewName(page);
-		return mav;
-	}
-
-	public HashMap<String, Object> groupSearchList(int pagePerCnt, int page, String opt , String keyword) {
+	public HashMap<String, Object> groupSearchList(int pagePerCnt, int page, String opt, String keyword) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		logger.info("검색리스트 서비스 ");
 		// pagePerCnt의 기준으로 몇 페이지나 만들 수 있는가?(마지막 페이지)
 		// -> 전체 게시글 수
-		int allCnt = groupdao.groupSearchCount(opt ,keyword); // 공동구매 검색 글 갯수
+		int allCnt = groupdao.groupSearchCount(opt, keyword); // 공동구매 검색 글 갯수
 		logger.info("group Purchase searchCnt:" + allCnt);
 
 		// 게시글 수 : 21개, 페이지 당 보여줄 수 : 10 =(나머지가 있는 경우 반올림해서)=> 최대 생성 가능한 페이지 : 3
@@ -449,11 +460,11 @@ public class GroupService {
 		int start = end - pagePerCnt + 1;
 		String startStr = Integer.toString(start);
 		String endStr = Integer.toString(end);
-		ArrayList<GroupDTO> groupList = groupdao.groupSearchList(startStr, endStr, opt, keyword ); // 리스트 담기
+		ArrayList<GroupDTO> groupList = groupdao.groupSearchList(startStr, endStr, opt, keyword); // 리스트 담기
 		GroupDTO dto = null;
-		
+
 		logger.info("groupList size: " + groupList.size());
-		
+
 		String msg = keyword + "에 대한 검색결과가 없습니다.";
 
 		if (groupList.size() > 0) { // 검색결과가 있으면
@@ -468,5 +479,22 @@ public class GroupService {
 
 		return map;
 	}
+	/*
+	public HashMap<String, Object> groupApplyChk(String gpIdx, String applyId) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String id = groupdao.applyCheck(gpIdx, applyId);
+		logger.info("신청자 명단 id:"+id);
+		String state = "";
+		if (id != null) {
+			state = "true"; //신청함
+			logger.info("state:"+state);
+		} else {
+			state = "false"; //신청안함
+			logger.info("state:"+state);
+		}
+		map.put("state", state);
+		return map;
+	}
+*/
 
 }

@@ -47,6 +47,8 @@ public interface GroupDAO {
 
 	ArrayList<GroupDTO> groupSearchList(String startStr, String endStr, String opt, String keyword);
 
+	String applyCheck(int gpIdx, String applyId);
+
 
 
 

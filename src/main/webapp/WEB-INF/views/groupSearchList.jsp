@@ -53,7 +53,7 @@ head td, #paging {
 		<input id="search" type="button" value="검색" onclick="searchGroup()" />
 
 	</form>
-	${searchMsg} 
+	<span id="searchMsg"></span>
 
 	<table>
 		<thead>
@@ -87,11 +87,14 @@ head td, #paging {
 	</table>
 </body>
 <script>
+
 //검색어 입력 확인
 function searchGroup(){
 	var keyword = $("#keyword").val();
 	console.log("keyword:"+keyword);
-	if(keyword !=''){
+	if(keyword ==''){
+		alert("검색어를 입력해주세요");
+	}else{
 		$("form").submit();
 	}
 }
@@ -117,7 +120,9 @@ function listCall(reqPage) {
 			console.log("success:"+data);
 			console.log("range:"+data.range);
 			showPage = data.currPage; //서비스에서 보낸 페이지를 현재 페이지에 넣기
+			console.log(data.searchMsg);
 			listPrint(data.list); //list내용을 뿌려주는 함수 실행
+			searchMsg(data.searchMsg); //검색결과 msg 보여주는 함수 실행
 					
 			/* 플러그인 사용한 페이징 처리*/
 			$("#pagination").twbsPagination({
@@ -137,6 +142,9 @@ function listCall(reqPage) {
 	});
 }
 
+function searchMsg(searchMsg){
+	$("#searchMsg").html(searchMsg);
+}
 
 
 function listPrint(list) {

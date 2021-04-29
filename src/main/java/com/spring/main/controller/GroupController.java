@@ -53,9 +53,9 @@ public class GroupController {
 	}
 
 	@RequestMapping(value = "/groupDetail", method = RequestMethod.GET)
-	public ModelAndView groupDetail(@RequestParam int gpIdx) {
+	public ModelAndView groupDetail(@RequestParam int gpIdx, @RequestParam String loginId) {
 		logger.info("공동구매 상세보기 요청: " + gpIdx);
-		return groupService.detail(gpIdx);
+		return groupService.detail(gpIdx,loginId);
 	}
 
 	@RequestMapping(value = "/groupUploadForm", method = RequestMethod.GET)
@@ -108,7 +108,7 @@ public class GroupController {
 		// 업로드할 파일이름을 저장한 HashMap생성해서 session에 저장(upload메서드에서 여러파일을 관리하기위해)
 		HashMap<String, String> fileList = new HashMap<String, String>();
 		session.setAttribute("fileList", fileList);
-		return groupService.updateForm(gpIdx);
+		return groupService.updateForm(gpIdx, session);
 	}
 
 	@RequestMapping(value = "/groupUpdate", method = RequestMethod.POST)
@@ -122,14 +122,16 @@ public class GroupController {
 	public ModelAndView applyGroup(@PathVariable int gpIdx, @PathVariable String applyId, HttpSession session,
 			RedirectAttributes rAttr) {
 		logger.info("공동구매 신청 요청: " + gpIdx + "/" + applyId);
-		return groupService.applyGroup(gpIdx, applyId, rAttr);
+		return groupService.applyGroup(gpIdx, applyId, rAttr,session);
 	}
-
-	@RequestMapping(value = "/cancelGroup/{gpIdx}/{applyId}", method = RequestMethod.GET)
-	public ModelAndView cancelGroup(@PathVariable int gpIdx, @PathVariable String applyId, HttpSession session,
-			RedirectAttributes rAttr) {
-		logger.info("공동구매 취소 요청: " + gpIdx + "/" + applyId);
-		return groupService.cancelGroup(gpIdx, applyId, rAttr);
-	}
+	
+	/*
+	 * @RequestMapping(value = "/groupApplyChk/{gpIdx}/{applyId}", method =
+	 * RequestMethod.GET) public HashMap<String, Object> groupApplyChk(@PathVariable
+	 * String gpIdx, @PathVariable String applyId, HttpSession session) {
+	 * logger.info("공동구매 실시간 확인 요청: " + gpIdx + "/" + applyId); return
+	 * groupService.groupApplyChk(gpIdx, applyId); }
+	 */
+	
 
 }
