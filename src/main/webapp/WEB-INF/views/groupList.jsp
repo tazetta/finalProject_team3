@@ -156,7 +156,7 @@ function listPrint(list) {
 	var content = "";
 	var category="";
 	var progress="";
-	for (var i = 0; i < list.length; i++) {
+	for (var i = 0 ; i < list.length ; i++) {
 
 		content += "<tr>"
 		content += "<td>"+list[i].gpIdx+"</td>" //글번호

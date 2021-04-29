@@ -1,5 +1,6 @@
 package com.spring.main.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
@@ -18,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.spring.main.dto.GroupDTO;
 import com.spring.main.service.GroupService;
 
 @Controller
@@ -28,13 +30,6 @@ public class GroupController {
 	@Autowired
 	GroupService groupService;
 
-	@RequestMapping(value = "/groupListPage", method = RequestMethod.GET)
-	public ModelAndView home() {
-		logger.info("공동구매 리스트 로 이동");
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("groupList");
-		return mav;
-	}
 
 	@RequestMapping(value = "/groupWriteForm", method = RequestMethod.GET)
 	public String groupWriteForm(HttpSession session) {
@@ -88,19 +83,7 @@ public class GroupController {
 		return groupService.groupDel(gpIdx, session, rAttr);
 	}
 
-	@RequestMapping(value = "/groupSearch", method = RequestMethod.GET)
-	public ModelAndView groupSearch(Model model, @RequestParam HashMap<String, String> params,
-			RedirectAttributes rAttr) {
-		logger.info("search params: " + params);
-		ModelAndView mav = new ModelAndView();
-		String opt = params.get("opt");
-		String keyword = params.get("keyword");
-		mav.addObject("searchOpt", opt);
-		mav.addObject("keyword", keyword);
-
-		mav.setViewName("groupSearchList");
-		return mav;
-	}
+	
 
 	@RequestMapping(value = "/groupUpdateForm/{gpIdx}", method = RequestMethod.GET)
 	public @ResponseBody ModelAndView groupUpdateForm(@PathVariable int gpIdx, HttpSession session) {
@@ -132,6 +115,33 @@ public class GroupController {
 	 * logger.info("공동구매 실시간 확인 요청: " + gpIdx + "/" + applyId); return
 	 * groupService.groupApplyChk(gpIdx, applyId); }
 	 */
+	
+	@RequestMapping(value = "/applyList/{gpIdx}", method = RequestMethod.GET)
+	@ResponseBody HashMap<String, Object> applyList(@PathVariable int gpIdx,HttpSession session,
+			RedirectAttributes rAttr) {
+		logger.info("공동구매 신청자 리스트 요청: " + gpIdx );
+		return groupService.applyList(gpIdx,  rAttr,session);
+	}
+
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public ModelAndView logout(HttpSession session) {
+		logger.info("로그아웃 요청");
+		ModelAndView mav = new ModelAndView();
+		session.removeAttribute("loginId");
+		mav.setViewName("main");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/progUpdate/{gpIdx}/{progIdx}", method = RequestMethod.GET)
+	public ModelAndView progUpdate(@PathVariable int gpIdx ,@PathVariable int progIdx , HttpSession session,
+			RedirectAttributes rAttr) {
+		logger.info("공동구매 진행상황 업데이트 요청: " + gpIdx +"현재상태:"+progIdx);
+		return groupService.progUpdate(gpIdx,progIdx,  rAttr,session);
+	}
+	
+
+	
+	
 	
 
 }

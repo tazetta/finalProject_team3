@@ -79,15 +79,7 @@
 	<delete id="groupDel">
 		UPDATE groupPurchase SET blind='y' WHERE gpIdx=#{gpIdx}
 	</delete>
-	
-	<!-- <select id="groupSearch" parameterType="hashMap" resultType="group">
-		SELECT * FROM groupPurchase 
-		<where>
-			<if test="opt == 'subject' and !keyword.equals('')">subject LIKE '%'||#{keyword}||'%' </if>
-			<if test="opt == 'content' and !keyword.equals('')">content LIKE '%'||#{keyword}||'%' </if>
-			<if test="opt == 'id' and !keyword.equals('')"> id LIKE '%'||#{keyword}||'%' </if>
-		</where>
-	</select> -->
+
 	
 	<select id="groupSearchList"  parameterType="String" resultType="group">
 			
@@ -154,6 +146,14 @@
 	
 	<update id="currUserDown">
 		 UPDATE groupPurchase SET currUser=currUser-1 WHERE gpIdx=#{param1}
+	</update>
+	
+	<select id="applyList" resultType="group">
+		SELECT id FROM applicants WHERE gpIdx=#{param1}
+	</select>
+	
+	<update id="progUpdate">
+	 	UPDATE groupPurchase SET PROGIDX='3' WHERE gpIdx=#{param1}
 	</update>
 
 	

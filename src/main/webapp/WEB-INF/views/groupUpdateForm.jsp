@@ -60,6 +60,9 @@ input[type='text'] {
 			<tr>
 				<td>모집상태</td>
 				<td><select name="progIdx" >
+					
+						<%-- ${dto.progress} --%>
+						
 						<option value="1">진행중</option>
 						<option value="2">인원부족마감</option>
 						<option value="3">마감</option>
@@ -72,7 +75,7 @@ input[type='text'] {
 		</table>
 	</form>
 	<input type="button" value="파일업로드" onclick="fileUp()" />
-	<button onclick="location.href='/main/groupDetail?gpIdx=${dto.gpIdx}'">취소</button>
+	<button onclick="location.href='/main/groupDetail?gpIdx=${dto.gpIdx}&loginId=${sessionScope.loginId}'">취소</button>
 	<button id="save">수정완료</button>
 </body>
 <script>
