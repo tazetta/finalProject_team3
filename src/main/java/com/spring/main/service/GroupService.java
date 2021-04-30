@@ -25,6 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.main.dao.GroupDAO;
 import com.spring.main.dao.MemberDAO;
+import com.spring.main.dto.CommentsDTO;
 import com.spring.main.dto.GroupDTO;
 import com.spring.main.dto.MemberDTO;
 
@@ -487,6 +488,33 @@ public class GroupService {
 			page = "redirect:/groupDetail?gpIdx=" + gpIdx+"&loginId="+loginId;
 			mav.setViewName(page);
 		return mav;
+	}
+
+	public HashMap<String, Object> groupCommentWrite(HashMap<String, String> params, RedirectAttributes rAttr) {
+		logger.info("공동구매 댓글쓰기 서비스");
+		HashMap<String, Object> map = new HashMap<String, Object> ();
+		int result = groupdao.groupCommentWrite(params);
+		logger.info("댓글쓰기 result: "+result);
+		msg="댓글 등록에 실패했습니다";
+		if(result>0) {
+			msg="댓글이 등록되었습니다";
+		}
+
+		map.put("msg", msg);
+		return map;
+	}
+
+	public HashMap<String, Object> groupCommentList(int gpIdx, RedirectAttributes rAttr) {
+		logger.info("공동구매 댓글 리스트 서비스");
+		HashMap<String, Object> map = new HashMap<String, Object> ();
+
+		ArrayList<CommentsDTO> list = groupdao.groupCommentList(gpIdx);
+		int listSize = list.size();
+		logger.info("listSize:"+listSize);
+		
+		map.put("listSize",listSize);
+		map.put("list",list);
+		return map;
 	}
 
 }

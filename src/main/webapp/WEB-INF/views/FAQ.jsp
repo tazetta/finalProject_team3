@@ -49,24 +49,28 @@
         <a href="FAQsend">고객의소리</a>
 
         <div style=" margin-top: 10%; font-size: 25px;">
-        <ul><strong onclick="view1()" style="font-size: 40px;color: coral; cursor: pointer;">Q</strong>.비밀번호 어떻게 바꾸나여?</ul>
+        <ul><strong onclick="view1()" style="font-size: 40px;color: coral; cursor: pointer;">Q</strong>.비밀번호 어떻게 바꾸나요?</ul>
         <ul class="답변" id="hidden1"  style="display:none"><strong style="font-size: 40px; color: coral;">A</strong>.로그인후 오른쪽 상단 마이페이지에서 바꾸실수있습니다.</ul>
         <hr/>
         <ul><strong  onclick="view2()" style="font-size: 40px;color: coral;cursor: pointer;">Q</strong>.회원 탈퇴는 어떻게하나요?</ul>
         <ul class="답변" id="hidden2" style="display:none"><strong style="font-size: 40px; color: coral;">A</strong>.마이페이지에서 탈퇴신청하면 됩니다.</ul>
         <hr/>
-        <ul><strong  onclick="view3()" style="font-size: 40px;color: coral;cursor: pointer;">Q</strong>.회원정보를 수정하고 싶은데 어떻게하나여?</ul>
+        <ul><strong  onclick="view3()" style="font-size: 40px;color: coral;cursor: pointer;">Q</strong>.회원정보를 수정하고 싶은데 어떻게하나요?</ul>
         <ul class="답변" id="hidden3" style="display:none"><strong style="font-size: 40px; color: coral;">A</strong>.로그인후 오른쪽 상단 마이페이지에서 바꾸실수있습니다.</ul>
         <hr/>
         <ul><strong onclick="view4()" style="font-size: 40px;color: coral;cursor: pointer;">Q</strong>.쪽지는 어떻게 보내나요?</ul>
         <ul class="답변" id="hidden4" style="display:none"><strong style="font-size: 40px; color: coral;">A</strong>.쪽지는 기능을 추가중입니다.</ul>
         <hr/>
-        <ul><strong onclick="view5()" style="font-size: 40px;color: coral;cursor: pointer;">Q</strong>.회원탈퇴 후 재가입이 가능한가여?</ul>
+        <ul><strong onclick="view5()" style="font-size: 40px;color: coral;cursor: pointer;">Q</strong>.회원탈퇴 후 재가입이 가능한가요?</ul>
         <ul class="답변" id="hidden5" style="display:none"><strong style="font-size: 40px; color: coral;">A</strong>.전에 쓰던 아이디로는 가입이 불가능합니다.</ul>
         <hr/>
     </div>
     </body>
     <script>
+    var msg = "${msg}";
+    if(msg != ""){
+    	alert(msg);
+    }
     function view1(){
         if(hidden1.style.display=="none"){
             hidden1.style.display="block";

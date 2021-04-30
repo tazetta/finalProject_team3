@@ -155,16 +155,25 @@
 	<update id="progUpdate" parameterType="int" >
 	 	UPDATE groupPurchase 
 	 	<if test="param2 ==2 ">
-	 		SET PROGIDX='2'
+	 		SET PROGIDX='2'  WHERE gpIdx=#{param1} 
 	 	</if>
 	 	<if test="param2 ==3 ">
-	 		SET PROGIDX='3'
+	 		SET PROGIDX='3'  WHERE gpIdx=#{param1} 
 	 	</if>
-	 	 WHERE gpIdx=#{param1}
+	 	
 	</update>
 	
 	<select id="deadlineChk" resultType="group">
-		SELECT deadline, currUser,gpIdx, maxUser FROM groupPurchase
+		SELECT deadline, currUser,gpIdx, maxUser, progIdx FROM groupPurchase
+	</select>
+	
+	<insert id="groupCommentWrite">
+		INSERT INTO comments (COMMIDX, COMMENTS, id, GPIDX) 
+		VALUES (comments_seq.NEXTVAL, #{comment}, #{loginId}, #{gpIdx})
+	</insert>
+	
+	<select id="groupCommentList" resultType="comments">
+		 SELECT COMMIDX,COMMENTS, REG_DATE, BLIND, BOARDIDX,ID,GPIDX FROM comments WHERE GPIDX =#{param1} AND blind ='n'
 	</select>
 
 	
