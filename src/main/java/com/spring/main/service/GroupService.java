@@ -246,16 +246,15 @@ public class GroupService {
 		int start = end - pagePerCnt + 1;
 
 		ArrayList<GroupDTO> groupList = groupdao.groupList(start, end, opt); // 리스트 담기
+		/*
 		GroupDTO dto = null;
 		for (int i = 0; i < groupList.size(); i++) {
-			
-			/*
+
 			  int gpCtgIdx = groupList.get(i).getGpCtgIdx(); // list에서 카테고리 idx 가져오기 String
 			  String groupCtg = groupdao.groupCtg(gpCtgIdx); // 카테고리명 추출
 			  System.out.println("카테고리명:"+ groupCtg); dto.setCategory(groupCtg);
-			 */
-			 
 		}
+		*/
 
 		logger.info("groupList size: " + groupList.size());
 
@@ -478,16 +477,15 @@ public class GroupService {
 		return map;
 	}
 
-	public ModelAndView progUpdate(int gpIdx, int progIdx, RedirectAttributes rAttr, HttpSession session) {
+	public HashMap<String, Object> progUpdate(int gpIdx, int progIdx, RedirectAttributes rAttr, HttpSession session) {
 			logger.info("진행상황 실시간 마감 업데이트 서비스");
-			String loginId = (String) session.getAttribute("loginId");
-			 ModelAndView mav = new ModelAndView();
+
+			 HashMap<String, Object> map = new HashMap<String, Object> ();
 			int  updateProg = 3;
 			int result = groupdao.progUpdate(gpIdx,updateProg);
 			logger.info("진행상황 업데이트 result:"+result);
-			page = "redirect:/groupDetail?gpIdx=" + gpIdx+"&loginId="+loginId;
-			mav.setViewName(page);
-		return mav;
+			map.put("result", result);
+		return map;
 	}
 
 	public HashMap<String, Object> groupCommentWrite(HashMap<String, String> params, RedirectAttributes rAttr) {
@@ -514,6 +512,18 @@ public class GroupService {
 		
 		map.put("listSize",listSize);
 		map.put("list",list);
+		return map;
+	}
+
+	public HashMap<String, Object> groupCommDel(int commIdx, RedirectAttributes rAttr) {
+		logger.info("공동구매 댓글 삭제 서비스");
+		HashMap<String, Object> map = new HashMap<String, Object> ();
+		int result = groupdao.groupCommDel(commIdx);
+		msg="댓글 삭제에 실패했습니다";
+		if(result>0) {
+			msg="댓글이 삭제 되었습니다";
+		}
+		map.put("msg",msg);
 		return map;
 	}
 

@@ -60,6 +60,8 @@ public interface GroupDAO {
 
 	ArrayList<CommentsDTO> groupCommentList(int gpIdx);
 
+	int groupCommDel(int commIdx);
+
 
 
 	

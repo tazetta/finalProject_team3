@@ -138,17 +138,15 @@ margin:10px;
 	if (msg != "") {
 		alert(msg);
 	}
-
-	var state = "${state}";
-	console.log("State:" + state);
+	
+	groupCommentList(); //댓글리스트
 
 	//신청-취소 toggle
-	$("#toggleApply")
-			.click(
-					function() {
-						location.href = '/main/applyGroup/${dto.gpIdx}/${sessionScope.loginId}';
-					});
+	$("#toggleApply").click(function() {
+			location.href = '/main/applyGroup/${dto.gpIdx}/${sessionScope.loginId}';
+		});
 
+	
 	/* 신청자 명단 가져오기 */
 	applyList();
 
@@ -163,7 +161,7 @@ margin:10px;
 				console.log("success:", data);
 
 				for (var i = 0; i < data.list.length; i++) {
-					console.log("id:" + data.list[i].id);
+
 					var content = "";
 
 					content += "<span id='applyMember'>" + data.list[i].id
@@ -180,7 +178,7 @@ margin:10px;
 	}
 
 	/* 모집인원 달성시 마감으로 변경 */
-	if ("${dto.currUser}" == "${dto.maxUser}") { 
+	if ("${dto.currUser}" == "${dto.maxUser}" && "${dto.progIdx}" !='3') { 
 		progUpdate();
 	}
 
@@ -219,6 +217,7 @@ margin:10px;
 					console.log("success: ", data);
 					alert(data.msg);
 					$("#comment").val('');
+					groupCommentList();// 작성후 댓글 리스트 요청
 
 				},
 				error : function(error) {
@@ -228,8 +227,7 @@ margin:10px;
 		}
 	})
 	
-	groupCommentList();
-	
+
 	/* 댓글 목록 불러오기 */
 	function groupCommentList() {
 		var reqUrl = './groupCommentList/${dto.gpIdx}';
@@ -267,8 +265,15 @@ margin:10px;
 		 var reg_date = new Date(list[i].reg_date); 	 
 		content += reg_date.toLocaleDateString("ko-KR");
 		content += '</td>';
-		content += ' <td style="width:5%" ><a href="#"><img alt="decommend" src="resources/images/decommend.png" width="20px" height="20px"> </a></td>'
-		content += '<td style="text-align:left"><a href="#">답글달기</a>&nbsp;&nbsp;&nbsp;<a href="#">신고</a></td>' ;
+		content += ' <td style="width:5%" ><a href="#"><img alt="decommend" src="resources/images/decommend.png" width="15px" height="15px"> </a></td>'
+		content += '<td style="text-align:left">';
+		if("${sessionScope.loginId}"==list[i].id){
+			content += '<button onclick="groupCommentDel('+list[i].commIdx+')">삭제</button></td>' ; //댓글삭제호출
+			
+		}else{
+		content += '<a href="#">답글달기</a>&nbsp;&nbsp;';
+		content += '<a href="#">신고</a></td>' ;
+		}
 		content += '</tr>';
 		content += '</table>';
 		
@@ -277,5 +282,25 @@ margin:10px;
 		$("#commentListDiv").append(content);
 	
 	}
+	
+	/* 댓글삭제 */
+	function groupCommentDel(commIdx) {
+		var reqUrl = "./groupCommDel/"+commIdx;
+		$.ajax({
+			url : reqUrl,
+			type : "get",
+			data : {},
+			dataType : "JSON",
+			success : function(data) {
+				console.log("success: ", data);
+				groupCommentList(); //삭제 후 댓글리스트 요청
+				
+			},
+			error : function(error) {
+				console.log("error:", error);
+			}
+		});
+	}
+	
 </script>
 </html>

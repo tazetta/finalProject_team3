@@ -20,10 +20,10 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		HttpSession session = request.getSession();
 		
 		if(session.getAttribute("loginId") ==null) {
-			System.out.println("로그인 처리 안되어있음");
+			System.out.println("로그인 처리 안되어있음(logout상태) ");
 			response.sendRedirect("/main/");
 		}else {
-			System.out.println("로그인 처리 되어있음");
+			System.out.println("로그인 처리 되어있음(login상태)");
 			pass=true;
 		}
 		return pass;
