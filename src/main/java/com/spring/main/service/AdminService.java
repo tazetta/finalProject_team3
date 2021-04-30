@@ -3,6 +3,8 @@ package com.spring.main.service;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.AdminDAO;
+import com.spring.main.dto.BoardDTO;
 import com.spring.main.dto.MemberDTO;
 
 @Service
@@ -17,21 +20,55 @@ public class AdminService {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	@Autowired AdminDAO dao;
-	
-	public ModelAndView cntNewMember() {
+	@Autowired AdminDAO dao; 
+	@Autowired AdminService service;
+	public ModelAndView adminMain() {
 		ModelAndView mav = new ModelAndView();
+		// 오늘 날짜 불러오기
 		String sqlDate = new SimpleDateFormat("yy/MM/dd").format(new Date(System.currentTimeMillis()));
 		logger.info("date:{}",sqlDate);
-		int cnt = dao.cntNewMember("21/04/23");
-		logger.info("오늘 가입자 수: {} ", cnt);
 		
-		ArrayList<MemberDTO> list = dao.listNewMember("21/04/23");
-		logger.info("오늘 가입자 ID : {}", list.size());
-		mav.addObject("newMemberList", list);
-		mav.addObject("cnt", cnt);
+		// 오늘 가입자 수 불러오기
+		int newMemberCnt = dao.cntNewMember("21/04/23");
+		logger.info("오늘 가입자 수: {} ", newMemberCnt);
+		
+		// 오늘 가입한 회원 불러오기
+		ArrayList<MemberDTO> newMemberList = dao.listNewMember("21/04/23");
+		logger.info("오늘 가입자 ID : {}", newMemberList.size());
+		mav.addObject("newMemberList", newMemberList);
+		mav.addObject("memberCnt", newMemberCnt);
+		
+		// 현재 관리자 수 불러오기
+		int adminCnt = dao.cntNewAdmin();
+		logger.info("관리자 수 : {} ", adminCnt);
+		
+		// 현재 관리자 ID 불러오기
+		ArrayList<MemberDTO> adminList = dao.listAdmin();
+		logger.info("관리자 ID : {}", adminList.size());
+		mav.addObject("adminList", adminList);
+		mav.addObject("adminCnt", adminCnt);
+		
+		// 오늘 신고된 게시글 수 불러오기
+		int reportedBrdCnt = dao.reportedBrdCnt("21/04/23");
+		logger.info("신고된 게시글 수 : {}", reportedBrdCnt);
+		
+		// 오늘 신고된 게시글 제목, 카테고리 불러오기
+		HashMap<String, Object> reportedBrdList = dao.reportedBrdList("21/04/23");
+		logger.info("신고된 게시글 : {}", reportedBrdList);
+		mav.addObject("reportedBrdCnt", reportedBrdCnt);
+		mav.addObject("reportedBrdList", reportedBrdList);
+		
+		// 오늘 게시된 댓글 수 불러오기
+		int reportedCommCnt = dao.reportedCommCnt("21/04/23");
+		logger.info("신고된 댓글 수 : {}", reportedCommCnt);
+		
+		// 오늘 신고된 댓글 내용, 카테고리 불러오기
+		HashMap<String, Object> reportedCommList = dao.reportedCommList("21/04/23");
+		logger.info("신고된 댓글 : {}", reportedCommList);
+		mav.addObject("reportedBrdCnt", reportedCommCnt);
+		mav.addObject("reportedBrdList", reportedCommList);
+		
 		mav.setViewName("adminMain");
-		
 		return mav;
 	}
 	
