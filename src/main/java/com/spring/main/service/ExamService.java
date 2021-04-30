@@ -277,6 +277,13 @@ public class ExamService {
 		return map;
 	}
 
+	public HashMap<String, Object> examListScroll(int count) {
+		int cnt = count*9;
+		HashMap<String, Object> map = new HashMap<String, Object>();	
+		map.put("list",examDAO.examListScroll(cnt));
+		return map;
+	}
+
 	
 
 }

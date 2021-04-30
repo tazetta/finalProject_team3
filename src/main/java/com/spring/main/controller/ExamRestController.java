@@ -27,7 +27,9 @@ public class ExamRestController {
 	@RequestMapping(value = "/interiorexamList", method = RequestMethod.GET)
 	public ModelAndView index(Model model) {
 		logger.info("전문가인테리어 페이지 이동");
-		return examService.list();
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("interiorexamList");
+		return mav;
 	}
 	
 	@RequestMapping(value = "/interiorCompanyDetail", method = RequestMethod.GET)
@@ -44,7 +46,11 @@ public class ExamRestController {
 		mav.setViewName("companyDetailExam");
 		return mav;
 	}
-	
+	@RequestMapping(value = "/examListScroll/{count}", method = RequestMethod.GET)
+	public HashMap<String, Object> examListScroll(@PathVariable int count) {
+		logger.info("count:{} ",count);
+		return examService.examListScroll(count);
+	}
 	
 //	//list/보여줄개수/페이지
 	@RequestMapping(value = "/comExamList/{page}/{comId}", method = RequestMethod.GET)
