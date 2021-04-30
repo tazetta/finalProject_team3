@@ -53,9 +53,9 @@
 		(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{brdctgidx})
 		</if>
 		<if test="brdctgidx==6">
-		INSERT INTO board(BOARDIDX, SUBJECT, CONTENT, ID,BRDCTGIDX,EMAIL) 
+		INSERT INTO board(BOARDIDX, SUBJECT, CONTENT, ID,BRDCTGIDX,EMAIL,SGTCTG) 
 		VALUES
-		(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{brdctgidx},#{email})
+		(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{brdctgidx},#{email},#{sgtctg})
 		</if>
 	</insert>
 	<!--글작성파일추가-->

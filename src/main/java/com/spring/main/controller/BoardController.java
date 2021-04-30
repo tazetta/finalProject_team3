@@ -98,12 +98,9 @@ public class BoardController {
 		} else if (boardCtgIdx.equals("4")) {
 			page = "QnaWriteForm";
 			logger.info("4 카테고리글쓰기 페이지로 이동");
-		} else if (boardCtgIdx.equals("5")) {
-			page = "examWriteForm";
-			logger.info("5 카테고리글쓰기 페이지로 이동");
-		} else if (boardCtgIdx.equals("6")) {
+		}  else if (boardCtgIdx.equals("5")) {
 			page = "SgtWriteForm";
-			logger.info("6 카테고리글쓰기 페이지로 이동");
+			logger.info("5 카테고리글쓰기 페이지로 이동");
 		}
 		return page;
 	}

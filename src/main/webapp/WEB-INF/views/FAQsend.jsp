@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-        <title>견적서보내기</title>
+        <title>고객의소리보내기</title>
     </head>
     <style>
         table{
@@ -111,7 +111,15 @@
          width: 100% \9; 
          height: auto; 
          }
-
+		
+		#editable {
+		width: 400px;
+		height: 400px;
+		border: 1px solid gray;
+		text-align: left;
+		overflow: auto;
+		padding: 5px;
+		}
 
 
 
@@ -128,58 +136,105 @@
 
         <div style="margin-left: 2%;font-size: 50px;"><strong style="color: coral;">고객의 소리</strong> </div>
 
-
+		<form action="boardWrite" method="post">
+        <input type="hidden" name="boardCtgIdx" value="5"/>
         <table style="width: 700px; margin-top: 3%; margin-left: 15%;">
             <tr>
                 <td  style="width: 100px; text-align: center;"><strong>접 수 종 류</strong></td>
-                    <td><select name="">
-                    <option value="">게시판관련</option>
-                    <option value="">유저관련</option>
-                    <option value="">신고관련</option>
-                    <option value="">기타</option>
-
-                </select></td>
+                    <td>
+                    	<select name="select">
+                    		<option value="board">게시판관련</option>
+                    		<option value="user">유저관련</option>
+                    		<option value="report">신고관련</option>
+                    		<option value="other">기타</option>
+ 	               		</select>
+ 	               </td>
             </tr>
             <tr>
-                <td style="width: 100px; text-align: center; height: 50px;"><strong> 이 름</td>
-                <td></strong><input style="width: 250px;" type="text" id="" placeholder="이 름"></td>
+                <td style="width: 90px; text-align: center; height: 50px;"><strong>아이디</strong></td>
+                <td><input style="width: 250px;" type="text" value="${sessionScope.loginId}" name="id" readonly></td>
             </tr>
             <tr>
-                <td style="width: 100px; text-align: center; height: 50px;"><strong>이메일</strong></td>
-                   <td> <input style="width: 250px;" type="email" id="" placeholder="이 메 일"></td>
+                <td style="width: 90px; text-align: center; height: 50px;"><strong>이메일</strong></td>
+                   <td> <input style="width: 250px;" type="email" id="email" name="email" placeholder="이 메 일"></td>
             </tr>
             <tr>
-                <td style="width: 100px; text-align: center; height: 50px;"><strong> 제 목</strong></td>
-                    <td><input style="width: 250px;" type="text" id="subject" placeholder="제 목"></td>
+                <td style="width: 90px; text-align: center; height: 50px;"><strong> 제 목</strong></td>
+                    <td><input style="width: 250px;" type="text" id="subject" name="subject" placeholder="제 목"></td>
             </tr>
             <tr> 
-                <td style="width: 100px; text-align: center; height: 50px;"><strong>글 내 용</strong></td>
-                <td><div style="width: 400px; height: 40%;" contenteditable="true" placeholder="글 내 용"></div></td>
-              
+                <td style="width: 90px; text-align: center; height: 500px;"><strong>글 내 용</strong></td>
+                <td colspan="2" style="width: 250px; text-align: center; height: 500px;">
+					<div contenteditable="true" id="editable" ></div> 
+					<input name="content" type="hidden" />
+				</td>  	
             </tr>
             <tr>
-                <td style="width: 100px; text-align: center; height: 50px;"></td>
-                <td>
+            	<td colspan="2">
+					<input type="button" value="파일업로드" onclick="fileUp()" />	
+            	</td>
+               <!--  <td>
                     <div class="filebox preview-image">
                         <input class="upload-name" value="업로드된 파일" disabled="disabled" >
                         <label for="input-file">업로드</label>
                          <input type="file" id="input-file" class="upload-hidden">
-                         </div>
-                        </td>
-                    </td>
-            </tr>
-            <tr>
-                <td style="width: 100px; text-align: center; height: 50px;"></td>
-                <td >
-            <input class="보내기" type="submit" value="보 내 기"/>
-        </td>
+                         </div>                      
+               </td> -->
             </tr>
         </table>
-
+        </form>
+		<button onclick="location.href='interiorexamList'">취소</button>
+		<button id="save">작성완료</button>
       
     </body>
     <script>
-        $(document).ready(function(){
+    $("#save").click(function() {
+    	if($("#email").val()==""||$("#subject").val()==""){
+    		alert("이메일,제목,내용을 모두 작성해주세요");
+    	}else{
+    		console.log($("#editable").html());
+    		$("#editable>a").find("b").remove(); //a태그안 b태그 삭제
+    		$("#editable>a").removeAttr("onclick"); //del(this) 무효화
+    		$("#content").val($("#editable").html());
+    		$("form").submit();
+    	}
+		
+	});
+	
+	/* 파일업로드 새창*/
+	function fileUp(){
+		window.open("boardUploadForm","fileUpload","width=400, height=100");
+		//요청url,타이틀,옵션
+	}
+	
+	/* 파일 삭제 - 비동기 */
+	//groupuploadForm에서 보내는 elem확인
+	function del(elem){
+		console.log(elem); //<a>
+		var newFileName = elem.id.substring(elem.id.lastIndexOf("/")+1); //파일명만 뽑아내기
+		console.log(newFileName);
+
+		// 1. 실제 파일 삭제 요청
+		 $.ajax({
+			url:"boardFileDelete",
+			type:"get",
+			data:{"fileName":newFileName},
+			dataType:"json",
+			success:function(d){
+				console.log("success:"+d.success);
+		// 2. 파일 삭제 요청이 완료되면 화면에 나타난 사진 삭제
+				if(d.success ==1){ //실제 파일 삭제 성공시
+					$(elem).find('img').remove(); //이미지 삭제
+					/* $(elem).next().remove(); */ //<br> 삭제
+					$(elem).remove(); // <a>삭제
+				}
+			},error:function(e){
+				console.log(e);
+			}
+		}); 	
+	}
+	
+       /*  $(document).ready(function(){
             var fileTarget = $('.filebox .upload-hidden');
             
         fileTarget.on('change', function(){// 값이 변경되면 
@@ -214,6 +269,6 @@
         var img = $(this).siblings('.upload-display').find('img');
         img[0].style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enable='true',sizingMethod='scale',src=\""+imgSrc+"\")"; 
         }
- });
+ }); */
     </script>
     </html>
