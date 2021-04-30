@@ -37,7 +37,7 @@ public interface BoardDAO {
 	
 	ArrayList<PhotoDTO> getMyPhotos(String id);
 	
-
+	ArrayList<BoardDTO> boardList();
 
 
 	

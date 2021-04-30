@@ -5,6 +5,15 @@
 >
 
 <mapper namespace="com.spring.main.dao.BoardDAO">
+<!-- 글 목록 최신순으로 불러오기 -->
+<select id="getBoardList" resultType="com.spring.main.dto.BoardDTO">
+	SELECT * FROM (
+	SELECT ROW_NUMBER() OVER (ORDER BY REG_DATE DESC) AS RNUM, SUBJECT, ID, BHIT, REG_DATE
+	FROM BOARD
+	WHERE BRDCTGIDX = #{boardCtxIdx}
+	)
+	WHERE RNUM BETWEEN #{startPage} AND #{endPage}
+</select>
 <!--글상세보기-->
 <select id="Boarddetail" resultType="board">
 	 SELECT BOARDIDX,SUBJECT,CONTENT,ID,REG_DATE,ROOMSIZE,BUDGET,KEYITEMS,BHIT,BLIND,BRDCTGIDX,FORMIDX,EMAIL FROM BOARD WHERE BOARDIDX=#{boardIdx}
