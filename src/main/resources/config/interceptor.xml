@@ -8,7 +8,16 @@
 
 <!-- interceptor그룹 -->
 	<mvc:interceptors>
-		<!-- 글쓰기시 회원등급 카운트 -->
+		<!-- 로그인 확인 -->
+		<mvc:interceptor>
+			<!--  요청에 대해 -->
+			<mvc:mapping path="/groupDetail*"/>
+			<mvc:mapping path="/groupWriteForm*"/> 
+			<!--  아래 클래스로 이동시켜라 -->
+			<bean class="com.spring.main.service.LoginInterceptor" />
+		</mvc:interceptor>
+	
+		<!-- 글쓰기시 회원등급(cntBoard) 카운트 -->
 		<mvc:interceptor>
 			<!--  요청에 대해 -->
 			<mvc:mapping path="/groupWrite"/>
@@ -21,7 +30,6 @@
 		<mvc:interceptor>
 			<!--  요청에 대해 -->
 			<mvc:mapping path="/groupListPage"/>
-			
 			<!--  아래 클래스로 이동시켜라 -->
 			<bean class="com.spring.main.service.DateInterceptor" />
 		</mvc:interceptor>
