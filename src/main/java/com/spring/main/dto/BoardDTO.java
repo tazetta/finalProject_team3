@@ -18,6 +18,23 @@ public class BoardDTO {
 	private String category;
 	private String formcategory;
 	private int boardCtgIdx;
+	private String sgtctg;
+	
+	public int getBoardCtgIdx() {
+		return boardCtgIdx;
+	}
+
+	public void setBoardCtgIdx(int boardCtgIdx) {
+		this.boardCtgIdx = boardCtgIdx;
+	}
+
+	public String getSgtctg() {
+		return sgtctg;
+	}
+
+	public void setSgtctg(String sgtctg) {
+		this.sgtctg = sgtctg;
+	}
 
 	public int getBoardctgidx() {
 		return boardCtgIdx;

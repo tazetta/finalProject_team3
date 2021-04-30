@@ -91,8 +91,9 @@ public class BoardService {
 			boarddto.setBudget(Integer.parseInt(params.get("budget")));//예산
 			boarddto.setFormidx(Integer.parseInt(params.get("formidx")));//주거형태
 		}
-		if(boardctgidx==6) {
+		if(boardctgidx==5) {
 			boarddto.setEmail(params.get("email"));
+			boarddto.setSgtctg(params.get("select"));
 		}
 		int result = boarddao.boardWrite(boarddto);
 		//실패시 다시 카테고리에 맞는 수정폼으로 보내기
@@ -104,8 +105,6 @@ public class BoardService {
 			page = "redirect:/tipWriteForm";
 		}else if(boardctgidx==4) {
 			page = "redirect:/qnaWriteForm";
-		}else if(boardctgidx==5) {
-			page = "redirect:/examWriteForm";
 		}else if(boardctgidx==6) {
 			page = "redirect:/sgtWriteForm";
 		}
@@ -136,9 +135,8 @@ public class BoardService {
 		}else if(boardctgidx==4) {
 			page = "redirect:/qnalist";
 		}else if(boardctgidx==5) {
-			page = "redirect:/examlist";
-		}else if(boardctgidx==6) {
-			page = "redirect:/sgtlist";
+			page = "FAQ";
+			msg="고객의소리가 정상적으로 관리자에게 전해졌습니다!";
 		}
 		}else{//글쓰기 실패시
 			for (String newFileName : fileList.keySet()) {
