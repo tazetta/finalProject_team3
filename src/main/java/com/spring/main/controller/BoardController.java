@@ -42,6 +42,11 @@ public class BoardController {
 		logger.info("main");
 		return "main";
 	}
+	@RequestMapping(value = "/homemain", method = RequestMethod.GET)
+	public String homemain() {
+		logger.info("homemain");
+		return "homemain";
+	}
 	@RequestMapping(value = "/Freeview", method = RequestMethod.GET)
 	public String Freeview() {
 		logger.info("프리뷰.");
@@ -98,7 +103,7 @@ public class BoardController {
 		} else if (boardCtgIdx.equals("4")) {
 			page = "QnaWriteForm";
 			logger.info("4 카테고리글쓰기 페이지로 이동");
-		}  else if (boardCtgIdx.equals("5")) {
+		} else if (boardCtgIdx.equals("5")) {
 			page = "SgtWriteForm";
 			logger.info("5 카테고리글쓰기 페이지로 이동");
 		}
@@ -151,6 +156,12 @@ public class BoardController {
 																														// 삭제
 		logger.info(fileName + " ->파일 삭제 요청");
 		return BoardService.fileDelete(fileName, session);
+	}
+	
+	@RequestMapping(value = "/recommend", method = RequestMethod.GET)
+	public @ResponseBody HashMap<String, Object> recommend(@RequestParam String boardIdx, HttpSession session) {																												
+		logger.info("{}글추천하기",boardIdx);
+		return BoardService.recommend(boardIdx, session);
 	}
 	
 	

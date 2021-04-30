@@ -52,10 +52,10 @@
                 style="padding-left: 5px;">회원가입</span></a>
         <a href="" style="font-size:small; float: right; color: gray; "><span>로그인</span></a>
     </div>
+          <iframe src="mainnavi" scrolling="no" frameborder="0" style="width: 100%; margin-left: 15%"></iframe>
     <div class="flexBox">
         <br />
         <div>
-          <iframe src="mainnavi" scrolling="no" frameborder="0" style="width: 100%;"></iframe>
             <br />
             <%-- <jsp:include page="mainnavi.jsp"></jsp:include>  --%>
             <div class="container">

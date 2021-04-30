@@ -27,6 +27,8 @@ public interface BoardDAO {
 	int boardPhotoDel(String boardIdx);
 	//게시글 삭제
 	int boardDel(String boardIdx);
+	//게시글 추천수 가져오기
+	String boardrecommendFind(int recidx);
 	
 
 
