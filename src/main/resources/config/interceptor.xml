@@ -8,7 +8,7 @@
 
 <!-- interceptor그룹 -->
 	<mvc:interceptors>
-		<!-- 단일 interceptor -->
+		<!-- 글쓰기시 회원등급 카운트 -->
 		<mvc:interceptor>
 			<!--  요청에 대해 -->
 			<mvc:mapping path="/groupWrite"/>
@@ -16,6 +16,8 @@
 			<!--  아래 클래스로 이동시켜라 -->
 			<bean class="com.spring.main.service.MemberInterceptor" />
 		</mvc:interceptor>
+		
+		<!-- 공동구매 인원부족마감 기능-->
 		<mvc:interceptor>
 			<!--  요청에 대해 -->
 			<mvc:mapping path="/groupListPage"/>

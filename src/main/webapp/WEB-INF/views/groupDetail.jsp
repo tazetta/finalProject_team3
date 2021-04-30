@@ -8,6 +8,7 @@
 
 <title>상세보기</title>
 <style>
+
 table, td, th {
 	width: 1100px;
 	padding: 5px 10px;
@@ -34,8 +35,14 @@ table, td, th {
 	width: 100px;
 	margin:0 auto;
 	background-color : lightgray;
+}
+#comment{
+width:800px;
+height:30px;
+}
 
-
+#loginId{
+margin:20px;
 }
 </style>
 </head>
@@ -64,7 +71,8 @@ table, td, th {
 		<tr>
 			<td colspan="5" style="padding: 20px">${dto.content }</td>
 			<td style="width: 20%">현재인원/모집인원 : <span id="groupCnt">${dto.currUser }/${dto.maxUser}</span>
-				<br />마감날짜 : <b>${dto.deadline}</b> <br /> <%-- <c:if test="${state eq 'false' ||  empty state && dto.progIdx ne '3'}"> --%>
+				<br />마감날짜 : <b>${dto.deadline}</b> <br /> 
+				
 				<c:if test="${ dto.progIdx eq '1'  && state eq 'false' ||  empty state  }">
 					<input type="button" id="toggleApply" value="신청" />
 				</c:if> <c:if test="${dto.progIdx eq '1'  && state eq 'true'  }">
@@ -99,22 +107,22 @@ table, td, th {
 	<button onclick="location.href='groupListPage'">목록</button>
 	<button onclick="location.href='groupDel/${dto.gpIdx}'">삭제</button>
 	<button onclick="location.href='groupUpdateForm/${dto.gpIdx}'">수정</button>
+	
+	
 
 	<hr />
 	<b>댓글 <span>0</span></b>
+	<div id="commentBox">
+		<span><b id="loginId">${sessionScope.loginId }</b></span>
+		<input type="text" name="comment" id="comment" placeholder="개인정보를 공유 및 요청하거나, 명예훼손, 무단 광고시 모니터링 후 삭제될수 있습니다"/>
+
+		<input type="button" value="등록" id="commentSave"/>
+	</div>
 	<div>현재 댓글이 없습니다</div>
 
 </body>
 <script>
 
-/* var date = new Date();
-var month = date.﻿getMonth()+1;
-console.log("date:"+date.﻿getFullYear()+"-"+month+"-"+date.﻿getDate());
-console.log("deadline:"+"${dto.deadline}");
-
-if(date>${dto.deadline}){
-	console.log("인원미달마감");
-} */
 
 	var msg = "${msg}";
 	if (msg != "") {
@@ -161,7 +169,8 @@ if(date>${dto.deadline}){
 		});
 	}
 
-	if ("${dto.currUser}" == "${dto.maxUser}") { ///모집완료시 마감으로 변경
+	/* 모집인원 달성시 마감으로 변경 */
+	if ("${dto.currUser}" == "${dto.maxUser}") { 
 		progUpdate();
 	}
 
@@ -181,5 +190,35 @@ if(date>${dto.deadline}){
 			}
 		});
 	}
+	
+	/* 댓글 등록 */
+	$("#commentSave").click(function(){
+		var comment = $("#comment").val();
+		var loginId = "${sessionScope.loginId }";
+		var gpIdx ="${dto.gpIdx}";
+		console.log("loginID:"+loginId+"/comment:"+comment);
+		if(comment!=''){
+			
+			var reqUrl =' ./groupCommentWrite'; 
+			$.ajax({
+				url : reqUrl,
+				type : "get",
+				data : {"gpIdx":gpIdx,"comment":comment, "loginId":loginId},
+				dataType : "JSON",
+				success : function(data) {
+					console.log("success: ", data);
+					alert(data.msg);
+					$("#comment").val('');
+
+				},
+				error : function(error) {
+					console.log("error:", error);
+				}
+			});
+			
+			
+		}
+		
+	})
 </script>
 </html>
