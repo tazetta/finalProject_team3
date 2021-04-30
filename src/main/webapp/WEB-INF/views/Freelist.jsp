@@ -40,7 +40,7 @@ integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroa
             </thead>
             <tbody>
                 <tr>
-                    <td>거꾸리하면</td>
+                    <td><a href="boarddetail?boardIdx=2">거꾸리하면</a></td>
                     <td>123</td>
                     <td>185</td>
                     <td>10.22</td>

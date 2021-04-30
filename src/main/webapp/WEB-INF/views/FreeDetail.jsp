@@ -2,7 +2,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -66,9 +65,10 @@
     <br/>
             <div class="container" style="text-align: center; padding-top: 100px; background-color: rgb(163, 182, 248);">
 
-                제목<!--${dto.subject}-->
+                제목${dto.subject}
                 <div style="margin-top: 50px; margin-left: 300;">
-                    <button id="button" style="margin-left: 300;" >수정</button>
+                    <button id="button" style="margin-left: 300;" onclick="location.href='boardUpdateForm/${dto.boardIdx}'">수정</button>
+                    
                     <button id="button" style="margin-left: 50;" >삭제</button>  
                 </div>
                 <!--style="
@@ -88,10 +88,10 @@
             <div class="container" style="text-align: center; padding-top: 100px; ">
 
                
-                내용<!--${dto.content}-->
-                       <!--${dto.uer_name}-->
-                       <!--${dto.bHit}-->
-                        
+                ${dto.content}
+                     글번호:${dto.boardIdx}
+                       조회수:${dto.bhit}
+                        카테고리:${dto.category}
                         <div id="content">
                             <button id="contentbtn" style="margin-left: 300;">신고</button>
                             <button id="contentbtn" style="margin-left: 50;" >목록</button>  

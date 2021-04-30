@@ -129,7 +129,7 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "/boardUpdateForm/{boardIdx}", method = RequestMethod.GET)
-	public @ResponseBody ModelAndView groupUpdateForm(@PathVariable String boardIdx, HttpSession session) {
+	public @ResponseBody ModelAndView boardUpdateForm(@PathVariable String boardIdx, HttpSession session) {
 		logger.info("글수정하기 form 요청: " + boardIdx);
 		// 업로드할 파일이름을 저장한 HashMap생성해서 session에 저장(upload메서드에서 여러파일을 관리하기위해)
 		HashMap<String, String> fileList = new HashMap<String, String>();
