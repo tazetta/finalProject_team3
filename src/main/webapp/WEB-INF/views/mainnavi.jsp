@@ -15,8 +15,8 @@
         background-color: white;
         font-size: 25px;
         font-weight: 700;
-        width: 7%;
         text-align: center;
+        width:auto;
         height: 100px;
         list-style: none;
          }
@@ -32,8 +32,6 @@
             background-color: deepskyblue;
         }
         div.bar{
-          	width:2000px;
-            height: 30px;
             background-color: white;
             min-width: 700px;
         }

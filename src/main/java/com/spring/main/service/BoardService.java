@@ -44,10 +44,11 @@ public class BoardService {
 		 logger.info("게시판글번호{}입니다.",boardIdx);
 		 String category = null; 
 		 String formcategory=null;
+		 String recIdx =null;
 		 if (dto != null) {
 				category = boarddao.boardCtg(dto.getBoardIdx()); // 카테고리 가져오기
 				dto.setCategory(category); // 게시판카테고리idx 담기
-				
+				recIdx=boarddao.boardrecommendFind(dto.getRecidx());//추천수 가져오기
 				mav.addObject("dto", dto);
 				
 				boarddao.boardUpHit(boardIdx); //조회수 증가
@@ -58,15 +59,13 @@ public class BoardService {
 	}
 		 if(category.equals("1")){//페이지 보내기
 			 mav.setViewName("freedetail");
-		 } else if(category == "2") {
+		 } else if(category.equals("2")) {
 			 mav.setViewName("homedetail");
-		 } else if(category == "3") {
+		 } else if(category.equals("3")) {
 			 mav.setViewName("tipdetail");
-		 }else if(category == "4") {
+		 }else if(category.equals("4")) {
 			 mav.setViewName("qnadetail");
-		 }else if(category == "5") {
-			 mav.setViewName("examdetail");
-		 }else if(category == "6") {
+		 }else if(category.equals("5")) {
 			 mav.setViewName("sgtdetail");
 		 }
 		
@@ -91,9 +90,8 @@ public class BoardService {
 			boarddto.setBudget(Integer.parseInt(params.get("budget")));//예산
 			boarddto.setFormidx(Integer.parseInt(params.get("formidx")));//주거형태
 		}
-		if(boardctgidx==5) {
+		if(boardctgidx==6) {
 			boarddto.setEmail(params.get("email"));
-			boarddto.setSgtctg(params.get("select"));
 		}
 		int result = boarddao.boardWrite(boarddto);
 		//실패시 다시 카테고리에 맞는 수정폼으로 보내기
@@ -105,7 +103,7 @@ public class BoardService {
 			page = "redirect:/tipWriteForm";
 		}else if(boardctgidx==4) {
 			page = "redirect:/qnaWriteForm";
-		}else if(boardctgidx==6) {
+		}else if(boardctgidx==5) {
 			page = "redirect:/sgtWriteForm";
 		}
 		// 1. session에서 fileList를 가져온다
@@ -135,8 +133,7 @@ public class BoardService {
 		}else if(boardctgidx==4) {
 			page = "redirect:/qnalist";
 		}else if(boardctgidx==5) {
-			page = "FAQ";
-			msg="고객의소리가 정상적으로 관리자에게 전해졌습니다!";
+			page = "redirect:/sgtlist";
 		}
 		}else{//글쓰기 실패시
 			for (String newFileName : fileList.keySet()) {
@@ -173,8 +170,6 @@ public class BoardService {
 			 }else if(category == "4") {
 				 mav.setViewName("qnaUpdateForm");
 			 }else if(category == "5") {
-				 mav.setViewName("examUpdateForm");
-			 }else if(category == "6") {
 				 mav.setViewName("sgtUpdateForm");
 			 }
 		}
@@ -201,7 +196,7 @@ public class BoardService {
 			dto.setBudget(Integer.parseInt(params.get("budget")));//예산
 			dto.setFormidx(Integer.parseInt(params.get("formidx")));//주거형태
 		}
-		if(brdCtgIdx==6) {
+		if(brdCtgIdx==5) {
 			dto.setEmail(params.get("email"));
 		}
 		int result = boarddao.boardUpdate(dto);//성공시 dao실행
@@ -215,8 +210,6 @@ public class BoardService {
 		}else if(brdCtgIdx==4) {
 			page = "redirect:/qnaUpdateForm";
 		}else if(brdCtgIdx==5) {
-			page = "redirect:/examUpdateForm";
-		}else if(brdCtgIdx==6) {
 			page = "redirect:/sgtUpdateForm";
 		}
 		msg="글 수정 실패했습니다.";
@@ -341,5 +334,10 @@ public class BoardService {
 		mav.setViewName("boardUploadForm");
 
 		return mav;
+	}
+
+	public HashMap<String, Object> recommend(String boardIdx, HttpSession session) {
+		
+		return null;
 	}
 }

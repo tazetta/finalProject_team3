@@ -108,55 +108,67 @@ select:hover {
 				<form>
 					<table style="min-width: 600px;">
 						<tr>
-							<th colspan="2" style="text-align: left;">오늘 신규 가입자 수 : <span style="color: tomato">${cnt}</span> 명</th>
-							<th colspan="2"  style="text-align: left;">현재 관리자 총원 : <span style="color: tomato">4</span> 명</th>
+							<th colspan="2" style="text-align: left;">오늘 신규 가입자 수 : 
+								<span style="color: tomato">
+									${memberCnt}
+								</span> 명
+							</th>
+							<th colspan="2"  style="text-align: left;">현재 관리자 총원 : 
+								<span style="color: tomato">
+									${adminCnt}
+								</span> 명
+							</th>
 						</tr>
 						<tr>
 							<td style="text-align: left;">
-							<c:forEach items="${newMemberList}" var="list" >
-								<span style="color: tomato; border: 1px solid lightgray; border-radius: 2px; background-color: #F7BE81;">신규</span> ${list.id}<br/><br/>
+							<c:forEach items="${newMemberList}" var="newMemberList" >
+								<span style="color: tomato; border: 1px solid lightgray; border-radius: 2px; background-color: #F7BE81;">신규</span> ${newMemberList.id}<br/><br/>
+								<c:if test="${newMemberList == null}">
+									현재 신규회원이 없습니다.
+								</c:if>
 							</c:forEach>
 							</td>
 							<td>
-								<span style="color: #9fa8da">일반회원</span><br/><br/>
-								<span style="color: #9fa8da">일반회원</span><br/><br/>
-								<span style="color: #9fa8da">일반회원</span><br/><br/>
-								<span style="color: #bcaaa4">업체회원</span><br/><br/>
-								<span style="color: #9fa8da">일반회원</span><br/><br/>
+								<span style="color: #9fa8da"> </span><br/><br/>
 							</td>
 							<td colspan="2">
-								admin1234<br/><br/>
-								nimda4321<br/><br/>
-								solo65464<br/><br/>
-								honjfhfhf<br/><br/>
+								<c:forEach items="${adminList}" var="adminList">
+									${adminList.id}<br/><br/>
+								</c:forEach>
 							</td>
 						</tr>
 						<tr>
 							<th colspan="4"><br/><br/></th>
 						</tr>
 						<tr>
-							<th colspan="2" style="text-align: left;">오늘 신고된 게시글 : <span style="color: tomato">16</span> 개</th>
-							<th colspan="2" style="text-align: left;">오늘 신고된 댓글 : <span style="color: tomato">116</span> 개</th>
+							<th colspan="2" style="text-align: left;">오늘 신고된 게시글 : <span style="color: tomato">${reportedBrdCnt}</span> 개</th>
+							<th colspan="2" style="text-align: left;">오늘 신고된 댓글 : <span style="color: tomato">${reportedCommCnt}</span> 개</th>
 						<tr>
 							<td  style="text-align: left;">
-								특가! 오늘만 9,900원! <br/><br/>
-								이업체 사람*끼들인가? <br/><br/>
-								***님 너무 못하시네요
+								<c:if test="${reportedBrdList eq null}">
+									현재 신고된 게시글이 없습니다.<br/><br/>
+								</c:if>
+								<c:if test="${reportedBrdList ne null}">
+									<c:forEach items="${reportedBrdList}" var="reportedBrdList">
+											${reportedBrdList.subject}<br/><br/>
+									</c:forEach>
+								</c:if>
 							</td>
 							<td style="color:lightgray;">
-								광고<br/><br/>
-								욕실 및 무분별한 비방<br/><br/>
-								욕설 및 무분별한 비방
+								   
 							</td>
 							<td style="text-align: left;">
-								ㅄㅋㅋㅋㅋㅋㅋㅋㅋ<br/><br/>
-								ㅅㅂ사람이면 이렇게 안함<br/><br/>
-								니가 뭔데 그래
+								<c:if test="${reportedCommList eq null}">
+									현재 신고된 댓글이 없습니다.<br/><br/>
+								</c:if>
+								<c:if test="${reportedCommList ne null}">
+									<c:forEach items="${reportedCommList}" var="reportedBrdList">
+											${reportedCommList.subject}<br/><br/>
+									</c:forEach>
+								</c:if>
 							</td>
 							<td style="color:lightgray;">
-								욕실 및 무분별한 비방<br/><br/>
-								욕실 및 무분별한 비방<br/><br/>
-								욕실 및 무분별한 비방
+								
 							</td>
 						</tr>
 						<tr>
