@@ -58,7 +58,7 @@ li a:hover, .navi li ul:hover {
 </head>
 <body>
 
-	<DIV>
+	<div>
 		<ul class="navi">
 			<li><a href="myprofile" target="_parent">회원 정보</a></li>
 			<li><a href="mywrite" target="_parent">내 작성글</a>
@@ -86,7 +86,7 @@ li a:hover, .navi li ul:hover {
 				</ul></li>
 			<li><a href="myInteriorHistory" target="_parent">인테리어 변천사</a></li>
 		</ul>
-	</DIV>
+	</div>
 </body>
 
 </html>

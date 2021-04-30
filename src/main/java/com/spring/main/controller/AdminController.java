@@ -20,7 +20,7 @@ public class AdminController {
 	@RequestMapping(value = "/adminMain", method = RequestMethod.GET)
 	public ModelAndView adminMain() {
 		logger.info("관리자 메인페이지");
-		return service.cntNewMember();
+		return service.adminMain();
 	}
 	
 	@RequestMapping(value = "/adminMemberList", method = RequestMethod.GET)
