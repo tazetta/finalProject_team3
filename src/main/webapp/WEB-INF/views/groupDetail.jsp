@@ -143,12 +143,10 @@ margin:10px;
 	console.log("State:" + state);
 
 	//신청-취소 toggle
-	$("#toggleApply")
-			.click(
-					function() {
-						location.href = '/main/applyGroup/${dto.gpIdx}/${sessionScope.loginId}';
-					});
-	
+	$("#toggleApply").click(function() {
+			location.href = '/main/applyGroup/${dto.gpIdx}/${sessionScope.loginId}';
+		});
+
 
 	/* 신청자 명단 가져오기 */
 	applyList();
