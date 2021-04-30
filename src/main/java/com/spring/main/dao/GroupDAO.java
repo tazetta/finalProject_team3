@@ -55,6 +55,8 @@ public interface GroupDAO {
 
 	ArrayList<GroupDTO> deadlineChk();
 
+	int groupCommentWrite(HashMap<String, String> params);
+
 
 
 

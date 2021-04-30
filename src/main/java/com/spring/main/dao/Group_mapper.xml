@@ -166,6 +166,11 @@
 	<select id="deadlineChk" resultType="group">
 		SELECT deadline, currUser,gpIdx, maxUser, progIdx FROM groupPurchase
 	</select>
+	
+	<insert id="groupCommentWrite">
+		INSERT INTO comments (COMMIDX, COMMENTS, id, GPIDX) 
+		VALUES (comments_seq.NEXTVAL, #{comment}, #{loginId}, #{gpIdx})
+	</insert>
 
 	
 </mapper>

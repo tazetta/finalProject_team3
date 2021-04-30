@@ -49,7 +49,7 @@ public class DateInterceptor extends HandlerInterceptorAdapter {
 				System.out.println("gpIdx:"+gpIdx+"/ deadline:"+deadline+" /currUser:"+currUser);
 				int updateProg = 2;
 				int result = groupdao.progUpdate(gpIdx, updateProg);
-				System.out.println("진행상황 결과:"+result);
+				System.out.println("진행상황 업데이트 결과:"+result);
 			}
 			
 			

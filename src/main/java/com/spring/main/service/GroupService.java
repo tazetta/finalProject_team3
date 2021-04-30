@@ -489,4 +489,18 @@ public class GroupService {
 		return mav;
 	}
 
+	public HashMap<String, Object> groupCommentWrite(HashMap<String, String> params, RedirectAttributes rAttr) {
+		HashMap<String, Object> map = new HashMap<String, Object> ();
+		logger.info("공동구매 댓글쓰기 서비스");
+		int result = groupdao.groupCommentWrite(params);
+		logger.info("댓글쓰기 result: "+result);
+		msg="댓글 등록에 실패했습니다";
+		if(result>0) {
+			msg="댓글이 등록되었습니다";
+		}
+
+		map.put("msg", msg);
+		return map;
+	}
+
 }

@@ -133,6 +133,12 @@ public class GroupController {
 		return groupService.progUpdate(gpIdx,progIdx,  rAttr,session);
 	}
 	
+	@RequestMapping(value = "/groupCommentWrite", method = RequestMethod.GET)
+	@ResponseBody HashMap<String , Object> groupCommentWrite(@RequestParam HashMap<String, String> params,HttpSession session,
+			RedirectAttributes rAttr) {
+		logger.info("공동구매 댓글쓰기 요청 params: {}", params);
+		return groupService.groupCommentWrite(params,rAttr);
+	}
 
 	
 	
