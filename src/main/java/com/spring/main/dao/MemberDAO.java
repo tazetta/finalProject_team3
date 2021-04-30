@@ -33,6 +33,10 @@ public interface MemberDAO {
 
 	String cLogin(String id, String pw);
 
+	MemberDTO gradeChk(String loginId);
+
+	int gradeUpdate(int gradeIdx, String loginId);
+
 
 
 

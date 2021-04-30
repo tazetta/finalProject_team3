@@ -52,5 +52,13 @@
 		UPDATE generalMember
 		SET cntComm=cntComm+1 WHERE id=#{param1}
 	</update> 
+	
+	<select id="gradeChk" resultType="com.spring.main.dto.MemberDTO">
+		SELECT gradeIdx, cntBoard, cntComm FROM generalMember WHERE id=#{loginId}
+	</select>
+	
+	<update id="gradeUpdate">
+		UPDATE generalMember SET gradeIdx=#{param1} WHERE id=#{param2}
+	</update> 
 
 </mapper>
