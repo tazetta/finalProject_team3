@@ -35,7 +35,7 @@
 		SELECT COUNT(commidx) FROM reports WHERE repctgidx = 11 OR repctgidx = 12 OR repctgidx = 13 OR repctgidx = 14
 	</select>
 	
-	<select id="reportedCommList" resultType="hashMap">
+	<select id="reportedCommList" resultType="photo">
 		SELECT c.rnum, c.comments, r.repctgidx 
 		    FROM (SELECT ROW_NUMBER() OVER(ORDER BY commidx DESC) AS rnum, commidx, comments FROM comments) c,reports r 
 		    WHERE r.commidx = c.commidx AND c.rnum BETWEEN 1 AND 3

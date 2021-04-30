@@ -127,9 +127,9 @@ h2 {
 </style>
 </head>
 <body>
-	<div class="sideBar" style="margin-right: 15px;">
+	<%-- <div class="sideBar" style="margin-right: 15px;">
 		<jsp:include page="mynavi.jsp"/>
-	</div>
+	</div> --%>
 	<div class="flexBox" >
 			<jsp:include page="mainnavi.jsp"/>
 		<div class="testDiv" style="max-width: 900px;">
@@ -187,7 +187,7 @@ h2 {
 <script>
 const getDataLength = 4;
 let count = 0;
-
+let image = "";
 $(document).ready(() => {
 	loop();
 });
@@ -202,32 +202,46 @@ const loop = () => {
 
 const getTodos = num => {
 	if (!num) return;
-
+	
 	count++;
-	$.get(`https://jsonplaceholder.typicode.com/todos/${num}`, data => {
+	/* $.get(`https://jsonplaceholder.typicode.com/todos/${num}`, data => {
 		addTodoCard({ data, target: '.something' });
+	}); */
+	$.ajax({
+		url : 'myPhotos/'+num,
+		type : "get",
+		data : {},
+		dataType : "JSON",
+		success : function(data) {
+			image = data.images[count];
+			if (count > data.images.length) {
+				console.log('데이터 끝');
+			} else {	
+				addTodoCard({ data, target: '.something' });
+			}
+		},
+		error : function(error) {
+			console.log(error); 
+		} 
 	});
+	
 };
 
 const addTodoCard = ({ data, target }) => {
+	let src = 'rsources/images/'+image;
 	const card = `
-        <div class="myPhotos">
-            <img src="resources/images/interior2.jpg" alt="image" width="400px"
-				height="250px">
-        </div>
-    `;
-
+		<div class='myPhotos'>
+			<img src='resources/images/interior1.jpg' alt='image' width='400px' height='250px'>
+			<div class='container'>
+				<p>이미지</p>
+			</div>
+		</div>`
 	$(target).append(card);
 };
 
 
 $(window).scroll(function () {
-		console.log($(window).scrollTop());
-		console.log($(document).height());
-		console.log($(window).height());
-		console.log($('.flexBox').height())
-	if ($(window).scrollTop() == $(document).height()-$('.flexBox').height()) {
-		console.log($());
+	if ($(window).scrollTop() == $(document).height()-1007) {
 		loop();
 	} 
 });
