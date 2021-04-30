@@ -29,9 +29,9 @@ table, td, th {
 	margin: 10px;
 }
 
-#deadlinSpan {
+.deadlinSpan {
 	display: block;
-	width: 90px;
+	width: 100px;
 	margin:0 auto;
 	background-color : lightgray;
 
@@ -54,8 +54,7 @@ table, td, th {
 		<tr>
 			<td>${dto.gpIdx}</td>
 			<td>
-				<%-- <c:if test="${dto.gpCtgIdx ==1}">공동구매</c:if> <c:if
-					test="${dto.gpCtgIdx ==2}">무료나눔</c:if> --%> ${dto.category }
+				 ${dto.category }
 			</td>
 			<td>${dto.subject}</td>
 			<td>${dto.id}</td>
@@ -66,12 +65,15 @@ table, td, th {
 			<td colspan="5" style="padding: 20px">${dto.content }</td>
 			<td style="width: 20%">현재인원/모집인원 : <span id="groupCnt">${dto.currUser }/${dto.maxUser}</span>
 				<br />마감날짜 : <b>${dto.deadline}</b> <br /> <%-- <c:if test="${state eq 'false' ||  empty state && dto.progIdx ne '3'}"> --%>
-				<c:if test="${state eq 'false' ||  empty state }">
+				<c:if test="${ dto.progIdx eq '1'  && state eq 'false' ||  empty state  }">
 					<input type="button" id="toggleApply" value="신청" />
-				</c:if> <c:if test="${state eq 'true'  && dto.progIdx ne '3'}">
+				</c:if> <c:if test="${dto.progIdx eq '1'  && state eq 'true'  }">
 					<input type="button" id="toggleApply" value="취소" />
-				</c:if> <br /> <c:if test="${dto.currUser == dto.maxUser}">
-					<span id="deadlinSpan">마감</span>
+				</c:if> <br /> <c:if test="${dto.currUser == dto.maxUser }">
+					<span class="deadlinSpan">마감</span>
+				</c:if>
+				<c:if test="${dto.currUser<dto.maxUser && dto.progIdx eq '2'}">
+					<span class="deadlinSpan">인원부족마감</span>
 				</c:if>
 
 
@@ -105,11 +107,14 @@ table, td, th {
 </body>
 <script>
 
-var date = new Date();
+/* var date = new Date();
 var month = date.﻿getMonth()+1;
 console.log("date:"+date.﻿getFullYear()+"-"+month+"-"+date.﻿getDate());
 console.log("deadline:"+"${dto.deadline}");
 
+if(date>${dto.deadline}){
+	console.log("인원미달마감");
+} */
 
 	var msg = "${msg}";
 	if (msg != "") {

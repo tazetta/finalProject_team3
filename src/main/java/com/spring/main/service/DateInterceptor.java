@@ -41,8 +41,9 @@ public class DateInterceptor extends HandlerInterceptorAdapter {
 			int currUser = deadlineList.get(i).getCurrUser();
 			int gpIdx = deadlineList.get(i).getGpIdx();
 			int maxUser =  deadlineList.get(i).getMaxUser();
+			int progIdx = deadlineList.get(i).getProgIdx();
 
-			if(deadline.before(utilDate) && maxUser>currUser) {
+			if(deadline.before(utilDate) && maxUser>currUser && progIdx !=2) {
 				System.out.println(deadline+" / "+utilDate);
 				System.out.println("모집인원미달 & 마감기한 지남");
 				System.out.println("gpIdx:"+gpIdx+"/ deadline:"+deadline+" /currUser:"+currUser);
