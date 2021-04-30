@@ -60,5 +60,9 @@
 	<update id="gradeUpdate">
 		UPDATE generalMember SET gradeIdx=#{param1} WHERE id=#{param2}
 	</update> 
+	
+	<select id="getGrade" resultType="String">
+		SELECT grade FROM memberGrade WHERE gradeIdx=#{gradeIdx}
+	</select>
 
 </mapper>

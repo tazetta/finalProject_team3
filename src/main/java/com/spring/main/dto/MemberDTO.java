@@ -15,6 +15,8 @@ public class MemberDTO {
 	int cntBoard;
 	int cntComm;
 	
+
+
 	public String getId() {
 		return id;
 	}

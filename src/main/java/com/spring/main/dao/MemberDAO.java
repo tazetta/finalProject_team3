@@ -37,6 +37,8 @@ public interface MemberDAO {
 
 	int gradeUpdate(int gradeIdx, String loginId);
 
+	String getGrade(int gradeIdx);
+
 
 
 

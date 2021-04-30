@@ -35,6 +35,9 @@ public class GroupService {
 
 	@Autowired
 	GroupDAO groupdao;
+	
+	@Autowired
+	MemberDAO memberdao;
 
 	// properties파일 내용 불러오기
 	@Value("#{config['Globals.root']}")
@@ -122,12 +125,20 @@ public class GroupService {
 			dto.setProgress(progress); // 진행상황 담기
 
 			logger.info("progress:" + progress);
+			
+			MemberDTO memberDTO = memberdao.gradeChk(dto.getId());
+			logger.info("gradeIdx:"+memberDTO.getGradeIdx());
+			
+			String grade = memberdao.getGrade(memberDTO.getGradeIdx()); //회원등급 가져오기
+			logger.info("grade:"+grade);
+			
 			mav.addObject("dto", dto);
+			mav.addObject("writerGrade",grade);
 
 			groupdao.groupUpHit(gpIdx); // 조회수 증가
 			
 			String state ="";
-			String applyId = groupdao.applyCheck(gpIdx, loginId);
+			String applyId = groupdao.applyCheck(gpIdx, loginId); //신청유무 조회
 			logger.info("신청 아이디:"+ applyId);
 
 			if(applyId!=null) {
@@ -137,7 +148,6 @@ public class GroupService {
 			}else {
 				state="false"; //신청안함
 				logger.info("신청상태:"+state);
-
 			}
 			mav.addObject("state",state);
 			page = "groupDetail";

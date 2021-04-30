@@ -51,6 +51,11 @@ margin:10px;
 .commDel{
 border:none;
 }
+.grade{
+color:orange;
+font-weight:600;
+font-size:90%;
+}
 </style>
 </head>
 <body>
@@ -71,7 +76,7 @@ border:none;
 				 ${dto.category }
 			</td>
 			<td>${dto.subject}</td>
-			<td>${dto.id}</td>
+			<td><span class="grade">${writerGrade}</span>&nbsp;${dto.id}</td>
 			<td>${dto.reg_date}</td>
 			<td>${dto.progress}</td>
 		</tr>
