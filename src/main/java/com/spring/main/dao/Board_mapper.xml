@@ -104,4 +104,8 @@
 	<delete id="boardDel">
 		UPDATE BOARD SET blind='y' WHERE boardIdx=#{boardIdx}
 	</delete>
+	
+	<select id="getMyPhotos" resultType="String">
+		SELECT newFileName FROM photos WHERE id=#{id} ORDER BY photoidx DESC
+	</select>
 </mapper>

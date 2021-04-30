@@ -99,4 +99,5 @@ public class MyController {
 		logger.info("스크랩북 페이지");
 		return "myscrappage";
 	}
+	
 }
