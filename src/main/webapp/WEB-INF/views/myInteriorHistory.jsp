@@ -228,14 +228,10 @@ const getTodos = num => {
 };
 
 const addTodoCard = ({ data, target }) => {
-	let src = 'rsources/images/'+image;
-	const card = `
-		<div class='myPhotos'>
-			<img src='resources/images/interior1.jpg' alt='image' width='400px' height='250px'>
-			<div class='container'>
-				<p>이미지</p>
-			</div>
-		</div>`
+	
+	var src = 'resources/images/'+data.images[0];
+	const card = "<div class='myPhotos'><img src='" + src + "' alt='image' width='400px' height='250px'><div class='container'><p>이미지</p></div></div>"
+	      
 	$(target).append(card);
 };
 
