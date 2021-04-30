@@ -148,6 +148,7 @@ margin:10px;
 					function() {
 						location.href = '/main/applyGroup/${dto.gpIdx}/${sessionScope.loginId}';
 					});
+	
 
 	/* 신청자 명단 가져오기 */
 	applyList();
@@ -163,7 +164,7 @@ margin:10px;
 				console.log("success:", data);
 
 				for (var i = 0; i < data.list.length; i++) {
-					console.log("id:" + data.list[i].id);
+
 					var content = "";
 
 					content += "<span id='applyMember'>" + data.list[i].id
@@ -219,6 +220,7 @@ margin:10px;
 					console.log("success: ", data);
 					alert(data.msg);
 					$("#comment").val('');
+					groupCommentList();// 댓글 리스트 호출
 
 				},
 				error : function(error) {
@@ -228,8 +230,8 @@ margin:10px;
 		}
 	})
 	
-	groupCommentList();
 	
+	groupCommentList();// 댓글 리스트 
 	/* 댓글 목록 불러오기 */
 	function groupCommentList() {
 		var reqUrl = './groupCommentList/${dto.gpIdx}';
