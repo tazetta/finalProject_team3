@@ -34,60 +34,80 @@
 <body>
 	<h3>시공사례 리스트 페이지</h3>
 	<!-- 업체세션있는 사람만 글쓰기 보이게 -->
-	<c:if test="${sessionScope.cLoginId ne null}">
+	<%-- <c:if test="${sessionScope.cLoginId ne null}"> --%>
 		<button onclick="location.href='./examWriteForm'">시공사례쓰기</button>
-	</c:if>
+	<%-- </c:if> --%>
 	<table>
 		<thead>
 			<tr>
 				<td>제목</td>
 				<td>업체명</td>
-				<td>조회수</td>
 				<td>작성일</td>
 			</tr>
 		</thead>
 		
 		 <tbody id="list">
-			<!--  -->
+			
 		</tbody> 
 		
 	</table>
 </body>
 <script>
-var count = 1;
-next_load(count);
-function next_load(count){
-        $.ajax({
-                type:"GET",
-                url:"/examListScroll/"+ count,
-                data : {},
-                dataType : "JSON",
-                success: function(data){
-                        console.log(data);
-                        var content = "";
-                        for (var i = 0; i < list.length; i++) {
-                        	content += "<tr>"
-                        	content += "<td><a href='#'>" + list[i].subject + "</td>"
-                        	content += "<td>" + list[i].comId + "</td>"
-                        	//java에서 가끔 날짜가 milliseconds로 나올 경우..
-                        	var date = new Date(reviewList[i].reg_date);
-                        	content += "<td>" + date.toLocaleDateString("ko-KR") + "</td>"
-                        	content += "</tr>"
-		            	};
-            			$('#list').append(content);
-                }error : function(error) {
-    				console.log(error);
-    			}
-            });
+var msg = "${msg}";
+if(msg != ""){
+	alert(msg);
 }
+	var count = 1;
+	listCall(count); //시작하자마자 이 함수를 호출
 
-$(window).scroll(function(){
-    if($(window).scrollTop()+200>=$(document).height() - $(window).height()){
-    		count++;
-            next_load(count); 
-        }
-    }
-});
+	function listCall(count) {
+		console.log("스크롤이 되니?",count);
+		//Restful service는 ajax를 통해 호출하여 사용하는 경우가 많지만
+		//restful service가 곧 ajax라고 생각해서는 안된다.
+		var reqUrl = './examListScroll/' + count;
+		$.ajax({
+			url : reqUrl,
+			type : 'GET',
+			data : {},
+			dataType : 'JSON',
+			success : function(data) {
+				console.log(data);
+				listPrint(data.list,data.img);
+			},
+			error : function(error) {
+				console.log(error);
+			}
+		});
+	}
+	
+	function listPrint(list,img) {
+		console.log("listprint실행");
+		console.log(list.length);
+		var content = "";
+		for (var i = 0; i < list.length; i++) {
+			content += "<div>"+ +"</div>"
+			content += "<tr>"
+			content += "<td><a href='#'>" + list[i].subject + "</td>"
+			content += "<td>" + list[i].comId + "</td>"
+			//java에서 가끔 날짜가 milliseconds로 나올 경우..
+			var date = new Date(list[i].reg_date);
+			content += "<td>" + date.toLocaleDateString("ko-KR") + "</td>"
+			content += "</tr>"
+		}
+		$('#list').append(content);
+	}
+
+	$(window).scroll(function () {
+		console.log("스크롤이 되는거니?");
+		console.log($(window).scrollTop());
+		console.log($(document).height());
+		console.log($(window).height());
+		//if ($(window).scrollTop() >= $(document).height() - $(window).height()) {
+			console.log("아몰랑");
+			count++;
+			listCall(count);
+		//}
+	});
 
 /* const getDataLength = 9;
 let count = 0;
