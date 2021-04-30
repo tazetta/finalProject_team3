@@ -48,7 +48,9 @@ margin:20px;
 width:1000px;
 margin:10px;
 }
-
+.commDel{
+border:none;
+}
 </style>
 </head>
 <body>
@@ -268,7 +270,7 @@ margin:10px;
 		content += ' <td style="width:5%" ><a href="#"><img alt="decommend" src="resources/images/decommend.png" width="15px" height="15px"> </a></td>'
 		content += '<td style="text-align:left">';
 		if("${sessionScope.loginId}"==list[i].id){
-			content += '<button onclick="groupCommentDel('+list[i].commIdx+')">삭제</button></td>' ; //댓글삭제호출
+			content += '<button class="commDel" onclick="groupCommentDel('+list[i].commIdx+')">삭제</button></td>' ; //댓글삭제호출
 			
 		}else{
 		content += '<a href="#">답글달기</a>&nbsp;&nbsp;';
@@ -285,22 +287,32 @@ margin:10px;
 	
 	/* 댓글삭제 */
 	function groupCommentDel(commIdx) {
-		var reqUrl = "./groupCommDel/"+commIdx;
-		$.ajax({
-			url : reqUrl,
-			type : "get",
-			data : {},
-			dataType : "JSON",
-			success : function(data) {
-				console.log("success: ", data);
-				groupCommentList(); //삭제 후 댓글리스트 요청
-				
-			},
-			error : function(error) {
-				console.log("error:", error);
-			}
-		});
+		
+		//삭제 confirm	
+	 		 if(confirm("정말로 삭제하시겠습니까?")){
+	 			 
+	 			var reqUrl = "./groupCommDel/"+commIdx;
+	 			$.ajax({
+	 				url : reqUrl,
+	 				type : "get",
+	 				data : {},
+	 				dataType : "JSON",
+	 				success : function(data) {
+	 					console.log("success: ", data);
+	 					groupCommentList(); //삭제 후 댓글리스트 요청
+	 					
+	 				},
+	 				error : function(error) {
+	 					console.log("error:", error);
+	 				}
+	 			});
+	 			
+	 			}else{
+	 				console.log("삭제취소");
+	 			}	
 	}
+	
+	
 	
 </script>
 </html>
