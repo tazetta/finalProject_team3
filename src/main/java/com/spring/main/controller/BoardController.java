@@ -44,24 +44,44 @@ public class BoardController {
 	}
 	@RequestMapping(value = "/homemain", method = RequestMethod.GET)
 	public String homemain() {
-		logger.info("homemain");
+		logger.info("우리집 자랑 목록 조회하기");
 		return "homemain";
-	}
+	   }
 	@RequestMapping(value = "/Freeview", method = RequestMethod.GET)
 	public String Freeview() {
 		logger.info("프리뷰.");
+		System.out.println("프리뷰~~");
 		return "Freeview";
 	}
 	@RequestMapping(value = "/Freelist", method = RequestMethod.GET)
+	/*
 	public String Freelist() {
-		logger.info("자유게시판");
-		return "Freelist";
+		  logger.info("자유게시판 조회하기");
+		  System.out.println("자유게시판 ~~ ");
+		  return "Freelist";
+		}
+	*/
+	public ModelAndView Freelist(@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum) {
+	  logger.info("자유게시판 조회하기");
+	  System.out.println("pageNum : " + pageNum);
+	  
+	  ModelAndView mav = BoardService.getBoardList(pageNum, 1);
+	  mav.setViewName("Freelist");
+	  
+	  return mav;
 	}
+	
 	@RequestMapping(value = "/helpMain", method = RequestMethod.GET)
-	public String helpmain() {
-		logger.info("helpMain");
-		return "helpMain";
-	}
+	public ModelAndView helpmain(@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum) {
+		  logger.info("질문 및 답변");
+		  System.out.println("pageNum : " + pageNum);
+		  
+		  ModelAndView mav = BoardService.getBoardList(pageNum, 4);
+		  mav.setViewName("helpMain");
+		  
+		  return mav;
+		}	
+	
 	@RequestMapping(value = "/FAQsend", method = RequestMethod.GET)
 	public String FAQsend() {
 		return "FAQsend";

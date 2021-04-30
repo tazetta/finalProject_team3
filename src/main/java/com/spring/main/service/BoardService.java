@@ -341,4 +341,27 @@ public class BoardService {
 		
 		return null;
 	}
+
+	public ModelAndView getBoardList(int pageNum, int brdCtgIdx) {
+		  ModelAndView mav = new ModelAndView();
+		  logger.info("게시판 글 조회 요청");
+		  
+		  // startNum, endNum 생성
+		  int limit = 10;
+		  int startNum = (pageNum - 1) * limit + 1;
+		  int endNum = pageNum * limit;
+		  
+		  // 데이터 조회 (board_mapper.xml에 <select id="getBoardList" ... > ... </select>가 있다고 가정.)
+		  // ModelAndView에 반환할 데이터(최근 10개 목록) 추가
+		  
+		  System.out.println("startNum : " + startNum + ", endNum : " + endNum + ", boardCategoryIndex : " + brdCtgIdx);
+		  
+		  Object object = boarddao.getBoardList(startNum, endNum, brdCtgIdx);
+		  mav.addObject("boardList", object);
+
+		  // ModelAndView 데이터 반환
+		  return mav;
+		}
 }
+
+
