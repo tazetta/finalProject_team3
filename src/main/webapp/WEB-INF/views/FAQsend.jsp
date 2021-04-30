@@ -143,7 +143,7 @@
                 <td  style="width: 100px; text-align: center;"><strong>접 수 종 류</strong></td>
                     <td>
                     	<select name="select">
-                    		<option value="board">게시판ㅇ관련</option>
+                    		<option value="board">게시판관련</option>
                     		<option value="user">유저관련</option>
                     		<option value="report">신고관련</option>
                     		<option value="other">기타</option>

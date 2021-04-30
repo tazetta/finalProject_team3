@@ -17,11 +17,12 @@
 			<bean class="com.spring.main.service.LoginInterceptor" />
 		</mvc:interceptor>
 	
-		<!-- 글쓰기시 회원등급(cntBoard) 카운트 -->
+		<!-- 글쓰기시||댓글작성시 회원등급(grade) 카운트 -->
 		<mvc:interceptor>
 			<!--  요청에 대해 -->
 			<mvc:mapping path="/groupWrite"/>
 			<mvc:mapping path="/reviewWrite"/> 
+			<mvc:mapping path="/groupCommentWrite"/> 
 			<!--  아래 클래스로 이동시켜라 -->
 			<bean class="com.spring.main.service.MemberInterceptor" />
 		</mvc:interceptor>

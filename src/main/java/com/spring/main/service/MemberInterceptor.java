@@ -19,10 +19,22 @@ public class MemberInterceptor extends HandlerInterceptorAdapter {
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
 		HttpSession session = request.getSession();
+		
+		String url = request.getRequestURI().substring(request.getContextPath().length());
+		
 		String loginId = (String) session.getAttribute("loginId");
+		
 		System.out.println("*****************************");
+		System.out.println("url: "+url);
 		System.out.println("loginID:" + loginId);
-		int cntResult = memberdao.gradeCntBoard(loginId); // 회원등급 글쓰기 카운트
+		int  cntResult = 0;
+		if(url.contains("comm")||url.contains("Comm")) {
+			System.out.println("cntComm+1");
+			cntResult = memberdao.gradeCntComm(loginId); //회원등급 댓글 카운트
+		}else {
+			System.out.println("cntBoard+1");
+			cntResult = memberdao.gradeCntBoard(loginId); // 회원등급 글 카운트
+		}
 		System.out.println("result:" + cntResult);
 		System.out.println("*****************************");
 		

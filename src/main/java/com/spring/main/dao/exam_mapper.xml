@@ -88,4 +88,14 @@
 	WHERE rnum between 1 AND 5
 	</select>
 	
+	<select id="examListScroll" resultType="exam">
+		SELECT COMBRDIDX,SUBJECT,CONTENT,COMID,reg_date,rnum
+		FROM( 
+	 		SELECT COMBRDIDX,SUBJECT,CONTENT,COMID,reg_date, 
+	 		ROW_NUMBER() OVER(ORDER BY COMBRDIDX DESC) AS rnum FROM COMPANYBOARD
+	 		)
+		WHERE rnum between 1 AND #{param1}
+	
+	</select>
+	
 </mapper>
