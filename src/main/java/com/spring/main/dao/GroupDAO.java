@@ -3,6 +3,7 @@ package com.spring.main.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.spring.main.dto.CommentsDTO;
 import com.spring.main.dto.GroupDTO;
 
 public interface GroupDAO {
@@ -56,6 +57,8 @@ public interface GroupDAO {
 	ArrayList<GroupDTO> deadlineChk();
 
 	int groupCommentWrite(HashMap<String, String> params);
+
+	ArrayList<CommentsDTO> groupCommentList(int gpIdx);
 
 
 

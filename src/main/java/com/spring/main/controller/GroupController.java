@@ -134,10 +134,15 @@ public class GroupController {
 	}
 	
 	@RequestMapping(value = "/groupCommentWrite", method = RequestMethod.GET)
-	@ResponseBody HashMap<String , Object> groupCommentWrite(@RequestParam HashMap<String, String> params,HttpSession session,
-			RedirectAttributes rAttr) {
+	@ResponseBody HashMap<String , Object> groupCommentWrite(@RequestParam HashMap<String, String> params,HttpSession session, RedirectAttributes rAttr) {
 		logger.info("공동구매 댓글쓰기 요청 params: {}", params);
 		return groupService.groupCommentWrite(params,rAttr);
+	}
+	
+	@RequestMapping(value = "/groupCommentList/{gpIdx}", method = RequestMethod.GET)
+	@ResponseBody HashMap<String , Object> groupCommentList(@PathVariable int  gpIdx,HttpSession session,	RedirectAttributes rAttr) {
+		logger.info("공동구매 댓글리스트요청 gpIdx: {}", gpIdx);
+		return groupService.groupCommentList(gpIdx,rAttr);
 	}
 
 	
