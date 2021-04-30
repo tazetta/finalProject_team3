@@ -11,7 +11,7 @@
 	</select>
 <!--게시판카테고리 -->
 <select id="boardCtg" resultType="String">
-		SELECT category FROM boardCtg WHERE boardCtgIdx=#{boardCtgIdx}
+		SELECT category FROM boardCtg WHERE brdCtgIdx=#{boardCtgIdx}
 	</select>
 <!--주거형태카테고리-->
 <select id="formCtg" resultType="String">
