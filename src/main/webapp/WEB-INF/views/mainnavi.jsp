@@ -25,14 +25,14 @@
             text-decoration: none;
         }
         a:visited{
-            color: white;
+            color: pink;
         }
         li:hover{
             color: white;
             background-color: deepskyblue;
         }
         div.bar{
-           width: 4000px;
+          	width:2000px;
             height: 30px;
             background-color: white;
             min-width: 700px;
@@ -49,7 +49,7 @@
     <a href="groupListPage" target="_parent">
         <li>공동 구매</li>
     </a>
-    <a href="*" target="_parent">
+    <a href="helpMain" target="_parent">
         <li>도와줘요 자취만렙</li>
     </a>
     <a href="interiorexamList" target="_parent">
