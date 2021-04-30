@@ -38,7 +38,7 @@
 
   <form action="/main/boardUpdate" method="POST">
   <h2 style="padding-top: 100px;">자유게시판</h2>
-  <th>글 수정하기</th>          
+  <th>글 수정하기</th>     <!-- 수정바람 -->     
 </div>
     <div class="container">
 
@@ -56,6 +56,7 @@
             <tr>
             <td colspan="2">
       				<input name="boardIdx" type="hidden" value="${dto.boardIdx}" />
+      				<input type="hidden" name="brdctgidx" value="${dto.brdctgidx }" />
 					<div contenteditable="true" id="editable"> ${dto.content}/글번호:${dto.boardIdx}</div> 
 					<input name="content" type="hidden" id="content" />
 			</td>

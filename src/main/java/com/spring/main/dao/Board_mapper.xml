@@ -65,24 +65,24 @@
 	</insert>
 	<!--글수정하기 -->
 	<update id= "boardUpdate" parameterType="board">
-	<if test="brdCtgIdx==1">
-		UPDATE  board SET SUBJECT=#{subject}, CONTENT=#{content},BrdCtgIDX=#{brdCtgIdx}
+	<if test="brdctgidx==1">
+		UPDATE  board SET SUBJECT=#{subject}, CONTENT=#{content},BrdCtgIDX=#{brdctgidx}
 		WHERE boardIdx=#{boardIdx}
 		</if>
-		<if test="brdCtgIdx==2">
-		UPDATE  board SET SUBJECT=#{subject}, CONTENT=#{content},BrdCtgIDX=#{brdCtgIdx},roomSize=#{roomSize},budget=#{budget},formIdx=#{formIdx}
+		<if test="brdctgidx==2">
+		UPDATE  board SET SUBJECT=#{subject}, CONTENT=#{content},BrdCtgIDX=#{brdctgidx},roomSize=#{roomSize},budget=#{budget},formIdx=#{formIdx}
 		WHERE boardIdx=#{boardIdx}
 		</if>
-		<if test="brdCtgIdx==3">
-		UPDATE  board SET SUBJECT=#{subject}, CONTENT=#{content},BrdCtgIDX=#{brdCtgIdx}
+		<if test="brdctgidx==3">
+		UPDATE  board SET SUBJECT=#{subject}, CONTENT=#{content},BrdCtgIDX=#{brdctgidx}
 		WHERE boardIdx=#{boardIdx}
 		</if>
-		<if test="brdCtgIdx==4">
-		UPDATE  board SET SUBJECT=#{subject}, CONTENT=#{content},BrdCtgIDX=#{brdCtgIdx}
+		<if test="brdctgidx==4">
+		UPDATE  board SET SUBJECT=#{subject}, CONTENT=#{content},BrdCtgIDX=#{brdctgidx}
 		WHERE boardIdx=#{boardIdx}
 		</if>
-		<if test="brdCtgIdx==5">
-		UPDATE  board SET SUBJECT=#{subject}, CONTENT=#{content},BrdCtgIDX=#{brdCtgIdx},EMAIL=#{email}
+		<if test="brdctgidx==5">
+		UPDATE  board SET SUBJECT=#{subject}, CONTENT=#{content},BrdCtgIDX=#{brdctgidx},EMAIL=#{email}
 		WHERE boardIdx=#{boardIdx}
 		</if>
 		

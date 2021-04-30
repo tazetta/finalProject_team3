@@ -91,7 +91,7 @@
                 ${dto.content}
                      글번호:${dto.boardIdx}
                        조회수:${dto.bhit}
-                        카테고리:${dto.category}
+                        카테고리:${dto.brdctgidx}
                         <div id="content">
                             <button id="contentbtn" style="margin-left: 300;">신고</button>
                             <button id="contentbtn" style="margin-left: 50;" >목록</button>  

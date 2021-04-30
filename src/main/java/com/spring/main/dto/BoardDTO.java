@@ -21,6 +21,9 @@ public class BoardDTO {
 	private int recidx;
 	private String blind;
 	private int brdctgidx;
+	private int formidx;
+	private String email;
+
 	public int getBoardCtgIdx() {
 		return boardCtgIdx;
 	}
@@ -28,9 +31,6 @@ public class BoardDTO {
 	public void setBoardCtgIdx(int boardCtgIdx) {
 		this.boardCtgIdx = boardCtgIdx;
 	}
-
-	private int formidx;
-	private String email;
 
 	public int getRecidx() {
 		return recidx;
@@ -55,7 +55,6 @@ public class BoardDTO {
 	public void setFormcategory(String formcategory) {
 		this.formcategory = formcategory;
 	}
-
 
 	public String getCategory() {
 		return category;
