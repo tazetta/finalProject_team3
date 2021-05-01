@@ -165,10 +165,9 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "/boardDel/{boardIdx}")
-	public ModelAndView boardDel(@PathVariable String boardIdx, @PathVariable String brdCtgIdx, HttpSession session,RedirectAttributes rAttr) {
+	public ModelAndView boardDel(@PathVariable String boardIdx, HttpSession session,RedirectAttributes rAttr) {
 		logger.info("삭제하는글번호{}", boardIdx);
-		logger.info("삭제하는카테고리{}", brdCtgIdx);
-		return BoardService.boardDel(boardIdx,brdCtgIdx,session,rAttr);
+		return BoardService.boardDel(boardIdx,session,rAttr);
 	}
 	// 비동기로 받기 때문에 @ResponseBody
 	@RequestMapping(value = "/boardFileDelete", method = RequestMethod.GET)

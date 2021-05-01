@@ -238,7 +238,7 @@ public class BoardService {
 	}
 	/* 게시글 삭제 */
 	@Transactional
-	public ModelAndView boardDel(String boardIdx ,String brdCtgIdx, HttpSession session,RedirectAttributes rAttr) {
+	public ModelAndView boardDel(String boardIdx , HttpSession session,RedirectAttributes rAttr) {
 		ModelAndView mav = new ModelAndView();
 		String newFileName = boarddao.boardGetFileName(boardIdx);//보드파일찾기
 		if (newFileName != null) { // 파일이 있으면
@@ -256,7 +256,7 @@ public class BoardService {
 		msg = "삭제되었습니다.";
 		rAttr.addFlashAttribute("msg", msg);
 
-		mav.setViewName("redirect:/groupListPage");
+		mav.setViewName("redirect:/FreeListPage");
 		return mav;
 	}
 	
