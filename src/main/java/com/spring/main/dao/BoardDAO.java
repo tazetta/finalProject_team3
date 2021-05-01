@@ -31,13 +31,12 @@ public interface BoardDAO {
 	int boardPhotoDel(String boardIdx);
 	//게시글 삭제
 	int boardDel(String boardIdx);
-	//게시글 추천수 가져오기
-	String boardrecommendFind(int recidx);
-	
-	
+
 	ArrayList<PhotoDTO> getMyPhotos(String id);
 	
 	ArrayList<BoardDTO> getBoardList(int startNum, int endNum, int brdCtgIdx);
+	//게시글 추천수 불러오기
+	int recFind(BoardDTO dto);
 
 
 	

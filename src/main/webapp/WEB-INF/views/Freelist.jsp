@@ -45,7 +45,7 @@
 			<tbody>
 				<c:forEach var="board" items="${boardList}" begin="0" end="9" step="1" varStatus="status">
 					<tr>
-						<td><a href="#">${board.subject}</a></td>
+						<td><a href="boarddetail?boardIdx=${board.boardIdx}">${board.subject}</a></td>
 						<td>${board.id}</td>
 						<td>${board.bhit}</td>
 						<td>${board.reg_date}</td>

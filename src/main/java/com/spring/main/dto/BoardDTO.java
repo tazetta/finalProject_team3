@@ -23,6 +23,14 @@ public class BoardDTO {
 	private int brdctgidx;
 	private int formidx;
 	private String email;
+	private String isrecom;
+	public String getIsrecom() {
+		return isrecom;
+	}
+
+	public void setIsrecom(String isrecom) {
+		this.isrecom = isrecom;
+	}
 
 	public int getBoardCtgIdx() {
 		return boardCtgIdx;

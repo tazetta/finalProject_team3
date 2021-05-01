@@ -178,11 +178,5 @@ public class BoardController {
 		return BoardService.fileDelete(fileName, session);
 	}
 	
-	@RequestMapping(value = "/recommend", method = RequestMethod.GET)
-	public @ResponseBody HashMap<String, Object> recommend(@RequestParam String boardIdx, HttpSession session) {																												
-		logger.info("{}글추천하기",boardIdx);
-		return BoardService.recommend(boardIdx, session);
-	}
-	
 	
 }

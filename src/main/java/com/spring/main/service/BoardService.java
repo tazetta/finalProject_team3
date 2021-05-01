@@ -45,7 +45,10 @@ public class BoardService {
 		 
 		 String category = null; 
 		 String formcategory=null;
-		 
+		 //추천수 불러오기
+			int  recIdx = boarddao.recFind(dto);
+			logger.info("게시글 추천수 수: {} ", recIdx);
+			
 		 if (dto != null) {
 				category = boarddao.boardCtg(dto.getBrdctgidx()); // 카테고리 가져오기
 				dto.setCategory(category); // 게시판카테고리idx 담기
@@ -335,11 +338,6 @@ public class BoardService {
 		mav.setViewName("boardUploadForm");
 
 		return mav;
-	}
-
-	public HashMap<String, Object> recommend(String boardIdx, HttpSession session) {
-		
-		return null;
 	}
 
 	public ModelAndView getBoardList(int pageNum, int brdCtgIdx) {
