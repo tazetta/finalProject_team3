@@ -96,6 +96,33 @@ public class MemberController {
 		return map;
 	}
 	
+	@RequestMapping(value = "/cOverlay", method = RequestMethod.GET)
+	public HashMap<String, Object> cOverlay(Model model , @RequestParam HashMap<String, String> params) {
+		logger.info("업체아이디 중복확인  요청");
+		logger.info("params {} " , params);
+		boolean success = false;
+		if(service.cOverlay(params) == 0) {
+			success = true;
+		}
+		logger.info("success {} " , success);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("success", success);
+		return map;
+	}
+	@RequestMapping(value = "/company_nameOverChk", method = RequestMethod.GET)
+	public HashMap<String, Object> company_nameOverChk(Model model , @RequestParam HashMap<String, String> params) {
+		logger.info("업체명 중복확인  요청");
+		logger.info("params {} " , params);
+		boolean success = false;
+		if(service.company_nameOverChk(params) == 0) {
+			success = true;
+		}
+		logger.info("success {} " , success);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("success", success);
+		return map;
+	}
+	
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
 	public HashMap<String, Object> join(@RequestParam HashMap<String, String> params) {
 		logger.info("회원가입 요청");

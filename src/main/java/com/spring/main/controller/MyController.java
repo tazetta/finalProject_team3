@@ -1,14 +1,25 @@
 package com.spring.main.controller;
 
+import java.util.ArrayList;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.spring.main.dto.BoardDTO;
+import com.spring.main.dto.MyDTO;
+import com.spring.main.service.MyService;
 
 @Controller
 public class MyController {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	@Autowired MyService myService;
+	
 
 	@RequestMapping(value = "/myInteriorHistory", method = RequestMethod.GET)
 	public String adminMain() {
@@ -33,12 +44,18 @@ public class MyController {
 		logger.info("내 작성글 페이지");
 		return "mywrite";
 	}
-
+	
 	@RequestMapping(value = "/mywriteboard", method = RequestMethod.GET)
-	public String mywriteboard() {
+	public String mywriteboard(Model model) {		
+		ArrayList<MyDTO> list = myService.list();
 		logger.info("내 작성글 게시판");
+		model.addAttribute("boardList",list);		
 		return "mywriteboard";
 	}
+	
+
+
+	
 
 	@RequestMapping(value = "/mywriteqna", method = RequestMethod.GET)
 	public String mywriteqna() {

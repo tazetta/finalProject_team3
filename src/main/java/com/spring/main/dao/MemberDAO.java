@@ -39,6 +39,10 @@ public interface MemberDAO {
 
 	String getGrade(int gradeIdx);
 
+	int cOverlay(HashMap<String, String> params);
+
+	int company_nameOverChk(HashMap<String, String> params);
+
 
 
 
