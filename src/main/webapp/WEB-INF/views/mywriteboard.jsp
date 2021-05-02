@@ -92,7 +92,7 @@ th{
 			<div class="sideBar">
 				<form>
 					<table>
-						<h2>자유게시판</h2>
+						<h2>자유 게시판</h2>
 					<tr class="table"> 
 						<th style="width:70px">글 번호</th>
 						<th>제목</th>
@@ -101,16 +101,17 @@ th{
 						<th style="width:100px">작성일</th>
 					</tr>
 					
-					<c:forEach items="${list}" var="board">
+					<c:forEach items="${boardList}" var="dto">
 						<tr>
-							<td>${board.boardIdx}</td>
-							<td><a class="mouse_over" href="boardDetail?boardIdx=${bbs.boardIdx}&page=${currPage}">${board.subject}</a></td>
-							<td>${board.id}</td>
-							<td>${board.bHit}</td>
-							<td>${board.reg_date}</td>
+							<td>${dto.boardidx}</td>
+							<td><a class="mouse_over" href="boardDetail?boardIdx=${board.boardIdx}&page=${currPage}">${dto.subject}</a></td>
+							<td>${dto.id}</td>
+							<td>${dto.bhit}</td>
+							<td>${dto.reg_date}</td>
 						</tr>
 					</c:forEach>
 					</table>
+
 				</form>
 			</div>
 			
