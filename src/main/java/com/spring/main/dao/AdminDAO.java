@@ -24,5 +24,12 @@ public interface AdminDAO {
 
 	HashMap<String, Object> reportedCommList(String string);
 
+	int meberMaxCnt();
+
+	ArrayList<MemberDTO> adminMemberList(int start, int end);
+
+	MemberDTO memberDetail(String id);
+
+
 
 }

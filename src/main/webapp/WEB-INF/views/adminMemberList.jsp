@@ -5,7 +5,14 @@
 <html>
 <head>
 <title>관리자 일반회원 목록</title>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<link
+	href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	rel="stylesheet">
+<script
+	src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script src="resources/js/jquery.twbsPagination.js"
+	type="text/javascript"></script>
 <style>
 table, td, th {
 	border-collapse: collapse;
@@ -34,6 +41,7 @@ form table th {
 	justify-content: center;
 	align-items: center;
 	min-height: 100vh;
+	min-width: 1680px;
 }
 
 .inputs {
@@ -96,7 +104,7 @@ select:hover {
 </head>
 <body>
 	<div class="flexBox">
-		<div>
+		<div style="min-height: 800px;">
 			<div>
 				<div style="display: flex; justify-content: space-between; ">
 					<div class="headDESC">
@@ -182,15 +190,19 @@ select:hover {
 								<th style="width: 150px;">현재 패널티</th>
 								<th>탈퇴 여부</th>
 							</tr>
+							<tbody id="list">
+								
+							</tbody>
 							<tr>
-								<td><input type="button" class="inputs" value="hello3982" onclick="detailPopUp()"
-									style="border: none; border-radius: 10px; width: 120px;" 
-								/></td>
-								<td>초고수</td>
-								<td>7</td>
-								<td>2021-04-12</td>
-								<td>none</td>
-								<td>false</td>
+								<td colspan="6">
+									<!-- PlugIn -->
+									<div class="container">
+										<nav aria-label="page navigation" style="text-align: center;">
+											<ul class="pagination" id="pagination"></ul>
+										</nav>
+									</div>
+									<!-- /PlugIn -->
+								</td>
 							</tr>
 						</table>
 					</form>
@@ -200,9 +212,108 @@ select:hover {
 	</div>
 </body>
 <script>
-	function detailPopUp(){
-		var url = "adminMemberDetail";
+	function detailPopUp(i){
+		var url = "adminMemberDetail/"
+		console.log($("#"+i).val());
+		var id = $("#"+i).val();
+		url += id;
 		window.open(url,"상세보기","width=480, height=400");
 	}
+	
+	var thisPage = 1;
+	
+	
+	listCall(thisPage);
+
+
+	$("#pagePerNum").change(()=>{
+		console.log($("#pagePerNum").val());
+		$("#pagination").twbsPagination('destroy');
+		listCall(thisPage);
+	});
+
+	function listCall(reqPage) {	
+		var reqUrl = 'adminMemberList'+'/'+10+'/'+reqPage;
+		$.ajax({
+			url:reqUrl
+			,data:{}
+			,type:'GET'
+			,dataType:'JSON'
+			,success:(data)=>{
+				if(reqPage > data.maxPage){listCall(data.maxPage);}
+				console.log(reqUrl);
+				console.log(data);
+				thisPage = data.currPage;
+				listPrint(data.list);
+				//pagePrint(data.maxPage);
+				$("#pagination").twbsPagination({
+					startPage:data.currPage
+					,totalPages:data.maxPage
+					,visiblePages:5
+					,onPageClick:(evt, page)=>{
+						console.log(evt);
+						console.log(page);
+						listCall(page);
+					}
+				});
+			}
+			,error:(data)=>{
+				console.log(data);
+			}
+		});
+	}
+
+	function pagePrint(maxPage){
+		console.log("생성 가능 페이지 : " + maxPage);
+		console.log("현재 페이지 : " + thisPage);
+		var content = "";
+		var start = 1;
+		var end = maxPage>5 ? 5 : maxPage ;
+		// 이전 1 2 3 4 5 다음
+		// 이전(현재 페이지>5 일 경우)
+		if(thisPage>5){
+			end = Math.ceil(thisPage/5)*5;
+			start = end - 4;
+			if(end>maxPage){
+				end = maxPage;
+			}
+			content += " <a href='#' onclick='listCall("+(start-1)+")' class='pagingBtn'>이전</a>"
+		}
+		// 1 ~ 5
+		for(var i=start; i<=end; i++){
+			if(i == thisPage){
+				content += " <a href='#' class='pagingBtnDisable' style='background-color: skyblue; color: white;'>"+i+"</a>";
+			} else {
+				content += " <a href='#' onclick='listCall("+i+")' class='pagingBtn'>"+i+"</a>";			
+			}
+		}
+		// 다음(maxPage > 5 일 경우)
+		if(end<maxPage){
+			content += " <a href='#' onclick='listCall("+(end+1)+")' class='pagingBtn'>다음</a>"
+		}
+		
+		$("#paging").empty();
+		$("#paging").append(content);
+		
+	}
+
+	function listPrint(list){
+		var content = "";
+		console.log("list.length : "+list.length);
+		for(var i=0;i<list.length;i++){
+			content += "<tr>"
+				content += "<td><input type='button' id="+(i+1)+" class='inputs' value="+list[i].id+" onclick='detailPopUp("+(i+1)+")' style='border: none; border-radius: 10px; width: 120px;' /></td>"
+				content += "<td>"+list[i].grade+"</td>"
+				content += "<td>"+0+"</td>"
+				var date = new Date(list[i].reg_date);
+				content += "<td>"+date.toLocaleDateString("ko-KR")+"</td>"
+				
+				content += "<td>"+list[i].stateIdx+"</td>"
+			content += "</tr>"
+		}
+		$("#list").empty();
+		$("#list").append(content);
+	}
+
 </script>
 </html>
