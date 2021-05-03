@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
@@ -14,15 +15,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.main.dao.BoardDAO;
 import com.spring.main.dto.BoardDTO;
-import com.spring.main.dto.GroupDTO;
+import com.spring.main.dto.CommentsDTO;
 
 @Service
 public class BoardService {
@@ -360,6 +360,45 @@ public class BoardService {
 		  // ModelAndView 데이터 반환
 		  return mav;
 		}
+	
+	public HashMap<String, Object> BoardCommentList(int boardIdx, RedirectAttributes rAttr) {
+		logger.info("댓글 리스트 서비스");
+		HashMap<String, Object> map = new HashMap<String, Object> ();
+
+		ArrayList<CommentsDTO> list = boarddao.boardCommentList(boardIdx);
+		int listSize = list.size();
+		logger.info("listSize:"+listSize);
+		
+		map.put("listSize",listSize);
+		map.put("list",list);
+		return map;
+	}
+
+	public HashMap<String, Object> BoardCommentWrite(HashMap<String, String> params, RedirectAttributes rAttr) {
+		logger.info("댓글쓰기 서비스");
+		HashMap<String, Object> map = new HashMap<String, Object> ();
+		int result = boarddao.boardCommentWrite(params);
+		logger.info("댓글쓰기 result: "+result);
+		msg="댓글 등록에 실패했습니다";
+		if(result>0) {
+			msg="댓글이 등록되었습니다";
+		}
+		map.put("msg", msg);
+		return map;
+	}
+
+	public HashMap<String, Object> boardCommDel(int commIdx, RedirectAttributes rAttr) {
+		logger.info("댓글 삭제 서비스");
+		HashMap<String, Object> map = new HashMap<String, Object> ();
+		int result = boarddao.boardCommDel(commIdx);
+		msg="댓글 삭제에 실패했습니다";
+		if(result>0) {
+			msg="댓글이 삭제 되었습니다";
+		}
+		map.put("msg",msg);
+		return map;
+	}
+
 }
 
 

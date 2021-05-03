@@ -164,9 +164,9 @@ input[type=number]::-webkit-outer-spin-button {
         <div class="input-area">
             <input  id="business_number" type="text" name="business_number" placeholder="사업자 번호 ( - ) 없이" 
             maxlength="10" oninput="this.value = this.value.replace(/[^0-9.]/g, '')"/>
-            <label for="gender">사업자 번호</label>
+            <label for="business_number">사업자 번호</label>
             <div class="licenseChk">
-                <button>중복확인</button>
+                <button onclick="licen_numberChk()">중복확인</button>
             </div>
         </div>
         <div class="input-area">
@@ -186,12 +186,11 @@ input[type=number]::-webkit-outer-spin-button {
         </div>
         <div class="join">
             <button id="joinBtn">회원가입</button>
-            
         </div>
     </div>
     </body>
     <script>
-     
+
    
         
         $("#pw").keyup(function(){
@@ -275,7 +274,34 @@ input[type=number]::-webkit-outer-spin-button {
                 })
             }
         })
-
+        var licenseChk = false;
+        var licenseNum;
+		function licen_numberChk(){
+	    	var licen_number = $("#business_number");	
+	    	console.log(licen_number.val().length);
+				 if(licen_number.val().length < 10){
+					alert('숫자 10자리 입력해주세요.');
+				}else{
+					$.ajax({
+						type:'get'
+						,url:'licenChk'
+						,data:{"license":$("#business_number").val()}
+						,dataType:'json'
+						,success:function(data){
+							console.log(data);
+							if(data.success){
+								alert('사용 가능한 사업자번호 입니다.');
+								licenseChk = true;
+								licenseNum = $("#business_number").val();
+							}else{
+								alert('이미 사용중인 사업자번호 입니다.')
+								licenseChk = false;
+							}
+						}
+					})
+				}
+			
+	    	}
         var chkingPw = false;
         function chkPW(){
         var reg = /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
@@ -296,7 +322,7 @@ input[type=number]::-webkit-outer-spin-button {
         var $cName = $("#company_name");
         var params ={};
         params.cName = $cName.val();
-        if($cName != ''){
+        if($cName.val() != ''){
             $.ajax({
                          type:'get'
                         ,url:'company_nameOverChk'
@@ -307,9 +333,11 @@ input[type=number]::-webkit-outer-spin-button {
                             if(data.success){
                                 $("#cNameChk").html('사용 가능한 업체명입니다.');
                                 $("#cNameChk").css("color","yellowgreen");
+                                cNameChk = true;
                             }else{
                                 $("#cNameChk").html('이미 있는 업체명입니다.');
                                 $("#cNameChk").css("color","red");
+                                cNameChk = false;
                             }
                             },error:function(e){
                             }
@@ -323,16 +351,22 @@ input[type=number]::-webkit-outer-spin-button {
             var $name =$("#name");
             var $phone =$('#phone');
             var $company_name = $("#company_name");
-            var $business_number = $("business_number");
-            var $addr = $("#sample6_postcode") + $("#sample6_address") + $("#sample6_detailAddress") + $("#sample6_extraAddress");
-            
-            
+            var $business_number = $("#business_number");
+            var $addr = $("#sample6_postcode");
+            var $addr2 = $("#sample6_address");
+            var $addr3 = $("#sample6_detailAddress");
+            var $addr4 = $("#sample6_extraAddress");
+            console.log($id.val());
+            console.log($addr.val());
+            console.log($addr2.val());
+            console.log($addr3.val());
+            console.log($addr4.val());
             if(overChk){
                 if($id.val() ==''){
                     alert('아이디를 입력해 주세요.');
                     $id.focus();
                  }else if(chkingId != $id.val()){
-                     alert('중복 확인을 해주세요.')
+                     alert('아이디 중복 확인을 해주세요.')
                 }else if(passChk != true){
                     alert('비밀번호를 확인해 주세요');
                     $pw.focus();
@@ -351,15 +385,17 @@ input[type=number]::-webkit-outer-spin-button {
                 }else if($business_number.val()==''){
                     alert('사업자번호를  입력해 주세요.');
                     $business_number.focus();
-                }else if($phone.val()==''){
-                    alert('휴대전화 번호를 입력해 주세요.')
-                    $phone.focus();
-                }else if($("#sample6_postcode") == ''){
+                }else if(licenseNum != $business_number.val()){
+                	alert('사업자번호 중복확인을 해주세요.')	
+                	$business_number.focus();
+                }else if($phone.val() == ''){
+                	alert('전화번호를  입력하세요.');
+             		$phone.focus();
+                }else if($addr.val() == ''){
                     alert('주소를 조회해 주세요.');
-                }else if($("#sample6_detailAddress") == ''){    
+                }else if($addr3.val() == ''){    
                     alert('상세주소를 입력해주세요.');
-                }
-
+                }else{
                     console.log('서버전송');
 
                     var params ={};
@@ -368,11 +404,11 @@ input[type=number]::-webkit-outer-spin-button {
                     params.company_name =$company_name.val();
                     params.phone =$phone.val();
                     params.business_number = $business_number.val();
-                    params.addr = $addr.val();
-					console.log(params.phone);
+                    params.addr = $addr.val() +$addr2.val() + $addr3.val() + $addr4.val();
+		
                     $.ajax({
                         type:'post'
-                        ,url:'join'
+                        ,url:'cJoin'
                         ,data:params
                         ,dataType:'json'
                         ,success:function(data){
@@ -387,6 +423,7 @@ input[type=number]::-webkit-outer-spin-button {
                             },error:function(e){
                         }
                     })
+                }
                 }
             });
     
@@ -450,4 +487,4 @@ input[type=number]::-webkit-outer-spin-button {
         }).open();
     }
     </script>
-</html>l>
+</html>

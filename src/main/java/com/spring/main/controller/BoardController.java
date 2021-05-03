@@ -179,6 +179,21 @@ public class BoardController {
 		logger.info(fileName + " ->파일 삭제 요청");
 		return BoardService.fileDelete(fileName, session);
 	}
-	
-	
+
+	@RequestMapping(value = "/boardCommentList/{boarIdx}", method = RequestMethod.GET)
+	@ResponseBody HashMap<String , Object> groupCommentList(@PathVariable int  boardIdx,HttpSession session,	RedirectAttributes rAttr) {
+		logger.info("댓글리스트요청 gpIdx: {}", boardIdx);
+		return BoardService.BoardCommentList(boardIdx,rAttr);
+	}
+
+	@RequestMapping(value = "/boardCommentWrite", method = RequestMethod.GET)
+	@ResponseBody HashMap<String , Object> groupCommentWrite(@RequestParam HashMap<String, String> params,HttpSession session, RedirectAttributes rAttr) {
+		logger.info("댓글쓰기 요청 params: {}", params);
+		return BoardService.BoardCommentWrite(params,rAttr);
+	}
+	@RequestMapping(value = "/boardCommDel/{commIdx}", method = RequestMethod.GET)
+	@ResponseBody HashMap<String , Object> groupCommDel(@PathVariable int  commIdx,HttpSession session,	RedirectAttributes rAttr) {
+		logger.info("공동구매 댓글삭제 요청 gpIdx: {}", commIdx);
+		return BoardService.boardCommDel(commIdx,rAttr);
+	}
 }

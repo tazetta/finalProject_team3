@@ -119,4 +119,17 @@
 	<select id="getMyPhotos" resultType="String">
 		SELECT newFileName FROM photos WHERE id=#{id} ORDER BY photoidx DESC
 	</select>
+	<!--댓글가져오기 resultType=commentsDTO파일 어노테이션 -->
+	<select id="boardCommentList" resultType="comments">
+		 SELECT COMMIDX,COMMENTS, REG_DATE, BLIND, BOARDIDX,ID,GPIDX FROM comments WHERE boardIdx =#{param1} AND blind ='n' ORDER BY COMMIDX DESC
+	</select>
+	<!--댓글 작성하기-->
+	<insert id="boardCommentWrite">
+		INSERT INTO comments (COMMIDX, COMMENTS, id, BOARDIDX) 
+		VALUES (comments_seq.NEXTVAL, #{comment}, #{loginId}, #{boardIdx})
+	</insert>
+	<!--댓글삭제:블라인드처리-->
+	<update id="boardCommDel">
+		 UPDATE comments SET blind='y' WHERE commIdx=#{commIdx}
+	</update>
 </mapper>
