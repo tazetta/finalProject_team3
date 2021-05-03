@@ -27,10 +27,6 @@ public interface MemberDAO {
 
 	String adLogin(String id, String pw);
 
-	int resetPw(String id, String encrypt);
-
-	int resetCPw(String id, String encrypt);
-
 	String cLogin(String id, String pw);
 
 	MemberDTO gradeChk(String loginId);
@@ -42,6 +38,7 @@ public interface MemberDAO {
 	int cOverlay(HashMap<String, String> params);
 
 	int company_nameOverChk(HashMap<String, String> params);
+
 
 
 

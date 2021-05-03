@@ -171,7 +171,7 @@
                                 <ul style="list-style: none;">
                                     <li style="font-weight: bold; font-size: x-large;">새로운글</li>
                                     <br><br><br><br><br>
-                                    <li>중수 아이디 날짜 조회 댓글 추천</li>
+                                    <li>중수 아이디 날짜 조회 댓글 추천${dto.recidx}</li>
                                 </ul>
 
                                 
