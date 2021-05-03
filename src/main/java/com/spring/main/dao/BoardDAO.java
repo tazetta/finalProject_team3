@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import com.spring.main.dto.BoardDTO;
 import com.spring.main.dto.CommentsDTO;
+import com.spring.main.dto.GroupDTO;
 import com.spring.main.dto.PhotoDTO;
 
 public interface BoardDAO {
@@ -44,6 +45,10 @@ public interface BoardDAO {
 	int boardCommentWrite(HashMap<String, String> params);
 	//댓글삭제(상태값변경)
 	int boardCommDel(int commIdx);
+	//세부검색기능
+	ArrayList<BoardDTO> BoardSearchList(String startStr, String endStr, String opt, String keyword);
+	//세부검색기능
+	int BoardSearchList(String opt, String keyword);
 
 
 	

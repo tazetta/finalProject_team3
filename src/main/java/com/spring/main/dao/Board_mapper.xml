@@ -21,7 +21,7 @@
 	
 </select>
 <!-- 세부검색 -->
-<select id="helpSearchList"  resultType="com.spring.main.dto.BoardDTO">
+<select id="BoardSearchList"  resultType="com.spring.main.dto.BoardDTO">
 
 		
 		SELECT BOARDIDX,SUBJECT,CONTENT,ID,REG_DATE,BHIT
