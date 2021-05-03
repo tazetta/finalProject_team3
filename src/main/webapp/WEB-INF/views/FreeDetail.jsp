@@ -112,7 +112,7 @@
 	<b>댓글 <span id="listSize"></span>개
 	</b>
 	<div id="commentBox" class="container" style="text-align: center;">
-		<span><b id="loginId">${sessionScope.loginId }</b></span> <input
+		<span><b name="loginId">${sessionScope.loginId }</b></span> <input
 			type="text" name="comment" id="comment" placeholder="댓글을 입력해주세요" /> <input
 			type="button" value="등록" id="commentSave" />
 	</div>
@@ -134,7 +134,7 @@ boardCommentList(); //댓글리스트
 /* 댓글 등록 */
 $("#commentSave").click(function(){
 	var comment = $("#comment").val();
-	var loginId = "${sessionScope.loginId }";
+	var loginId = "${sessionScope.loginId}";
 	var boardIdx ="${dto.boardIdx}";
 	console.log("loginID:"+loginId+"/comment:"+comment);
 	if(comment!=''){
@@ -161,7 +161,7 @@ $("#commentSave").click(function(){
 
 /* 댓글 목록 불러오기 */
 	function boardCommentList() {
-		var reqUrl = './boardCommentList/${dto.boardIdx}';
+		var reqUrl = '../boardCommentList/'+${dto.boardIdx};
 		$.ajax({
 			url : reqUrl,
 			type : "get",

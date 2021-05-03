@@ -256,7 +256,7 @@ public class BoardService {
 		msg = "삭제되었습니다.";
 		rAttr.addFlashAttribute("msg", msg);
 
-		mav.setViewName("redirect:/FreeListPage");
+		mav.setViewName("redirect:/Freelist");
 		return mav;
 	}
 	
@@ -361,7 +361,7 @@ public class BoardService {
 		  return mav;
 		}
 
-	public HashMap<String, Object> BoardCommentList(int boardIdx, RedirectAttributes rAttr) {
+	public HashMap<String, Object> boardCommentList(int boardIdx, RedirectAttributes rAttr) {
 		logger.info("댓글 리스트 서비스");
 		HashMap<String, Object> map = new HashMap<String, Object> ();
 
@@ -374,7 +374,7 @@ public class BoardService {
 		return map;
 	}
 
-	public HashMap<String, Object> BoardCommentWrite(HashMap<String, String> params, RedirectAttributes rAttr) {
+	public HashMap<String, Object> boardCommentWrite(HashMap<String, String> params, RedirectAttributes rAttr) {
 		logger.info("댓글쓰기 서비스");
 		HashMap<String, Object> map = new HashMap<String, Object> ();
 		int result = boarddao.boardCommentWrite(params);

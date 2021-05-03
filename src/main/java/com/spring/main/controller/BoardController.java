@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,8 +100,8 @@ public class BoardController {
 		return "examlist";
 	}
 
-	@RequestMapping(value = "/boarddetail", method = RequestMethod.GET)
-	public ModelAndView boarddetail(@RequestParam String boardIdx) {
+	@RequestMapping(value = "/boarddetail/{boardIdx}", method = RequestMethod.GET)
+	public ModelAndView boarddetail(@PathVariable String boardIdx) {
 		logger.info("게시글idx{}상세보기", boardIdx);
 		return BoardService.boarddetail(boardIdx);
 	}
@@ -180,20 +179,20 @@ public class BoardController {
 		return BoardService.fileDelete(fileName, session);
 	}
 
-	@RequestMapping(value = "/boardCommentList/{boarIdx}", method = RequestMethod.GET)
-	@ResponseBody HashMap<String , Object> groupCommentList(@PathVariable int  boardIdx,HttpSession session,	RedirectAttributes rAttr) {
+	@RequestMapping(value = "/boardCommentList/{boardIdx}", method = RequestMethod.GET)
+	@ResponseBody HashMap<String , Object> boardCommentList(@PathVariable int  boardIdx,HttpSession session,	RedirectAttributes rAttr) {
 		logger.info("댓글리스트요청 gpIdx: {}", boardIdx);
-		return BoardService.BoardCommentList(boardIdx,rAttr);
+		return BoardService.boardCommentList(boardIdx,rAttr);
 	}
 
 	@RequestMapping(value = "/boardCommentWrite", method = RequestMethod.GET)
-	@ResponseBody HashMap<String , Object> groupCommentWrite(@RequestParam HashMap<String, String> params,HttpSession session, RedirectAttributes rAttr) {
+	@ResponseBody HashMap<String , Object> boardCommentWrite(@RequestParam HashMap<String, String> params,HttpSession session, RedirectAttributes rAttr) {
 		logger.info("댓글쓰기 요청 params: {}", params);
-		return BoardService.BoardCommentWrite(params,rAttr);
+		return BoardService.boardCommentWrite(params,rAttr);
 	}
 	@RequestMapping(value = "/boardCommDel/{commIdx}", method = RequestMethod.GET)
-	@ResponseBody HashMap<String , Object> groupCommDel(@PathVariable int  commIdx,HttpSession session,	RedirectAttributes rAttr) {
-		logger.info("공동구매 댓글삭제 요청 gpIdx: {}", commIdx);
+	@ResponseBody HashMap<String , Object> CommDel(@PathVariable int  commIdx,HttpSession session,	RedirectAttributes rAttr) {
+		logger.info("댓글삭제 요청 : {}", commIdx);
 		return BoardService.boardCommDel(commIdx,rAttr);
 	}
 }
