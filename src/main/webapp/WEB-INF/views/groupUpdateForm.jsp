@@ -88,7 +88,7 @@ if (msg != "") {
  	console.log($("#editable").html());
  	$("#editable>a").find("b").remove(); //a태그안 b태그 삭제
  	$("#editable>a").removeAttr("onclick"); //del(this) 무효화
- 	$("#content").val($("#editable").html()); //input에 div값 넣ㄱ;
+ 	$("#content").val($("#editable").html()); //input에 div값 넣기
  	$("#save").attr("type","submit");
  	
  });
@@ -215,8 +215,24 @@ $("#deadline").on("change", function dateChk(e){
  	}
 });
 
+
+
+/* 진행중인 상태에서 마감으로 변경시 인원부족마감으로 변경*/
+var selected = $("#progIdx option:selected").val(); //현재 선택되어있는 옵션가져오기
+
+if(selected==1){ //진행중에서
+	$("#progIdx").change(function(){ 
+		if($("#progIdx").val() ==3){ //마감으로 변경시
+			alert("현재 모집인원이 부족하여 인원부족마감으로 변경합니다");
+			$("#progIdx").val(2); //인원부족마감으로 변경
+		}
+	
+});
+}
+	
+	
 /*인원부족마감인 상태에서 진행중으로 변경시 오늘날짜 이후로 설정하도록 강제*/
-var selected = $("#progIdx option:selected").val();
+
 if(selected==2){ //인원부족마감에서
 	console.log("인원부족마감 상태임");
 	$("#progIdx").change(function(){ 
@@ -234,7 +250,7 @@ if(selected==2){ //인원부족마감에서
 }
 
 /*마감인 상태에서 진행중으로 변경시 최대참여자 수를 초기값보다 크게 설정하도록 강제*/
-if(selected==3){
+if(selected==3){ //마감상태에서
 	console.log("마감상태임");
 	$("#progIdx").change(function(){ 
 		if($("#progIdx").val() ==1){ //진행중으로 변경시
@@ -248,16 +264,31 @@ if(selected==3){
 				var defaultVal = $(this).prop("defaultValue"); 
 				var currVal = $(this).val();
 				
-				if(currVal <= defaultVal){
+				if(currVal <= defaultVal){ //입력값이 변경됐다면
 					console.log("신청한 현재 인원보다 적은지 확인필요");
 					console.log(defaultVal+"->"+currVal);
 					var elem = [defaultVal,currVal];
-					maxUserChk(elem);
+					maxUserChk(elem); //최대참여자 적합성 여부를 확인하는 함수 호출
 				}
 			});
+			
+		}else if($("#progIdx").val() ==2){ //인원부족마감으로 변경시
+			 if(confirm("이미 인원이 모집되어 마감되었습니다 진행중으로 바꾸시겠습니까?")){
+				 //진행중으로 바꾸길 원한다면
+				 $("#progIdx").val(1);  //진행중으로
+				 var maxUser = $("#maxUser").val();
+					console.log("maxUser:"+maxUser);
+					alert("최대참여자수는 기존값보다 커야합니다.");
+					maxUser =+ parseInt(maxUser)+1; 
+					$("#maxUser").val(maxUser);//최대참여자수+1한 값으로 강제변환
+			 }else{
+				 //진행중으로 바꾸지 않는다면
+				 $("#progIdx").val(3); //마감으로
+			 }
 		}
 	});
 }
+
  
 
 </script>
