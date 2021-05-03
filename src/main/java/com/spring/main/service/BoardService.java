@@ -23,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.spring.main.dao.BoardDAO;
 import com.spring.main.dto.BoardDTO;
 import com.spring.main.dto.CommentsDTO;
+import com.spring.main.dto.GroupDTO;
 
 @Service
 public class BoardService {
@@ -215,7 +216,7 @@ public class BoardService {
 		int result = boarddao.boardUpdate(dto);//성공시 dao실행
 		logger.info("결과 : {}", result);
 		//실패시 다시 카테고리에 맞는 수정으로 보내기
-			page = "redirect:/boarddetail?boardIdx=" +boardIdx;
+			page = "redirect:/boarddetail/" +boardIdx;
 			msg="글 수정 실패했습니다.";			
 		@SuppressWarnings("unchecked")//unchecked-미확인 오퍼레이션과 관련된 경고를 억제합니다.
 		HashMap<String, String> fileList = (HashMap<String, String>) session.getAttribute("fileList");
@@ -256,7 +257,7 @@ public class BoardService {
 		msg = "삭제되었습니다.";
 		rAttr.addFlashAttribute("msg", msg);
 
-		mav.setViewName("redirect:/FreeListPage");
+		mav.setViewName("redirect:/Freelist");
 		return mav;
 	}
 	
@@ -360,6 +361,48 @@ public class BoardService {
 		  // ModelAndView 데이터 반환
 		  return mav;
 		}
+
+
+
+	
+		public HashMap<String, Object> BoardSearchList(int pagePerCnt, int page, String opt,String keyword){
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		logger.info("검색리스트 서비스 ");
+		
+		int allCnt = boarddao.BoardSearchList(opt, keyword); // 공동구매 검색 글 갯수
+		logger.info("group Purchase searchCnt:" + allCnt);
+
+		// 게시글 수 : 21개, 페이지 당 보여줄 수 : 10 =(나머지가 있는 경우 반올림해서)=> 최대 생성 가능한 페이지 : 3
+		int range = allCnt % pagePerCnt > 0 ? Math.round(allCnt / pagePerCnt) + 1 : Math.round(allCnt / pagePerCnt);
+		System.out.println("range:" + range);
+		// 현재 페이지가 생성가능한 페이지보다 클 경우. .. 현재 페이지를 생성가능한 페이지로 맞춰준다.
+		page = page > range ? range : page;
+
+		// 시작, 끝
+		int end = page * pagePerCnt;
+		int start = end - pagePerCnt + 1;
+		String startStr = Integer.toString(start);
+		String endStr = Integer.toString(end);
+		ArrayList<BoardDTO> boardList = boarddao.BoardSearchList(startStr, endStr, opt, keyword); // 리스트 담기
+		BoardDTO dto = null;
+
+		logger.info("groupList size: " + boardList.size());
+
+		String msg = keyword + "에 대한 검색결과가 없습니다.";
+
+		if (boardList.size() > 0) { // 검색결과가 있으면
+			msg = keyword + "에 대한 검색결과가 " + boardList.size() + "건 있습니다.";
+		}
+		logger.info(msg);
+
+		map.put("list", boardList);
+		map.put("searchMsg", msg);
+		map.put("range", range);
+		map.put("currPage", page);
+
+		return map;
+	}
+	
 	
 	public HashMap<String, Object> BoardCommentList(int boardIdx, RedirectAttributes rAttr) {
 		logger.info("댓글 리스트 서비스");
@@ -374,10 +417,10 @@ public class BoardService {
 		return map;
 	}
 
-	public HashMap<String, Object> BoardCommentWrite(HashMap<String, String> params, RedirectAttributes rAttr) {
+	public HashMap<String, Object> boardCommentWrite(String comment, int boardIdx, RedirectAttributes rAttr) {
 		logger.info("댓글쓰기 서비스");
 		HashMap<String, Object> map = new HashMap<String, Object> ();
-		int result = boarddao.boardCommentWrite(params);
+		int result = boarddao.boardCommentWrite(comment,boardIdx);
 		logger.info("댓글쓰기 result: "+result);
 		msg="댓글 등록에 실패했습니다";
 		if(result>0) {

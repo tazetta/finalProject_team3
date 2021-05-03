@@ -177,9 +177,9 @@ input[type=number]::-webkit-outer-spin-button {
         <div class="input-area">
             <input  id="sample6_postcode" type="email" name="email" placeholder="주소를 조회해주세요." readonly/>
             <input  id="sample6_address" type="email" name="email" placeholder="주소 입력" readonly/>
-            <input  id="sample6_detailAddress" type="email" name="email" placeholder="상세주소 입력"/>
-            <input  id="sample6_extraAddress" type="email" name="email" placeholder="참고사항 입력"/>
-            <label for="email">주소</label>
+            <input  id="sample6_detailAddress" type="email" name="email" placeholder="상세주소 입력" maxlength="30"/>
+            <input  id="sample6_extraAddress" type="email" name="email" placeholder="참고사항 입력" maxlength="30"/>
+            <label for="sample6_detailAddress">주소</label>
             <div class="addr_lookUp">
                 <button onclick="sample6_execDaumPostcode()">조회</button>
             </div>

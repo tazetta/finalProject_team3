@@ -15,23 +15,23 @@
             <h3>회원가입</h3>
         </div>
         <div class="input-area">
-            <input  id="id" type="text" name="id" placeholder="영문 5자 이상" style="ime-mode:disabled"/>
+            <input  id="id" type="text" name="id" placeholder="영문 5자 이상" style="ime-mode:disabled" maxlength="15"/>
             <label for="id">아이디</label>
             <div class="idChk">
                 <button>중복확인</button>
             </div>
         </div>
         <div class="input-area">
-            <input  id="pw" type="password"  name="pw" placeholder="숫자 영문 특주문자 포함 8자리이상"/>
+            <input  id="pw" type="password"  name="pw" placeholder="숫자 영문 특주문자 포함 8자리이상 15자리이하" maxlength="15"/>
             <label for="pw">비밀번호</label>
         </div>
         <div class="input-area">
-            <input  id="pwchk" type="password" name="pwchk" placeholder="비밀번호를 동일하게 입력하세요"/>
+            <input  id="pwchk" type="password" name="pwchk" placeholder="비밀번호를 동일하게 입력하세요" maxlength="15"/>
             <label for="pwchk">비밀번호 확인</label>
             <div id="pwChkMsg"></div>
         </div>
         <div class="input-area">
-            <input  id="name" type="text" name="name" placeholder="이름 입력"  oninput="this.value = this.value.replace(/[^ㄱ-힣a-zA-Z).]/g, '')"/>
+            <input  id="name" type="text" name="name" placeholder="이름 입력" maxlength="15"  oninput="this.value = this.value.replace(/[^ㄱ-힣a-zA-Z).]/g, '')"/>
             <label for="name">이름</label>
         </div>
         <div class="input-area">
@@ -46,7 +46,7 @@
             <label for="phone">전화번호</label>
         </div>
         <div class="input-area">
-            <input  id="email" type="email" name="email" placeholder="이메일 입력"/>
+            <input  id="email" type="email" name="email" placeholder="이메일 입력" maxlength="30"/>
             <label for="email">이메일</label>
         </div>
         <div class="join">

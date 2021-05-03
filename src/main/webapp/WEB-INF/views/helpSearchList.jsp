@@ -66,7 +66,7 @@ a.page-link:hover{
         <h2 style="padding-top: 50px; font-weight: bold;">질문 및 답변</h2>
         <div class="container" style="text-align: center; padding-top: 50px;">
             <select name="idx" id="idx"style="border-radius: 5px; border: 2px solid gray; ">
-                <option value="">제목</option>
+                <option value="0">제목</option>
                 <option value="1">내용</option>
                 <option value="2">작성자</option>
             </select>

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.main.dto.CompanyMemberDTO;
 import com.spring.main.dto.MemberDTO;
@@ -230,7 +231,7 @@ public class MemberController {
 			if(dto != null) {
 				logger.info("findId {} " , dto.getId());
 				logger.info("findPw {} ", dto.getPw());				
-				page ="pwReset";
+				page ="memberPwReset";
 				msg ="비밀번호를 재설정 합니다.";
 				mav.addObject("id", dto.getId());
 			}
@@ -245,7 +246,7 @@ public class MemberController {
 			logger.info("params {} " , params);
 			ModelAndView mav = new ModelAndView();
 			CompanyMemberDTO dto = new CompanyMemberDTO();
-			String page = "pw_find";
+			String page = "pwFind";
 			String msg = "요청하신 정보로 찾을수 없습니다.";
 			dto = service.comPwFind(params);
 			logger.info("findId {} " , dto.getComId());
@@ -253,10 +254,10 @@ public class MemberController {
 			String findId = dto.getComId();
 			String findPw = dto.getPw();
 			if(findId != null  && findPw != null) {
-				page ="pwReset";
+				page ="memberCPwReset";
 				msg ="비밀번호를 재설정 합니다.";
+				mav.addObject("id", findId);
 			}
-			mav.addObject("findId", findId);
 			mav.addObject("msg", msg);
 			mav.setViewName(page);
 			return mav;
@@ -288,5 +289,40 @@ public class MemberController {
 			return mav;
 		}
 
+		@RequestMapping(value = "/resetCPw" , method = RequestMethod.POST)
+		public ModelAndView restCPw(@RequestParam String id , String rPw , RedirectAttributes rAttr) {
+			logger.info("비밀번호 재설정 요청");
+			logger.info("재설정  아이디 " + id + "/" + "재설정 비밀번호" + rPw);
+			ModelAndView mav = new ModelAndView();
+			boolean success = false;
+			String msg = "실패 하였습니다.";
+			String page = "findPw";
+			if(service.resetCPw(id,rPw) > 0) {
+				success = true;
+				msg = "비밀번호를 재설정 하였습니다.";
+				page = "redirect:/membership";
+			}
+			rAttr.addFlashAttribute("msg",msg);
+			mav.setViewName(page);
+			return mav;
+		}
+		
+		@RequestMapping(value = "/resetPw" , method = RequestMethod.POST)
+		public ModelAndView resetPw(@RequestParam String id , String rPw , RedirectAttributes rAttr) {
+			logger.info("비밀번호 재설정 요청");
+			logger.info("재설정  아이디 " + id + "/" + "재설정 비밀번호" + rPw);
+			ModelAndView mav = new ModelAndView();
+			boolean success = false;
+			String msg = "실패 하였습니다.";
+			String page = "findPw";
+			if(service.resetPw(id,rPw) > 0) {
+				success = true;
+				msg = "비밀번호를 재설정 하였습니다.";
+				page = "redirect:/membership";
+			}
+			rAttr.addFlashAttribute("msg",msg);
+			mav.setViewName(page);
+			return mav;
+		}
 }
 

@@ -540,11 +540,8 @@ public class GroupService {
 		HashMap<String, Object> map = new HashMap<String, Object> ();
 		int currUser = groupdao.groupcurrUser(gpIdx);
 		logger.info("currUser: "+ currUser);
-		msg="";
-		if(currUser>maxUser) {
-			msg="현재신청 인원보다 적은 수 입니다";	
-		}
-		map.put("msg", msg);
+		
+		map.put("currUser", currUser);
 		return map;
 	}
 

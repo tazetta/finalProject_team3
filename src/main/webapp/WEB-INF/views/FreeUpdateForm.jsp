@@ -97,7 +97,7 @@
         cursor: pointer;
         width: 7%;
         border-radius: 10px;"
-        onclick="location.href='/main/boarddetail?boardIdx=${dto.boardIdx}'">취소</button>
+        onclick="location.href='../boarddetail/+${dto.boardIdx}'">취소</button>
         &nbsp;&nbsp;
         <button id="button" style="height: 20;
         background-color: rgb(252, 214, 158);

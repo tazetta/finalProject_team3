@@ -82,7 +82,7 @@ font-size:90%;
 			<td>${dto.progress}</td>
 		</tr>
 		<tr>
-			<td colspan="5" style="padding: 20px">${dto.content }</td>
+			<td colspan="5" style="padding: 20px">${dto.content}</td>
 			<td style="width: 20%">현재인원/모집인원 : <span id="groupCnt">${dto.currUser }/${dto.maxUser}</span>
 				<br />마감날짜 : <b>${dto.deadline}</b> <br /> 
 				
@@ -90,7 +90,7 @@ font-size:90%;
 					<input type="button" id="toggleApply" value="신청" />
 				</c:if> <c:if test="${dto.progIdx eq '1'  && state eq 'true'  }">
 					<input type="button" id="toggleApply" value="취소" />
-				</c:if> <br /> <c:if test="${dto.currUser == dto.maxUser }">
+				</c:if> <br /> <c:if test="${dto.currUser == dto.maxUser && dto.progIdx eq '3'}">
 					<span class="deadlineSpan">마감</span>
 				</c:if>
 				<c:if test="${dto.currUser<dto.maxUser && dto.progIdx eq '2'}">
@@ -101,6 +101,7 @@ font-size:90%;
 			</td>
 		</tr>
 		<c:if test="${state eq 'true'  || dto.id == sessionScope.loginId }">
+		<!-- 신청자와 작성자에게만 노출 -->
 			<tr>
 				<td colspan="6">
 					<div id="kakaoLink">

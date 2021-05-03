@@ -113,6 +113,22 @@ public class MemberService {
 	public int licenChk(HashMap<String, String> params) {
 		return dao.licenChk(params);
 	}
+	public int resetCPw(String id, String rPw) {
+		String  plan = rPw;
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		String encrypt = encoder.encode(plan);
+		logger.info(plan + "=>" + encrypt);
+	
+		return dao.resetCPw(id,encrypt);
+	}
+	public int resetPw(String id, String rPw) {
+		String  plan = rPw;
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		String encrypt = encoder.encode(plan);
+		logger.info(plan + "=>" + encrypt);
+	
+		return dao.resetPw(id,encrypt);
+	}
 
 
 
