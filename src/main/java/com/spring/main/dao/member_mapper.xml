@@ -10,7 +10,7 @@
 	</select>
 	
 	<select id="cLogin" resultType="String">
-		SELECT comId FROM companymember WHERE comId=#{param1} AND pw=#{param2}
+		SELECT pw FROM companymember WHERE comId=#{param1}
 	</select>
 	
 	<select id="adLogin" resultType="String" parameterType="String">
@@ -25,6 +25,9 @@
 		INSERT INTO generalmember (id,pw,name,gender,phone,email)VALUES(#{id},#{pw},#{name},#{gender},#{phone},#{email})
 	</insert>
 	
+	<insert id="cJoin" parameterType="hashmap">
+		INSERT INTO companymember (comId , pw , phone , addr , comName , license)VALUES(#{id}, #{pw}, #{phone} , #{addr} , #{company_name} , #{business_number})
+	</insert>
 
 	<select id="idFind" resultType="com.spring.main.dto.MemberDTO" parameterType="hashmap">
 		SELECT id , reg_date FROM generalmember WHERE name=#{name} AND email=#{email}
@@ -49,6 +52,11 @@
 	<select id="company_nameOverChk" resultType="int" parameterType="hashmap">
 		SELECT COUNT(comName) FROM companymember WHERE comName=#{cName}
 	</select>
+	
+	<select id="licenChk" resultType="int" parameterType="hashmap">
+		SELECT COUNT(license) FROM companymember WHERE license = #{license}
+	</select>
+	
 	
 	<update id="gradeCntBoard">
 		UPDATE generalMember
