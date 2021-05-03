@@ -59,24 +59,21 @@ input[type='text'] {
 			</tr>
 			<tr>
 				<td>모집상태</td>
-				<td><select name="progIdx" >
-					
-						<%-- ${dto.progress} --%>
-						
-						<option value="1">진행중</option>
-						<option value="2">인원부족마감</option>
-						<option value="3">마감</option>
+				<td><select name="progIdx" id="progIdx">
+						<option value="1" <c:if test="${dto.progIdx == 1}">selected</c:if>>진행중</option>
+						<option value="2" <c:if test="${dto.progIdx == 2}">selected</c:if>>인원부족마감</option>
+						<option value="3" <c:if test="${dto.progIdx == 3}">selected</c:if>>마감</option>
 				</select></td>
 			</tr>
 			<tr>
 				<td>마감날짜</td>
-				<td><input type="Date" name="deadline" value="${dto.deadline }" /></td>
+				<td><input type="Date" name="deadline" id="deadline" value="${dto.deadline }" /></td>
 			</tr>
 		</table>
-	</form>
 	<input type="button" value="파일업로드" onclick="fileUp()" />
 	<button onclick="location.href='/main/groupDetail?gpIdx=${dto.gpIdx}&loginId=${sessionScope.loginId}'">취소</button>
-	<button id="save">수정완료</button>
+	<input type="button" id="save" value="수정완료" />
+	</form>
 </body>
 <script>
 
@@ -86,13 +83,15 @@ if (msg != "") {
 }
 
 
-$("#save").click(function() {
-	console.log($("#editable").html());
-	$("#editable>a").find("b").remove(); //a태그안 b태그 삭제
-	$("#editable>a").removeAttr("onclick"); //del(this) 무효화
-	$("#content").val($("#editable").html());
-	$("form").submit();
-});
+/* 글수정 전송*/
+ $("#save").click(function() {
+ 	console.log($("#editable").html());
+ 	$("#editable>a").find("b").remove(); //a태그안 b태그 삭제
+ 	$("#editable>a").removeAttr("onclick"); //del(this) 무효화
+ 	$("#content").val($("#editable").html());
+ 	$("#save").attr("type","submit");
+ 	
+ });
 
 /* 파일업로드 새창*/
 function fileUp(){
@@ -158,10 +157,70 @@ function maxUserChk(elem){
 			},errer:function(error){
 				console.log(error);
 			}
-		}); 
-
-	 
+		}); 	 
 }
+
+/* Date 타입 변환 함수*/
+Date.prototype.format = function (f) {
+
+    if (!this.valueOf()) return " ";
+    var weekKorName = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
+    var weekKorShortName = ["일", "월", "화", "수", "목", "금", "토"];
+    var weekEngName = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    var weekEngShortName = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    var d = this;
+
+    return f.replace(/(yyyy|yy|MM|dd|KS|KL|ES|EL|HH|hh|mm|ss|a\/p)/gi, function ($1) {
+        switch ($1) {
+            case "yyyy": return d.getFullYear(); // 년 (4자리)
+            case "yy": return (d.getFullYear() % 1000).zf(2); // 년 (2자리)
+            case "MM": return (d.getMonth() + 1).zf(2); // 월 (2자리)
+            case "dd": return d.getDate().zf(2); // 일 (2자리)          
+            default: return $1;
+        }
+    });
+};
+
+String.prototype.string = function (len) { var s = '', i = 0; while (i++ < len) { s += this; } return s; };
+String.prototype.zf = function (len) { return "0".string(len - this.length) + this; };
+Number.prototype.zf = function (len) { return this.toString().zf(len); };
+
+var today = new Date();
+today = today.format("yyyy-MM-dd");
+
+
+/* 날짜 변경시  오늘날짜 이후로 설정하도록 강제*/
+$("#deadline").on("change", function dateChk(e){
+ 		var deadline = $(this).val();
+ 		var defaultVal = $(this).prop("defaultValue");
+ 		console.log("deadline:"+deadline);
+ 		console.log("defaultVal:"+defaultVal);
+ 	if(deadline<today){
+ 		alert("마감일은 오늘보다 이전으로 설정 할 수 없습니다.")
+ 		$(this).val(defaultVal); 
+ 	}
+});
+
+/*인원부족마감인 상태에서 진행중으로 변경시 오늘날짜 이후로 설정하도록 강제*/
+var selected = $("#progIdx option:selected").val();
+if(selected==2){ //인원부족마감에서
+console.log("selected: "+selected);
+	console.log("인원부족마감인 상태임");
+	$("#progIdx").change(function(){ 
+		if($("#progIdx").val() ==1){ //진행중으로 변경시
+			console.log("진행중으로 변경");
+			var deadline = $("#deadline").val();
+	 		console.log("deadline:"+deadline);
+	 		console.log("today: "+today);
+	 	if(deadline<today){
+	 		alert("마감일은 오늘보다 이전으로 설정 할 수 없습니다.");
+	 		$("#deadline").val(today); 
+		}
+	}
+});
+}
+
+ 
 
 </script>
 </html>
