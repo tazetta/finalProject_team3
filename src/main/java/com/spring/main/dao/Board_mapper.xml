@@ -103,7 +103,7 @@
 		SELECT newFileName FROM photos WHERE boardIdx=#{boardIdx}
 	</select>
 	<!--사진 수정-->
-	<update id="groupUpdateFile">
+	<update id="boardUpdateFile">
 		UPDATE photos  
 		SET PHOTOIDX=photos_seq.NEXTVAL, NEWFILENAME=#{param1}, ORIFILENAME =#{param2}  WHERE boardIdx=#{param3}
 	</update>

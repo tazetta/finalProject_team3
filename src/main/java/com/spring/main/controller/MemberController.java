@@ -49,7 +49,7 @@ public class MemberController {
 				msg ="로그인에 성공 하였습니다.";
 				page="main";
 				session.setAttribute("loginId", id);
-				
+				logger.info("세션 아이디 : {}", session.getAttribute("loginId"));
 			}
 			
 		}else if(mode.equals("company")) {
@@ -57,10 +57,10 @@ public class MemberController {
 				msg ="로그인에 성공 하였습니다.";
 				page="main";
 				session.setAttribute("cLoginId", id);
+				logger.info("세션 아이디 : {}", session.getAttribute("cLoginId"));
 			}
 		}
 		
-		logger.info("세션 아이디 : {}", session.getAttribute("loginId"));
 		mav.addObject("msg", msg);
 		mav.setViewName(page);
 		return mav;
@@ -123,6 +123,20 @@ public class MemberController {
 		return map;
 	}
 	
+	@RequestMapping(value = "/licenChk", method = RequestMethod.GET)
+	public HashMap<String, Object> licenChk(Model model , @RequestParam HashMap<String, String> params) {
+		logger.info("사업자번호 중복확인  요청");
+		logger.info("params {} " , params);
+		boolean success = false;
+		if(service.licenChk(params) == 0) {
+			success = true;
+		}
+		logger.info("success {} " , success);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("success", success);
+		return map;
+	}
+	
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
 	public HashMap<String, Object> join(@RequestParam HashMap<String, String> params) {
 		logger.info("회원가입 요청");
@@ -138,6 +152,23 @@ public class MemberController {
 
 		return map;
 	}
+	
+	@RequestMapping(value = "/cJoin", method = RequestMethod.POST)
+	public HashMap<String, Object> cJoin(@RequestParam HashMap<String, String> params) {
+		logger.info("업체회원가입 요청");
+		ModelAndView mav = new ModelAndView();
+		logger.info("params {} ",params);
+		boolean success = false;
+		if(service.cJoin(params) > 0 ) {
+			success = true;
+		}
+		logger.info("success {} ", success);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("success", success);
+
+		return map;
+	}
+	
 	
 	@RequestMapping(value = "/findId", method = RequestMethod.GET)
 	public ModelAndView findId() {

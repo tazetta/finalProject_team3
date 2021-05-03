@@ -26,9 +26,11 @@ public interface AdminDAO {
 
 	int meberMaxCnt();
 
-	ArrayList<MemberDTO> adminMemberList(int start, int end);
+	ArrayList<MemberDTO> adminMemberList(int start, int end, String gradeIdx, String stateIdx, String searchId);
 
 	MemberDTO memberDetail(String id);
+
+	ArrayList<MemberDTO> gradeList(int start, int end, int gradeIdx);
 
 
 

@@ -41,7 +41,7 @@ public interface BoardDAO {
 	//댓글 가져오기
 	ArrayList<CommentsDTO> boardCommentList(int boardIdx);
 	//댓글 작성
-	int boardCommentWrite(HashMap<String, String> params);
+	int boardCommentWrite(String comment, int boardIdx);
 	//댓글삭제(상태값변경)
 	int boardCommDel(int commIdx);
 

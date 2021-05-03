@@ -29,12 +29,12 @@ public class MemberService {
 		return encoder.matches(pw, encrypt_pass);
 	}
 	public boolean cLogin(String id, String pw) {
-		String cId = dao.cLogin(id,pw);
-		boolean success = false;
-		if(cId != null) {
-			success = true;
-		}
-		return success;
+	
+		String encrypt_pass = dao.cLogin(id);
+		logger.info(pw + "==" + encrypt_pass);
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		logger.info("success {} " , encrypt_pass);
+		return encoder.matches(pw, encrypt_pass);
 	}
 
 
@@ -54,6 +54,17 @@ public class MemberService {
 		params.put("pw", encrypt);
 		
 		return dao.join(params);
+	}
+	
+	public int cJoin(HashMap<String, String> params) {
+		
+		String plain = params.get("pw");
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		String encrypt = encoder.encode(plain);
+		logger.info(plain  + "=>" + encrypt);
+		params.put("pw", encrypt);
+		
+		return dao.cJoin(params);
 	}
 	
 
@@ -98,6 +109,9 @@ public class MemberService {
 	}
 	public int company_nameOverChk(HashMap<String, String> params) {
 		return dao.company_nameOverChk(params);
+	}
+	public int licenChk(HashMap<String, String> params) {
+		return dao.licenChk(params);
 	}
 
 

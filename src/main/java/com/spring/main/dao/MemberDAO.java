@@ -27,7 +27,7 @@ public interface MemberDAO {
 
 	String adLogin(String id, String pw);
 
-	String cLogin(String id, String pw);
+	String cLogin(String id);
 
 	MemberDTO gradeChk(String loginId);
 
@@ -39,6 +39,9 @@ public interface MemberDAO {
 
 	int company_nameOverChk(HashMap<String, String> params);
 
+	int licenChk(HashMap<String, String> params);
+
+	int cJoin(HashMap<String, String> params);
 
 
 
