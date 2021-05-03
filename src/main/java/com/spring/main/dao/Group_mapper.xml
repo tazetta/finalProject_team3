@@ -180,6 +180,10 @@
 		 UPDATE comments SET blind='y' WHERE commIdx=#{commIdx}
 	</update>
 
+	<select id="groupcurrUser" resultType="int">	
+	 SELECT currUser FROM groupPurchase WHERE gpIdx=#{gpIdx}
+	
+	</select>
 
 	
 </mapper>

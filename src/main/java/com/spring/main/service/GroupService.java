@@ -126,10 +126,10 @@ public class GroupService {
 
 			logger.info("progress:" + progress);
 			
+			/*회원등급 가져오기*/
 			MemberDTO memberDTO = memberdao.gradeChk(dto.getId());
 			logger.info("gradeIdx:"+memberDTO.getGradeIdx());
-			
-			String grade = memberdao.getGrade(memberDTO.getGradeIdx()); //회원등급 가져오기
+			String grade = memberdao.getGrade(memberDTO.getGradeIdx()); //회원등급명 가져오기
 			logger.info("grade:"+grade);
 			
 			mav.addObject("dto", dto);
@@ -382,8 +382,6 @@ public class GroupService {
 				for (String key : fileList.keySet()) { // 여러개의 파일이 있을 수 있으므로 for문 사용
 					groupdao.groupUpdateFile(key, fileList.get(key), groupDTO.getGpIdx());
 				}
-				
-				
 
 			}
 			msg = "글수정에 성공하였습니다";
@@ -534,6 +532,19 @@ public class GroupService {
 			msg="댓글이 삭제 되었습니다";
 		}
 		map.put("msg",msg);
+		return map;
+	}
+
+	public HashMap<String, Object> currUserChk(int gpIdx, int maxUser, RedirectAttributes rAttr) {
+		logger.info("현재인원 확인 서비스");
+		HashMap<String, Object> map = new HashMap<String, Object> ();
+		int currUser = groupdao.groupcurrUser(gpIdx);
+		logger.info("currUser: "+ currUser);
+		msg="";
+		if(currUser>maxUser) {
+			msg="현재신청 인원보다 적은 수 입니다";	
+		}
+		map.put("msg", msg);
 		return map;
 	}
 
