@@ -414,13 +414,15 @@ public class BoardService {
 		
 		map.put("listSize",listSize);
 		map.put("list",list);
+		logger.info("map : {}" , map);
 		return map;
 	}
 
-	public HashMap<String, Object> boardCommentWrite(String comment, int boardIdx, RedirectAttributes rAttr) {
+	public HashMap<String, Object> boardCommentWrite(String comment, String boardIdx, RedirectAttributes rAttr) {
 		logger.info("댓글쓰기 서비스");
 		HashMap<String, Object> map = new HashMap<String, Object> ();
-		int result = boarddao.boardCommentWrite(comment,boardIdx);
+		String id = "sdk";
+		int result = boarddao.boardCommentWrite(comment,boardIdx,id);
 		logger.info("댓글쓰기 result: "+result);
 		msg="댓글 등록에 실패했습니다";
 		if(result>0) {
