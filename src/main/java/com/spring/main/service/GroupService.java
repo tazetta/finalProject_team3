@@ -126,10 +126,10 @@ public class GroupService {
 
 			logger.info("progress:" + progress);
 			
+			/*회원등급 가져오기*/
 			MemberDTO memberDTO = memberdao.gradeChk(dto.getId());
 			logger.info("gradeIdx:"+memberDTO.getGradeIdx());
-			
-			String grade = memberdao.getGrade(memberDTO.getGradeIdx()); //회원등급 가져오기
+			String grade = memberdao.getGrade(memberDTO.getGradeIdx()); //회원등급명 가져오기
 			logger.info("grade:"+grade);
 			
 			mav.addObject("dto", dto);
@@ -382,8 +382,6 @@ public class GroupService {
 				for (String key : fileList.keySet()) { // 여러개의 파일이 있을 수 있으므로 for문 사용
 					groupdao.groupUpdateFile(key, fileList.get(key), groupDTO.getGpIdx());
 				}
-				
-				
 
 			}
 			msg = "글수정에 성공하였습니다";

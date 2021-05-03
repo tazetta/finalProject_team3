@@ -28,7 +28,7 @@ public class DateInterceptor extends HandlerInterceptorAdapter {
 			ModelAndView modelAndView) throws Exception {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();
-		String currDate = format.format(date);  //현재시간
+		String currDate = format.format(date);  //오늘날짜
 		System.out.println("cuurDate:"+currDate);
 		Date utilDate = format.parse(currDate); //Date(java.util) 타입으로 변환
 			
