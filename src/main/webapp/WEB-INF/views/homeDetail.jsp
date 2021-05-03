@@ -80,14 +80,18 @@ a.button2:hover {
             <div class="container" >
                 <table class="table" style="width: 300px;" >
                     <thead>
+                    <tr>
                         <th style="border:none;">주거형태</th>
                         <th style="border:none;">평수</th>
                         <th style="border:none;">예산</th>
+                     </tr>
                     </thead>
                     <thead>
+                    <tr>
                         <td style="border:none;">받기</td>
                         <td style="border:none;">받기</td>
                         <td style="border:none;">받기</td>
+                        </tr>
                     </thead>
                 </table>
                 <table>
@@ -96,13 +100,15 @@ a.button2:hover {
                 <br/>
                 <table class="table">
                     <thead>
+                    <tr>
                         <th style="border:none;">아이템:</th>
                         <th style="border:none;"></th>
+                     </tr>
                     </thead>
                 </table>
             </div>
         </table>
-                    
+         </div>       
         <div class="container">
             <a href="#" class="button" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; float: right;">목록</a>
             <a href="#" class="button" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; float: right;">신고</a>
@@ -116,6 +122,7 @@ a.button2:hover {
             
            <div>
                <table class="table">
+               <tr>
                 <td>
                <span style="font-size: medium; font-weight: bold; ">댓글</span>
                <div class="wrap" style="float: right; margin-right: 100px;">
@@ -130,6 +137,7 @@ a.button2:hover {
                   </svg></i></a>
             </div>
             </td>
+            </tr>
                 </table>
             </div>
             <b>user</b> : <input type="text" size="75" placeholder="댓글을 입력해주세요."> 
