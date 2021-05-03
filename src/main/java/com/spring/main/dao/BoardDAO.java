@@ -7,6 +7,7 @@ import java.util.HashMap;
 import com.spring.main.dto.BoardDTO;
 import com.spring.main.dto.CommentsDTO;
 import com.spring.main.dto.GroupDTO;
+import com.spring.main.dto.MyDTO;
 import com.spring.main.dto.PhotoDTO;
 
 public interface BoardDAO {
@@ -50,12 +51,15 @@ public interface BoardDAO {
 	ArrayList<BoardDTO> BoardSearchList(String startStr, String endStr, String opt, String keyword);
 	//세부검색기능
 	int BoardSearchList(String opt, String keyword);
+
+	MyDTO pwconfirm(String loginId);
 	
 	int memberMaxCnt();
 	//집자랑 세부검색
 	Object homeMain(int start, int end, String order, String formcategory, int budget, int roomsize);
 	//추천수
 	Object CNTRECO(int start, int end, int CNTRECO);
+
 
 
 	

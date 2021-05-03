@@ -15,10 +15,17 @@ public class MyDTO {
 	private String content;
 	private Date reg_date;
 	private int bhit;
+	String phone;
 	
 	
 	public String getSubject() {
 		return subject;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 	public void setSubject(String subject) {
 		this.subject = subject;
