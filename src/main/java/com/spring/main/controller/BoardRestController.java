@@ -1,11 +1,13 @@
 package com.spring.main.controller;
 
+import java.sql.Date;
 import java.util.HashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,4 +44,17 @@ public class BoardRestController {
 		mav.setViewName("helpSearchList");
 		return mav;
 	}
-}
+	@RequestMapping(value = "/homemain/{pagePerCnt}/{page}/{reg_date}/{formcategory}/{budget}/{roomsize}",  method = RequestMethod.GET)
+	public HashMap<String, Object> homeMainList(@PathVariable int pagePerCnt,@PathVariable int page,
+		@PathVariable Date reg_date,@PathVariable String formcategory,@PathVariable int budget,@PathVariable int roomsize){
+		logger.info("pagePerCnt : {} / page : {}", pagePerCnt, page);
+		logger.info("reg_date :{}", reg_date);
+		logger.info("formcategory : {} ", formcategory);
+		logger.info("budget :{}", budget);
+		logger.info("roomsize : {}", roomsize);
+		
+		return BoardService.homeMainList(pagePerCnt,page,reg_date,formcategory,budget,roomsize);
+	}
+	
+		
+	}

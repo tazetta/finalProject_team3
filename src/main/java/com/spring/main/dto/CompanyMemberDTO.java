@@ -12,6 +12,21 @@ public class CompanyMemberDTO {
 	private String comName;
 	private int stateIdx;
 	private int license;
+	private long rate;
+	private int cnt;
+	
+	public long getRate() {
+		return rate;
+	}
+	public void setRate(long rate) {
+		this.rate = rate;
+	}
+	public int getCnt() {
+		return cnt;
+	}
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
+	}
 	public String getComId() {
 		return comId;
 	}

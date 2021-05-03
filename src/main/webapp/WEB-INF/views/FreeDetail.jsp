@@ -77,9 +77,9 @@
 		제목${dto.subject}
 		<div style="margin-top: 50px; margin-left: 300;">
 			<button id="button" style="margin-left: 300;"
-				onclick="location.href='boardUpdateForm/${dto.boardIdx}'">수정</button>
+				onclick="location.href='../boardUpdateForm/${dto.boardIdx}'">수정</button>
 			<button id="button" style="margin-left: 50;"
-				onclick="location.href='boardDel/${dto.boardIdx}'">삭제</button>
+				onclick="location.href='../boardDel/${dto.boardIdx}'">삭제</button>
 		</div>
 		<!--style="
                     background-color: rgb(172, 172, 172);
@@ -196,7 +196,7 @@ function commentListPrint(list){
 	 var reg_date = new Date(list[i].reg_date); 	 
 	content += reg_date.toLocaleDateString("ko-KR");
 	content += '</td>';
-	content += ' <td style="width:5%" ><a href="#"><img alt="decommend" src="resources/images/decommend.png" width="15px" height="15px"> </a></td>'
+	content += ' <td style="width:5%" ><a href="#"><img alt="decommend" src="resources/images/interior3.jpg" width="15px" height="15px"> </a></td>'
 	content += '<td style="text-align:left">';
 	if("${sessionScope.loginId}"==list[i].id){
 		content += '<button class="commDel" onclick="boardCommentDel('+list[i].commIdx+')">삭제</button></td>' ; //댓글삭제호출

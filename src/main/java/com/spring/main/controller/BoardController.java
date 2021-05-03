@@ -182,7 +182,7 @@ public class BoardController {
 	@RequestMapping(value = "/boardCommentList/{boardIdx}", method = RequestMethod.GET)
 	@ResponseBody HashMap<String , Object> boardCommentList(@PathVariable int  boardIdx,HttpSession session,	RedirectAttributes rAttr) {
 		logger.info("댓글리스트요청 boardIdx: {}", boardIdx);
-		return BoardService.boardCommentList(boardIdx,rAttr);
+		return BoardService.BoardCommentList(boardIdx,rAttr);
 	}
 
 	@RequestMapping(value = "/boardCommentWrite/{boardIdx}", method = RequestMethod.GET)

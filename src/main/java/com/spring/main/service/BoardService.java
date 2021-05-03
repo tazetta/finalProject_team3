@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -216,7 +217,7 @@ public class BoardService {
 		int result = boarddao.boardUpdate(dto);//성공시 dao실행
 		logger.info("결과 : {}", result);
 		//실패시 다시 카테고리에 맞는 수정으로 보내기
-			page = "redirect:/boarddetail?boardIdx=" +boardIdx;
+			page = "redirect:/boarddetail/" +boardIdx;
 			msg="글 수정 실패했습니다.";			
 		@SuppressWarnings("unchecked")//unchecked-미확인 오퍼레이션과 관련된 경고를 억제합니다.
 		HashMap<String, String> fileList = (HashMap<String, String>) session.getAttribute("fileList");
@@ -402,6 +403,8 @@ public class BoardService {
 
 		return map;
 	}
+		
+	
 	
 	
 	public HashMap<String, Object> BoardCommentList(int boardIdx, RedirectAttributes rAttr) {
@@ -441,6 +444,23 @@ public class BoardService {
 		map.put("msg",msg);
 		return map;
 	}
+//우리집 자랑 세부검색
+	public HashMap<String, Object> homeMainList(int pagePerCnt, int page, Date reg_date, String formcategory,
+			int budget, int roomsize) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int end = page * pagePerCnt;
+		int start = end- (pagePerCnt - 1);
+		int maxCnt = boarddao.memberMaxCnt();
+		int maxpage = (int)Math.ceil(maxCnt/ (double)pagePerCnt);
+		logger.info("maxCnt : {}", maxCnt);
+		logger.info("maxPage : {}", maxpage);
+		
+		map.put("homeMainList", boarddao.homeMain(start, end, reg_date,formcategory,budget,roomsize));
+		map.put("maxPage", maxpage);
+		map.put("currPage", page);
+		return map;
+	}
+
 
 }
 

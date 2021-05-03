@@ -30,12 +30,6 @@ public class AdminController {
 		return service.memberDetail(id);
 	}
 	
-	@RequestMapping(value = "/adminCompanyList", method = RequestMethod.GET)
-	public String adminCompanyList() {
-		logger.info("관리자 일반회원 목록보기");
-		return "adminCompanyList";
-	}
-	
 	@RequestMapping(value = "/adminCompanyDetail", method = RequestMethod.GET)
 	public String adminCompanyDetail() {
 		logger.info("관리자 업체회원 상세보기");
