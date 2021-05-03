@@ -59,7 +59,7 @@ SELECT BOARDIDX,SUBJECT,CONTENT,ID,REG_DATE,ROOMSIZE,BUDGET,BHIT,BRDCTGIDX,FORMI
 	       	</if>
 	     
 	        <if test = "param4 == 1 || param4 == 2 || param4 == 3 || param4 == 4">
-	        	WHERE FORMIDX=#{param4} AND rnum BETWEEN #{param1} AND #{param2} order by FORMIDX desc
+	        	WHERE FORMIDX=#{param4} AND rnum BETWEEN #{param1} AND #{param2} order by  FORMIDX desc
 	        </if>
 	        <if test = "param5 == 1 || param5 == 2 || param5 == 3 || param5 == 4 || param5 == 5 || param5 == 6 || param5 == 7 || param5 == 8"  >
 	        	WHERE BUDGET= #{param5} AND rnum BETWEEN #{param1} AND #{param2} order by BUDGET desc
