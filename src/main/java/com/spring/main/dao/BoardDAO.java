@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.spring.main.dto.BoardDTO;
+import com.spring.main.dto.CommentsDTO;
 import com.spring.main.dto.PhotoDTO;
 
 public interface BoardDAO {
@@ -37,6 +38,12 @@ public interface BoardDAO {
 	ArrayList<BoardDTO> getBoardList(int startNum, int endNum, int brdCtgIdx);
 	//게시글 추천수 불러오기
 	int recFind(BoardDTO dto);
+	//댓글 가져오기
+	ArrayList<CommentsDTO> boardCommentList(int boardIdx);
+	//댓글 작성
+	int boardCommentWrite(HashMap<String, String> params);
+	//댓글삭제(상태값변경)
+	int boardCommDel(int commIdx);
 
 
 	
