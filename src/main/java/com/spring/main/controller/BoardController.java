@@ -186,7 +186,7 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "/boardCommentWrite/{boardIdx}", method = RequestMethod.GET)
-	@ResponseBody HashMap<String , Object> boardCommentWrite(@PathVariable int boardIdx,@RequestParam String comment,HttpSession session, RedirectAttributes rAttr) {
+	@ResponseBody HashMap<String , Object> boardCommentWrite(@PathVariable String boardIdx,@RequestParam String comment,HttpSession session, RedirectAttributes rAttr) {
 		logger.info("글idx"+boardIdx);
 		logger.info("글내용"+comment);
 		return BoardService.boardCommentWrite(comment,boardIdx,rAttr);

@@ -15,7 +15,7 @@
 	SELECT BOARDIDX,SUBJECT,CONTENT,ID,REG_DATE,ROOMSIZE,BUDGET,KEYITEMS,BHIT,BLIND,BRDCTGIDX,FORMIDX,EMAIL FROM (
 	SELECT ROW_NUMBER() OVER (ORDER BY REG_DATE DESC) AS RNUM, BOARDIDX,SUBJECT,CONTENT,ID,REG_DATE,ROOMSIZE,BUDGET,KEYITEMS,BHIT,BLIND,BRDCTGIDX,FORMIDX,EMAIL
 	FROM BOARD
-	WHERE BRDCTGIDX = #{param3}
+	WHERE BRDCTGIDX = #{param3} and blind='n'
 	)
 	WHERE RNUM BETWEEN #{param1} AND #{param2}
 	
@@ -166,9 +166,9 @@
 		 SELECT COMMIDX,COMMENTS, REG_DATE, BLIND, BOARDIDX,ID,GPIDX FROM comments WHERE boardIdx =#{param1} AND blind ='n' ORDER BY COMMIDX DESC
 	</select>
 	<!--댓글 작성하기-->
-	<insert id="boardCommentWrite" parameterType="String">
-		INSERT INTO comments (COMMIDX, COMMENTS, id, BOARDIDX) 
-		VALUES (comments_seq.NEXTVAL, #{comment}, #{loginId}, #{boardIdx})
+	<insert id="boardCommentWrite">
+		INSERT INTO comments (COMMIDX, COMMENTS, BOARDIDX, id) 
+		VALUES (comments_seq.NEXTVAL, #{param1}, #{param2}, #{param3})
 	</insert>
 	<!--댓글삭제:블라인드처리-->
 	<update id="boardCommDel">

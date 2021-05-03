@@ -101,7 +101,7 @@
 		카테고리:${dto.brdctgidx}
 		<div id="content">
 			<button id="contentbtn" style="margin-left: 300;">신고</button>
-			<button id="contentbtn" style="margin-left: 50;">목록</button>
+			<button onclick="location.href='../Freelist'" id="contentbtn" style="margin-left: 50;">목록</button>
 		</div>
 	</div>
 	<!--   <div class="container" style="text-align: center; ">
@@ -115,10 +115,9 @@
 			type="text" name="comment" id="comment" placeholder="댓글을 입력해주세요" /> <input
 			type="button" value="등록" id="commentSave" />
 	</div>
-	<c:if test="${listSize ='0' }">
-		<div>현재 댓글이 없습니다</div>
-	</c:if>
-	<div id="commentListDiv"></div>
+	<div id="commentListDiv">
+
+	</div>
 
 
 </body>
@@ -171,7 +170,11 @@ $("#commentSave").click(function(){
 				console.log("success: ", data);
 				console.log("listSize:"+data.listSize);
 				$("#listSize").html(data.listSize);
-				commentListPrint(data.list);
+				if(data.listSize == 0){
+					$("#commentListDiv").html("현재 댓글이 없습니다!");
+				} else {
+					commentListPrint(data.list);
+				}
 			},
 			error : function(error) {
 				console.log("error:", error);
@@ -182,6 +185,7 @@ $("#commentSave").click(function(){
 /* 댓글 리스트 뿌리기 */
 function commentListPrint(list){
 	var content ="";
+
 	for (var i = 0 ; i < list.length ; i++) {
 	content += "<table class='commentTable'>";
 	content += "<tr>";
