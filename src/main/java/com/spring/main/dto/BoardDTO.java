@@ -18,6 +18,35 @@ public class BoardDTO {
 	private String category;
 	private String formcategory;
 	private int boardCtgIdx;
+	private int recidx;
+	private String blind;
+	private int brdctgidx;
+	private int formidx;
+	private String email;
+	private String isrecom;
+	public String getIsrecom() {
+		return isrecom;
+	}
+
+	public void setIsrecom(String isrecom) {
+		this.isrecom = isrecom;
+	}
+
+	public int getBoardCtgIdx() {
+		return boardCtgIdx;
+	}
+
+	public void setBoardCtgIdx(int boardCtgIdx) {
+		this.boardCtgIdx = boardCtgIdx;
+	}
+
+	public int getRecidx() {
+		return recidx;
+	}
+
+	public void setRecidx(int recidx) {
+		this.recidx = recidx;
+	}
 
 	public int getBoardctgidx() {
 		return boardCtgIdx;
@@ -34,11 +63,6 @@ public class BoardDTO {
 	public void setFormcategory(String formcategory) {
 		this.formcategory = formcategory;
 	}
-
-	private String blind;
-	private int brdctgidx;
-	private int formidx;
-	private String email;
 
 	public String getCategory() {
 		return category;

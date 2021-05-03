@@ -14,7 +14,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.annotation.Transactional;import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -41,36 +42,43 @@ public class BoardService {
 		 ModelAndView mav = new ModelAndView();
 		 logger.info("상세보기 서비스 요청합니다.");
 		 BoardDTO dto=boarddao.Boarddetail(boardIdx);
-		 logger.info("게시판글번호{}입니다.",boardIdx);
+		 
 		 String category = null; 
 		 String formcategory=null;
+		 //추천수 불러오기
+			int  recIdx = boarddao.recFind(dto);
+			logger.info("게시글 추천수 수: {} ", recIdx);
+			
 		 if (dto != null) {
-				category = boarddao.boardCtg(dto.getBoardIdx()); // 카테고리 가져오기
+				category = boarddao.boardCtg(dto.getBrdctgidx()); // 카테고리 가져오기
 				dto.setCategory(category); // 게시판카테고리idx 담기
 				
 				mav.addObject("dto", dto);
 				
-				boarddao.boardUpHit(boardIdx); //조회수 증가
-				if(category.equals("2")) {
+				if(category.equals("우리집자랑")) {
 					formcategory = boarddao.formCtg(dto.getFormidx()); //  form 카테고리가져오기
 					dto.setFormcategory(formcategory); //   폼카테고리idx 담기
 				}
+				logger.info("{}카테고리입니다./{}게시판글번호입니다.",category,boardIdx);
+				boarddao.boardUpHit(boardIdx); //조회수 증가
 	}
-		 if(category.equals("1")){//페이지 보내기
-			 mav.setViewName("freedetail");
-		 } else if(category == "2") {
-			 mav.setViewName("homedetail");
-		 } else if(category == "3") {
-			 mav.setViewName("tipdetail");
-		 }else if(category == "4") {
-			 mav.setViewName("qnadetail");
-		 }else if(category == "5") {
-			 mav.setViewName("examdetail");
-		 }else if(category == "6") {
-			 mav.setViewName("sgtdetail");
+		 if(category.equals("자유게시판")){//페이지 보내기
+			page="FreeDetail";
+			 logger.info("1탐");
+		 } else if(category.equals("우리집자랑")) {
+			page="homedetail";
+			 logger.info("2탐");
+		 } else if(category.equals("팁게시판")) {
+			page="tipdetail";
+			 logger.info("3탐");
+		 }else if(category.equals("질문과답변")) {
+			page="qnadetail";
+			 logger.info("4탐");
+		 }else if(category.equals("고객의소리")) {
+			page="sgtdetail";
+			 logger.info("5탐");
 		 }
 		
-			 
 		 mav.setViewName(page);
 		 return mav;
 	}
@@ -105,8 +113,6 @@ public class BoardService {
 		}else if(boardctgidx==4) {
 			page = "redirect:/qnaWriteForm";
 		}else if(boardctgidx==5) {
-			page = "redirect:/examWriteForm";
-		}else if(boardctgidx==6) {
 			page = "redirect:/sgtWriteForm";
 		}
 		// 1. session에서 fileList를 가져온다
@@ -136,8 +142,6 @@ public class BoardService {
 		}else if(boardctgidx==4) {
 			page = "redirect:/qnalist";
 		}else if(boardctgidx==5) {
-			page = "redirect:/examlist";
-		}else if(boardctgidx==6) {
 			page = "redirect:/sgtlist";
 		}
 		}else{//글쓰기 실패시
@@ -161,39 +165,41 @@ public class BoardService {
 		if (dto != null) {
 			String category = boarddao.boardCtg(dto.getBrdctgidx()); // 카테고리 가져오기
 			dto.setCategory(category); // 카테고리명 담기
-			if(category.equals("2")) {
+			if(category.equals("우리집자랑")) {
 				String formcategory = boarddao.formCtg(dto.getFormidx()); //  form 카테고리가져오기
 				dto.setFormcategory(formcategory); //   폼카테고리idx 담기
 			}
 			mav.addObject("dto", dto);
-			 if(category.equals("1")){//페이지 보내기
-				 mav.setViewName("freeUpdateForm");
-			 } else if(category == "2") {
-				 mav.setViewName("homedUpdateForm");
-			 } else if(category == "3") {
-				 mav.setViewName("tipdUpdateForm");
-			 }else if(category == "4") {
-				 mav.setViewName("qnaUpdateForm");
-			 }else if(category == "5") {
-				 mav.setViewName("examUpdateForm");
-			 }else if(category == "6") {
-				 mav.setViewName("sgtUpdateForm");
+			 if(category.equals("자유게시판")){//페이지 보내기
+				 page="FreeUpdateForm";
+			 } else if(category.equals("우리집자랑")) {
+				 page="homedUpdateForm";
+			 } else if(category.equals("팁게시판")) {
+				 page="tipdUpdateForm";
+			 }else if(category.equals("질문과답변")) {
+				 page="qnaUpdateForm";
+			 }else if(category.equals("고객의소리")) {
+				 page="sgtUpdateForm";
 			 }
 		}
 		mav.setViewName(page);
 		return mav;
 	
 	}
-
+	@Transactional
 	public ModelAndView boardUpdate(HashMap<String, String> params, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		BoardDTO dto = new BoardDTO();
+		logger.info("hello");
+		logger.info("params : {}", params);
+		int boardIdx =Integer.parseInt(params.get("boardIdx"));
+		logger.info("hello : {}",boardIdx);
+		int brdCtgIdx=Integer.parseInt(params.get("brdctgidx"));
 		
-		int boardIdx =Integer.parseInt(params.get("boardIdx").toString());
-		int brdCtgIdx=Integer.parseInt(params.get("brdctgIdx").toString());
-		
+		logger.info("게시글 번호 : {}, 게시판 카테고리 : {}",boardIdx,brdCtgIdx);
 		
 		dto.setBrdctgidx(brdCtgIdx);
+		dto.setBoardIdx(boardIdx);
 		dto.setSubject(params.get("subject"));
 		dto.setContent(params.get("content"));
 		dto.setId(params.get("id"));
@@ -203,25 +209,14 @@ public class BoardService {
 			dto.setBudget(Integer.parseInt(params.get("budget")));//예산
 			dto.setFormidx(Integer.parseInt(params.get("formidx")));//주거형태
 		}
-		if(brdCtgIdx==6) {
+		if(brdCtgIdx==5) {
 			dto.setEmail(params.get("email"));
 		}
 		int result = boarddao.boardUpdate(dto);//성공시 dao실행
+		logger.info("결과 : {}", result);
 		//실패시 다시 카테고리에 맞는 수정으로 보내기
-		if(brdCtgIdx==1) {
-			page = "redirect:/freeUpdateForm";
-		}else if(brdCtgIdx==2) {
-			page = "redirect:/homeUpdateForm";
-		}else if(brdCtgIdx==3) {
-			page = "redirect:/tipUpdateForm";
-		}else if(brdCtgIdx==4) {
-			page = "redirect:/qnaUpdateForm";
-		}else if(brdCtgIdx==5) {
-			page = "redirect:/examUpdateForm";
-		}else if(brdCtgIdx==6) {
-			page = "redirect:/sgtUpdateForm";
-		}
-		msg="글 수정 실패했습니다.";
+			page = "redirect:/boarddetail?boardIdx=" +boardIdx;
+			msg="글 수정 실패했습니다.";			
 		@SuppressWarnings("unchecked")//unchecked-미확인 오퍼레이션과 관련된 경고를 억제합니다.
 		HashMap<String, String> fileList = (HashMap<String, String>) session.getAttribute("fileList");
 		logger.info("fileList:" + fileList.size());
@@ -243,7 +238,7 @@ public class BoardService {
 	}
 	/* 게시글 삭제 */
 	@Transactional
-	public ModelAndView boardDel(String boardIdx ,String brdCtgIdx, HttpSession session,RedirectAttributes rAttr) {
+	public ModelAndView boardDel(String boardIdx , HttpSession session,RedirectAttributes rAttr) {
 		ModelAndView mav = new ModelAndView();
 		String newFileName = boarddao.boardGetFileName(boardIdx);//보드파일찾기
 		if (newFileName != null) { // 파일이 있으면
@@ -261,7 +256,7 @@ public class BoardService {
 		msg = "삭제되었습니다.";
 		rAttr.addFlashAttribute("msg", msg);
 
-		mav.setViewName("redirect:/groupListPage");
+		mav.setViewName("redirect:/FreeListPage");
 		return mav;
 	}
 	
@@ -344,4 +339,27 @@ public class BoardService {
 
 		return mav;
 	}
+
+	public ModelAndView getBoardList(int pageNum, int brdCtgIdx) {
+		  ModelAndView mav = new ModelAndView();
+		  logger.info("게시판 글 조회 요청");
+		  
+		  // startNum, endNum 생성
+		  int limit = 10;
+		  int startNum = (pageNum - 1) * limit + 1;
+		  int endNum = pageNum * limit;
+		  
+		  // 데이터 조회 (board_mapper.xml에 <select id="getBoardList" ... > ... </select>가 있다고 가정.)
+		  // ModelAndView에 반환할 데이터(최근 10개 목록) 추가
+		  
+		  System.out.println("startNum : " + startNum + ", endNum : " + endNum + ", boardCategoryIndex : " + brdCtgIdx);
+		  
+		  Object object = boarddao.getBoardList(startNum, endNum, brdCtgIdx);
+		  mav.addObject("boardList", object);
+
+		  // ModelAndView 데이터 반환
+		  return mav;
+		}
 }
+
+

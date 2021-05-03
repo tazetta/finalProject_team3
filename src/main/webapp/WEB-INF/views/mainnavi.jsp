@@ -15,8 +15,8 @@
         background-color: white;
         font-size: 25px;
         font-weight: 700;
-        width: 7%;
         text-align: center;
+        width:auto;
         height: 100px;
         list-style: none;
          }
@@ -32,29 +32,19 @@
             background-color: deepskyblue;
         }
         div.bar{
-          	width:2000px;
-            height: 30px;
             background-color: white;
             min-width: 700px;
         }
 </style>
 
 <div class="bar">
-    <a href="Freelist" target="_parent">
-        <li>자유게시판</li>
-    </a>
-    <a href="*" target="_parent">
-        <li>우리집 자랑</li>
-    </a>
-    <a href="groupListPage" target="_parent">
-        <li>공동 구매</li>
-    </a>
-    <a href="helpMain" target="_parent">
-        <li>도와줘요 자취만렙</li>
-    </a>
-    <a href="interiorexamList" target="_parent">
-        <li>전문가 인테리어</li>
-    </a>
+    <ul>
+        <li><a href="Freelist" target="_parent">자유게시판</a></li>   
+        <li><a href="homemain" target="_parent">우리집 자랑</a></li>
+        <li><a href="groupListPage" target="_parent">공동 구매</a></li>
+        <li><a href="helpMain" target="_parent">도와줘요 자취만렙</a></li> 
+        <li><a href="interiorexamList" target="_parent">전문가 인테리어</a></li>
+    </ul>
 
 </div>
 </html>

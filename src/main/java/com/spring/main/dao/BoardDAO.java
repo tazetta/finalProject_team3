@@ -1,6 +1,10 @@
 package com.spring.main.dao;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import com.spring.main.dto.BoardDTO;
+import com.spring.main.dto.PhotoDTO;
 
 public interface BoardDAO {
 
@@ -27,8 +31,12 @@ public interface BoardDAO {
 	int boardPhotoDel(String boardIdx);
 	//게시글 삭제
 	int boardDel(String boardIdx);
-	
 
+	ArrayList<PhotoDTO> getMyPhotos(String id);
+	
+	ArrayList<BoardDTO> getBoardList(int startNum, int endNum, int brdCtgIdx);
+	//게시글 추천수 불러오기
+	int recFind(BoardDTO dto);
 
 
 	

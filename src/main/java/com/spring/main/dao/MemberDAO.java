@@ -29,6 +29,16 @@ public interface MemberDAO {
 
 	String cLogin(String id, String pw);
 
+	MemberDTO gradeChk(String loginId);
+
+	int gradeUpdate(int gradeIdx, String loginId);
+
+	String getGrade(int gradeIdx);
+
+	int cOverlay(HashMap<String, String> params);
+
+	int company_nameOverChk(HashMap<String, String> params);
+
 
 
 

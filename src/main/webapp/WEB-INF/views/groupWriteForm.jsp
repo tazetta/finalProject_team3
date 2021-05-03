@@ -71,6 +71,7 @@ input[type='text'] {
 <script>
 	$("#save").click(function() {
 		
+		$("#content").val($("#editable").html());
 		/* 유효성 검사 */
 		
 		var subject = $("#subject").val();
@@ -79,12 +80,16 @@ input[type='text'] {
 		var maxUser = $("#maxUser").val();
 		var deadline = $("#deadline").val();
 		if(subject==''|| content==''|| chatUrl=='' || maxUser=='' ||deadline=='' ){
-			alert("모든 양식을 작성해주세요");
+			console.log("subject:"+subject);
+			console.log("content:"+content);
+			console.log("chatUrl:"+chatUrl);
+			console.log("maxUser:"+maxUser);
+			console.log("deadline:"+deadline);
+			//alert("모든 양식을 작성해주세요");
 		}else{
 			
 				$("#editable>a").find("b").remove(); //a태그안 b태그 삭제
 				$("#editable>a").removeAttr("onclick"); //del(this) 무효화
-				$("#content").val($("#editable").html());
 				 $("form").submit(); 
 		}		
 	});

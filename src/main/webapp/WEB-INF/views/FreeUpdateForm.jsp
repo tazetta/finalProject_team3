@@ -33,13 +33,12 @@
     </div>
     <br/>
 
-<form method="post" action="">
 
 <div class="container" style="height:300px; background-color: rgb(163, 182, 248); text-align:center;">
 
+  <form action="/main/boardUpdate" method="POST">
   <h2 style="padding-top: 100px;">자유게시판</h2>
-  <th>글 수정하기</th>          
-  
+  <th>글 수정하기</th>     <!-- 수정바람 -->     
 </div>
     <div class="container">
 
@@ -49,21 +48,30 @@
       
             <tr>
       
-                <td><input type="text" class="form-control" placeholder="제목을 100자 내로 입력해주세요" name="content"  maxlength="40"></td>
+                <td><input type="text" class="form-control" name="subject"  maxlength="40" value="${dto.subject}">
+                </td>
       
             </tr>
       
             <tr>
-      
-                <td><textarea type="text" class="form-control" placeholder="내용을 입력하세요" name="contentDetail" 
-                    maxlength="1000" style="height: 400px;"></textarea></td>
-      
+            <td colspan="2">
+      				<input name="boardIdx" type="hidden" value="${dto.boardIdx}" />
+      				<input type="hidden" name="brdctgidx" value="${dto.brdctgidx }" />
+					<div contenteditable="true" id="editable"> ${dto.content}/글번호:${dto.boardIdx}</div> 
+					<input name="content" type="hidden" id="content" />
+			</td>
+          <%--       <td><div contenteditable="true" id="editable"><textarea type="text" class="form-control" placeholder="내용을 입력하세요" name="content"
+                    maxlength="1000" style="height: 400px; ">${dto.content }</textarea></div></td> --%>
+   
             </tr>
       
        
             
+</form>
         </table>
-        <button id="button" style="height: 20;
+        <button id="button" 
+        onclick="fileUp()"
+        style="height: 20;
         background-color: rgb(182, 172, 159);
         color: white;
         font-weight: bold;
@@ -88,7 +96,8 @@
         border: none;
         cursor: pointer;
         width: 7%;
-        border-radius: 10px;">취소</button>
+        border-radius: 10px;"
+        onclick="location.href='/main/boarddetail?boardIdx=${dto.boardIdx}'">취소</button>
         &nbsp;&nbsp;
         <button id="button" style="height: 20;
         background-color: rgb(252, 214, 158);
@@ -99,14 +108,56 @@
         border: none;
         cursor: pointer;
         width: 7%;
-        border-radius: 10px;">수정</button>
+        border-radius: 10px;"
+        class="save">수정</button>
 
         </div>
 
 
 
-</form>
 
 </body>
+<script>
+$(".save").click(function() {
+	console.log($("#editable").html());
+	$("#editable>a").find("b").remove(); //a태그안 b태그 삭제
+	$("#editable>a").removeAttr("onclick"); //del(this) 무효화
+	$("#content").val($("#editable").html());
+	$("form").submit();
+});
+
+/* 파일업로드 새창*/
+function fileUp(){
+	window.open("/main/boardUploadForm","fileUpload","width=400, height=100");
+	//요청url,타이틀,옵션
+}
+
+/* 파일 삭제 - 비동기 */
+//groupuploadForm에서 보내는 elem확인
+function del(elem){
+	console.log(elem); //<a>
+	var newFileName = elem.id.substring(elem.id.lastIndexOf("/")+1); //파일명만 뽑아내기
+	console.log("newFileName:"+newFileName);
+
+	// 1. 실제 파일 삭제 요청
+	 $.ajax({
+		url:"/main/boardFileDelete",
+		type:"get",
+		data:{"fileName":newFileName},
+		dataType:"json",
+		success:function(d){
+			console.log("success:"+d.success);
+	// 2. 파일 삭제 요청이 완료되면 화면에 나타난 사진 삭제
+			if(d.success ==1){ //실제 파일 삭제 성공시
+				$(elem).find('img').remove(); //이미지 삭제
+				/* $(elem).next().remove(); */ //<br> 삭제
+				$(elem).remove(); // <a>삭제
+			}
+		},error:function(e){
+			console.log(e);
+		}
+	}); 	
+}
+</script>
 
 </html>

@@ -25,6 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.main.dao.GroupDAO;
 import com.spring.main.dao.MemberDAO;
+import com.spring.main.dto.CommentsDTO;
 import com.spring.main.dto.GroupDTO;
 import com.spring.main.dto.MemberDTO;
 
@@ -34,6 +35,9 @@ public class GroupService {
 
 	@Autowired
 	GroupDAO groupdao;
+	
+	@Autowired
+	MemberDAO memberdao;
 
 	// properties파일 내용 불러오기
 	@Value("#{config['Globals.root']}")
@@ -121,12 +125,20 @@ public class GroupService {
 			dto.setProgress(progress); // 진행상황 담기
 
 			logger.info("progress:" + progress);
+			
+			MemberDTO memberDTO = memberdao.gradeChk(dto.getId());
+			logger.info("gradeIdx:"+memberDTO.getGradeIdx());
+			
+			String grade = memberdao.getGrade(memberDTO.getGradeIdx()); //회원등급 가져오기
+			logger.info("grade:"+grade);
+			
 			mav.addObject("dto", dto);
+			mav.addObject("writerGrade",grade);
 
 			groupdao.groupUpHit(gpIdx); // 조회수 증가
 			
 			String state ="";
-			String applyId = groupdao.applyCheck(gpIdx, loginId);
+			String applyId = groupdao.applyCheck(gpIdx, loginId); //신청유무 조회
 			logger.info("신청 아이디:"+ applyId);
 
 			if(applyId!=null) {
@@ -136,7 +148,6 @@ public class GroupService {
 			}else {
 				state="false"; //신청안함
 				logger.info("신청상태:"+state);
-
 			}
 			mav.addObject("state",state);
 			page = "groupDetail";
@@ -245,16 +256,15 @@ public class GroupService {
 		int start = end - pagePerCnt + 1;
 
 		ArrayList<GroupDTO> groupList = groupdao.groupList(start, end, opt); // 리스트 담기
+		/*
 		GroupDTO dto = null;
 		for (int i = 0; i < groupList.size(); i++) {
-			
-			/*
+
 			  int gpCtgIdx = groupList.get(i).getGpCtgIdx(); // list에서 카테고리 idx 가져오기 String
 			  String groupCtg = groupdao.groupCtg(gpCtgIdx); // 카테고리명 추출
 			  System.out.println("카테고리명:"+ groupCtg); dto.setCategory(groupCtg);
-			 */
-			 
 		}
+		*/
 
 		logger.info("groupList size: " + groupList.size());
 
@@ -477,16 +487,54 @@ public class GroupService {
 		return map;
 	}
 
-	public ModelAndView progUpdate(int gpIdx, int progIdx, RedirectAttributes rAttr, HttpSession session) {
+	public HashMap<String, Object> progUpdate(int gpIdx, int progIdx, RedirectAttributes rAttr, HttpSession session) {
 			logger.info("진행상황 실시간 마감 업데이트 서비스");
-			String loginId = (String) session.getAttribute("loginId");
-			 ModelAndView mav = new ModelAndView();
+
+			 HashMap<String, Object> map = new HashMap<String, Object> ();
 			int  updateProg = 3;
 			int result = groupdao.progUpdate(gpIdx,updateProg);
 			logger.info("진행상황 업데이트 result:"+result);
-			page = "redirect:/groupDetail?gpIdx=" + gpIdx+"&loginId="+loginId;
-			mav.setViewName(page);
-		return mav;
+			map.put("result", result);
+		return map;
+	}
+
+	public HashMap<String, Object> groupCommentWrite(HashMap<String, String> params, RedirectAttributes rAttr) {
+		logger.info("공동구매 댓글쓰기 서비스");
+		HashMap<String, Object> map = new HashMap<String, Object> ();
+		int result = groupdao.groupCommentWrite(params);
+		logger.info("댓글쓰기 result: "+result);
+		msg="댓글 등록에 실패했습니다";
+		if(result>0) {
+			msg="댓글이 등록되었습니다";
+		}
+
+		map.put("msg", msg);
+		return map;
+	}
+
+	public HashMap<String, Object> groupCommentList(int gpIdx, RedirectAttributes rAttr) {
+		logger.info("공동구매 댓글 리스트 서비스");
+		HashMap<String, Object> map = new HashMap<String, Object> ();
+
+		ArrayList<CommentsDTO> list = groupdao.groupCommentList(gpIdx);
+		int listSize = list.size();
+		logger.info("listSize:"+listSize);
+		
+		map.put("listSize",listSize);
+		map.put("list",list);
+		return map;
+	}
+
+	public HashMap<String, Object> groupCommDel(int commIdx, RedirectAttributes rAttr) {
+		logger.info("공동구매 댓글 삭제 서비스");
+		HashMap<String, Object> map = new HashMap<String, Object> ();
+		int result = groupdao.groupCommDel(commIdx);
+		msg="댓글 삭제에 실패했습니다";
+		if(result>0) {
+			msg="댓글이 삭제 되었습니다";
+		}
+		map.put("msg",msg);
+		return map;
 	}
 
 }

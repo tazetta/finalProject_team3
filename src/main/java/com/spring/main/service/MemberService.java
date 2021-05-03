@@ -92,6 +92,13 @@ public class MemberService {
 
 		return dao.adLogin(id,pw);
 	}
+	public int cOverlay(HashMap<String, String> params) {
+		
+		return dao.cOverlay(params);
+	}
+	public int company_nameOverChk(HashMap<String, String> params) {
+		return dao.company_nameOverChk(params);
+	}
 
 
 

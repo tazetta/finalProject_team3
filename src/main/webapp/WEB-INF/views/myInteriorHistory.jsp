@@ -6,7 +6,6 @@
 <meta charset="utf-8" />
 <title>내 인테리어 변천사</title>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<script type="text/javascript" src="resources/js/jquery.jscroll.js"></script>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
 <script
@@ -26,13 +25,6 @@
 		});
 	});
 	//]]>
-	$(document).ready(function () {
-		 $('#autoScroll').jscroll({
-		  autoTrigger: true,
-		  loadingHtml: '<div class="next">loading...</div>',
-		  nextSelector: 'a.nextPage:last'
-		 });
-		});
 </script>
 <style>
 table, td, th {
@@ -52,7 +44,7 @@ td {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	min-height: 100vh;
+	flex-wrap: wrap;
 }
 
 .inputs {
@@ -121,98 +113,71 @@ h2 {
 }
 
 .myPhotos {
-	    box-shadow: 0 0 5px #ccc;
-    border: 5px solid #fff;
-    background: #fff;
-    margin: 9px;
-    float: left;
+	box-shadow: 0 0 5px #ccc;
+	border: 5px solid #fff;
+	background: #fff;
+	margin: 9px;
+	float: left;
 }
 
-.something{
-margin: 15px;
-    float: left;
+.something {
+	margin: 15px;
+	float: left;
 }
 </style>
 </head>
 <body>
-	<div>
-		<iframe src="mainnavi.html" scrolling="no" frameborder="0"
-			style="width: 100%;"></iframe>
-	</div>
-			<div class="sideBar" style="margin-right: 15px; ">
-				<iframe src="mynavi.html" scrolling="no" frameborder="0"
-					style="height: 650px; float: left; width: 160px; position: fixed;"></iframe>
-			</div>
-	<div class="flexBox">
-		<div
-			style="border-top: 2px solid #f2f2f2; max-width: 880px;">
+	<%-- <div class="sideBar" style="margin-right: 15px;">
+		<jsp:include page="mynavi.jsp"/>
+	</div> --%>
+	<div class="flexBox" >
+			<jsp:include page="mainnavi.jsp"/>
+		<div class="testDiv" style="max-width: 900px;">
 			<!-- <div id="eventImage">
 				<i class="arrow left" onclick="imageSlider2()"></i> <i
 					class="arrow right" onclick="imageSlider()"></i>
 			</div> -->
 			<div>
-			<div class="wraping" style="height: 300px">
-				<div class="bxslider">
-					<div>
-						<img src="resources/images/interior1.jpg" width="400px"
-							height="250px">
-					</div>
-					<div>
-						<img src="resources/images/interior2.jpg" width="400px"
-							height="250px">
-					</div>
-					<div>
-						<img src="resources/images/interior3.jpg" width="400px"
-							height="250px">
-					</div>
-				</div>
-			</div>
-			<div class="wraping" style="height: 300px">
-				<div class="bxslider">
-					<div>
-						<img src="resources/images/interior1.jpg" width="400px"
-							height="250px">
-					</div>
-					<div>
-						<img src="resources/images/interior2.jpg" width="400px"
-							height="250px">
-					</div>
-					<div>
-						<img src="resources/images/interior3.jpg" width="400px"
-							height="250px">
+				<div class="wraping" style="height: 300px">
+					<div class="bxslider">
+						<div>
+							<img src="resources/images/interior1.jpg" width="400px"
+								height="250px">
+						</div>
+						<div>
+							<img src="resources/images/interior2.jpg" width="400px"
+								height="250px">
+						</div>
+						<div>
+							<img src="resources/images/interior3.jpg" width="400px"
+								height="250px">
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="something" >
-				<div class="headDESC" style="border-bottom: 2px solid lightgray;">내 사진들</div>
-				<div class="box" style="max-width: 845px">
-					<div class="myPhotos">
-						<img src="resources/images/interior1.jpg" width="253px"
-							height="125px">
+				<div class="wraping" style="height: 300px">
+					<div class="bxslider">
+						<div>
+							<img src="resources/images/interior1.jpg" width="400px"
+								height="250px">
+						</div>
+						<div>
+							<img src="resources/images/interior2.jpg" width="400px"
+								height="250px">
+						</div>
+						<div>
+							<img src="resources/images/interior3.jpg" width="400px"
+								height="250px">
+						</div>
 					</div>
-					<div class="myPhotos">
-						<img src="resources/images/interior2.jpg" width="253px"
-							height="125px">
-					</div>
-					<div class="myPhotos">
-						<img src="resources/images/interior3.jpg" width="253px"
-							height="125px">
-					</div>
-					<div class="myPhotos">
-						<img src="resources/images/interior4.jpg" width="253px"
-							height="125px">
-					</div>
-					<div class="myPhotos">
-						<img src="resources/images/interior5.jpg" width="253px"
-							height="125px">
-					</div>
-					<div class="myPhotos">
-						<img src="resources/images/interior6.jpg" width="253px"
-							height="125px">
-					</div>
-					<div class="myPhotos">
-						<img src="resources/images/interior7.jpg" width="253px"
-							height="125px">
+				</div>
+				<div class="something">
+					<div class="headDESC" style="border-bottom: 2px solid lightgray;">내
+						사진들</div>
+					<div class="box">
+						<div class="myPhotos">
+							<img src="resources/images/interior1.jpg" width="400px"
+								height="250px">
+						</div>
 					</div>
 				</div>
 			</div>
@@ -220,5 +185,61 @@ margin: 15px;
 	</div>
 </body>
 <script>
+const getDataLength = 4;
+let count = 0;
+let image = "";
+$(document).ready(() => {
+	loop();
+});
+
+const loop = () => {
+	Array.from({ length: getDataLength }, (_, i) => i + count).forEach(
+		num => {
+			getTodos(num);
+		}
+	);
+};
+
+const getTodos = num => {
+	if (!num) return;
+	
+	count++;
+	/* $.get(`https://jsonplaceholder.typicode.com/todos/${num}`, data => {
+		addTodoCard({ data, target: '.something' });
+	}); */
+	$.ajax({
+		url : 'myPhotos/'+num,
+		type : "get",
+		data : {},
+		dataType : "JSON",
+		success : function(data) {
+			image = data.images[count];
+			if (count > data.images.length) {
+				console.log('데이터 끝');
+			} else {	
+				addTodoCard({ data, target: '.something' });
+			}
+		},
+		error : function(error) {
+			console.log(error); 
+		} 
+	});
+	
+};
+
+const addTodoCard = ({ data, target }) => {
+	
+	var src = 'resources/images/'+data.images[0];
+	const card = "<div class='myPhotos'><img src='" + src + "' alt='image' width='400px' height='250px'><div class='container'><p>이미지</p></div></div>"
+	      
+	$(target).append(card);
+};
+
+
+$(window).scroll(function () {
+	if ($(window).scrollTop() == $(document).height()-1007) {
+		loop();
+	} 
+});
 </script>
 </html>

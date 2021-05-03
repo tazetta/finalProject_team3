@@ -40,4 +40,6 @@ public interface ExamDAO {
 
 	ArrayList<ReviewDTO> reviewSemiList(String comId);
 
+	ArrayList<ExamDTO> examListScroll(int cnt);
+
 }

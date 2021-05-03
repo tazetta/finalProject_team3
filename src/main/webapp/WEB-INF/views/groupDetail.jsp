@@ -8,6 +8,7 @@
 
 <title>상세보기</title>
 <style>
+
 table, td, th {
 	width: 1100px;
 	padding: 5px 10px;
@@ -29,13 +30,31 @@ table, td, th {
 	margin: 10px;
 }
 
-#deadlinSpan {
+.deadlineSpan {
 	display: block;
-	width: 90px;
+	width: 100px;
 	margin:0 auto;
 	background-color : lightgray;
+}
+#comment{
+width:800px;
+height:40px;
+}
 
-
+#loginId{
+margin:20px;
+}
+.commentTable{
+width:1000px;
+margin:10px;
+}
+.commDel{
+border:none;
+}
+.grade{
+color:orange;
+font-weight:600;
+font-size:90%;
 }
 </style>
 </head>
@@ -54,24 +73,27 @@ table, td, th {
 		<tr>
 			<td>${dto.gpIdx}</td>
 			<td>
-				<%-- <c:if test="${dto.gpCtgIdx ==1}">공동구매</c:if> <c:if
-					test="${dto.gpCtgIdx ==2}">무료나눔</c:if> --%> ${dto.category }
+				 ${dto.category }
 			</td>
 			<td>${dto.subject}</td>
-			<td>${dto.id}</td>
+			<td><span class="grade">${writerGrade}</span>&nbsp;${dto.id}</td>
 			<td>${dto.reg_date}</td>
 			<td>${dto.progress}</td>
 		</tr>
 		<tr>
 			<td colspan="5" style="padding: 20px">${dto.content }</td>
 			<td style="width: 20%">현재인원/모집인원 : <span id="groupCnt">${dto.currUser }/${dto.maxUser}</span>
-				<br />마감날짜 : <b>${dto.deadline}</b> <br /> <%-- <c:if test="${state eq 'false' ||  empty state && dto.progIdx ne '3'}"> --%>
-				<c:if test="${state eq 'false' ||  empty state }">
+				<br />마감날짜 : <b>${dto.deadline}</b> <br /> 
+				
+				<c:if test="${ dto.progIdx eq '1'  && state eq 'false' ||  empty state  }">
 					<input type="button" id="toggleApply" value="신청" />
-				</c:if> <c:if test="${state eq 'true'  && dto.progIdx ne '3'}">
+				</c:if> <c:if test="${dto.progIdx eq '1'  && state eq 'true'  }">
 					<input type="button" id="toggleApply" value="취소" />
-				</c:if> <br /> <c:if test="${dto.currUser == dto.maxUser}">
-					<span id="deadlinSpan">마감</span>
+				</c:if> <br /> <c:if test="${dto.currUser == dto.maxUser }">
+					<span class="deadlineSpan">마감</span>
+				</c:if>
+				<c:if test="${dto.currUser<dto.maxUser && dto.progIdx eq '2'}">
+					<span class="deadlineSpan">인원부족마감</span>
 				</c:if>
 
 
@@ -97,35 +119,41 @@ table, td, th {
 	<button onclick="location.href='groupListPage'">목록</button>
 	<button onclick="location.href='groupDel/${dto.gpIdx}'">삭제</button>
 	<button onclick="location.href='groupUpdateForm/${dto.gpIdx}'">수정</button>
+	
+	
 
 	<hr />
-	<b>댓글 <span>0</span></b>
+	<b>댓글 <span id="listSize"></span>개</b>
+	<div id="commentBox">
+		<span><b id="loginId">${sessionScope.loginId }</b></span>
+		<input type="text" name="comment" id="comment" placeholder="개인정보를 공유 및 요청하거나, 명예훼손, 무단 광고시 모니터링 후 삭제될수 있습니다"/>
+
+		<input type="button" value="등록" id="commentSave"/>
+	</div>
+	<c:if test="${listSize ='0' }">
 	<div>현재 댓글이 없습니다</div>
+	</c:if>
+	<div id="commentListDiv">
+	
+	</div>
 
 </body>
 <script>
-
-var date = new Date();
-var month = date.﻿getMonth()+1;
-console.log("date:"+date.﻿getFullYear()+"-"+month+"-"+date.﻿getDate());
-console.log("deadline:"+"${dto.deadline}");
 
 
 	var msg = "${msg}";
 	if (msg != "") {
 		alert(msg);
 	}
-
-	var state = "${state}";
-	console.log("State:" + state);
+	
+	groupCommentList(); //댓글리스트
 
 	//신청-취소 toggle
-	$("#toggleApply")
-			.click(
-					function() {
-						location.href = '/main/applyGroup/${dto.gpIdx}/${sessionScope.loginId}';
-					});
+	$("#toggleApply").click(function() {
+			location.href = '/main/applyGroup/${dto.gpIdx}/${sessionScope.loginId}';
+		});
 
+	
 	/* 신청자 명단 가져오기 */
 	applyList();
 
@@ -140,7 +168,7 @@ console.log("deadline:"+"${dto.deadline}");
 				console.log("success:", data);
 
 				for (var i = 0; i < data.list.length; i++) {
-					console.log("id:" + data.list[i].id);
+
 					var content = "";
 
 					content += "<span id='applyMember'>" + data.list[i].id
@@ -156,7 +184,8 @@ console.log("deadline:"+"${dto.deadline}");
 		});
 	}
 
-	if ("${dto.currUser}" == "${dto.maxUser}") { ///모집완료시 마감으로 변경
+	/* 모집인원 달성시 마감으로 변경 */
+	if ("${dto.currUser}" == "${dto.maxUser}" && "${dto.progIdx}" !='3') { 
 		progUpdate();
 	}
 
@@ -176,5 +205,118 @@ console.log("deadline:"+"${dto.deadline}");
 			}
 		});
 	}
+	
+	/* 댓글 등록 */
+	$("#commentSave").click(function(){
+		var comment = $("#comment").val();
+		var loginId = "${sessionScope.loginId }";
+		var gpIdx ="${dto.gpIdx}";
+		console.log("loginID:"+loginId+"/comment:"+comment);
+		if(comment!=''){
+			
+			var reqUrl =' ./groupCommentWrite'; 
+			$.ajax({
+				url : reqUrl,
+				type : "get",
+				data : {"gpIdx":gpIdx,"comment":comment, "loginId":loginId},
+				dataType : "JSON",
+				success : function(data) {
+					console.log("success: ", data);
+					alert(data.msg);
+					$("#comment").val('');
+					groupCommentList();// 작성후 댓글 리스트 요청
+
+				},
+				error : function(error) {
+					console.log("error:", error);
+				}
+			});	
+		}
+	})
+	
+
+	/* 댓글 목록 불러오기 */
+	function groupCommentList() {
+		var reqUrl = './groupCommentList/${dto.gpIdx}';
+		$.ajax({
+			url : reqUrl,
+			type : "get",
+			data : {},
+			dataType : "JSON",
+			success : function(data) {
+				console.log("success: ", data);
+				console.log("listSize:"+data.listSize);
+				$("#listSize").html(data.listSize);
+				commentListPrint(data.list);
+			},
+			error : function(error) {
+				console.log("error:", error);
+			}
+		});
+	}
+	
+	/* 댓글 리스트 뿌리기 */
+	function commentListPrint(list){
+		var content ="";
+		for (var i = 0 ; i < list.length ; i++) {
+		content += "<table class='commentTable'>";
+		content += "<tr>";
+		content += '<td style="width:14%;"><b>'+list[i].id+'</b></td>';
+		content += '<td colspan="2" style="text-align:left">';
+		content += list[i].comments;
+	 	content += '</td>';
+		content += '</tr>';
+		content += '<tr>';
+		content += '<td style="width:14% ">';
+		
+		 var reg_date = new Date(list[i].reg_date); 	 
+		content += reg_date.toLocaleDateString("ko-KR");
+		content += '</td>';
+		content += ' <td style="width:5%" ><a href="#"><img alt="decommend" src="resources/images/decommend.png" width="15px" height="15px"> </a></td>'
+		content += '<td style="text-align:left">';
+		if("${sessionScope.loginId}"==list[i].id){
+			content += '<button class="commDel" onclick="groupCommentDel('+list[i].commIdx+')">삭제</button></td>' ; //댓글삭제호출
+			
+		}else{
+		content += '<a href="#">답글달기</a>&nbsp;&nbsp;';
+		content += '<a href="#">신고</a></td>' ;
+		}
+		content += '</tr>';
+		content += '</table>';
+		
+		}
+		$("#commentListDiv").empty(); //#list안의 내용을 버려라
+		$("#commentListDiv").append(content);
+	
+	}
+	
+	/* 댓글삭제 */
+	function groupCommentDel(commIdx) {
+		
+		//삭제 confirm	
+	 		 if(confirm("정말로 삭제하시겠습니까?")){
+	 			 
+	 			var reqUrl = "./groupCommDel/"+commIdx;
+	 			$.ajax({
+	 				url : reqUrl,
+	 				type : "get",
+	 				data : {},
+	 				dataType : "JSON",
+	 				success : function(data) {
+	 					console.log("success: ", data);
+	 					groupCommentList(); //삭제 후 댓글리스트 요청
+	 					
+	 				},
+	 				error : function(error) {
+	 					console.log("error:", error);
+	 				}
+	 			});
+	 			
+	 			}else{
+	 				console.log("삭제취소");
+	 			}	
+	}
+	
+	
 </script>
 </html>

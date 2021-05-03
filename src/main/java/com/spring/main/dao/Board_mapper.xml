@@ -9,9 +9,24 @@
 <select id="Boarddetail" resultType="board">
 	 SELECT BOARDIDX,SUBJECT,CONTENT,ID,REG_DATE,ROOMSIZE,BUDGET,KEYITEMS,BHIT,BLIND,BRDCTGIDX,FORMIDX,EMAIL FROM BOARD WHERE BOARDIDX=#{boardIdx}
 	</select>
+	
+<!-- 글 목록 최신순으로 불러오기 -->
+<select id="getBoardList" resultType="com.spring.main.dto.BoardDTO">
+	SELECT BOARDIDX,SUBJECT,CONTENT,ID,REG_DATE,ROOMSIZE,BUDGET,KEYITEMS,BHIT,BLIND,BRDCTGIDX,FORMIDX,EMAIL FROM (
+	SELECT ROW_NUMBER() OVER (ORDER BY REG_DATE DESC) AS RNUM, BOARDIDX,SUBJECT,CONTENT,ID,REG_DATE,ROOMSIZE,BUDGET,KEYITEMS,BHIT,BLIND,BRDCTGIDX,FORMIDX,EMAIL
+	FROM BOARD
+	WHERE BRDCTGIDX = #{param3}
+	)
+	WHERE RNUM BETWEEN #{param1} AND #{param2}
+</select>
+
+<!--게시글 추천수 가져오기-->	
+<select id="recFind" resultType="int">
+		select count(recidx) from recomend where boardIdx=#{boardIdx} and isrecm ='true'
+	</select>
 <!--게시판카테고리 -->
 <select id="boardCtg" resultType="String">
-		SELECT category FROM boardCtg WHERE boardCtgIdx=#{boardCtgIdx}
+		SELECT category FROM boardCtg WHERE brdCtgIdx=#{boardCtgIdx}
 	</select>
 <!--주거형태카테고리-->
 <select id="formCtg" resultType="String">
@@ -48,15 +63,11 @@
 		(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{brdctgidx})
 		</if>
 		<if test="brdctgidx==5">
-		INSERT INTO board(BOARDIDX, SUBJECT, CONTENT, ID,BRDCTGIDX) 
-		VALUES
-		(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{brdctgidx})
-		</if>
-		<if test="brdctgidx==6">
 		INSERT INTO board(BOARDIDX, SUBJECT, CONTENT, ID,BRDCTGIDX,EMAIL) 
 		VALUES
 		(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{brdctgidx},#{email})
 		</if>
+		
 	</insert>
 	<!--글작성파일추가-->
 	<insert id="boardWriteFile">
@@ -65,30 +76,27 @@
 	</insert>
 	<!--글수정하기 -->
 	<update id= "boardUpdate" parameterType="board">
-	<if test="brdCtgIdx==1">
-		UPDATE  board SET SUBJECT=#{subject}, CONTENT=#{content},BrdCtgIDX=#{brdCtgIdx}
+	<if test="brdctgidx==1">
+		UPDATE  board SET SUBJECT=#{subject}, CONTENT=#{content},BrdCtgIDX=#{brdctgidx}
 		WHERE boardIdx=#{boardIdx}
 		</if>
-		<if test="brdCtgIdx==2">
-		UPDATE  board SET SUBJECT=#{subject}, CONTENT=#{content},BrdCtgIDX=#{brdCtgIdx},roomSize=#{roomSize},budget=#{budget},formIdx=#{formIdx}
+		<if test="brdctgidx==2">
+		UPDATE  board SET SUBJECT=#{subject}, CONTENT=#{content},BrdCtgIDX=#{brdctgidx},roomSize=#{roomSize},budget=#{budget},formIdx=#{formIdx}
 		WHERE boardIdx=#{boardIdx}
 		</if>
-		<if test="brdCtgIdx==3">
-		UPDATE  board SET SUBJECT=#{subject}, CONTENT=#{content},BrdCtgIDX=#{brdCtgIdx}
+		<if test="brdctgidx==3">
+		UPDATE  board SET SUBJECT=#{subject}, CONTENT=#{content},BrdCtgIDX=#{brdctgidx}
 		WHERE boardIdx=#{boardIdx}
 		</if>
-		<if test="brdCtgIdx==4">
-		UPDATE  board SET SUBJECT=#{subject}, CONTENT=#{content},BrdCtgIDX=#{brdCtgIdx}
+		<if test="brdctgidx==4">
+		UPDATE  board SET SUBJECT=#{subject}, CONTENT=#{content},BrdCtgIDX=#{brdctgidx}
 		WHERE boardIdx=#{boardIdx}
 		</if>
-		<if test="brdCtgIdx==5">
-		UPDATE  board SET SUBJECT=#{subject}, CONTENT=#{content},BrdCtgIDX=#{brdCtgIdx}
+		<if test="brdctgidx==5">
+		UPDATE  board SET SUBJECT=#{subject}, CONTENT=#{content},BrdCtgIDX=#{brdctgidx},EMAIL=#{email}
 		WHERE boardIdx=#{boardIdx}
 		</if>
-		<if test="brdCtgIdx==6">
-		UPDATE  board SET SUBJECT=#{subject}, CONTENT=#{content},BrdCtgIDX=#{brdCtgIdx},EMAIL=#{email}
-		WHERE boardIdx=#{boardIdx}
-		</if>
+		
 	</update>
 	<!--게시글안에있는 사진찾기-->
 	<select id="boardGetFileName" resultType="String">
@@ -107,4 +115,8 @@
 	<delete id="boardDel">
 		UPDATE BOARD SET blind='y' WHERE boardIdx=#{boardIdx}
 	</delete>
+	
+	<select id="getMyPhotos" resultType="String">
+		SELECT newFileName FROM photos WHERE id=#{id} ORDER BY photoidx DESC
+	</select>
 </mapper>

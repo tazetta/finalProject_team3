@@ -127,12 +127,30 @@ public class GroupController {
 	}
 	
 	@RequestMapping(value = "/progUpdate/{gpIdx}/{progIdx}", method = RequestMethod.GET)
-	public ModelAndView progUpdate(@PathVariable int gpIdx ,@PathVariable int progIdx , HttpSession session,
+	@ResponseBody  HashMap<String , Object>	progUpdate(@PathVariable int gpIdx ,@PathVariable int progIdx , HttpSession session,
 			RedirectAttributes rAttr) {
 		logger.info("공동구매 진행상황 업데이트 요청: " + gpIdx +"현재상태:"+progIdx);
 		return groupService.progUpdate(gpIdx,progIdx,  rAttr,session);
 	}
 	
+	@RequestMapping(value = "/groupCommentWrite", method = RequestMethod.GET)
+	@ResponseBody HashMap<String , Object> groupCommentWrite(@RequestParam HashMap<String, String> params,HttpSession session, RedirectAttributes rAttr) {
+		logger.info("공동구매 댓글쓰기 요청 params: {}", params);
+		return groupService.groupCommentWrite(params,rAttr);
+	}
+	
+	@RequestMapping(value = "/groupCommentList/{gpIdx}", method = RequestMethod.GET)
+	@ResponseBody HashMap<String , Object> groupCommentList(@PathVariable int  gpIdx,HttpSession session,	RedirectAttributes rAttr) {
+		logger.info("공동구매 댓글리스트요청 gpIdx: {}", gpIdx);
+		return groupService.groupCommentList(gpIdx,rAttr);
+	}
+	
+	@RequestMapping(value = "/groupCommDel/{commIdx}", method = RequestMethod.GET)
+	@ResponseBody HashMap<String , Object> groupCommDel(@PathVariable int  commIdx,HttpSession session,	RedirectAttributes rAttr) {
+		logger.info("공동구매 댓글삭제 요청 gpIdx: {}", commIdx);
+		return groupService.groupCommDel(commIdx,rAttr);
+	}
+
 
 	
 	
