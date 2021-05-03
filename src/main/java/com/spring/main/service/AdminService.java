@@ -76,7 +76,7 @@ public class AdminService {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		int end = page * pagePerCnt;
 		int start = end - (pagePerCnt - 1);
-		int maxCnt = dao.meberMaxCnt();
+		int maxCnt = dao.memberMaxCnt(gradeIdx, stateIdx, searchId);
 		int maxPage = (int) Math.ceil(maxCnt / (double) pagePerCnt);
 		logger.info("maxCnt : {}", maxCnt);
 		logger.info("maxPage : {}", maxPage);
@@ -94,6 +94,23 @@ public class AdminService {
 		mav.addObject("dto", dto);
 		mav.setViewName("adminMemberDetail");
 		return mav;
+	}
+
+	public HashMap<String, Object> comList(int pagePerCnt, int page, String searchId) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int end = page * pagePerCnt;
+		int start = end - (pagePerCnt - 1);
+		HashMap<String, Object> mapId = new HashMap<String, Object>();
+		mapId.put("searchId", searchId);
+		logger.info("id : {}", mapId);
+		int maxCnt = dao.companyMaxCnt(mapId);
+		int maxPage = (int) Math.ceil(maxCnt / (double) pagePerCnt);
+		logger.info("maxCnt : {}", maxCnt);
+		logger.info("maxPage : {}", maxPage);
+		map.put("list", dao.adminCompanyList(start, end, searchId));
+		map.put("maxPage", maxPage);
+		map.put("currPage", page);
+		return map;
 	}
 
 

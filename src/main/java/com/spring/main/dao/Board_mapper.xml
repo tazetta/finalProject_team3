@@ -11,7 +11,7 @@
 	</select>
 	
 <!-- 글 목록 최신순으로 불러오기 -->
-<select id="getBoardList" resultType="com.spring.main.dto.BoardDTO">
+<select id="getBoardList" resultType="board">
 	SELECT BOARDIDX,SUBJECT,CONTENT,ID,REG_DATE,ROOMSIZE,BUDGET,KEYITEMS,BHIT,BLIND,BRDCTGIDX,FORMIDX,EMAIL FROM (
 	SELECT ROW_NUMBER() OVER (ORDER BY REG_DATE DESC) AS RNUM, BOARDIDX,SUBJECT,CONTENT,ID,REG_DATE,ROOMSIZE,BUDGET,KEYITEMS,BHIT,BLIND,BRDCTGIDX,FORMIDX,EMAIL
 	FROM BOARD
@@ -142,7 +142,7 @@
 		SELECT newFileName FROM photos WHERE boardIdx=#{boardIdx}
 	</select>
 	<!--사진 수정-->
-	<update id="groupUpdateFile">
+	<update id="boardUpdateFile">
 		UPDATE photos  
 		SET PHOTOIDX=photos_seq.NEXTVAL, NEWFILENAME=#{param1}, ORIFILENAME =#{param2}  WHERE boardIdx=#{param3}
 	</update>
@@ -163,7 +163,7 @@
 		 SELECT COMMIDX,COMMENTS, REG_DATE, BLIND, BOARDIDX,ID,GPIDX FROM comments WHERE boardIdx =#{param1} AND blind ='n' ORDER BY COMMIDX DESC
 	</select>
 	<!--댓글 작성하기-->
-	<insert id="boardCommentWrite">
+	<insert id="boardCommentWrite" parameterType="String">
 		INSERT INTO comments (COMMIDX, COMMENTS, id, BOARDIDX) 
 		VALUES (comments_seq.NEXTVAL, #{comment}, #{loginId}, #{boardIdx})
 	</insert>

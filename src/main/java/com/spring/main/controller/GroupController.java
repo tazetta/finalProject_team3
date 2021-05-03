@@ -56,7 +56,6 @@ public class GroupController {
 	@RequestMapping(value = "/groupUploadForm", method = RequestMethod.GET)
 	public String groupUploadForm() {
 		logger.info("공동구매 파일업로드 폼 이동");
-
 		return "groupUploadForm";
 	}
 

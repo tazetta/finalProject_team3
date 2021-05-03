@@ -71,9 +71,9 @@ input[type='text'] {
 			</tr>
 		</table>
 	<input type="button" value="파일업로드" onclick="fileUp()" />
-	<button onclick="location.href='/main/groupDetail?gpIdx=${dto.gpIdx}&loginId=${sessionScope.loginId}'">취소</button>
 	<input type="button" id="save" value="수정완료" />
 	</form>
+	<button onclick="location.href='/main/groupDetail?gpIdx=${dto.gpIdx}&loginId=${sessionScope.loginId}'">취소</button>
 </body>
 <script>
 
@@ -88,7 +88,7 @@ if (msg != "") {
  	console.log($("#editable").html());
  	$("#editable>a").find("b").remove(); //a태그안 b태그 삭제
  	$("#editable>a").removeAttr("onclick"); //del(this) 무효화
- 	$("#content").val($("#editable").html());
+ 	$("#content").val($("#editable").html()); //input에 div값 넣ㄱ;
  	$("#save").attr("type","submit");
  	
  });
@@ -147,13 +147,25 @@ function maxUserChk(elem){
 			data:{},
 			dataType:"json",
 			success:function(data){
-				console.log(data);
-				var msg = data.msg;
-				if (msg != "") { //현재 신청인원수보다 작은 수 라면
+				console.log("현재신청인원:",data.currUser);
+				if(data.currUser>elem[1]){//변경한 최대참여자수가 현재 신청인원수보다 작은 수 라면
 					$("#maxUser").val(elem[0]);  //초기값으로 설정
-					alert(msg);
+					alert("현재신청한 인원보다 작게 설정할 수 없습니다");
+				}else if(data.currUser==elem[0]){ //변경한 최대참여자수가 현재신청인원수와 같다면
+					 if(confirm("현재신청인원수와 일치합니다. 마감하시겠습니끼?")){
+						 //마감을 원한다면
+						 console.log("마감O");
+						  var selected = $("#progIdx option:selected").val();
+						  $("#progIdx").val(3); //진행상태 마감으로 변경
+					 }else{
+						 //마감하지않길 원한다면
+						 console.log("마감X");
+						 alert("최대참여자수는 현재신청인원보다 커야합니다");
+						 var maxUser = $("#maxUser").val();
+						 maxUser =+ parseInt(maxUser)+1; 
+						$("#maxUser").val(maxUser); //최대참여자수+1한 값을 강제
+					 }	
 				}
-
 			},errer:function(error){
 				console.log(error);
 			}
@@ -189,14 +201,14 @@ var today = new Date();
 today = today.format("yyyy-MM-dd");
 
 
-/* 날짜 변경시  오늘날짜 이후로 설정하도록 강제*/
+/* 날짜 변경시  초기값으로 등록된 날짜 이후로 설정하도록 강제*/
 $("#deadline").on("change", function dateChk(e){
  		var deadline = $(this).val();
  		var defaultVal = $(this).prop("defaultValue");
  		console.log("deadline:"+deadline);
  		console.log("defaultVal:"+defaultVal);
- 	if(deadline<today){
- 		alert("마감일은 오늘보다 이전으로 설정 할 수 없습니다.")
+ 	if(deadline<defaultVal){
+ 		alert("마감일은 처음 등록된 값보다 이전으로 설정 할 수 없습니다.")
  		$(this).val(defaultVal); 
  	}
 });
@@ -204,8 +216,7 @@ $("#deadline").on("change", function dateChk(e){
 /*인원부족마감인 상태에서 진행중으로 변경시 오늘날짜 이후로 설정하도록 강제*/
 var selected = $("#progIdx option:selected").val();
 if(selected==2){ //인원부족마감에서
-console.log("selected: "+selected);
-	console.log("인원부족마감인 상태임");
+	console.log("인원부족마감 상태임");
 	$("#progIdx").change(function(){ 
 		if($("#progIdx").val() ==1){ //진행중으로 변경시
 			console.log("진행중으로 변경");
@@ -220,6 +231,31 @@ console.log("selected: "+selected);
 });
 }
 
+/*마감인 상태에서 진행중으로 변경시 최대인원 수를 초기값보다 크게 설정하도록 강제*/
+if(selected==3){
+	console.log("마감상태임");
+	$("#progIdx").change(function(){ 
+		if($("#progIdx").val() ==1){ //진행중으로 변경시
+			var maxUser = $("#maxUser").val();
+			console.log("maxUser:"+maxUser);
+			alert("최대참여자수는 기존값보다 작거나 같을 수 없습니다.");
+			maxUser =+ parseInt(maxUser)+1; 
+			$("#maxUser").val(maxUser);//최대참여자수+1한 값으로 강제변환
+			
+			$("#maxUser").change(function(e){
+				var defaultVal = $(this).prop("defaultValue"); 
+				var currVal = $(this).val();
+				
+				if(currVal <= defaultVal){
+					console.log("신청한 현재 인원보다 적은지 확인필요");
+					console.log(defaultVal+"->"+currVal);
+					var elem = [defaultVal,currVal];
+					maxUserChk(elem);
+				}
+			});
+		}
+	});
+}
  
 
 </script>

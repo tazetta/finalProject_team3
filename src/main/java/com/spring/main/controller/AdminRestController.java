@@ -28,14 +28,6 @@ public class AdminRestController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/adminMemberIndex", method = RequestMethod.GET)
-	public ModelAndView adminMemberIndex(Model model) {
-		logger.info("adminMemberIndex");
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("adminMemberList");
-		return mav;
-	}
-
 	@RequestMapping(value = "/adminMemberList/{pagePerCnt}/{page}/{gradeIdx}/{stateIdx}/{searchId}", method = RequestMethod.GET)
 	public HashMap<String, Object> list(@PathVariable int pagePerCnt, @PathVariable int page, @PathVariable String gradeIdx, @PathVariable String stateIdx, @PathVariable String searchId) {
 		logger.info("pagePerCtn : {} / page : {}", pagePerCnt, page);
@@ -43,6 +35,20 @@ public class AdminRestController {
 		logger.info("stateIdx : {}", stateIdx);
 		logger.info("searchId : {}", searchId);
 		return service.list(pagePerCnt,page,gradeIdx, stateIdx, searchId);
+	}
+	
+	@RequestMapping(value = "/adminCompanyList", method = RequestMethod.GET)
+	public ModelAndView adminCompanyList() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("adminCompanyList");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/adminCompanyList/{pagePerCnt}/{page}/{searchId}", method = RequestMethod.GET)
+	public HashMap<String, Object> comList(@PathVariable int pagePerCnt, @PathVariable int page, @PathVariable String searchId) {
+		logger.info("pagePerCtn : {} / page : {}", pagePerCnt, page);
+		logger.info("searchId : {}", searchId);
+		return service.comList(pagePerCnt,page, searchId);
 	}
 	
 	

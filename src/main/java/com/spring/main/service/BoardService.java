@@ -217,7 +217,7 @@ public class BoardService {
 		int result = boarddao.boardUpdate(dto);//성공시 dao실행
 		logger.info("결과 : {}", result);
 		//실패시 다시 카테고리에 맞는 수정으로 보내기
-			page = "redirect:/boarddetail?boardIdx=" +boardIdx;
+			page = "redirect:/boarddetail/" +boardIdx;
 			msg="글 수정 실패했습니다.";			
 		@SuppressWarnings("unchecked")//unchecked-미확인 오퍼레이션과 관련된 경고를 억제합니다.
 		HashMap<String, String> fileList = (HashMap<String, String>) session.getAttribute("fileList");
@@ -258,7 +258,7 @@ public class BoardService {
 		msg = "삭제되었습니다.";
 		rAttr.addFlashAttribute("msg", msg);
 
-		mav.setViewName("redirect:/FreeListPage");
+		mav.setViewName("redirect:/Freelist");
 		return mav;
 	}
 	
@@ -362,6 +362,9 @@ public class BoardService {
 		  // ModelAndView 데이터 반환
 		  return mav;
 		}
+
+
+
 	
 		public HashMap<String, Object> BoardSearchList(int pagePerCnt, int page, String opt,String keyword){
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -417,10 +420,10 @@ public class BoardService {
 		return map;
 	}
 
-	public HashMap<String, Object> BoardCommentWrite(HashMap<String, String> params, RedirectAttributes rAttr) {
+	public HashMap<String, Object> boardCommentWrite(String comment, int boardIdx, RedirectAttributes rAttr) {
 		logger.info("댓글쓰기 서비스");
 		HashMap<String, Object> map = new HashMap<String, Object> ();
-		int result = boarddao.boardCommentWrite(params);
+		int result = boarddao.boardCommentWrite(comment,boardIdx);
 		logger.info("댓글쓰기 result: "+result);
 		msg="댓글 등록에 실패했습니다";
 		if(result>0) {
