@@ -360,7 +360,7 @@ public class BoardService {
 		  // ModelAndView 데이터 반환
 		  return mav;
 		}
-
+	
 	public HashMap<String, Object> BoardCommentList(int boardIdx, RedirectAttributes rAttr) {
 		logger.info("댓글 리스트 서비스");
 		HashMap<String, Object> map = new HashMap<String, Object> ();
