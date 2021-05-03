@@ -1,0 +1,44 @@
+diff a/src/main/java/com/spring/main/controller/MemberController.java b/src/main/java/com/spring/main/controller/MemberController.java	(rejected hunks)
+@@ -227,5 +227,42 @@
+ 			mav.setViewName(page);
+ 			return mav;
+ 		}
++		
++		@RequestMapping(value = "/resetPw", method = RequestMethod.POST)
++		public ModelAndView resetPw(@RequestParam String id , String rPw ,RedirectAttributes rAttr) {
++			logger.info("비밀번호 재설정  요청");
++			logger.info("재설정 아이디" + id +"/" + "재설정 비밀번호" + rPw);
++			ModelAndView mav = new ModelAndView();
++			boolean success = false;
++			String msg = "실패 하였습니다.";
++			String page = "findPw";
++			if(service.resetPw(id,rPw) >0 ) {
++				success = true;
++				msg = "비밀번호를 재설정 하였습니다.";
++				page ="redirect:/membership";
++			}
++
++			rAttr.addFlashAttribute("msg", msg);
++			mav.setViewName(page);
++			return mav;
++		}	
++		@RequestMapping(value = "/resetCPw", method = RequestMethod.POST)
++		public ModelAndView resetCPw(@RequestParam String id , String rPw ,RedirectAttributes rAttr) {
++			logger.info("비밀번호 재설정  요청");
++			logger.info("재설정 아이디" + id +"/" + "재설정 비밀번호" + rPw);
++			ModelAndView mav = new ModelAndView();
++			boolean success = false;
++			String msg = "실패 하였습니다.";
++			String page = "findPw";
++			if(service.resetCPw(id,rPw) >0 ) {
++				success = true;
++				msg = "비밀번호를 재설정 하였습니다.";
++				page ="redirect:/membership";
++			}
++
++			rAttr.addFlashAttribute("msg", msg);
++			mav.setViewName(page);
++			return mav;
++		}	
+ }
+ 

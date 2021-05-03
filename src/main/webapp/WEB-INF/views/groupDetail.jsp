@@ -101,6 +101,7 @@ font-size:90%;
 			</td>
 		</tr>
 		<c:if test="${state eq 'true'  || dto.id == sessionScope.loginId }">
+		<!-- 신청자와 작성자에게만 노출 -->
 			<tr>
 				<td colspan="6">
 					<div id="kakaoLink">

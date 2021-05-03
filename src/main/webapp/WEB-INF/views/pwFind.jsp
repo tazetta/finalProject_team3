@@ -19,19 +19,19 @@
         </div>
         <div class="member-area">
                 <form action="pwFind" method="post" onsubmit="return findSubmit()">
-                    <input id="name" type="text" name="name" placeholder="이름 입력"/>
-                    <input id="id" type="text" name="id" placeholder="아이디 입력 "/>
-                    <input id="email"type="text" name="email" placeholder="이메일 입력 "/>
+                    <input id="name" type="text" name="name" placeholder="이름 입력" maxlength="15"/>
+                    <input id="id" type="text" name="id" placeholder="아이디 입력 " maxlength="15"/>
+                    <input id="email"type="text" name="email" placeholder="이메일 입력 " maxlength="30"/>
                     <div class="btn-area">
                         <button id ="btn1" >비밀번호 찾기</button>
                     </div>
                 </form>
         </div>
          <div class="company-area">
-                <form action="findCpw" method="post" onsubmit="return cFindSubmit()"> 
+                <form action="cPwFind" method="post" onsubmit="return cFindSubmit()"> 
                     <input id="business_number" type="text" name="business_number" placeholder="사업자 번호 입력( - ) 없이"/>
                     <input id="cId" type="text" name="cId" placeholder="아이디 입력 "/>
-                    <input id="phone" type="text" name="phone" placeholder="휴대폰 번호 입력( - 없이) "/>
+                    <input id="phone" type="text" name="phone" placeholder="휴대폰 번호 입력( - 없이) " maxlength="11"/>
                     <div class="btn-area">
                         <button id="btn2">비밀번호 찾기</button>
                     </div>

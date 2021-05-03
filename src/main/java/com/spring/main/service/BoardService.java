@@ -23,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.spring.main.dao.BoardDAO;
 import com.spring.main.dto.BoardDTO;
 import com.spring.main.dto.CommentsDTO;
+import com.spring.main.dto.GroupDTO;
 
 @Service
 public class BoardService {
@@ -361,7 +362,49 @@ public class BoardService {
 		  return mav;
 		}
 
-	public HashMap<String, Object> boardCommentList(int boardIdx, RedirectAttributes rAttr) {
+
+
+	
+		public HashMap<String, Object> BoardSearchList(int pagePerCnt, int page, String opt,String keyword){
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		logger.info("검색리스트 서비스 ");
+		
+		int allCnt = boarddao.BoardSearchList(opt, keyword); // 공동구매 검색 글 갯수
+		logger.info("group Purchase searchCnt:" + allCnt);
+
+		// 게시글 수 : 21개, 페이지 당 보여줄 수 : 10 =(나머지가 있는 경우 반올림해서)=> 최대 생성 가능한 페이지 : 3
+		int range = allCnt % pagePerCnt > 0 ? Math.round(allCnt / pagePerCnt) + 1 : Math.round(allCnt / pagePerCnt);
+		System.out.println("range:" + range);
+		// 현재 페이지가 생성가능한 페이지보다 클 경우. .. 현재 페이지를 생성가능한 페이지로 맞춰준다.
+		page = page > range ? range : page;
+
+		// 시작, 끝
+		int end = page * pagePerCnt;
+		int start = end - pagePerCnt + 1;
+		String startStr = Integer.toString(start);
+		String endStr = Integer.toString(end);
+		ArrayList<BoardDTO> boardList = boarddao.BoardSearchList(startStr, endStr, opt, keyword); // 리스트 담기
+		BoardDTO dto = null;
+
+		logger.info("groupList size: " + boardList.size());
+
+		String msg = keyword + "에 대한 검색결과가 없습니다.";
+
+		if (boardList.size() > 0) { // 검색결과가 있으면
+			msg = keyword + "에 대한 검색결과가 " + boardList.size() + "건 있습니다.";
+		}
+		logger.info(msg);
+
+		map.put("list", boardList);
+		map.put("searchMsg", msg);
+		map.put("range", range);
+		map.put("currPage", page);
+
+		return map;
+	}
+	
+	
+	public HashMap<String, Object> BoardCommentList(int boardIdx, RedirectAttributes rAttr) {
 		logger.info("댓글 리스트 서비스");
 		HashMap<String, Object> map = new HashMap<String, Object> ();
 
