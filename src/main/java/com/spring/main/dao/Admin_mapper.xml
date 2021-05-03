@@ -59,11 +59,33 @@
 	        </if>
 	</select>
 	
-	<select resultType="int" id="meberMaxCnt">
+	<select resultType="int" id="memberMaxCnt">
 		SELECT COUNT(id) FROM generalmember
+			<if test = "param1 != 0">
+				WHERE gradeIdx = #{param1}
+			</if>
+			<if test = "param2 != 0">
+				WHERE stateIdx = #{param2}
+			</if>
+			<if test = "param3 != 'none'">
+				WHERE id = #{param3}
+			</if>			
 	</select>
 	
 	<select id="memberDetail" resultType="com.spring.main.dto.MemberDTO">
 		SELECT * FROM generalmember WHERE id=#{param1}
+	</select>
+	
+	<select id="adminCompanyList" resultType="com.spring.main.dto.CompanyMemberDTO"> 
+		SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, comid,comname, license, phone, reg_date FROM companymember 
+		<if test = "param3 != 'none'">
+			WHERE comid = #{param3}
+		</if>
+	</select>
+	<select resultType="int" id="companyMaxCnt" parameterType="hashMap">
+		SELECT COUNT(comid) FROM companymember
+			<if test = "searchId != 'none'">
+				WHERE comid = #{searchId}
+			</if>
 	</select>
 </mapper>

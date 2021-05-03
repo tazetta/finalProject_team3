@@ -189,7 +189,7 @@ select:hover {
 								
 							</tbody>
 							<tr>
-								<td colspan="6">
+								<td colspan="6"  id="paging">
 									<!-- PlugIn -->
 									<div class="container">
 										<nav aria-label="page navigation" style="text-align: center;">
@@ -230,6 +230,7 @@ select:hover {
 
 	
 	$("#grade").change(()=>{
+		thisPage = 1;
 		gradeIdx = $("#grade").val();
 		stateIdx = 0;
 		$("#penalty").val([0]);
@@ -238,6 +239,7 @@ select:hover {
 	});
 	
 	$("#penalty").change(()=>{
+		thisPage = 1;
 		stateIdx = $("#penalty").val();
 		gradeIdx = 0;
 		$("#grade").val([0]);
@@ -246,6 +248,7 @@ select:hover {
 	});
 	
 	$("#drop").change(()=>{
+		thisPage = 1;
 		stateIdx = $("#drop").val();
 		gradeIdx = 0;
 		$("#grade").val([0]);
@@ -254,6 +257,7 @@ select:hover {
 	});
 	
 	$("#searchBtn").click(()=>{
+		thisPage = 1;
 		if($("#searchId").val()== ""){
 			alert("검색할 아이디를 입력해주세요!");
 		} else {
@@ -264,7 +268,7 @@ select:hover {
 	});
 	
 	function listCall(reqPage, gradeIdx, stateIdx) {	
-		var reqUrl = 'adminMemberList'+'/'+10+'/'+reqPage+'/'+gradeIdx +'/'+ stateIdx +'/'+searchId;
+		var reqUrl = 'adminMemberList'+'/'+15+'/'+reqPage+'/'+gradeIdx +'/'+ stateIdx +'/'+searchId;
 		$.ajax({
 			url:reqUrl
 			,data:{}
@@ -276,7 +280,6 @@ select:hover {
 				console.log(data);
 				thisPage = data.currPage;
 				listPrint(data.list);
-				//pagePrint(data.maxPage);
 				$("#pagination").twbsPagination({
 					startPage:data.currPage
 					,totalPages:data.maxPage
@@ -287,45 +290,12 @@ select:hover {
 						listCall(page, gradeIdx, stateIdx,searchId);
 					}
 				});
+				console.log('최대 페이지 '+data.maxPage);
 			}
 			,error:(data)=>{
 				console.log(data);
 			}
 		});
-	}
-
-	function pagePrint(maxPage){
-		console.log("생성 가능 페이지 : " + maxPage);
-		console.log("현재 페이지 : " + thisPage);
-		var content = "";
-		var start = 1;
-		var end = maxPage>5 ? 5 : maxPage ;
-		// 이전 1 2 3 4 5 다음
-		// 이전(현재 페이지>5 일 경우)
-		if(thisPage>5){
-			end = Math.ceil(thisPage/5)*5;
-			start = end - 4;
-			if(end>maxPage){
-				end = maxPage;
-			}
-			content += " <a href='#' onclick='listCall("+(start-1)+")'>이전</a>"
-		}
-		// 1 ~ 5
-		for(var i=start; i<=end; i++){
-			if(i == thisPage){
-				content += " <a href='#' style='background-color: skyblue; color: white;'>"+i+"</a>";
-			} else {
-				content += " <a href='#' onclick='listCall("+i+")'>"+i+"</a>";			
-			}
-		}
-		// 다음(maxPage > 5 일 경우)
-		if(end<maxPage){
-			content += " <a href='#' onclick='listCall("+(end+1)+")'>다음</a>"
-		}
-		
-		$("#paging").empty();
-		$("#paging").append(content);
-		
 	}
 
 	function listPrint(list){

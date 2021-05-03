@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.spring.main.dto.BoardDTO;
+import com.spring.main.dto.CompanyMemberDTO;
 import com.spring.main.dto.MemberDTO;
 
 public interface AdminDAO {
@@ -23,14 +24,16 @@ public interface AdminDAO {
 	int reportedCommCnt(String string);
 
 	HashMap<String, Object> reportedCommList(String string);
-
-	int meberMaxCnt();
-
+	
 	ArrayList<MemberDTO> adminMemberList(int start, int end, String gradeIdx, String stateIdx, String searchId);
 
 	MemberDTO memberDetail(String id);
 
-	ArrayList<MemberDTO> gradeList(int start, int end, int gradeIdx);
+	ArrayList<CompanyMemberDTO> adminCompanyList(int start, int end, String searchId);
+
+	int memberMaxCnt(String string, String stateIdx, String searchId);
+
+	int companyMaxCnt(HashMap<String, Object> mapId);
 
 
 

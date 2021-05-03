@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -402,6 +403,8 @@ public class BoardService {
 
 		return map;
 	}
+		
+	
 	
 	
 	public HashMap<String, Object> BoardCommentList(int boardIdx, RedirectAttributes rAttr) {
@@ -443,6 +446,23 @@ public class BoardService {
 		map.put("msg",msg);
 		return map;
 	}
+//우리집 자랑 세부검색
+	public HashMap<String, Object> homeMainList(int pagePerCnt, int page, Date reg_date, String formcategory,
+			int budget, int roomsize) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int end = page * pagePerCnt;
+		int start = end- (pagePerCnt - 1);
+		int maxCnt = boarddao.memberMaxCnt();
+		int maxpage = (int)Math.ceil(maxCnt/ (double)pagePerCnt);
+		logger.info("maxCnt : {}", maxCnt);
+		logger.info("maxPage : {}", maxpage);
+		
+		map.put("homeMainList", boarddao.homeMain(start, end, reg_date,formcategory,budget,roomsize));
+		map.put("maxPage", maxpage);
+		map.put("currPage", page);
+		return map;
+	}
+
 
 }
 
