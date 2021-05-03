@@ -7,6 +7,14 @@
 
 <mapper namespace="com.spring.main.dao.MyDAO">
 
+<select id="login" resultType="String" parameterType="String">
+	SELECT pw FROM generalmember WHERE id = #{loginId}
+</select>
+
+
+<select id="myprofile" resultType="com.spring.main.dto.MyDTO" parameterType="String">
+	SELECT * FROM generalmember WHERE id = #{loginId}
+</select>
 
  
 

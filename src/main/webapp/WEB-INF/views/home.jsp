@@ -32,7 +32,7 @@
 <a href="myInteriorHistory">내 인테리어 변천사</a>
 
 <br/>
-<a href="myprofile">마이프로필</a>
+<a href="mywrite">마이프로필</a>
 
 
 </body>
