@@ -360,6 +360,19 @@ public class BoardService {
 		  // ModelAndView 데이터 반환
 		  return mav;
 		}
+	public ModelAndView helpSearchList(int pageNum, int brdCtgIdx, String formcategory) {
+			ModelAndView mav = new ModelAndView();
+			logger.info("도와줘요 자취만렙 세부검색");
+			
+			int limit = 10;
+			int startNum = (pageNum - 1) * limit +1;
+			int endNum = pageNum * limit;
+			System.out.println("stratNum : " +startNum + ",endNum : " + endNum + ", boardCategoryIndex : "
+									+ brdCtgIdx+", formcategory : "+ formcategory);
+			
+			return mav;
+			
+	}
 	
 	public HashMap<String, Object> BoardCommentList(int boardIdx, RedirectAttributes rAttr) {
 		logger.info("댓글 리스트 서비스");

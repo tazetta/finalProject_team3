@@ -24,4 +24,11 @@ public class BoardRestController {
 		mav.setViewName("Freelist");
 		return mav;
 	}
+	@RequestMapping(value = "/helpSearchList", method = RequestMethod.GET)
+	public ModelAndView helpSearchList() {
+		logger.info("도와줘요 자취만렙 세부검색 리스트");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("helpSearchList");
+		return mav;
+	}
 }
