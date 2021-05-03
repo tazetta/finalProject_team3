@@ -53,7 +53,7 @@ public interface BoardDAO {
 	
 	int memberMaxCnt();
 	
-	Object homeMain(int start, int end, Date reg_date, String formcategory, int budget, int roomsize);
+	Object homeMain(int start, int end, String order, String formcategory, int budget, int roomsize);
 
 
 	

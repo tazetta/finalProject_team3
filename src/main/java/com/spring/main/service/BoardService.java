@@ -370,7 +370,7 @@ public class BoardService {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		logger.info("검색리스트 서비스 ");
 		
-		int allCnt = boarddao.BoardSearchList(opt, keyword); // 공동구매 검색 글 갯수
+		int allCnt = boarddao.BoardSearchList(opt, keyword); 
 		logger.info("group Purchase searchCnt:" + allCnt);
 
 		// 게시글 수 : 21개, 페이지 당 보여줄 수 : 10 =(나머지가 있는 경우 반올림해서)=> 최대 생성 가능한 페이지 : 3
@@ -447,7 +447,7 @@ public class BoardService {
 		return map;
 	}
 //우리집 자랑 세부검색
-	public HashMap<String, Object> homeMainList(int pagePerCnt, int page, Date reg_date, String formcategory,
+	public HashMap<String, Object> homeMainList(int pagePerCnt, int page, String order, String formcategory,
 			int budget, int roomsize) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		int end = page * pagePerCnt;
@@ -457,7 +457,7 @@ public class BoardService {
 		logger.info("maxCnt : {}", maxCnt);
 		logger.info("maxPage : {}", maxpage);
 		
-		map.put("homeMainList", boarddao.homeMain(start, end, reg_date,formcategory,budget,roomsize));
+		map.put("homeMainList", boarddao.homeMain(start, end, order,formcategory,budget,roomsize));
 		map.put("maxPage", maxpage);
 		map.put("currPage", page);
 		return map;

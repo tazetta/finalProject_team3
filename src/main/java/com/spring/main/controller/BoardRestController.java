@@ -44,16 +44,16 @@ public class BoardRestController {
 		mav.setViewName("helpSearchList");
 		return mav;
 	}
-	@RequestMapping(value = "/homemain/{pagePerCnt}/{page}/{reg_date}/{formcategory}/{budget}/{roomsize}",  method = RequestMethod.GET)
+	@RequestMapping(value = "/homemain/{pagePerCnt}/{page}/{order}/{formcategory}/{budget}/{roomsize}",  method = RequestMethod.GET)
 	public HashMap<String, Object> homeMainList(@PathVariable int pagePerCnt,@PathVariable int page,
-		@PathVariable Date reg_date,@PathVariable String formcategory,@PathVariable int budget,@PathVariable int roomsize){
+		@PathVariable String order,@PathVariable String formcategory,@PathVariable int budget,@PathVariable int roomsize){
 		logger.info("pagePerCnt : {} / page : {}", pagePerCnt, page);
-		logger.info("reg_date :{}", reg_date);
+		logger.info("order :{}",  order);
 		logger.info("formcategory : {} ", formcategory);
 		logger.info("budget :{}", budget);
 		logger.info("roomsize : {}", roomsize);
 		
-		return BoardService.homeMainList(pagePerCnt,page,reg_date,formcategory,budget,roomsize);
+		return BoardService.homeMainList(pagePerCnt,page, order,formcategory,budget,roomsize);
 	}
 	
 		
