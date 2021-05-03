@@ -119,8 +119,10 @@ font-size:90%;
 		</c:if>
 	</table>
 	<button onclick="location.href='groupListPage'">목록</button>
+	<c:if test="${ dto.id == sessionScope.loginId }">
 	<button onclick="location.href='groupDel/${dto.gpIdx}'">삭제</button>
 	<button onclick="location.href='groupUpdateForm/${dto.gpIdx}'">수정</button>
+	</c:if>
 	
 	
 

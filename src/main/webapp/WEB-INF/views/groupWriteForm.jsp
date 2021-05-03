@@ -70,7 +70,8 @@ input[type='text'] {
 </body>
 <script>
 	$("#save").click(function() {
-		
+		$("#editable>a").find("b").remove(); //a태그안 b태그 삭제
+	 	$("#editable>a").removeAttr("onclick"); //del(this) 무효화
 		$("#content").val($("#editable").html());
 		/* 유효성 검사 */
 		
@@ -85,12 +86,11 @@ input[type='text'] {
 			console.log("chatUrl:"+chatUrl);
 			console.log("maxUser:"+maxUser);
 			console.log("deadline:"+deadline);
-			//alert("모든 양식을 작성해주세요");
+			alert("모든 양식을 작성해주세요");
 		}else{
 			
-				$("#editable>a").find("b").remove(); //a태그안 b태그 삭제
-				$("#editable>a").removeAttr("onclick"); //del(this) 무효화
-				 $("form").submit(); 
+	
+			$("form").submit(); 
 		}		
 	});
 	
