@@ -52,8 +52,10 @@ public interface BoardDAO {
 	int BoardSearchList(String opt, String keyword);
 	
 	int memberMaxCnt();
-	
+	//집자랑 세부검색
 	Object homeMain(int start, int end, String order, String formcategory, int budget, int roomsize);
+	//추천수
+	Object CNTRECO(int start, int end, int CNTRECO);
 
 
 	

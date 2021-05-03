@@ -55,6 +55,22 @@ public class BoardRestController {
 		
 		return BoardService.homeMainList(pagePerCnt,page, order,formcategory,budget,roomsize);
 	}
-	
+	@RequestMapping(value = "/homemain/{pagePerCnt}/{page}/{cntreco}", method = RequestMethod.GET)
+	public HashMap<String, Object> cntboardList(@PathVariable int pagePerCnt,@PathVariable int page, @PathVariable int CNTRECO){
 		
+		logger.info("pagePerCnt : {} / page :{}", pagePerCnt, page);
+		logger.info("cntreco : {} ", CNTRECO);
+		return BoardService.cntboardList(pagePerCnt,page,CNTRECO);
 	}
+	
+	@RequestMapping(value = "/tipMain/{pagePerCnt}/{page}/{cntreco}", method = RequestMethod.GET)
+	public HashMap<String, Object> tipMain(@PathVariable int pagePerCnt,@PathVariable int page, @PathVariable int CNTRECO){
+		
+		logger.info("pagePerCnt : {} / page :{}", pagePerCnt, page);
+		logger.info("cntreco : {} ", CNTRECO);
+		return BoardService.cntboardList(pagePerCnt,page,CNTRECO);
+	}
+
+		
+	
+}

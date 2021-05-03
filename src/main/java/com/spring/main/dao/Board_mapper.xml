@@ -18,8 +18,17 @@
 	WHERE BRDCTGIDX = #{param3} and blind='n'
 	)
 	WHERE RNUM BETWEEN #{param1} AND #{param2}
-	
 </select>
+<!-- 우리집 자랑 목록 추천순으로 불러오기 -->
+<select id ="cntboardList" resultType="com.spring.main.dto.BoardDTO">
+SELECT BOARDIDX,SUBJECT,CONTENT,ID,REG_DATE,ROOMSIZE,BUDGET,BHIT,BRDCTGIDX,FORMIDX,CNTRECO FROM (
+	SELECT ROW_NUMBER() OVER (ORDER BY CNTRECO DESC) AS RNUM, BOARDIDX,SUBJECT,CONTENT,ID,REG_DATE,ROOMSIZE,BUDGET,KEYITEMS,BHIT,BLIND,BRDCTGIDX,FORMIDX,EMAIL,CNTRECO
+	FROM BOARD
+	WHERE BRDCTGIDX = #{param3} and blind='n'
+	)
+	WHERE RNUM BETWEEN #{param1} AND #{param2}
+</select>
+
 <!-- 세부검색 -->
 <select id="BoardSearchList"  resultType="com.spring.main.dto.BoardDTO">
 
@@ -62,10 +71,7 @@
 	
 		
 
-<!--게시글 추천수 가져오기-->	
-<select id="recFind" resultType="int">
-		select count(recidx) from recomend where boardIdx=#{boardIdx} and isrecm ='true'
-	</select>
+
 <!--게시판카테고리 -->
 <select id="boardCtg" resultType="String">
 		SELECT category FROM boardCtg WHERE brdCtgIdx=#{boardCtgIdx}
