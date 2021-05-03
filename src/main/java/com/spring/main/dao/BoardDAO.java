@@ -1,5 +1,6 @@
 package com.spring.main.dao;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -49,6 +50,10 @@ public interface BoardDAO {
 	ArrayList<BoardDTO> BoardSearchList(String startStr, String endStr, String opt, String keyword);
 	//세부검색기능
 	int BoardSearchList(String opt, String keyword);
+	
+	int memberMaxCnt();
+	
+	Object homeMain(int start, int end, Date reg_date, String formcategory, int budget, int roomsize);
 
 
 	

@@ -37,6 +37,26 @@
 		WHERE rnum BETWEEN #{param1} AND  #{param2}
 	
 </select>
+<!-- 우리집 자랑 세부검색 -->
+<select resultType="com.spring.main.dto.BoardDTO" id="homeMainList">
+		SELECT reg_date,FORMIDX,BUDGET,ROOMSIZE
+	    FROM (SELECT ROW_NUMBER() OVER (ORDER BY REG_DATE DESC) AS RNUM, BOARDIDX,SUBJECT,CONTENT,ID,REG_DATE,ROOMSIZE,BUDGET,KEYITEMS,BHIT,BLIND,BRDCTGIDX,FORMIDX,EMAIL
+	    						FROM BOARD)
+	       
+	        <if test = "param4 == 0 and param5 == 0 and param6 == 'none'">
+			    WHERE reg_date AND rnum BETWEEN #{param1} AND #{param2} order by reg_date asc
+	        </if>
+	        <if test = "param4 == 1 || param4 == 2 || param4 == 3 || param4 == 4">
+	        	WHERE FORMIDX=#{param4} AND rnum BETWEEN #{param1} AND #{param2} order by FORMIDX asc
+	        </if>
+	        <if test = "param5 == 1 || param5 == 2 || param5 == 3 || param5 == 4 || param5 == 5 || param5 == 6 || param5 == 7 || param5 == 8"  >
+	        	WHERE BUDGET= #{param5} AND rnum BETWEEN #{param1} AND #{param2} order by BUDGET asc
+	        </if>
+	        <if test = "param6 != 'none'">
+	        	WHERE ROOMSIZE= #{param6} AND rnum BETWEEN #{param1} AND #{param2} order by ROOMSIZE asc
+	        </if>
+	</select>
+	
 		
 
 <!--게시글 추천수 가져오기-->	
