@@ -3,6 +3,8 @@ package com.spring.main.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +43,16 @@ public class MyService {
 		ArrayList<MyDTO> list = MyDAO.list();
 		return list;
 	}
+
+	public HashMap<String, Object> msgReceiveList(int pagePerCnt, int page2, HttpSession session) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String sessionId = (String) session.getAttribute("loginId");
+				
+		int allCnt = MyDAO.receiveAllCount();
+		
+		return null;
+	}
+
+
 
 }

@@ -19,4 +19,6 @@ public interface MyDAO {
 
 	ArrayList<MyDTO> list();
 
+	int receiveAllCount();
+
 }
