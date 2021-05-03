@@ -6,6 +6,13 @@
 <head>
 <title>관리자 일반회원 목록</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<link
+	href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	rel="stylesheet">
+<script
+	src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script src="resources/js/jquery.twbsPagination.js"
+	type="text/javascript"></script>
 <style>
 table, td, th {
 	border-collapse: collapse;
@@ -34,6 +41,7 @@ form table th {
 	justify-content: center;
 	align-items: center;
 	min-height: 100vh;
+	min-width: 1680px;
 }
 
 .inputs {
@@ -91,23 +99,11 @@ select:hover {
 .sideBar {
 	float: left;
 }
-
 </style>
 </head>
 <body>
 	<div class="flexBox">
-		<div>
-			<div>
-				<div style="display: flex; justify-content: space-between; ">
-					<div class="headDESC">
-						업체회원목록
-					</div>
-					<div>
-						<input type="text" class="inputs" placeholder="ID를 입력해주세요."/>
-						<input type="button" class="inputs" value="검색" />
-					</div>
-				</div>
-			</div>
+		<div  style="min-height: 800px;">
 			<div>
 				<div class="sideBar" style="margin-right: 15px;">
 					<table style="border: none;">
@@ -119,11 +115,11 @@ select:hover {
 								<td style="text-align: right; border: none;">메인</td>
 							</tr>
 							<tr>
-								<td style="text-align: right; border: none; font-weight: 600;">일반회원
-									목록></td>
+								<td style="text-align: right; border: none;">일반회원
+									목록</td>
 							</tr>
 							<tr>
-								<td style="text-align: right; border: none;">업체회원 목록</td>
+								<td style="text-align: right; border: none; font-weight: 600;">업체회원 목록></td>
 							</tr>
 							<tr>
 								<td style="text-align: right; border: none;">고객의소리</td>
@@ -149,29 +145,37 @@ select:hover {
 					</table>
 				</div>
 				<div class="sideBar">
+				<div style="display: flex; justify-content: space-between; ">
+					<div class="headDESC">
+						업체회원목록
+					</div>
+					<div>
+						<input type="text" id="searchId" class="inputs" style="width: 160px" placeholder="ID를 입력해주세요."/>
+						<input type="button" id="searchBtn" class="inputs" value="검색" />
+					</div>
+				</div>
 					<form>
 						<table>
 							<tr>
 								<th>ID</th>
-								<th style="width: 150px;">기업명</th>
-								<th>대표</th>
-								<th style="width: 150px;">사업자등록번호</th>
-								<th style="width: 150px;">전화번호</th>
+								<th>기업명</th>
+								<th>사업자등록번호</th>
+								<th>전화번호</th>
 								<th>가입일</th>
-								<th>별점</th>
-								<th>리뷰</th>
 							</tr>
+							<tbody id="list">
+								
+							</tbody>
 							<tr>
-								<td><input type="button" class="inputs" value="hello3982" onclick="detailPopUp()"
-									style="border: none; border-radius: 10px; width: 120px;" 
-								/></td>
-								<td>땃쥐인테리어</td>
-								<td>김땃쥐</td>
-								<td>123-12-12345</td>
-								<td>02-1234-5678</td>
-								<td>2021-01-01</td>
-								<td>4.6</td>
-								<td>125</td>
+								<td colspan="5"  id="paging">
+									<!-- PlugIn -->
+									<div class="container">
+										<nav aria-label="page navigation" style="text-align: center;">
+											<ul class="pagination" id="pagination"></ul>
+										</nav>
+									</div>
+									<!-- /PlugIn -->
+								</td>
 							</tr>
 						</table>
 					</form>
@@ -181,8 +185,78 @@ select:hover {
 	</div>
 </body>
 <script>
-	function detailPopUp(){
-		window.open("adminCompanyDetail","상세보기","width=600, height=650");
+	function detailPopUp(i){
+		var url = "adminCompanyDetail/";
+		console.log($("#"+i).val());
+		var id = $("#"+i).val();
+		url += id;
+		window.open(url ,"상세보기","width=600, height=650");
+	}
+	
+	var thisPage = 1;
+	var searchId = 'none';
+	listCall(thisPage, searchId);
+	
+	$("#searchBtn").click(()=>{
+		thisPage = 1;
+		if($("#searchId").val()== ""){
+			alert("검색할 아이디를 입력해주세요!");
+		} else {
+			searchId = $("#searchId").val();
+			console.log(searchId);
+			listCall(thisPage, searchId);
+		}
+	});
+	
+	function listCall(reqPage,searchId) {	
+		var reqUrl = 'adminCompanyList/'+15+'/'+reqPage+'/'+searchId;
+		$.ajax({
+			url:reqUrl
+			,data:{}
+			,type:'GET'
+			,dataType:'JSON'
+			,success:(data)=>{
+				if(reqPage > data.maxPage){listCall(data.maxPage,searchId);}
+				console.log(reqUrl);
+				console.log(data);
+				thisPage = data.currPage;
+				listPrint(data.list);
+				$("#pagination").twbsPagination({
+					startPage:data.currPage
+					,totalPages:data.maxPage
+					,visiblePages:5
+					,onPageClick:(evt, page)=>{
+						console.log(evt);
+						console.log(page);
+						listCall(page,searchId);
+					}
+				});
+			}
+			,error:(data)=>{
+				console.log(data);
+			}
+		});
+	}
+	
+	function listPrint(list){
+		var content = "";
+		console.log("list.length : "+list.length);
+			if(list.length == 0) {
+				content += "<tr><td colspan='5'>해당 회원이 존재하지 않습니다.</td></tr>";
+			} else {
+				for(var i=0;i<list.length;i++){
+				content += "<tr>"
+					content += "<td><input type='button' id="+(i+1)+" class='inputs' value="+list[i].comId+" onclick='detailPopUp("+(i+1)+")' style='border: none; border-radius: 10px; width: 120px;' /></td>"
+					content += "<td>"+list[i].comName+"</td>"
+					content += "<td>"+list[i].license+"</td>"
+					content += "<td>"+list[i].phone+"</td>"
+					var date = new Date(list[i].reg_date);
+					content += "<td>"+date.toLocaleDateString("ko-KR")+"</td>"
+				content += "</tr>"
+			}
+		}
+		$("#list").empty();
+		$("#list").append(content);
 	}
 </script>
 </html>
