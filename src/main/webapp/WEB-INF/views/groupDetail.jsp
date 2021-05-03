@@ -35,6 +35,7 @@ table, td, th {
 	width: 100px;
 	margin:0 auto;
 	background-color : lightgray;
+	padding:10px;
 }
 #comment{
 width:800px;
@@ -267,12 +268,13 @@ font-size:90%;
 	 	content += '</td>';
 		content += '</tr>';
 		content += '<tr>';
-		content += '<td style="width:14% ">';
-		
+		content += '<td style="width:14%; font-size:90%; color:gray; ">';
 		 var reg_date = new Date(list[i].reg_date); 	 
 		content += reg_date.toLocaleDateString("ko-KR");
 		content += '</td>';
-		content += ' <td style="width:5%" ><a href="#"><img alt="decommend" src="resources/images/decommend.png" width="15px" height="15px"> </a></td>'
+		content += ' <td style="width:5%" >';
+		content += '<a href="#"><img alt="decommend" src="resources/images/decommend.png" width="15px" height="15px"> </a>';
+		content += '</td>';
 		content += '<td style="text-align:left">';
 		if("${sessionScope.loginId}"==list[i].id){
 			content += '<button class="commDel" onclick="groupCommentDel('+list[i].commIdx+')">삭제</button></td>' ; //댓글삭제호출

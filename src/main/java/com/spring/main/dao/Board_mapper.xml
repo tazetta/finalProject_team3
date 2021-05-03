@@ -30,7 +30,7 @@
 	</select>
 <!--주거형태카테고리-->
 <select id="formCtg" resultType="String">
-		SELECT category FROM formCtg WHERE formCtgIdx=#{formCtgIdx}
+		SELECT CATEGORY FROM FORM WHERE formIdx=#{formIdx}
 	</select>
 	<!-- 조회수 증가 -->
 	<update id="boardUpHit">

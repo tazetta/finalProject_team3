@@ -43,9 +43,12 @@ public class BoardController {
 		return "main";
 	}
 	@RequestMapping(value = "/homemain", method = RequestMethod.GET)
-	public String homemain() {
+	public ModelAndView homemain(@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum) {
 		logger.info("우리집 자랑 목록 조회하기");
-		return "homemain";
+		System.out.println("pageNum : "+ pageNum);
+		ModelAndView mav = BoardService.getBoardList(pageNum, 2);
+		mav.setViewName("homemain");
+		return mav;
 	   }
 	@RequestMapping(value = "/Freeview", method = RequestMethod.GET)
 	public String Freeview() {

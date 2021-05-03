@@ -55,7 +55,7 @@ input[type='text'] {
 			</tr>
 			<tr>
 				<td>최대참여자</td>
-				<td><input type="text" name="maxUser" value="${dto.maxUser }"></td>
+				<td><input type="number" name="maxUser" id="maxUser" value="${dto.maxUser }" min="0"></td>
 			</tr>
 			<tr>
 				<td>모집상태</td>
@@ -79,6 +79,13 @@ input[type='text'] {
 	<button id="save">수정완료</button>
 </body>
 <script>
+
+var msg = "${msg}";
+if (msg != "") {
+	alert(msg);
+}
+
+
 $("#save").click(function() {
 	console.log($("#editable").html());
 	$("#editable>a").find("b").remove(); //a태그안 b태그 삭제
@@ -118,6 +125,42 @@ function del(elem){
 			console.log(e);
 		}
 	}); 	
+}
+
+/* 최대참여자 수정시 적합성 여부 확인 */
+$("#maxUser").change(function(e){
+	var defaultVal = $(this).prop("defaultValue");
+	var currVal = $(this).val();
+	
+	if(currVal < defaultVal){
+		console.log("신청한 현재 인원보다 적은지 확인필요");
+		console.log(defaultVal+"->"+currVal);
+		var elem = [defaultVal,currVal];
+		maxUserChk(elem);
+	}
+});
+
+function maxUserChk(elem){
+	console.log(elem);
+	 $.ajax({
+			url:"/main/currUserChk/${dto.gpIdx}/"+elem[1],
+			type:"get",
+			data:{},
+			dataType:"json",
+			success:function(data){
+				console.log(data);
+				var msg = data.msg;
+				if (msg != "") { //현재 신청인원수보다 작은 수 라면
+					$("#maxUser").val(elem[0]);  //초기값으로 설정
+					alert(msg);
+				}
+
+			},errer:function(error){
+				console.log(error);
+			}
+		}); 
+
+	 
 }
 
 </script>

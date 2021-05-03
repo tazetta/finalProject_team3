@@ -62,6 +62,8 @@ public interface GroupDAO {
 
 	int groupCommDel(int commIdx);
 
+	int groupcurrUser(int gpIdx);
+
 
 
 	

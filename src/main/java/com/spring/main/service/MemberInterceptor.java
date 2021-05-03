@@ -27,7 +27,7 @@ public class MemberInterceptor extends HandlerInterceptorAdapter {
 		
 		String loginId = (String) session.getAttribute("loginId");
 		
-		System.out.println("*****************************");
+		System.out.println("*********************************************************");
 		System.out.println("url: "+url);
 		System.out.println("loginID:" + loginId);
 		int  cntResult = 0;
@@ -48,7 +48,7 @@ public class MemberInterceptor extends HandlerInterceptorAdapter {
 			if( dto.getCntBoard() >=10 && dto.getCntComm()>=30 && dto.getGradeIdx() ==1) {
 				gradeIdx =2;
 				gradeResult= memberdao.gradeUpdate(gradeIdx,loginId);
-				System.out.println("초보->중수 UpdateResult:"+gradeResult);
+				System.out.println("초보->중수 UpdateResult:"+gradeResult);	
 			}else if(dto.getCntBoard() >=20 && dto.getCntComm()>=60 && dto.getGradeIdx() ==2) {
 				gradeIdx =3;
 				gradeResult= memberdao.gradeUpdate(gradeIdx,loginId);
@@ -63,7 +63,7 @@ public class MemberInterceptor extends HandlerInterceptorAdapter {
 				System.out.println("초고수 ->신 UpdateResult:"+gradeResult);
 			}
 		}
-		System.out.println("*****************************");
+		System.out.println("*********************************************************");
 		
 	}
 

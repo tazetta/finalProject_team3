@@ -150,7 +150,13 @@ public class GroupController {
 		logger.info("공동구매 댓글삭제 요청 gpIdx: {}", commIdx);
 		return groupService.groupCommDel(commIdx,rAttr);
 	}
-
+	
+	
+	@RequestMapping(value = "/currUserChk/{gpIdx}/{maxUser}", method = RequestMethod.GET)
+	@ResponseBody HashMap<String , Object> currUserChk(@PathVariable int  gpIdx,@PathVariable int maxUser, HttpSession session,	RedirectAttributes rAttr) {
+		logger.info("공동구매 현재 신청인원 확인 gpIdx: {}, updateMaxUser:{}", gpIdx, maxUser);
+		return groupService.currUserChk(gpIdx,maxUser,rAttr);
+	}
 
 	
 	
