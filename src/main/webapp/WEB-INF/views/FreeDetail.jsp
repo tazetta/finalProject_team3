@@ -73,7 +73,7 @@
 	<br />
 	<div class="container"
 		style="text-align: center; padding-top: 100px; background-color: rgb(163, 182, 248);">
-
+		
 		제목${dto.subject}
 		<div style="margin-top: 50px; margin-left: 300;">
 			<button id="button" style="margin-left: 300;"
@@ -97,7 +97,6 @@
 	</div>
 	<div class="container" style="text-align: center; padding-top: 100px;">
 
-
 		${dto.content} 글번호:${dto.boardIdx} 조회수:${dto.bhit}
 		카테고리:${dto.brdctgidx}
 		<div id="content">
@@ -112,7 +111,7 @@
 	<b>댓글 <span id="listSize"></span>개
 	</b>
 	<div id="commentBox" class="container" style="text-align: center;">
-		<span><b id="loginId">${sessionScope.loginId }</b></span> <input
+		<span><b name="loginId">${sessionScope.loginId }</b></span> <input
 			type="text" name="comment" id="comment" placeholder="댓글을 입력해주세요" /> <input
 			type="button" value="등록" id="commentSave" />
 	</div>
@@ -134,15 +133,16 @@ boardCommentList(); //댓글리스트
 /* 댓글 등록 */
 $("#commentSave").click(function(){
 	var comment = $("#comment").val();
-	var loginId = "${sessionScope.loginId }";
+	/* var loginId = "${sessionScope.loginId}"; */
+	var loginId = "sdk";
 	var boardIdx ="${dto.boardIdx}";
 	console.log("loginID:"+loginId+"/comment:"+comment);
 	if(comment!=''){
 		
-		var reqUrl =' ./boardCommentWrite'; 
+		var reqUrl =' ../boardCommentWrite/${dto.boardIdx}'; 
 		$.ajax({
 			url : reqUrl,
-			type : "get",
+			type : "GET",
 			data : {"boardIdx":boardIdx,"comment":comment, "loginId":loginId},
 			dataType : "JSON",
 			success : function(data) {
@@ -161,7 +161,7 @@ $("#commentSave").click(function(){
 
 /* 댓글 목록 불러오기 */
 	function boardCommentList() {
-		var reqUrl = './boardCommentList/${dto.boardIdx}';
+		var reqUrl = '../boardCommentList/'+${dto.boardIdx};
 		$.ajax({
 			url : reqUrl,
 			type : "get",

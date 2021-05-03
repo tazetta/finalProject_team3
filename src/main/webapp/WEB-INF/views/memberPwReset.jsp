@@ -28,6 +28,9 @@
         .msg{
             margin-bottom: 50px;
         }
+         .msg input{
+        	outline:none;
+        }
         .input-area label{
             display: block;
             margin-left: 100px;
@@ -90,11 +93,11 @@
         <div class="input-area">
             <div class="resetPw">
                 <label for="rPw">재설정할 비밀번호 입력</label>
-                <input id="rPw" type="password" name="rPw" placeholder="숫자, 문자, 특수문자 포함 8자리 이상 15자 이하 입력해주세요."/> 
+                <input id="rPw" type="password" name="rPw" placeholder="숫자, 문자, 특수문자 포함 8자리 이상 15자 이하 입력해주세요." maxlength="15"/> 
             </div>
             <div class="comfirmPw">
                 <label for="cPw">재설정할 비밀번호 확인</label>
-                <input id="cPw" type="password" name="rPwChk" placeholder="비밀번호와 동일하게 입력해주세요."/> 
+                <input id="cPw" type="password" name="rPwChk" placeholder="비밀번호와 동일하게 입력해주세요." maxlength="15"/> 
                 <div id="pwChkMsg"></div>
             </div>
         </div>

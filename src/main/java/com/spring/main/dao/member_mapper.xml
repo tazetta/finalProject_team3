@@ -42,7 +42,7 @@
 	</select>
 	
 	<select id="comPwFind" resultType="com.spring.main.dto.CompanyMemberDTO" parameterType="hashmap">
-		SELECT comId , pw FROM companymember WHERE license = #{business_number} AND comId=#{id} AND phone=#{phone}
+		SELECT comId , pw FROM companymember WHERE license = #{business_number} AND comId=#{cId} AND phone=#{phone}
 	</select>
 	
 	<select id="cOverlay" resultType="int" parameterType="hashmap">
@@ -56,6 +56,18 @@
 	<select id="licenChk" resultType="int" parameterType="hashmap">
 		SELECT COUNT(license) FROM companymember WHERE license = #{license}
 	</select>
+	
+	<update id="resetPw"  parameterType="String">
+		UPDATE generalmember SET pw=#{param2} WHERE id=#{param1}
+	</update>
+	
+	<update id="resetCPw"  parameterType="String">
+		UPDATE companymember SET pw=#{param2} WHERE comId=#{param1}
+	</update>
+	
+	
+	
+	
 	
 	
 	<update id="gradeCntBoard">

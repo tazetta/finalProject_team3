@@ -43,6 +43,10 @@ public interface MemberDAO {
 
 	int cJoin(HashMap<String, String> params);
 
+	int resetCPw(String id, String encrypt);
+
+	int resetPw(String id, String encrypt);
+
 
 
 
