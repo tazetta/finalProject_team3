@@ -36,10 +36,14 @@ public class AdminRestController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/adminMemberList/{pagePerCnt}/{page}", method = RequestMethod.GET)
-	public HashMap<String, Object> list(@PathVariable int pagePerCnt, @PathVariable int page) {
+	@RequestMapping(value = "/adminMemberList/{pagePerCnt}/{page}/{gradeIdx}/{stateIdx}/{searchId}", method = RequestMethod.GET)
+	public HashMap<String, Object> list(@PathVariable int pagePerCnt, @PathVariable int page, @PathVariable String gradeIdx, @PathVariable String stateIdx, @PathVariable String searchId) {
 		logger.info("pagePerCtn : {} / page : {}", pagePerCnt, page);
-		return service.list(pagePerCnt,page);
+		logger.info("gradeIdx : {} ", gradeIdx);
+		logger.info("stateIdx : {}", stateIdx);
+		logger.info("searchId : {}", searchId);
+		return service.list(pagePerCnt,page,gradeIdx, stateIdx, searchId);
 	}
+	
 	
 }
