@@ -94,23 +94,27 @@ select:hover {
 	<div class="flexBox">
 		<div>
 			<form>
-				<div class="headDESC">hello3892 회원</div>
+				<div class="headDESC">${dto.id} 회원</div>
 				<table>
 					<tr>
 						<th>ID</th>
-						<td>hello3892</td>
+						<td>${dto.id}</td>
 						<th>회원등급</th>
-						<td>신</td>
+						<c:if test="${dto.gradeIdx == 1}"><td>초보</td></c:if>
+						<c:if test="${dto.gradeIdx == 2}"><td>중수</td></c:if>
+						<c:if test="${dto.gradeIdx == 3}"><td>고수</td></c:if>
+						<c:if test="${dto.gradeIdx == 4}"><td>초고수</td></c:if>
+						<c:if test="${dto.gradeIdx == 5}"><td>신</td></c:if>
 					</tr>
 					<tr>
 						<th>EMAIL</th>
-						<td colspan="3">hello3892@naver.com</td>
+						<td colspan="3">${dto.email}</td>
 					</tr>
 					<tr>
 						<th>신고된 횟수</th>
 						<td>7</td>
 						<th>가입일</th>
-						<td>2021-01-01</td>
+						<td>${dto.reg_date}</td>
 					<tr>
 						<th>현재 패널티</th>
 						<td>none</td>
@@ -132,12 +136,12 @@ select:hover {
 						</td>
 					</tr>
 				</table>
-				<div style="text-align: right;"><input type="button" class="inputs" value="창 닫기"/>&nbsp;&nbsp;&nbsp;</div>
+				<div style="text-align: right;"><input type="button" class="inputs" value="창 닫기" onclick="window.close()"/>&nbsp;&nbsp;&nbsp;</div>
 			</form>
 		</div>
 	</div>
 </body>
-<script>
+<script>	
 	
 </script>
 </html>

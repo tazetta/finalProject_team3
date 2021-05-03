@@ -68,8 +68,7 @@
                 제목${dto.subject}
                 <div style="margin-top: 50px; margin-left: 300;">
                     <button id="button" style="margin-left: 300;" onclick="location.href='boardUpdateForm/${dto.boardIdx}'">수정</button>
-                    
-                    <button id="button" style="margin-left: 50;" >삭제</button>  
+                    <button id="button" style="margin-left: 50;"onclick="location.href='boardDel/${dto.boardIdx}'" >삭제</button>  
                 </div>
                 <!--style="
                     background-color: rgb(172, 172, 172);
@@ -91,7 +90,7 @@
                 ${dto.content}
                      글번호:${dto.boardIdx}
                        조회수:${dto.bhit}
-                        카테고리:${dto.category}
+                        카테고리:${dto.brdctgidx}
                         <div id="content">
                             <button id="contentbtn" style="margin-left: 300;">신고</button>
                             <button id="contentbtn" style="margin-left: 50;" >목록</button>  

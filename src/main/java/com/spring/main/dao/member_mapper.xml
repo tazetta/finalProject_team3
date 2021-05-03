@@ -42,6 +42,13 @@
 		SELECT comId , pw FROM companymember WHERE license = #{business_number} AND comId=#{id} AND phone=#{phone}
 	</select>
 	
+	<select id="cOverlay" resultType="int" parameterType="hashmap">
+		SELECT COUNT(comId) FROM companymember WHERE comId=#{id}
+	</select>
+	
+	<select id="company_nameOverChk" resultType="int" parameterType="hashmap">
+		SELECT COUNT(comName) FROM companymember WHERE comName=#{cName}
+	</select>
 	
 	<update id="gradeCntBoard">
 		UPDATE generalMember

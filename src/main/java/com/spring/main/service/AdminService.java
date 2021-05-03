@@ -72,4 +72,28 @@ public class AdminService {
 		return mav;
 	}
 	
+	public HashMap<String, Object> list(int pagePerCnt, int page) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int end = page * pagePerCnt;
+		int start = end - (pagePerCnt - 1);
+		int maxCnt = dao.meberMaxCnt();
+		int maxPage = (int) Math.ceil(maxCnt / (double) pagePerCnt);
+		logger.info("maxCnt : {}", maxCnt);
+		logger.info("maxPage : {}", maxPage);
+		map.put("list", dao.adminMemberList(start, end));
+		map.put("maxPage", maxPage);
+		map.put("currPage", page);
+		
+		return map;
+	}
+
+	public ModelAndView memberDetail(String id) {
+		ModelAndView mav = new ModelAndView();
+		MemberDTO dto = new MemberDTO();
+		dto = dao.memberDetail(id);
+		mav.addObject("dto", dto);
+		mav.setViewName("adminMemberDetail");
+		return mav;
+	}
+	
 }

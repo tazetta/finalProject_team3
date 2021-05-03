@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,16 +24,10 @@ public class AdminController {
 		return service.adminMain();
 	}
 	
-	@RequestMapping(value = "/adminMemberList", method = RequestMethod.GET)
-	public String adminMemberList() {
-		logger.info("관리자 일반회원 목록보기");
-		return "adminMemberList";
-	}
-	
-	@RequestMapping(value = "/adminMemberDetail", method = RequestMethod.GET)
-	public String adminMemberDetail() {
-		logger.info("관리자 일반회원 상세보기");
-		return "adminMemberDetail";
+	@RequestMapping(value = "/adminMemberDetail/{id}", method = RequestMethod.GET)
+	public ModelAndView adminMemberDetail(@PathVariable String id) {
+		logger.info("관리자 일반회원 상세보기 {} ",id);
+		return service.memberDetail(id);
 	}
 	
 	@RequestMapping(value = "/adminCompanyList", method = RequestMethod.GET)

@@ -40,4 +40,19 @@
 		    FROM (SELECT ROW_NUMBER() OVER(ORDER BY commidx DESC) AS rnum, commidx, comments FROM comments) c,reports r 
 		    WHERE r.commidx = c.commidx AND c.rnum BETWEEN 1 AND 3
 	</select>
+	
+	<select resultType="com.spring.main.dto.MemberDTO" id="adminMemberList">
+		SELECT m.rnum, m.id, g.grade, m.stateIdx, m.reg_date 
+	    FROM membergrade g cross join 
+	        (SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, id, gradeidx ,stateidx , reg_date FROM generalmember) m
+	    WHERE g.gradeidx = m.gradeidx AND rnum BETWEEN #{param1} AND #{param2} order by m.rnum asc
+	</select>
+	
+	<select resultType="int" id="meberMaxCnt">
+		SELECT COUNT(id) FROM generalmember
+	</select>
+	
+	<select id="memberDetail" resultType="com.spring.main.dto.MemberDTO">
+		SELECT * FROM generalmember WHERE id=#{param1}
+	</select>
 </mapper>

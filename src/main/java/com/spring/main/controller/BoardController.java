@@ -44,24 +44,44 @@ public class BoardController {
 	}
 	@RequestMapping(value = "/homemain", method = RequestMethod.GET)
 	public String homemain() {
-		logger.info("homemain");
+		logger.info("우리집 자랑 목록 조회하기");
 		return "homemain";
-	}
+	   }
 	@RequestMapping(value = "/Freeview", method = RequestMethod.GET)
 	public String Freeview() {
 		logger.info("프리뷰.");
+		System.out.println("프리뷰~~");
 		return "Freeview";
 	}
 	@RequestMapping(value = "/Freelist", method = RequestMethod.GET)
+	/*
 	public String Freelist() {
-		logger.info("자유게시판");
-		return "Freelist";
+		  logger.info("자유게시판 조회하기");
+		  System.out.println("자유게시판 ~~ ");
+		  return "Freelist";
+		}
+	*/
+	public ModelAndView Freelist(@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum) {
+	  logger.info("자유게시판 조회하기");
+	  System.out.println("pageNum : " + pageNum);
+	  
+	  ModelAndView mav = BoardService.getBoardList(pageNum, 1);
+	  mav.setViewName("Freelist");
+	  
+	  return mav;
 	}
+	
 	@RequestMapping(value = "/helpMain", method = RequestMethod.GET)
-	public String helpmain() {
-		logger.info("helpMain");
-		return "helpMain";
-	}
+	public ModelAndView helpmain(@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum) {
+		  logger.info("질문 및 답변");
+		  System.out.println("pageNum : " + pageNum);
+		  
+		  ModelAndView mav = BoardService.getBoardList(pageNum, 4);
+		  mav.setViewName("helpMain");
+		  
+		  return mav;
+		}	
+	
 	@RequestMapping(value = "/FAQsend", method = RequestMethod.GET)
 	public String FAQsend() {
 		return "FAQsend";
@@ -145,10 +165,9 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "/boardDel/{boardIdx}")
-	public ModelAndView boardDel(@PathVariable String boardIdx, @PathVariable String brdCtgIdx, HttpSession session,RedirectAttributes rAttr) {
+	public ModelAndView boardDel(@PathVariable String boardIdx, HttpSession session,RedirectAttributes rAttr) {
 		logger.info("삭제하는글번호{}", boardIdx);
-		logger.info("삭제하는카테고리{}", brdCtgIdx);
-		return BoardService.boardDel(boardIdx,brdCtgIdx,session,rAttr);
+		return BoardService.boardDel(boardIdx,session,rAttr);
 	}
 	// 비동기로 받기 때문에 @ResponseBody
 	@RequestMapping(value = "/boardFileDelete", method = RequestMethod.GET)
@@ -156,12 +175,6 @@ public class BoardController {
 																														// 삭제
 		logger.info(fileName + " ->파일 삭제 요청");
 		return BoardService.fileDelete(fileName, session);
-	}
-	
-	@RequestMapping(value = "/recommend", method = RequestMethod.GET)
-	public @ResponseBody HashMap<String, Object> recommend(@RequestParam String boardIdx, HttpSession session) {																												
-		logger.info("{}글추천하기",boardIdx);
-		return BoardService.recommend(boardIdx, session);
 	}
 	
 	
