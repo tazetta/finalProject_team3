@@ -43,7 +43,7 @@ public interface BoardDAO {
 	//댓글 가져오기
 	ArrayList<CommentsDTO> boardCommentList(int boardIdx);
 	//댓글 작성
-	int boardCommentWrite(String comment, int boardIdx );
+	int boardCommentWrite(String comment, String boardIdx, String id );
 	//댓글삭제(상태값변경)
 	int boardCommDel(int commIdx);
 	//세부검색기능
@@ -53,7 +53,7 @@ public interface BoardDAO {
 	
 	int memberMaxCnt();
 	
-	Object homeMain(int start, int end, Date reg_date, String formcategory, int budget, int roomsize);
+	Object homeMain(int start, int end, String order, String formcategory, int budget, int roomsize);
 
 
 	

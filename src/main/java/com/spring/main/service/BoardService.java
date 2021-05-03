@@ -370,7 +370,7 @@ public class BoardService {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		logger.info("검색리스트 서비스 ");
 		
-		int allCnt = boarddao.BoardSearchList(opt, keyword); // 공동구매 검색 글 갯수
+		int allCnt = boarddao.BoardSearchList(opt, keyword); 
 		logger.info("group Purchase searchCnt:" + allCnt);
 
 		// 게시글 수 : 21개, 페이지 당 보여줄 수 : 10 =(나머지가 있는 경우 반올림해서)=> 최대 생성 가능한 페이지 : 3
@@ -417,13 +417,15 @@ public class BoardService {
 		
 		map.put("listSize",listSize);
 		map.put("list",list);
+		logger.info("map : {}" , map);
 		return map;
 	}
 
-	public HashMap<String, Object> boardCommentWrite(String comment, int boardIdx, RedirectAttributes rAttr) {
+	public HashMap<String, Object> boardCommentWrite(String comment, String boardIdx, RedirectAttributes rAttr) {
 		logger.info("댓글쓰기 서비스");
 		HashMap<String, Object> map = new HashMap<String, Object> ();
-		int result = boarddao.boardCommentWrite(comment,boardIdx);
+		String id = "sdk";
+		int result = boarddao.boardCommentWrite(comment,boardIdx,id);
 		logger.info("댓글쓰기 result: "+result);
 		msg="댓글 등록에 실패했습니다";
 		if(result>0) {
@@ -445,7 +447,7 @@ public class BoardService {
 		return map;
 	}
 //우리집 자랑 세부검색
-	public HashMap<String, Object> homeMainList(int pagePerCnt, int page, Date reg_date, String formcategory,
+	public HashMap<String, Object> homeMainList(int pagePerCnt, int page, String order, String formcategory,
 			int budget, int roomsize) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		int end = page * pagePerCnt;
@@ -455,7 +457,7 @@ public class BoardService {
 		logger.info("maxCnt : {}", maxCnt);
 		logger.info("maxPage : {}", maxpage);
 		
-		map.put("homeMainList", boarddao.homeMain(start, end, reg_date,formcategory,budget,roomsize));
+		map.put("homeMainList", boarddao.homeMain(start, end, order,formcategory,budget,roomsize));
 		map.put("maxPage", maxpage);
 		map.put("currPage", page);
 		return map;
