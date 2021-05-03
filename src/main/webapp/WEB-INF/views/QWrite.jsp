@@ -92,7 +92,7 @@ span:hover {
             </div>
            
             <a href="#" class="button" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; float: right;">취소</a>
-            
-               
+           </div>
+      </div>         
     </body>
 </html>
