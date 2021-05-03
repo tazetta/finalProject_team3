@@ -1,21 +1,18 @@
 package com.spring.main.service;
 
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.spring.main.dao.GroupDAO;
-import com.spring.main.dao.MemberDAO;
 import com.spring.main.dto.GroupDTO;
 
 public class DateInterceptor extends HandlerInterceptorAdapter {
@@ -33,7 +30,7 @@ public class DateInterceptor extends HandlerInterceptorAdapter {
 		Date utilDate = format.parse(currDate); //Date(java.util) 타입으로 변환
 			
 		System.out.println("*****************************");
-		System.out.println("util 현재시간 확인: "+utilDate);
+		System.out.println("util 오늘날짜 확인: "+utilDate);
 		ArrayList<GroupDTO> deadlineList = groupdao.deadlineChk();
 		
 		for (int i = 0; i < deadlineList.size(); i++) {

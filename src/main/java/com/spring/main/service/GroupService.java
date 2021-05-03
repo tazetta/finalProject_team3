@@ -535,4 +535,17 @@ public class GroupService {
 		return map;
 	}
 
+	public HashMap<String, Object> currUserChk(int gpIdx, int maxUser, RedirectAttributes rAttr) {
+		logger.info("현재인원 확인 서비스");
+		HashMap<String, Object> map = new HashMap<String, Object> ();
+		int currUser = groupdao.groupcurrUser(gpIdx);
+		logger.info("currUser: "+ currUser);
+		msg="";
+		if(currUser>maxUser) {
+			msg="현재신청 인원보다 적은 수 입니다";	
+		}
+		map.put("msg", msg);
+		return map;
+	}
+
 }
