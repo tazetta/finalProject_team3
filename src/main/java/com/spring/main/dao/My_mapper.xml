@@ -23,4 +23,14 @@
 	SELECT * FROM board
 </select>
 
+<select id="receiveAllCount" resultType="int">
+	SELECT COUNT()
+</select>
+
+<select id="">
+SELECT msgidx , sender , receiver , content , reg_date, rnum 
+    FROM (SELECT msgidx , sender , receiver , reg_date, content,
+    ROW_NUMBER() OVER(ORDER BY msgidx DESC) AS rnum FROM msg )
+    WHERE rnum BETWEEN #{page} AND #{pagePerCnt};
+</select>
 </mapper>

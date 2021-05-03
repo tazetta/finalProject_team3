@@ -15,11 +15,20 @@
 	SELECT BOARDIDX,SUBJECT,CONTENT,ID,REG_DATE,ROOMSIZE,BUDGET,KEYITEMS,BHIT,BLIND,BRDCTGIDX,FORMIDX,EMAIL FROM (
 	SELECT ROW_NUMBER() OVER (ORDER BY REG_DATE DESC) AS RNUM, BOARDIDX,SUBJECT,CONTENT,ID,REG_DATE,ROOMSIZE,BUDGET,KEYITEMS,BHIT,BLIND,BRDCTGIDX,FORMIDX,EMAIL
 	FROM BOARD
-	WHERE BRDCTGIDX = #{param3}
+	WHERE BRDCTGIDX = #{param3} and blind='n'
 	)
 	WHERE RNUM BETWEEN #{param1} AND #{param2}
-	
 </select>
+<!-- 우리집 자랑 목록 추천순으로 불러오기 -->
+<select id ="cntboardList" resultType="com.spring.main.dto.BoardDTO">
+SELECT BOARDIDX,SUBJECT,CONTENT,ID,REG_DATE,ROOMSIZE,BUDGET,BHIT,BRDCTGIDX,FORMIDX,CNTRECO FROM (
+	SELECT ROW_NUMBER() OVER (ORDER BY CNTRECO DESC) AS RNUM, BOARDIDX,SUBJECT,CONTENT,ID,REG_DATE,ROOMSIZE,BUDGET,KEYITEMS,BHIT,BLIND,BRDCTGIDX,FORMIDX,EMAIL,CNTRECO
+	FROM BOARD
+	WHERE BRDCTGIDX = #{param3} and blind='n'
+	)
+	WHERE RNUM BETWEEN #{param1} AND #{param2}
+</select>
+
 <!-- 세부검색 -->
 <select id="BoardSearchList"  resultType="com.spring.main.dto.BoardDTO">
 
@@ -37,12 +46,32 @@
 		WHERE rnum BETWEEN #{param1} AND  #{param2}
 	
 </select>
+<!-- 우리집 자랑 세부검색 -->
+<select resultType="com.spring.main.dto.BoardDTO" id="homeMainList">
+		SELECT  cntreco,FORMIDX,BUDGET,ROOMSIZE,ID,SUBJECT
+	    FROM (SELECT ROW_NUMBER() OVER (ORDER BY REG_DATE DESC) AS RNUM, BOARDIDX,SUBJECT,CONTENT,ID,REG_DATE,ROOMSIZE,BUDGET,KEYITEMS,BHIT,BLIND,BRDCTGIDX,FORMIDX,EMAIL, cntreco
+	    						FROM BOARD)
+	        <if test = "param3 == 0 param4 == 0 and param5 == 0 and param6 == 'none'">
+			    WHERE rnum BETWEEN #{param1} AND #{param2} order by rnum desc
+	        </if>
+	       	<if test ="param3 == 1 || param3 == 2">
+	       	 order by #{param3} desc
+	       	</if>
+	     
+	        <if test = "param4 == 1 || param4 == 2 || param4 == 3 || param4 == 4">
+	        	WHERE FORMIDX=#{param4} AND rnum BETWEEN #{param1} AND #{param2} order by FORMIDX desc
+	        </if>
+	        <if test = "param5 == 1 || param5 == 2 || param5 == 3 || param5 == 4 || param5 == 5 || param5 == 6 || param5 == 7 || param5 == 8"  >
+	        	WHERE BUDGET= #{param5} AND rnum BETWEEN #{param1} AND #{param2} order by BUDGET desc
+	        </if>
+	        <if test = "param6 != 'none'">
+	        	WHERE ROOMSIZE= #{param6} AND rnum BETWEEN #{param1} AND #{param2} order by ROOMSIZE desc
+	        </if>
+	</select>
+	
 		
 
-<!--게시글 추천수 가져오기-->	
-<select id="recFind" resultType="int">
-		select count(recidx) from recomend where boardIdx=#{boardIdx} and isrecm ='true'
-	</select>
+
 <!--게시판카테고리 -->
 <select id="boardCtg" resultType="String">
 		SELECT category FROM boardCtg WHERE brdCtgIdx=#{boardCtgIdx}
@@ -143,9 +172,9 @@
 		 SELECT COMMIDX,COMMENTS, REG_DATE, BLIND, BOARDIDX,ID,GPIDX FROM comments WHERE boardIdx =#{param1} AND blind ='n' ORDER BY COMMIDX DESC
 	</select>
 	<!--댓글 작성하기-->
-	<insert id="boardCommentWrite" parameterType="String">
-		INSERT INTO comments (COMMIDX, COMMENTS, id, BOARDIDX) 
-		VALUES (comments_seq.NEXTVAL, #{comment}, #{loginId}, #{boardIdx})
+	<insert id="boardCommentWrite">
+		INSERT INTO comments (COMMIDX, COMMENTS, BOARDIDX, id) 
+		VALUES (comments_seq.NEXTVAL, #{param1}, #{param2}, #{param3})
 	</insert>
 	<!--댓글삭제:블라인드처리-->
 	<update id="boardCommDel">

@@ -95,4 +95,15 @@ public class MyService {
 	
 	
 
+	public HashMap<String, Object> msgReceiveList(int pagePerCnt, int page2, HttpSession session) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String sessionId = (String) session.getAttribute("loginId");
+				
+		int allCnt = MyDAO.receiveAllCount();
+		
+		return null;
+	}
+
+
+
 }

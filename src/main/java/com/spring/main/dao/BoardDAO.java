@@ -1,5 +1,6 @@
 package com.spring.main.dao;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -43,14 +44,22 @@ public interface BoardDAO {
 	//댓글 가져오기
 	ArrayList<CommentsDTO> boardCommentList(int boardIdx);
 	//댓글 작성
-	int boardCommentWrite(String comment, int boardIdx );
+	int boardCommentWrite(String comment, String boardIdx, String id );
 	//댓글삭제(상태값변경)
 	int boardCommDel(int commIdx);
 	//세부검색기능
 	ArrayList<BoardDTO> BoardSearchList(String startStr, String endStr, String opt, String keyword);
 	//세부검색기능
 	int BoardSearchList(String opt, String keyword);
+
 	MyDTO pwconfirm(String loginId);
+	
+	int memberMaxCnt();
+	//집자랑 세부검색
+	Object homeMain(int start, int end, String order, String formcategory, int budget, int roomsize);
+	//추천수
+	Object CNTRECO(int start, int end, int CNTRECO);
+
 
 
 	

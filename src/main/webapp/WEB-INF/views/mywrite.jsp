@@ -93,12 +93,14 @@ th{
 				<form>
 					<table>
 					<h2>우리집 자랑 </h2>
+					<tr>
 						<td id="user" rowspan="2">
 							<div>
 							   <a href="./scrapDetail?contentId=${scrap.contentid}" target=window.open()><img src="${scrap.firstimage}" width="200px" height="200px">
 							   </a>
 							</div>
 						 </td>
+					</tr>
 						</table>
 					<table>
 						<h2>자유게시판</h2>
