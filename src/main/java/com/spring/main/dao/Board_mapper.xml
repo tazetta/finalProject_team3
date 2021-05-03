@@ -143,7 +143,7 @@
 		 SELECT COMMIDX,COMMENTS, REG_DATE, BLIND, BOARDIDX,ID,GPIDX FROM comments WHERE boardIdx =#{param1} AND blind ='n' ORDER BY COMMIDX DESC
 	</select>
 	<!--댓글 작성하기-->
-	<insert id="boardCommentWrite">
+	<insert id="boardCommentWrite" parameterType="String">
 		INSERT INTO comments (COMMIDX, COMMENTS, id, BOARDIDX) 
 		VALUES (comments_seq.NEXTVAL, #{comment}, #{loginId}, #{boardIdx})
 	</insert>

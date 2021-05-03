@@ -216,7 +216,7 @@ public class BoardService {
 		int result = boarddao.boardUpdate(dto);//성공시 dao실행
 		logger.info("결과 : {}", result);
 		//실패시 다시 카테고리에 맞는 수정으로 보내기
-			page = "redirect:/boarddetail?boardIdx=" +boardIdx;
+			page = "redirect:/boarddetail/" +boardIdx;
 			msg="글 수정 실패했습니다.";			
 		@SuppressWarnings("unchecked")//unchecked-미확인 오퍼레이션과 관련된 경고를 억제합니다.
 		HashMap<String, String> fileList = (HashMap<String, String>) session.getAttribute("fileList");
