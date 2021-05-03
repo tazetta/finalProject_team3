@@ -148,9 +148,11 @@ function maxUserChk(elem){
 			dataType:"json",
 			success:function(data){
 				console.log("현재신청인원:",data.currUser);
+				
 				if(data.currUser>elem[1]){//변경한 최대참여자수가 현재 신청인원수보다 작은 수 라면
 					$("#maxUser").val(elem[0]);  //초기값으로 설정
 					alert("현재신청한 인원보다 작게 설정할 수 없습니다");
+					
 				}else if(data.currUser==elem[0]){ //변경한 최대참여자수가 현재신청인원수와 같다면
 					 if(confirm("현재신청인원수와 일치합니다. 마감하시겠습니끼?")){
 						 //마감을 원한다면
@@ -231,14 +233,14 @@ if(selected==2){ //인원부족마감에서
 });
 }
 
-/*마감인 상태에서 진행중으로 변경시 최대인원 수를 초기값보다 크게 설정하도록 강제*/
+/*마감인 상태에서 진행중으로 변경시 최대참여자 수를 초기값보다 크게 설정하도록 강제*/
 if(selected==3){
 	console.log("마감상태임");
 	$("#progIdx").change(function(){ 
 		if($("#progIdx").val() ==1){ //진행중으로 변경시
 			var maxUser = $("#maxUser").val();
 			console.log("maxUser:"+maxUser);
-			alert("최대참여자수는 기존값보다 작거나 같을 수 없습니다.");
+			alert("최대참여자수는 기존값보다 커야합니다.");
 			maxUser =+ parseInt(maxUser)+1; 
 			$("#maxUser").val(maxUser);//최대참여자수+1한 값으로 강제변환
 			

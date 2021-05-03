@@ -90,7 +90,7 @@ input[type='text'] {
 			
 				$("#editable>a").find("b").remove(); //a태그안 b태그 삭제
 				$("#editable>a").removeAttr("onclick"); //del(this) 무효화
-				 $("form").submit(); 
+				$("form").submit(); 
 		}		
 	});
 	
