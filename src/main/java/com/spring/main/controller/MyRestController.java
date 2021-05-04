@@ -35,5 +35,10 @@ public class MyRestController {
 		return service.msgReceiveList(pagePerCnt,page,session);	
 		
 	}
-	
+	@RequestMapping(value = "/msgSenderList/{pagePerCnt}/{page}", method = RequestMethod.GET)
+	public HashMap<String, Object> msgSenderList(@PathVariable int page , @PathVariable int pagePerCnt ,HttpSession session) {
+		logger.info("보낸쪽지함 리스트");
+		return service.msgSenderList(pagePerCnt,page,session);	
+		
+	}
 }

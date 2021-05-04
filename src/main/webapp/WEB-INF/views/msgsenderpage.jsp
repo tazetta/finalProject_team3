@@ -46,7 +46,7 @@ var showPage = 1;
  
  function listCall(reqPage,reqPagePerNum){
 	 
-	 var reqUrl ='./msgReceiveList/' + reqPagePerNum + "/" + reqPage;
+	 var reqUrl ='./msgSenderList/' + reqPagePerNum + "/" + reqPage;
 	 $.ajax({
 		 url:reqUrl
 		 ,type:'GET'

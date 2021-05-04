@@ -184,5 +184,14 @@ public class MyController {
 		logger.info("스크랩북 페이지");
 		return "myscrappage";
 	}
-	
+	@RequestMapping(value = "/msgsenderpage", method = RequestMethod.GET)
+	public String msgsenderpage() {
+		logger.info("보낸 쪽지 전체페이지");
+		return "msgsenderpage";
+	}
+	@RequestMapping(value = "/msgAllPage", method = RequestMethod.GET)
+	public String msgAllPage() {
+		logger.info("보낸 쪽지 전체페이지");
+		return "msgAllPage";
+	}
 }

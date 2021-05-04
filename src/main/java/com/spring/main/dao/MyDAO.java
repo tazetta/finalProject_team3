@@ -32,7 +32,9 @@ public interface MyDAO {
 	
 	ArrayList<MsgDTO>  receiveList(int start, int end, String sessionId);
 	
+	int senderAllCount(String sessionId);
 	
+	ArrayList<MsgDTO>  senderList(int start, int end, String sessionId);
 
 	int myupdate(MyDTO dto);
 

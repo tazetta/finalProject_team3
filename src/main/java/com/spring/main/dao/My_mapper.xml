@@ -34,22 +34,27 @@
 	SELECT * FROM board
 </select>
 
-<select id="receiveAllCount" resultType="int">
-	SELECT COUNT()
-</select>
 
 <select id="receiverAllCount" resultType="int" parameterType="String">
-	SELECT COUNT(msgidx) FROM msg WHERE receiver = #{param1}
+	SELECT COUNT(msgidx) FROM msg WHERE receiver = #{param1} AND receivedel = 'n'
 </select>
 
 <select id="receiveList" resultType="com.spring.main.dto.MsgDTO">
 SELECT msgidx , sender , receiver , content , reg_date, rnum 
     FROM (SELECT msgidx , sender , receiver , reg_date, content,
-    ROW_NUMBER() OVER(ORDER BY msgidx DESC)  AS rnum FROM msg  WHERE receiver=#{param3})
+    ROW_NUMBER() OVER(ORDER BY msgidx DESC)  AS rnum FROM msg  WHERE receiver=#{param3} AND receivedel='n')
     WHERE rnum BETWEEN #{param1} AND #{param2}
 </select>
 
-<select id="all" resultType="int">
-	SELECT COUNT(msgidx) FROM msg
+<select id="senderAllCount" resultType="int" parameterType="String">
+	SELECT COUNT(msgidx) FROM msg WHERE sender = #{param1} AND senddel = 'n'
 </select>
+
+<select id="senderList" resultType="com.spring.main.dto.MsgDTO">
+SELECT msgidx , sender , receiver , content , reg_date, rnum 
+    FROM (SELECT msgidx , sender , receiver , reg_date, content,
+    ROW_NUMBER() OVER(ORDER BY msgidx DESC)  AS rnum FROM msg  WHERE sender=#{param3} AND senddel='n')
+    WHERE rnum BETWEEN #{param1} AND #{param2}
+</select>
+
 </mapper>

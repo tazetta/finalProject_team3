@@ -36,6 +36,37 @@
 		</tr>
 			
         </table>
+        
+    </div>
+    
+    
+    
+     <div>
+        <table>
+        <thead>
+                <tr>
+                    <th>작성자</th>
+                    <th>내용</th>
+                    <th>날짜</th>
+                </tr>
+        </thead>
+		<tbody id="list2">
+             
+		</tbody>
+			<tr>
+			<td id="paging" colspan="6">
+				<!-- 플러그인 사용 -->
+				<div class="container">
+					<nav aria-label="page navigation" style="text-align: center">
+						<ul class="pagination" id="pagination"></ul>
+					</nav>
+				</div>
+				<!--// 플러그인 사용 -->
+			</td>
+		</tr>
+			
+        </table>
+        
     </div>
 		
 </body>
@@ -43,8 +74,8 @@
 var showPage = 1;
  var pagePerNum = 5;
  listCall(showPage,pagePerNum);
- 
- function listCall(reqPage,reqPagePerNum){
+ listCall2(showPage,pagePerNum);
+function listCall(reqPage,reqPagePerNum){
 	 
 	 var reqUrl ='./msgReceiveList/' + reqPagePerNum + "/" + reqPage;
 	 $.ajax({
@@ -75,6 +106,38 @@ var showPage = 1;
 		 }
 	 });
  }
+ function listCall2(reqPage,reqPagePerNum){
+	 
+	 var reqUrl ='./msgSenderList/' + reqPagePerNum + "/" + reqPage;
+	 $.ajax({
+		 url:reqUrl
+		 ,type:'GET'
+		 ,data:{}
+		 ,dataType:'JSON'
+		 ,success:function(data){
+			 console.log(data);
+			 showPage = data.currPage;
+			 console.log(showPage);
+			 console.log(data.list);
+			 //listPrint(data.list);
+			 listPrint2(data.list);
+				$("#pagination").twbsPagination({
+					startPage:data.currPage,//시작 페이지
+					totalPages:data.range,//생성 가능 최대 페이지
+					visiblePages:5,//5개씩 보여 주겠다.(1~5)
+					onPageClick:function(evt,page){//각 페이지를 눌렀을 경우
+						console.log(evt);
+						console.log(page);
+						listCall(page,pagePerNum);
+					}
+				});
+		 },
+		 error:function(error){
+				console.log(error);
+		 }
+	 });
+ }
+ 
 	 
 	 function listPrint(list){
 		 var content = "";
@@ -90,6 +153,19 @@ var showPage = 1;
 		$("#list").empty();
 		$("#list").append(content);
 	}
-	 
+	 function listPrint2(list){
+		 var content = "";
+		 for(var i = 0; i<list.length; i++){
+			content +="<tr>"
+			content +="<td>"+list[i].sender+"</td>"
+			content +="<td><a>"+list[i].content+"</a></td>"
+			var date = new Date(list[i].reg_date);
+			content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"		
+			content +="<td><button id='"+list[i].msgIdx+"'>삭제</button></td>"
+			content +="</tr>"
+		}
+		$("#list2").empty();
+		$("#list2").append(content);
+	}
 </script>
 </html>
