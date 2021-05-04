@@ -195,6 +195,10 @@
 	<delete id="groupCommDec">
 		DELETE  FROM recommend WHERE commIdx=#{param1} AND id=#{param2}
 	</delete>
+	
+	<select id="myRecList" resultType="group">
+		 SELECT commIdx FROM recommend WHERE id=#{param1}
+	</select>
 
 	
 </mapper>

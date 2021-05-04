@@ -70,6 +70,8 @@ public interface GroupDAO {
 
 	int groupCommDec(int commIdx, String loginId);
 
+	ArrayList<GroupDTO> myRecList(String loginId);
+
 
 
 	
