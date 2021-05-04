@@ -35,7 +35,7 @@ public class GroupService {
 
 	@Autowired
 	GroupDAO groupdao;
-	
+
 	@Autowired
 	MemberDAO memberdao;
 
@@ -64,7 +64,7 @@ public class GroupService {
 			e.printStackTrace();
 		}
 		String transDate = dfm.format(utilDate);
-		Date deadline = Date.valueOf(transDate); //str -> sql DATE로 변환
+		Date deadline = Date.valueOf(transDate); // str -> sql DATE로 변환
 
 		groupDTO.setGpCtgIdx(groupCtg);
 		groupDTO.setId(params.get("id"));
@@ -96,8 +96,7 @@ public class GroupService {
 				}
 			}
 
-			page = "redirect:/groupDetail?gpIdx=" + groupDTO.getGpIdx()+"&loginId="+loginId;
-			
+			page = "redirect:/groupDetail?gpIdx=" + groupDTO.getGpIdx() + "&loginId=" + loginId;
 
 		} else { // 글쓰기 실패시
 			for (String newFileName : fileList.keySet()) {
@@ -125,37 +124,37 @@ public class GroupService {
 			dto.setProgress(progress); // 진행상황 담기
 
 			logger.info("progress:" + progress);
-			
-			/*회원등급 가져오기*/
+
+			/* 회원등급 가져오기 */
 			MemberDTO memberDTO = memberdao.gradeChk(dto.getId());
-			logger.info("gradeIdx:"+memberDTO.getGradeIdx());
-			String grade = memberdao.getGrade(memberDTO.getGradeIdx()); //회원등급명 가져오기
-			logger.info("grade:"+grade);
-			
+			logger.info("gradeIdx:" + memberDTO.getGradeIdx());
+			String grade = memberdao.getGrade(memberDTO.getGradeIdx()); // 회원등급명 가져오기
+			logger.info("grade:" + grade);
+
 			mav.addObject("dto", dto);
-			mav.addObject("writerGrade",grade);
+			mav.addObject("writerGrade", grade);
 
 			groupdao.groupUpHit(gpIdx); // 조회수 증가
-			
-			String state ="";
-			String applyId = groupdao.applyCheck(gpIdx, loginId); //신청유무 조회
-			logger.info("신청 아이디:"+ applyId);
 
-			if(applyId!=null) {
-				state ="true"; //신청함
-				logger.info("신청상태:"+state);
-				
-			}else {
-				state="false"; //신청안함
-				logger.info("신청상태:"+state);
+			String state = "";
+			String applyId = groupdao.applyCheck(gpIdx, loginId); // 신청유무 조회
+			logger.info("신청 아이디:" + applyId);
+
+			if (applyId != null) {
+				state = "true"; // 신청함
+				logger.info("신청상태:" + state);
+
+			} else {
+				state = "false"; // 신청안함
+				logger.info("신청상태:" + state);
 			}
-			mav.addObject("state",state);
+
+			mav.addObject("state", state);
 			page = "groupDetail";
 		}
 		mav.setViewName(page);
 		return mav;
 	}
-	
 
 	public ModelAndView fileUpload(MultipartFile file, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
@@ -257,14 +256,12 @@ public class GroupService {
 
 		ArrayList<GroupDTO> groupList = groupdao.groupList(start, end, opt); // 리스트 담기
 		/*
-		GroupDTO dto = null;
-		for (int i = 0; i < groupList.size(); i++) {
-
-			  int gpCtgIdx = groupList.get(i).getGpCtgIdx(); // list에서 카테고리 idx 가져오기 String
-			  String groupCtg = groupdao.groupCtg(gpCtgIdx); // 카테고리명 추출
-			  System.out.println("카테고리명:"+ groupCtg); dto.setCategory(groupCtg);
-		}
-		*/
+		 * GroupDTO dto = null; for (int i = 0; i < groupList.size(); i++) {
+		 * 
+		 * int gpCtgIdx = groupList.get(i).getGpCtgIdx(); // list에서 카테고리 idx 가져오기 String
+		 * String groupCtg = groupdao.groupCtg(gpCtgIdx); // 카테고리명 추출
+		 * System.out.println("카테고리명:"+ groupCtg); dto.setCategory(groupCtg); }
+		 */
 
 		logger.info("groupList size: " + groupList.size());
 
@@ -303,15 +300,13 @@ public class GroupService {
 		return mav;
 	}
 
-
-
 	public ModelAndView updateForm(int gpIdx, HttpSession session) {
 		String loginId = (String) session.getAttribute("loginId");
 		ModelAndView mav = new ModelAndView();
 		logger.info("수정할 글 form 서비스");
 		GroupDTO dto = groupdao.groupDetail(gpIdx);
 		logger.info("groupDTO: " + dto);
-		page = "redirect:/groupDetail?gpIdx=" + gpIdx+"&loginId="+loginId;
+		page = "redirect:/groupDetail?gpIdx=" + gpIdx + "&loginId=" + loginId;
 		if (dto != null) {
 			String category = groupdao.groupCtg(dto.getGpCtgIdx()); // 카테고리 가져오기
 			dto.setCategory(category); // 카테고리명 담기
@@ -362,7 +357,7 @@ public class GroupService {
 		groupDTO.setProgIdx(progIdx); // 진행상황
 		logger.info("groupdto:" + groupDTO);
 
-		page = "redirect:/groupDetail?gpIdx=" + groupDTO.getGpIdx()+"&loginId="+loginId;
+		page = "redirect:/groupDetail?gpIdx=" + groupDTO.getGpIdx() + "&loginId=" + loginId;
 		msg = "글 수정에 실패했습니다";
 		int result = groupdao.groupUpdate(groupDTO); // 게시글 업데이트
 		logger.info("글 업데이트 결과:" + result);
@@ -413,7 +408,7 @@ public class GroupService {
 			if (applyResult > 0 && currResult > 0) {
 				msg = "신청취소 되었습니다";
 				state = "false";
-				logger.info("state:"+state);
+				logger.info("state:" + state);
 			}
 
 		} else {
@@ -425,12 +420,11 @@ public class GroupService {
 			if (applyResult > 0 && currResult > 0) {
 				msg = "신청되었습니다";
 				state = "true";
-				logger.info("state:"+state);
+				logger.info("state:" + state);
 			}
-
 		}
 
-		page = "redirect:/groupDetail?gpIdx=" + gpIdx+"&loginId="+applyId;
+		page = "redirect:/groupDetail?gpIdx=" + gpIdx + "&loginId=" + applyId;
 
 		rAttr.addFlashAttribute("msg", msg);
 		rAttr.addFlashAttribute("state", state);
@@ -478,32 +472,32 @@ public class GroupService {
 	}
 
 	public HashMap<String, Object> applyList(int gpIdx, RedirectAttributes rAttr, HttpSession session) {
-		HashMap<String, Object> map = new HashMap<String, Object> ();
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		ArrayList<GroupDTO> list = groupdao.applyList(gpIdx);
-		logger.info("신청자  수:"+list.size());
+		logger.info("신청자  수:" + list.size());
 		map.put("list", list);
 		return map;
 	}
 
 	public HashMap<String, Object> progUpdate(int gpIdx, int progIdx, RedirectAttributes rAttr, HttpSession session) {
-			logger.info("진행상황 실시간 마감 업데이트 서비스");
+		logger.info("진행상황 실시간 마감 업데이트 서비스");
 
-			 HashMap<String, Object> map = new HashMap<String, Object> ();
-			int  updateProg = 3;
-			int result = groupdao.progUpdate(gpIdx,updateProg);
-			logger.info("진행상황 업데이트 result:"+result);
-			map.put("result", result);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int updateProg = 3;
+		int result = groupdao.progUpdate(gpIdx, updateProg);
+		logger.info("진행상황 업데이트 result:" + result);
+		map.put("result", result);
 		return map;
 	}
 
 	public HashMap<String, Object> groupCommentWrite(HashMap<String, String> params, RedirectAttributes rAttr) {
 		logger.info("공동구매 댓글쓰기 서비스");
-		HashMap<String, Object> map = new HashMap<String, Object> ();
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		int result = groupdao.groupCommentWrite(params);
-		logger.info("댓글쓰기 result: "+result);
-		msg="댓글 등록에 실패했습니다";
-		if(result>0) {
-			msg="댓글이 등록되었습니다";
+		logger.info("댓글쓰기 result: " + result);
+		msg = "댓글 등록에 실패했습니다";
+		if (result > 0) {
+			msg = "댓글이 등록되었습니다";
 		}
 
 		map.put("msg", msg);
@@ -512,36 +506,81 @@ public class GroupService {
 
 	public HashMap<String, Object> groupCommentList(int gpIdx, RedirectAttributes rAttr) {
 		logger.info("공동구매 댓글 리스트 서비스");
-		HashMap<String, Object> map = new HashMap<String, Object> ();
+		HashMap<String, Object> map = new HashMap<String, Object>();
 
 		ArrayList<CommentsDTO> list = groupdao.groupCommentList(gpIdx);
 		int listSize = list.size();
-		logger.info("listSize:"+listSize);
-		
-		map.put("listSize",listSize);
-		map.put("list",list);
+		logger.info("listSize:" + listSize);
+
+		map.put("listSize", listSize);
+		map.put("list", list);
 		return map;
 	}
 
 	public HashMap<String, Object> groupCommDel(int commIdx, RedirectAttributes rAttr) {
 		logger.info("공동구매 댓글 삭제 서비스");
-		HashMap<String, Object> map = new HashMap<String, Object> ();
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		int result = groupdao.groupCommDel(commIdx);
-		msg="댓글 삭제에 실패했습니다";
-		if(result>0) {
-			msg="댓글이 삭제 되었습니다";
+		msg = "댓글 삭제에 실패했습니다";
+		if (result > 0) {
+			msg = "댓글이 삭제 되었습니다";
 		}
-		map.put("msg",msg);
+		map.put("msg", msg);
 		return map;
 	}
 
 	public HashMap<String, Object> currUserChk(int gpIdx, int maxUser, RedirectAttributes rAttr) {
 		logger.info("현재인원 확인 서비스");
-		HashMap<String, Object> map = new HashMap<String, Object> ();
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		int currUser = groupdao.groupcurrUser(gpIdx);
-		logger.info("currUser: "+ currUser);
-		
+		logger.info("currUser: " + currUser);
+
 		map.put("currUser", currUser);
+		return map;
+	}
+
+	public HashMap<String, Object> groupCommRec(int commIdx, RedirectAttributes rAttr, HttpSession session) {
+		logger.info("댓글추천 서비스");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String loginId = (String) session.getAttribute("loginId");
+
+		String commRecChk = groupdao.commRecChk(commIdx, loginId);
+		logger.info("공동구매 댓글 추천 여부:" + commRecChk);
+
+		String recResult = "";
+		if (commRecChk != null) {
+			logger.info("추천취소하기");
+			int result = groupdao.groupCommDec(commIdx, loginId);
+			logger.info("result:" + result);
+			recResult = "false";
+			msg = "추천취소되었습니다";
+		} else {
+			logger.info("추천하기");
+			int result = groupdao.groupCommRec(commIdx, loginId);
+			logger.info("result:" + result);
+			recResult = "true";
+			msg = "추천되었습니다";
+		}
+
+		map.put("recResult", recResult);
+		map.put("msg", msg);
+		return map;
+	}
+
+	/* 내가 추천한 댓글 가져오기 */
+
+	public HashMap<String, Object> recCommList(RedirectAttributes rAttr, HttpSession session) {
+		logger.info("내가 추천한 댓글리스트 서비스");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String loginId = (String) session.getAttribute("loginId");
+		ArrayList<GroupDTO> recCommList = groupdao.myRecList(loginId);
+		logger.info("recCommListSize:" + recCommList.size());
+		
+		for (int i = 0; i < recCommList.size(); i++) {
+			logger.info("recCommIdx: ",recCommList.get(i));
+		};
+		
+		map.put("recCommList", recCommList);
 		return map;
 	}
 

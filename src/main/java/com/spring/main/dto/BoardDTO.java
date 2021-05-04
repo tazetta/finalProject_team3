@@ -25,6 +25,7 @@ public class BoardDTO {
 	private String email;
 	private String isrecom;
 	private int CNTRECO;
+
 	public String getIsrecom() {
 		return isrecom;
 	}

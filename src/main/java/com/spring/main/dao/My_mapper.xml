@@ -16,6 +16,17 @@
 	SELECT * FROM generalmember WHERE id = #{loginId}
 </select>
 
+<update id="myupdate"  parameterType="String">
+		UPDATE generalmember SET name=#{name}
+			, phone=#{phone}, email=#{email} WHERE id = #{id}
+	</update>
+	
+	
+	
+	<update id="resetpw"  parameterType="String">
+		UPDATE generalmember SET pw=#{newPw} WHERE id = #{loginId}
+	</update>
+
  
 
 
@@ -27,10 +38,18 @@
 	SELECT COUNT()
 </select>
 
-<select id="">
+<select id="receiverAllCount" resultType="int" parameterType="String">
+	SELECT COUNT(msgidx) FROM msg WHERE receiver = #{param1}
+</select>
+
+<select id="receiveList" resultType="com.spring.main.dto.MsgDTO">
 SELECT msgidx , sender , receiver , content , reg_date, rnum 
     FROM (SELECT msgidx , sender , receiver , reg_date, content,
-    ROW_NUMBER() OVER(ORDER BY msgidx DESC) AS rnum FROM msg )
-    WHERE rnum BETWEEN #{page} AND #{pagePerCnt};
+    ROW_NUMBER() OVER(ORDER BY msgidx DESC)  AS rnum FROM msg  WHERE receiver=#{param3})
+    WHERE rnum BETWEEN #{param1} AND #{param2}
+</select>
+
+<select id="all" resultType="int">
+	SELECT COUNT(msgidx) FROM msg
 </select>
 </mapper>

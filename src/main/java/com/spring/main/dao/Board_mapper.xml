@@ -5,157 +5,188 @@
 >
 
 <mapper namespace="com.spring.main.dao.BoardDAO">
-<!--글상세보기-->
-<select id="Boarddetail" resultType="board">
-	 SELECT BOARDIDX,SUBJECT,CONTENT,ID,REG_DATE,ROOMSIZE,BUDGET,KEYITEMS,BHIT,BLIND,BRDCTGIDX,FORMIDX,EMAIL FROM BOARD WHERE BOARDIDX=#{boardIdx}
+	<!--글상세보기 -->
+	<select id="Boarddetail" resultType="board">
+		SELECT
+		BOARDIDX,SUBJECT,CONTENT,ID,REG_DATE,ROOMSIZE,BUDGET,KEYITEMS,BHIT,BLIND,BRDCTGIDX,FORMIDX,EMAIL,CNTRECO
+		FROM BOARD WHERE BOARDIDX=#{boardIdx}
 	</select>
-	
-<!-- 글 목록 최신순으로 불러오기 -->
-<select id="getBoardList" resultType="board">
-	SELECT BOARDIDX,SUBJECT,CONTENT,ID,REG_DATE,ROOMSIZE,BUDGET,KEYITEMS,BHIT,BLIND,BRDCTGIDX,FORMIDX,EMAIL FROM (
-	SELECT ROW_NUMBER() OVER (ORDER BY REG_DATE DESC) AS RNUM, BOARDIDX,SUBJECT,CONTENT,ID,REG_DATE,ROOMSIZE,BUDGET,KEYITEMS,BHIT,BLIND,BRDCTGIDX,FORMIDX,EMAIL
-	FROM BOARD
-	WHERE BRDCTGIDX = #{param3} and blind='n'
-	)
-	WHERE RNUM BETWEEN #{param1} AND #{param2}
-</select>
-<!-- 우리집 자랑 목록 추천순으로 불러오기 -->
-<select id ="cntboardList" resultType="com.spring.main.dto.BoardDTO">
-SELECT BOARDIDX,SUBJECT,CONTENT,ID,REG_DATE,ROOMSIZE,BUDGET,BHIT,BRDCTGIDX,FORMIDX,CNTRECO FROM (
-	SELECT ROW_NUMBER() OVER (ORDER BY CNTRECO DESC) AS RNUM, BOARDIDX,SUBJECT,CONTENT,ID,REG_DATE,ROOMSIZE,BUDGET,KEYITEMS,BHIT,BLIND,BRDCTGIDX,FORMIDX,EMAIL,CNTRECO
-	FROM BOARD
-	WHERE BRDCTGIDX = #{param3} and blind='n'
-	)
-	WHERE RNUM BETWEEN #{param1} AND #{param2}
-</select>
 
-<!-- 세부검색 -->
-<select id="BoardSearchList"  resultType="com.spring.main.dto.BoardDTO">
+	<!-- 글 목록 최신순으로 불러오기 -->
+	<select id="getBoardList" resultType="board">
+		SELECT
+		BOARDIDX,SUBJECT,CONTENT,ID,REG_DATE,ROOMSIZE,BUDGET,KEYITEMS,BHIT,BLIND,BRDCTGIDX,FORMIDX,EMAIL
+		FROM (
+		SELECT ROW_NUMBER() OVER (ORDER BY REG_DATE DESC) AS RNUM,
+		BOARDIDX,SUBJECT,CONTENT,ID,REG_DATE,ROOMSIZE,BUDGET,KEYITEMS,BHIT,BLIND,BRDCTGIDX,FORMIDX,EMAIL
+		FROM BOARD
+		WHERE BRDCTGIDX = #{param3} and blind='n'
+		)
+		WHERE RNUM BETWEEN #{param1} AND #{param2}
+	</select>
+	<!-- 우리집 자랑 목록 추천순으로 불러오기 -->
+	<select id="cntboardList"
+		resultType="com.spring.main.dto.BoardDTO">
+		SELECT
+		BOARDIDX,SUBJECT,CONTENT,ID,REG_DATE,ROOMSIZE,BUDGET,BHIT,BRDCTGIDX,FORMIDX,CNTRECO
+		FROM (
+		SELECT ROW_NUMBER() OVER (ORDER BY CNTRECO DESC) AS RNUM,
+		BOARDIDX,SUBJECT,CONTENT,ID,REG_DATE,ROOMSIZE,BUDGET,KEYITEMS,BHIT,BLIND,BRDCTGIDX,FORMIDX,EMAIL,CNTRECO
+		FROM BOARD
+		WHERE BRDCTGIDX = #{param3} and blind='n'
+		)
+		WHERE RNUM BETWEEN #{param1} AND #{param2}
+	</select>
 
-		
+	<!-- 세부검색 -->
+	<select id="BoardSearchList"
+		resultType="com.spring.main.dto.BoardDTO">
+
+
 		SELECT BOARDIDX,SUBJECT,CONTENT,ID,REG_DATE,BHIT
-		FROM (SELECT ROW_NUMBER() OVER (ORDER BY REG_DATE DESC) AS RNUM, BOARDIDX,SUBJECT,CONTENT,ID,REG_DATE,ROOMSIZE,BUDGET,KEYITEMS,BHIT,BLIND,BRDCTGIDX,FORMIDX,EMAIL
+		FROM (SELECT
+		ROW_NUMBER() OVER (ORDER BY REG_DATE DESC) AS RNUM,
+		BOARDIDX,SUBJECT,CONTENT,ID,REG_DATE,ROOMSIZE,BUDGET,KEYITEMS,BHIT,BLIND,BRDCTGIDX,FORMIDX,EMAIL
 		FROM BOARD
 
-			<if test="param3.equals('all') and !param4.equals('')"> AND  subject LIKE '%'||#{param4}||'%' OR content LIKE '%'||#{param4}||'%' </if>
-			<if test="param3.equals('subject') and !param4.equals('')"> AND subject LIKE '%'||#{param4}||'%' </if>
-			<if test="param3.equals('content') and !param4.equals('')">AND content LIKE '%'||#{param4}||'%' </if>
-			<if test="param3.equals('id') and !param4.equals('')">AND  id LIKE '%'||#{param4}||'%' </if>
+		<if test="param3.equals('all') and !param4.equals('')"> AND subject LIKE '%'||#{param4}||'%' OR content LIKE
+			'%'||#{param4}||'%' </if>
+		<if test="param3.equals('subject') and !param4.equals('')"> AND subject LIKE '%'||#{param4}||'%' </if>
+		<if test="param3.equals('content') and !param4.equals('')">AND content LIKE '%'||#{param4}||'%' </if>
+		<if test="param3.equals('id') and !param4.equals('')">AND id LIKE '%'||#{param4}||'%' </if>
 		)
 
-		WHERE rnum BETWEEN #{param1} AND  #{param2}
-	
-</select>
-<!-- 우리집 자랑 세부검색 -->
-<select resultType="com.spring.main.dto.BoardDTO" id="homeMainList">
-		SELECT  cntreco,FORMIDX,BUDGET,ROOMSIZE,ID,SUBJECT
-	    FROM (SELECT ROW_NUMBER() OVER (ORDER BY REG_DATE DESC) AS RNUM, BOARDIDX,SUBJECT,CONTENT,ID,REG_DATE,ROOMSIZE,BUDGET,KEYITEMS,BHIT,BLIND,BRDCTGIDX,FORMIDX,EMAIL, cntreco
-	    						FROM BOARD)
-	        <if test = "param3 == 0 param4 == 0 and param5 == 0 and param6 == 'none'">
-			    WHERE rnum BETWEEN #{param1} AND #{param2} order by rnum desc
-	        </if>
-	       	<if test ="param3 == 1 || param3 == 2">
-	       	 order by #{param3} desc
-	       	</if>
-	     
-	        <if test = "param4 == 1 || param4 == 2 || param4 == 3 || param4 == 4">
-	        	WHERE FORMIDX=#{param4} AND rnum BETWEEN #{param1} AND #{param2} order by  FORMIDX desc
-	        </if>
-	        <if test = "param5 == 1 || param5 == 2 || param5 == 3 || param5 == 4 || param5 == 5 || param5 == 6 || param5 == 7 || param5 == 8"  >
-	        	WHERE BUDGET= #{param5} AND rnum BETWEEN #{param1} AND #{param2} order by BUDGET desc
-	        </if>
-	        <if test = "param6 != 'none'">
-	        	WHERE ROOMSIZE= #{param6} AND rnum BETWEEN #{param1} AND #{param2} order by ROOMSIZE desc
-	        </if>
+		WHERE rnum BETWEEN #{param1} AND #{param2}
+
 	</select>
-	
-		
+	<!-- 우리집 자랑 세부검색 -->
+	<select resultType="com.spring.main.dto.BoardDTO"
+		id="homeMainList">
+		SELECT cntreco,FORMIDX,BUDGET,ROOMSIZE,ID,SUBJECT
+		FROM (SELECT ROW_NUMBER() OVER (ORDER BY REG_DATE DESC) AS RNUM,
+		BOARDIDX,SUBJECT,CONTENT,ID,REG_DATE,ROOMSIZE,BUDGET,KEYITEMS,BHIT,BLIND,BRDCTGIDX,FORMIDX,EMAIL,
+		cntreco
+		FROM BOARD)
+		<if
+			test="param3 == 0 param4 == 0 and param5 == 0 and param6 == 'none'">
+			WHERE rnum BETWEEN #{param1} AND #{param2} order by rnum desc
+		</if>
+		<if test="param3 == 1 || param3 == 2">
+			order by #{param3} desc
+		</if>
+
+		<if test="param4 == 1 || param4 == 2 || param4 == 3 || param4 == 4">
+			WHERE FORMIDX=#{param4} AND rnum BETWEEN #{param1} AND #{param2} order by
+			FORMIDX desc
+		</if>
+		<if
+			test="param5 == 1 || param5 == 2 || param5 == 3 || param5 == 4 || param5 == 5 || param5 == 6 || param5 == 7 || param5 == 8">
+			WHERE BUDGET= #{param5} AND rnum BETWEEN #{param1} AND #{param2}
+			order by BUDGET desc
+		</if>
+		<if test="param6 != 'none'">
+			WHERE ROOMSIZE= #{param6} AND rnum BETWEEN #{param1} AND #{param2} order
+			by ROOMSIZE desc
+		</if>
+	</select>
 
 
-<!--게시판카테고리 -->
-<select id="boardCtg" resultType="String">
-		SELECT category FROM boardCtg WHERE brdCtgIdx=#{boardCtgIdx}
+
+
+	<!--게시판카테고리 -->
+	<select id="boardCtg" resultType="String">
+		SELECT category FROM boardCtg
+		WHERE brdCtgIdx=#{boardCtgIdx}
 	</select>
-<!--주거형태카테고리-->
-<select id="formCtg" resultType="String">
-		SELECT CATEGORY FROM FORM WHERE formIdx=#{formIdx}
+	<!--주거형태카테고리 -->
+	<select id="formCtg" resultType="String">
+		SELECT CATEGORY FROM FORM WHERE
+		formIdx=#{formIdx}
 	</select>
 	<!-- 조회수 증가 -->
 	<update id="boardUpHit">
-		UPDATE board SET bHit=bHit+1 WHERE boardIdx=#{boardIdx}
+		UPDATE board SET bHit=bHit+1 WHERE
+		boardIdx=#{boardIdx}
 	</update>
-	<!--글작성하기-->
-	<insert id="boardWrite" 
-		useGeneratedKeys="true"
-		keyProperty="boardIdx"
-		keyColumn="boardIdx"
-		parameterType="board">
+	<!--글작성하기 -->
+	<insert id="boardWrite" useGeneratedKeys="true"
+		keyProperty="boardIdx" keyColumn="boardIdx" parameterType="board">
 		<if test="brdctgidx==1">
-		INSERT INTO board(BOARDIDX, SUBJECT, CONTENT, ID,BRDCTGIDX) 
-		VALUES
-		(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{brdctgidx})
+			INSERT INTO board(BOARDIDX, SUBJECT, CONTENT, ID,BRDCTGIDX)
+			VALUES
+			(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{brdctgidx})
 		</if>
 		<if test="brdctgidx==2">
-		INSERT INTO board(BOARDIDX, SUBJECT, CONTENT, ID,BRDCTGIDX,FORMIDX,ROOMSIZE,BUDGET,KEYITEMS) 
-		VALUES
-		(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{brdctgidx},#{formIdx},#{roomSize},#{budget},#{keyItems})
+			INSERT INTO board(BOARDIDX, SUBJECT, CONTENT,
+			ID,BRDCTGIDX,FORMIDX,ROOMSIZE,BUDGET,KEYITEMS)
+			VALUES
+			(board_seq.NEXTVAL, #{subject}, #{content},
+			#{id},#{brdctgidx},#{formIdx},#{roomSize},#{budget},#{keyItems})
 		</if>
 		<if test="brdctgidx==3">
-		INSERT INTO board(BOARDIDX, SUBJECT, CONTENT, ID,BRDCTGIDX) 
-		VALUES
-		(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{brdctgidx})
+			INSERT INTO board(BOARDIDX, SUBJECT, CONTENT, ID,BRDCTGIDX)
+			VALUES
+			(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{brdctgidx})
 		</if>
 		<if test="brdctgidx==4">
-		INSERT INTO board(BOARDIDX, SUBJECT, CONTENT, ID,BRDCTGIDX) 
-		VALUES
-		(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{brdctgidx})
+			INSERT INTO board(BOARDIDX, SUBJECT, CONTENT, ID,BRDCTGIDX)
+			VALUES
+			(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{brdctgidx})
 		</if>
 		<if test="brdctgidx==5">
-		INSERT INTO board(BOARDIDX, SUBJECT, CONTENT, ID,BRDCTGIDX,EMAIL) 
-		VALUES
-		(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{brdctgidx},#{email})
+			INSERT INTO board(BOARDIDX, SUBJECT, CONTENT, ID,BRDCTGIDX,EMAIL)
+			VALUES
+			(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{brdctgidx},#{email})
 		</if>
-		
+
 	</insert>
-	<!--글작성파일추가-->
+	<!--글작성파일추가 -->
 	<insert id="boardWriteFile">
-		INSERT INTO photos (PHOTOIDX, NEWFILENAME, ORIFILENAME, BOARDIDX) 
+		INSERT INTO photos (PHOTOIDX, NEWFILENAME,
+		ORIFILENAME, BOARDIDX)
 		VALUES (photos_seq.NEXTVAL, #{param1}, #{param2}, #{param3})
 	</insert>
 	<!--글수정하기 -->
-	<update id= "boardUpdate" parameterType="board">
-	<if test="brdctgidx==1">
-		UPDATE  board SET SUBJECT=#{subject}, CONTENT=#{content},BrdCtgIDX=#{brdctgidx}
-		WHERE boardIdx=#{boardIdx}
+	<update id="boardUpdate" parameterType="board">
+		<if test="brdctgidx==1">
+			UPDATE board SET SUBJECT=#{subject},
+			CONTENT=#{content},BrdCtgIDX=#{brdctgidx}
+			WHERE boardIdx=#{boardIdx}
 		</if>
 		<if test="brdctgidx==2">
-		UPDATE  board SET SUBJECT=#{subject}, CONTENT=#{content},BrdCtgIDX=#{brdctgidx},roomSize=#{roomSize},budget=#{budget},formIdx=#{formIdx}
-		WHERE boardIdx=#{boardIdx}
+			UPDATE board SET SUBJECT=#{subject},
+			CONTENT=#{content},BrdCtgIDX=#{brdctgidx},roomSize=#{roomSize},budget=#{budget},formIdx=#{formIdx}
+			WHERE boardIdx=#{boardIdx}
 		</if>
 		<if test="brdctgidx==3">
-		UPDATE  board SET SUBJECT=#{subject}, CONTENT=#{content},BrdCtgIDX=#{brdctgidx}
-		WHERE boardIdx=#{boardIdx}
+			UPDATE board SET SUBJECT=#{subject},
+			CONTENT=#{content},BrdCtgIDX=#{brdctgidx}
+			WHERE boardIdx=#{boardIdx}
 		</if>
 		<if test="brdctgidx==4">
-		UPDATE  board SET SUBJECT=#{subject}, CONTENT=#{content},BrdCtgIDX=#{brdctgidx}
-		WHERE boardIdx=#{boardIdx}
+			UPDATE board SET SUBJECT=#{subject},
+			CONTENT=#{content},BrdCtgIDX=#{brdctgidx}
+			WHERE boardIdx=#{boardIdx}
 		</if>
 		<if test="brdctgidx==5">
-		UPDATE  board SET SUBJECT=#{subject}, CONTENT=#{content},BrdCtgIDX=#{brdctgidx},EMAIL=#{email}
-		WHERE boardIdx=#{boardIdx}
+			UPDATE board SET SUBJECT=#{subject},
+			CONTENT=#{content},BrdCtgIDX=#{brdctgidx},EMAIL=#{email}
+			WHERE boardIdx=#{boardIdx}
 		</if>
-		
+
 	</update>
-	<!--게시글안에있는 사진찾기-->
+	<!--게시글안에있는 사진찾기 -->
 	<select id="boardGetFileName" resultType="String">
-		SELECT newFileName FROM photos WHERE boardIdx=#{boardIdx}
+		SELECT newFileName FROM
+		photos WHERE boardIdx=#{boardIdx}
 	</select>
-	<!--사진 수정-->
+	<!--사진 수정 -->
 	<update id="boardUpdateFile">
-		UPDATE photos  
-		SET PHOTOIDX=photos_seq.NEXTVAL, NEWFILENAME=#{param1}, ORIFILENAME =#{param2}  WHERE boardIdx=#{param3}
+		UPDATE photos
+		SET PHOTOIDX=photos_seq.NEXTVAL, NEWFILENAME=#{param1}, ORIFILENAME
+		=#{param2} WHERE boardIdx=#{param3}
 	</update>
-	<!--사진삭제(정말로 데이터삭제)-->
+	<!--사진삭제(정말로 데이터삭제) -->
 	<delete id="boardPhotoDel">
 		DELETE FROM photos WHERE boardIdx=#{boardIdx}
 	</delete>
@@ -163,21 +194,65 @@ SELECT BOARDIDX,SUBJECT,CONTENT,ID,REG_DATE,ROOMSIZE,BUDGET,BHIT,BRDCTGIDX,FORMI
 	<delete id="boardDel">
 		UPDATE BOARD SET blind='y' WHERE boardIdx=#{boardIdx}
 	</delete>
-	
+
 	<select id="getMyPhotos" resultType="String">
-		SELECT newFileName FROM photos WHERE id=#{id} ORDER BY photoidx DESC
+		SELECT newFileName FROM
+		photos WHERE id=#{id} ORDER BY photoidx DESC
 	</select>
 	<!--댓글가져오기 resultType=commentsDTO파일 어노테이션 -->
 	<select id="boardCommentList" resultType="comments">
-		 SELECT COMMIDX,COMMENTS, REG_DATE, BLIND, BOARDIDX,ID,GPIDX FROM comments WHERE boardIdx =#{param1} AND blind ='n' ORDER BY COMMIDX DESC
+		SELECT COMMIDX,COMMENTS, REG_DATE, BLIND, BOARDIDX,ID,GPIDX FROM comments
+		WHERE boardIdx =#{param1} AND blind ='n' ORDER BY COMMIDX DESC
 	</select>
-	<!--댓글 작성하기-->
+	<!--댓글 작성하기 -->
 	<insert id="boardCommentWrite">
-		INSERT INTO comments (COMMIDX, COMMENTS, BOARDIDX, id) 
+		INSERT INTO comments (COMMIDX, COMMENTS, BOARDIDX,id)
 		VALUES (comments_seq.NEXTVAL, #{param1}, #{param2}, #{param3})
 	</insert>
-	<!--댓글삭제:블라인드처리-->
+	<!--댓글삭제:블라인드처리 -->
 	<update id="boardCommDel">
-		 UPDATE comments SET blind='y' WHERE commIdx=#{commIdx}
+		UPDATE comments SET blind='y' WHERE commIdx=#{commIdx}
 	</update>
+	<!-- 게시판 추천 증가 -->
+	<update id="boardCntUp">
+		UPDATE board SET CNTRECO=CNTRECO+1 WHERE
+		boardIdx=#{boardIdx}
+	</update>
+	<!-- 게시판 추천 취소 -->
+	<update id="boardCntDown">
+		UPDATE board SET CNTRECO=CNTRECO-1 WHERE
+		boardIdx=#{boardIdx}
+	</update>
+
+	<!-- 조회수감수용 -->
+	<update id="boardbhitDown">
+		UPDATE board SET bHit=bHit-1 WHERE
+		boardIdx=#{boardIdx}
+	</update>
+	<!--스크랩하기 중복불가-->
+	<insert id="boardScrap">
+		insert into scrap
+		select SCRAP_SEQ.nextval,${param1},#{param2}
+		from dual
+		where not exists (select * from scrap where boardIdx=${param1} and id=#{param2})
+	</insert>
+	<delete id="boardScrapDel">
+			DELETE FROM scrap WHERE boardIdx=${param1} and id=#{param2}
+	</delete>
+	<!--게시물신고하기-->
+	<insert id="boardreport">
+		INSERT INTO reports (repIdx,id,boardIdx,repCtgIdx)
+		VALUES (reports_seq.NEXTVAL,'sdk',121,11);
+	</insert>
+	<!--댓글신고하기-->
+	<insert id="comreport">
+	INSERT INTO reports (repIdx,id,commIdx,repCtgIdx)
+		VALUES (reports_seq.NEXTVAL,'sdk',121,11);
+	</insert>
+	<!--대댓글신고하기-->
+	<insert id="com2report">
+		 INSERT INTO reports (repIdx,id,com2ndidx,repCtgIdx)
+		VALUES (reports_seq.NEXTVAL,'sdk',121,11);
+	</insert>
+	
 </mapper>

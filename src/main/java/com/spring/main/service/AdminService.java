@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.AdminDAO;
 import com.spring.main.dto.BoardDTO;
+import com.spring.main.dto.CompanyMemberDTO;
 import com.spring.main.dto.MemberDTO;
 
 @Service
@@ -111,6 +112,22 @@ public class AdminService {
 		map.put("maxPage", maxPage);
 		map.put("currPage", page);
 		return map;
+	}
+
+	public ModelAndView companyDetail(String comId) {
+		ModelAndView mav = new ModelAndView();
+		CompanyMemberDTO dto = new CompanyMemberDTO();
+		dto = dao.companyDetail(comId);
+		long rate = dto.getRate();
+		logger.info("rate : {}",rate);
+		mav.addObject("dto", dto);
+		mav.setViewName("adminCompanyDetail");
+		return mav;
+	}
+
+	public String penaltyCfm(String id, String stateIdx) {
+		int success = dao.penaltyCfm(id, stateIdx);
+		return null;
 	}
 
 

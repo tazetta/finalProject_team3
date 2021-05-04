@@ -3,6 +3,7 @@ package com.spring.main.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.spring.main.dto.MsgDTO;
 import com.spring.main.dto.MyDTO;
 
 public interface MyDAO {
@@ -25,5 +26,19 @@ public interface MyDAO {
 	MyDTO myprofile(String loginId);
 
 	int profileupdate(MyDTO dto);
+
+
+	int receiverAllCount(String sessionId);
+	
+	ArrayList<MsgDTO>  receiveList(int start, int end, String sessionId);
+	
+	
+
+	int myupdate(MyDTO dto);
+
+	int mypwreset(String id, String encrypt);
+
+	void newPw(MyDTO dto);
+
 
 }

@@ -87,7 +87,7 @@ a.page-link:hover{
   <br/>
  <div class="container">
         <div class="row">
-            <a href="#" class="button" style="max-width: 110; margin: 10px ; padding: 10px 20px; font-weight: bold;">질문하기</a>
+            <a href="QWrite" class="button" style="max-width: 110; margin: 10px ; padding: 10px 20px; font-weight: bold;">질문하기</a>
             <a href="#" class="button2" style="max-width: 200; margin: 10px ; padding: 10px 20px; font-weight: bold;">답변을 기다리는 질문</a>
             <div class="container" >
                 <select name="idx" id="idx" style="float:right; border-radius: 5px; border: 2px solid gray; ">
@@ -112,15 +112,18 @@ a.page-link:hover{
             </tr>
         </thead>
         <tbody>
+        <c:forEach var="board" items="${boardList}" begin="0" end="9" step="1" varStatus="status">
             <tr>
-                <td>d</td>
+            	<td><a href="boarddetail/${board.boardIdx}">${board.subject}</a></td>
+                <td>${board.id}</td>
+                <td>${board.bhit}</td>
+                <td>${board.reg_date}</td>
             </tr>
             <tr>
-                <td>d</td>
             </tr>
             <tr>
-                <td>d</td>
             </tr>
+            </c:forEach>
         </tbody>
                
     </table>

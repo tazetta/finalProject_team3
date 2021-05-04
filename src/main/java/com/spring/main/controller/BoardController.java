@@ -41,6 +41,11 @@ public class BoardController {
 		logger.info("main");
 		return "main";
 	}
+	@RequestMapping(value = "/QWrite", method = RequestMethod.GET)
+	public String QWrite() {
+		logger.info("질문하기 페이지 입니다.");
+		return "QWrite";
+	}
 	@RequestMapping(value = "/homemain", method = RequestMethod.GET)
 	public ModelAndView homemain(@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum) {
 		logger.info("우리집 자랑 목록 조회하기");
@@ -195,5 +200,20 @@ public class BoardController {
 	@ResponseBody HashMap<String , Object> CommDel(@PathVariable int  commIdx,HttpSession session,	RedirectAttributes rAttr) {
 		logger.info("댓글삭제 요청 : {}", commIdx);
 		return BoardService.boardCommDel(commIdx,rAttr);
+	}
+	@RequestMapping(value = "/boardCntUp/{boardIdx}", method = RequestMethod.GET)
+	public ModelAndView boardCntUp(@PathVariable String boardIdx,RedirectAttributes rAttr) {
+		logger.info("추천하기", boardIdx);
+		return BoardService.boardCntUp(boardIdx,rAttr);
+	}
+	@RequestMapping(value = "/boardCntDown/{boardIdx}", method = RequestMethod.GET)
+	public ModelAndView boardCntDown(@PathVariable String boardIdx,RedirectAttributes rAttr) {
+		logger.info("{}추천취소하기", boardIdx);
+		return BoardService.boardCntDown(boardIdx,rAttr);
+	}
+	@RequestMapping(value = "/boardScrap/{boardIdx}/{id}", method = RequestMethod.GET)
+	public ModelAndView boardScrap(@PathVariable int boardIdx,@PathVariable String id, RedirectAttributes rAttr) {
+		logger.info("ID : {} / boardIdx : {} ",id, boardIdx);
+		return BoardService.boardScrap(boardIdx,id, rAttr);
 	}
 }

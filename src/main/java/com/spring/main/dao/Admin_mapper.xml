@@ -76,6 +76,10 @@
 		SELECT * FROM generalmember WHERE id=#{param1}
 	</select>
 	
+	<update id="penaltyCfm">
+		UPDATE generalmember SET stateIdx = #{param2} WHERE id = #{param1}
+	</update>
+	
 	<select id="adminCompanyList" resultType="com.spring.main.dto.CompanyMemberDTO"> 
 		SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, comid,comname, license, phone, reg_date FROM companymember 
 		<if test = "param3 != 'none'">
@@ -87,5 +91,9 @@
 			<if test = "searchId != 'none'">
 				WHERE comid = #{searchId}
 			</if>
+	</select>
+	<select id="companyDetail" resultType="com.spring.main.dto.CompanyMemberDTO">
+		SELECT comName, comid, license, phone, reg_date, r.rate, r.cnt
+    		FROM (SELECT AVG(rate) rate, COUNT(revidx) cnt FROM review WHERE comid=#{param1}) r, companymember c WHERE comid=#{param1}
 	</select>
 </mapper>

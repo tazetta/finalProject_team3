@@ -30,7 +30,7 @@ public class MyRestController {
 	}
 	
 	@RequestMapping(value = "/msgReceiveList/{pagePerCnt}/{page}", method = RequestMethod.GET)
-	public HashMap<String, Object> msgReceiveList(@PathVariable int page , int pagePerCnt ,HttpSession session) {
+	public HashMap<String, Object> msgReceiveList(@PathVariable int page , @PathVariable int pagePerCnt ,HttpSession session) {
 		logger.info("받은쪽지함 리스트");
 		return service.msgReceiveList(pagePerCnt,page,session);	
 		
