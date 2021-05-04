@@ -30,10 +30,10 @@ public class AdminController {
 		return service.memberDetail(id);
 	}
 	
-	@RequestMapping(value = "/adminCompanyDetail", method = RequestMethod.GET)
-	public String adminCompanyDetail() {
+	@RequestMapping(value = "/adminCompanyDetail/{comid}", method = RequestMethod.GET)
+	public ModelAndView adminCompanyDetail(@PathVariable String comid) {
 		logger.info("관리자 업체회원 상세보기");
-		return "adminCompanyDetail";
+		return service.companyDetail(comid);
 	}
 	
 	@RequestMapping(value = "/adminSoundList", method = RequestMethod.GET)

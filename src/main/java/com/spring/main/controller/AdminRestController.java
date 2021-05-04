@@ -37,6 +37,13 @@ public class AdminRestController {
 		return service.list(pagePerCnt,page,gradeIdx, stateIdx, searchId);
 	}
 	
+	@RequestMapping(value = "/adminPenaltyCfm/{id}/{stateIdx}", method = RequestMethod.GET)
+	public String adminPenaltyCfm(@PathVariable String id, @PathVariable String stateIdx) {
+		logger.info("id : {} / state : {}", id, stateIdx);
+		
+		return service.penaltyCfm(id, stateIdx);
+	}
+	
 	@RequestMapping(value = "/adminCompanyList", method = RequestMethod.GET)
 	public ModelAndView adminCompanyList() {
 		ModelAndView mav = new ModelAndView();
@@ -50,6 +57,8 @@ public class AdminRestController {
 		logger.info("searchId : {}", searchId);
 		return service.comList(pagePerCnt,page, searchId);
 	}
+	
+	
 	
 	
 }

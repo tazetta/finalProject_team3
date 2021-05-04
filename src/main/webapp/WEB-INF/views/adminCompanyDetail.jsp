@@ -94,41 +94,41 @@ select:hover {
 	<div class="flexBox">
 		<div>
 			<form>
-				<div class="headDESC">땃쥐인테리어</div>
+				<div class="headDESC">${dto.comName}</div>
 				<table>
 					<tr>
 						<th>ID</th>
-						<td>hello3892</td>
+						<td>${dto.comId}</td>
 						<th>기업명</th>
-						<td>땃쥐인테리어</td>
+						<td>${dto.comName}</td>
 					</tr>
 					<tr>
 						<th>사업자등록번호</th>
-						<td colspan="3">123-14-12345</td>
+						<td colspan="3">${dto.license}</td>
 					</tr>
 					<tr>
 						<th>전화번호</th>
-						<td>02-1234-5759</td>
+						<td>${dto.phone}</td>
 						<th>가입일</th>
-						<td>2021-01-01</td>
+						<td>${dto.reg_date}</td>
 					<tr>
 						<th>현재 별점</th>
-						<td>4.6/5</td>
+						<td>${dto.rate}/5</td>
 						<th>리뷰</th>
-						<td>125</td>
+						<td>${dto.cnt}</td>
 					</tr>
 					<tr>
 						<th>패널티 부여</th>
 						<td colspan="3">
-							<select class="inputs">
-								<option>블라인드 1일</option>
-								<option>블라인드 3일</option>
-								<option>블라인드 5일</option>
-								<option>블라인드 7일</option>
-								<option>블라인드 30일</option>
-								<option>계정 비활성화</option>
+							<select class="inputs" id="penaltyVal">
+								<option value="2">블라인드 1일</option>
+								<option value="3">블라인드 3일</option>
+								<option value="4">블라인드 5일</option>
+								<option value="5">블라인드 7일</option>
+								<option value="6">블라인드 30일</option>
+								<option value="7">계정 비활성화</option>
 							</select>
-							<input type="button" class="inputs" value="확인"/> 
+							<input type="button" id="penaltyBtn" class="inputs" value="확인"/> 
 						</td>
 					</tr>
 					<tr>
@@ -157,5 +157,22 @@ select:hover {
 	function closePopUp() {
 		window.close();
 	}
+	
+	/* $("#penaltyBtn").click(()=>{
+		var penalty = $("#penaltyVal").val();
+		console.log(penalty);
+		$.ajax({
+			url: "adminPenaltyCfm/"+${dto.comid}+"/"+penalty;
+			,data:{}
+			,type:'GET'
+			,dataType:'JSON'
+			,success:(data)=>{
+				
+			}
+			,error:(data)=>{
+				console.log(data);
+			}
+		});
+	}); */
 </script>
 </html>
