@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.main.dto.BoardDTO;
 import com.spring.main.dto.MemberDTO;
@@ -40,6 +41,9 @@ public class MyController {
 		return "mynavi";
 	}
 
+	
+	
+	
 	
 	
 	
@@ -71,24 +75,37 @@ public class MyController {
 		return page;
 	}
 	
-	@RequestMapping(value = "/profileupdate")
-	public ModelAndView profileupdate(@ModelAttribute MyDTO dto,HttpSession session) {
+	
+	/* 회원정보 업데이트 */
+	@RequestMapping(value = "/myupdate")
+	public ModelAndView myupdate(@ModelAttribute MyDTO dto, HttpSession session) {
 		logger.info("회원정보 수정요청");
-		return myService.profileupdate(dto,session);
+		return myService.myupdate(dto,session);
 	}
 	
+	/* 패스워드 변경 페이지 이동 */
+	@RequestMapping(value = "/mypwreset")
+	public String mypwreset(Model model) {
+		logger.info("회원 비밀번호 변경 페이지로 이동");
+		return "mypwreset";
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	/* 패스워드 암호화 변경 */
+	@RequestMapping(value = "/pwreset")
+	public ModelAndView pwreset(@RequestParam String newPw,HttpSession session) {
+		logger.info("회원 비밀번호 변경 요청");
+		return myService.pwreset(newPw,session);
+	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	@RequestMapping(value = "/mywrite", method = RequestMethod.GET)
 	public String mywrite() {

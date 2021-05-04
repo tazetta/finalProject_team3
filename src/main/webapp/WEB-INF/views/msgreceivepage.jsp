@@ -41,12 +41,12 @@
 </body>
 <script> 
 var showPage = 1;
- listCall(showPage);
- 
  var pagePerNum = 5;
- function listCall(reqPage){
+ listCall(showPage,pagePerNum);
+ 
+ function listCall(reqPage,reqPagePerNum){
 	 
-	 var reqUrl ='./msgReciveList/' + pagePerNum + "/" + reqPage;
+	 var reqUrl ='./msgReceiveList/' + reqPagePerNum + "/" + reqPage;
 	 $.ajax({
 		 url:reqUrl
 		 ,type:'GET'
@@ -55,16 +55,18 @@ var showPage = 1;
 		 ,success:function(data){
 			 console.log(data);
 			 showPage = data.currPage;
-			 listPring(data.list);
+			 console.log(showPage);
+			 console.log(data.list);
+			 listPrint(data.list);
 			 
 				$("#pagination").twbsPagination({
 					startPage:data.currPage,//시작 페이지
 					totalPages:data.range,//생성 가능 최대 페이지
 					visiblePages:5,//5개씩 보여 주겠다.(1~5)
 					onPageClick:function(evt,page){//각 페이지를 눌렀을 경우
-						//console.log(evt);
-						//console.log(page);
-						listCall(page);
+						console.log(evt);
+						console.log(page);
+						listCall(page,pagePerNum);
 					}
 				});
 		 },
@@ -78,17 +80,13 @@ var showPage = 1;
 		 var content = "";
 		 for(var i = 0; i<list.length; i++){
 			content +="<tr>"
-			content +="<td>"+list[i].idx+"</td>"
-			content +="<td>"+list[i].subject+"</td>"
-			content +="<td>"+list[i].user_name+"</td>"
-			//java 에서 가끔 날짜가 milliseconds 로 나올 경우...
+			content +="<td>"+list[i].sender+"</td>"
+			content +="<td><a>"+list[i].content+"</a></td>"
 			var date = new Date(list[i].reg_date);
-			content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"
-			
-			content +="<td>"+list[i].bHit+"</td>"			
+			content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"		
 			content +="</tr>"
 		}
-		//$("#list").empty();
+		$("#list").empty();
 		$("#list").append(content);
 	}
 	 

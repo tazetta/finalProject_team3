@@ -477,7 +477,7 @@ public class BoardService {
 	public ModelAndView boardCntUp(String boardIdx) {
 		ModelAndView mav = new ModelAndView();
 		int CntUP=boarddao.boardCntUp(boardIdx);
-		int bhitDown=boarddao.boardbhitDown(boardIdx);
+		boarddao.boardbhitDown(boardIdx);
 		if(CntUP>0) {
 			msg="추천성공하였습니다.";
 			page="redirect:/boarddetail/" +boardIdx;
@@ -493,7 +493,7 @@ public class BoardService {
 	public ModelAndView boardCntDown(String boardIdx) {
 		ModelAndView mav = new ModelAndView();
 		int CntDown=boarddao.boardCntDown(boardIdx);
-		int bhitDown=boarddao.boardbhitDown(boardIdx);
+		boarddao.boardbhitDown(boardIdx);
 		if(CntDown>0) {
 			msg="추천취소하였습니다.";
 			page="redirect:/boarddetail/" +boardIdx;
@@ -513,8 +513,9 @@ public class BoardService {
 		if(Scrap>0) {
 			msg="스크랩하였습니다.";
 			page="redirect:/boarddetail/" +boardIdx;
-		}else {
-			msg="스크랩불가합니다.";
+		}else{
+			boarddao.boardScrapDel(boardIdx,id);
+			msg="스크랩취소 했습니다.";
 			page="redirect:/boarddetail/" +boardIdx;
 		}
 		rAttr.addFlashAttribute("msg", msg);

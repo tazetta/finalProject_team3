@@ -15,7 +15,7 @@ public class MyDTO {
 	private String content;
 	private Date reg_date;
 	private int bhit;
-	String phone;
+	private String phone;
 	
 	
 	public String getSubject() {
