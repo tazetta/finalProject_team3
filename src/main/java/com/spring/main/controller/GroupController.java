@@ -156,7 +156,12 @@ public class GroupController {
 		logger.info("공동구매 현재 신청인원 확인 gpIdx: {}, updateMaxUser:{}", gpIdx, maxUser);
 		return groupService.currUserChk(gpIdx,maxUser,rAttr);
 	}
-
+	
+	@RequestMapping(value = "/groupCommRec/{commIdx}", method = RequestMethod.GET)
+	@ResponseBody HashMap<String , Object> groupCommRec(@PathVariable int  commIdx, HttpSession session,RedirectAttributes rAttr) {
+		logger.info("공동구매 댓글 추천 commIdx: {}", commIdx);
+		return groupService.groupCommRec(commIdx,rAttr,session);
+	}
 	
 	
 	

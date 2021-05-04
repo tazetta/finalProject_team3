@@ -427,7 +427,6 @@ public class GroupService {
 				state = "true";
 				logger.info("state:"+state);
 			}
-
 		}
 
 		page = "redirect:/groupDetail?gpIdx=" + gpIdx+"&loginId="+applyId;
@@ -542,6 +541,34 @@ public class GroupService {
 		logger.info("currUser: "+ currUser);
 		
 		map.put("currUser", currUser);
+		return map;
+	}
+
+	public HashMap<String, Object> groupCommRec(int commIdx, RedirectAttributes rAttr, HttpSession session) {
+		logger.info("댓글추천 서비스");
+		HashMap<String, Object> map = new HashMap<String, Object> ();
+		String loginId = (String) session.getAttribute("loginId");
+		
+		String commRecChk = groupdao.commRecChk(commIdx, loginId);
+		logger.info("공동구매 댓글 추천 여부:" + commRecChk);
+		
+		String recResult="";
+		if(commRecChk!=null) {
+			logger.info("추천취소하기");
+			int result = groupdao.groupCommDec(commIdx,loginId);
+			logger.info("result:"+result);
+			recResult="false";
+			msg="추천취소되었습니다";
+		}else {
+			logger.info("추천하기");
+			int result = groupdao.groupCommRec(commIdx,loginId);
+			logger.info("result:"+result);	
+			recResult ="true";
+			msg="추천되었습니다";
+		}
+		
+		map.put("recResult", recResult);
+		map.put("msg", msg);
 		return map;
 	}
 

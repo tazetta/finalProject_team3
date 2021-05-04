@@ -506,6 +506,22 @@ public class BoardService {
 		return mav;
 	}
 
+	public ModelAndView boardScrap(int boardIdx, String id, RedirectAttributes rAttr) {
+		ModelAndView mav = new ModelAndView();
+		int Scrap = boarddao.boardScrap(boardIdx,id);
+		logger.info("스크랩 쿼리문작동완료");
+		if(Scrap>0) {
+			msg="스크랩하였습니다.";
+			page="redirect:/boarddetail/" +boardIdx;
+		}else {
+			msg="스크랩불가합니다.";
+			page="redirect:/boarddetail/" +boardIdx;
+		}
+		rAttr.addFlashAttribute("msg", msg);
+		mav.setViewName(page);
+		return mav;
+	}
+
 }
 
 

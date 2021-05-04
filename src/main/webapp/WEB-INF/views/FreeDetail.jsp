@@ -87,6 +87,8 @@ border:none;
 				onclick="location.href='../boardCntUp/${dto.boardIdx}'">추천하기</button>
 				<button id="button" style="margin-left: 50;"
 				onclick="location.href='../boardCntDown/${dto.boardIdx}'">추천취소</button>
+				<button id="button" style="margin-left: 50;"
+				onclick="location.href='../boardScrap/${dto.boardIdx}/${dto.id}'">스크랩</button>
 		</div>
 		<!--style="
                     background-color: rgb(172, 172, 172);
@@ -103,7 +105,7 @@ border:none;
 
 	</div>
 	<div class="container" style="text-align: center; padding-top: 100px;">
-
+		아이디:${dto.id}
 		${dto.content} 글번호:${dto.boardIdx} 조회수:${dto.bhit}
 		카테고리:${dto.brdctgidx} 추천수:${dto.CNTRECO}
 		<div id="content">

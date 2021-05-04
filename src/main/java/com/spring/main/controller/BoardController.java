@@ -203,7 +203,12 @@ public class BoardController {
 	}
 	@RequestMapping(value = "/boardCntDown/{boardIdx}", method = RequestMethod.GET)
 	public ModelAndView boardCntDown(@PathVariable String boardIdx) {
-		logger.info("추천취소하기", boardIdx);
+		logger.info("{}추천취소하기", boardIdx);
 		return BoardService.boardCntDown(boardIdx);
+	}
+	@RequestMapping(value = "/boardScrap/{boardIdx}/{id}", method = RequestMethod.GET)
+	public ModelAndView boardScrap(@PathVariable int boardIdx,@PathVariable String id, RedirectAttributes rAttr) {
+		logger.info("ID : {} / boardIdx : {} ",id, boardIdx);
+		return BoardService.boardScrap(boardIdx,id, rAttr);
 	}
 }

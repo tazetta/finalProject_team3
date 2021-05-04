@@ -27,9 +27,10 @@ public interface MyDAO {
 
 	int profileupdate(MyDTO dto);
 
+
 	int receiverAllCount(String sessionId);
 	
 	ArrayList<MsgDTO>  receiveList(int start, int end, String sessionId);
 
-	int all();
+
 }

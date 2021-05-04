@@ -1,12 +1,9 @@
 package com.spring.main.dao;
 
-import java.sql.Date;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import com.spring.main.dto.BoardDTO;
 import com.spring.main.dto.CommentsDTO;
-import com.spring.main.dto.GroupDTO;
 import com.spring.main.dto.MyDTO;
 import com.spring.main.dto.PhotoDTO;
 
@@ -65,6 +62,8 @@ public interface BoardDAO {
 	int boardbhitDown(String boardIdx);
 	//게시판 cnt 다운
 	int boardCntDown(String boardIdx);
+	//스크랩하기
+	int boardScrap(int boardIdx, String id);
 
 
 

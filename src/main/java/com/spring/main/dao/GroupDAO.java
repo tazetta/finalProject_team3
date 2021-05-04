@@ -64,6 +64,12 @@ public interface GroupDAO {
 
 	int groupcurrUser(int gpIdx);
 
+	String commRecChk(int commIdx, String loginId);
+
+	int groupCommRec(int commIdx, String loginId);
+
+	int groupCommDec(int commIdx, String loginId);
+
 
 
 	
