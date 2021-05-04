@@ -119,10 +119,7 @@ a.page-link:hover{
                 <td>${board.bhit}</td>
                 <td>${board.reg_date}</td>
             </tr>
-            <tr>
-            </tr>
-            <tr>
-            </tr>
+       
             </c:forEach>
         </tbody>
                
