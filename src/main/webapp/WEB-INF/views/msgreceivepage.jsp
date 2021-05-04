@@ -41,7 +41,7 @@
 </body>
 <script> 
 var showPage = 1;
- var pagePerNum = 5;
+ var pagePerNum = 10;
  listCall(showPage,pagePerNum);
  
  function listCall(reqPage,reqPagePerNum){
@@ -81,15 +81,19 @@ var showPage = 1;
 		 for(var i = 0; i<list.length; i++){
 			content +="<tr>"
 			content +="<td>"+list[i].sender+"</td>"
-			content +="<td><a>"+list[i].content+"</a></td>"
+			content +="<td><a href='msgDetail/"+list[i].msgIdx+"'>"+list[i].content+"</a></td>"
 			var date = new Date(list[i].reg_date);
 			content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"		
-			content +="<td><button id='"+list[i].msgIdx+"'>삭제</button></td>"
+			content +="<td><button onclick=\"location.href='msgDelete/"+list[i].msgIdx+"'\">삭제</button></td>"
 			content +="</tr>"
 		}
 		$("#list").empty();
 		$("#list").append(content);
 	}
 	 
+	 var msg = "${msg}";
+	 if(msg != ""){
+		 alert(msg);
+	 }
 </script>
 </html>

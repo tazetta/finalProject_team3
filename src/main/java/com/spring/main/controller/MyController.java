@@ -189,6 +189,7 @@ public class MyController {
 		logger.info("보낸 쪽지 전체페이지");
 		return "msgsenderpage";
 	}
+
 	@RequestMapping(value = "/msgAllPage", method = RequestMethod.GET)
 	public String msgAllPage() {
 		logger.info("보낸 쪽지 전체페이지");

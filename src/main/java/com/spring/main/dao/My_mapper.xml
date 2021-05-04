@@ -61,4 +61,16 @@ SELECT msgidx , sender , receiver , content , reg_date, rnum
 	SELECT * FROM msg WHERE msgIdx = #{param1}
 </select>
 
+<select id="whoSR" resultType="com.spring.main.dto.MsgDTO">
+	SELECT sender , receiver FROM msg WHERE msgIdx=#{param1}
+</select>
+
+<update id="deleteSender" parameterType="int">
+	UPDATE msg SET senddel = 'y' WHERE msgIdx = #{param1}
+</update>
+
+<update id="deleteReceiver" parameterType="int">
+	UPDATE msg SET receivedel = 'y' WHERE msgIdx = #{param1}
+</update>
+
 </mapper>

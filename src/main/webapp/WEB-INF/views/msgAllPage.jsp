@@ -11,6 +11,7 @@
 <script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
 </head>
 <body>
+<h3>전체 쪽지함</h3>
     <div>
         <table>
         <thead>
@@ -24,7 +25,7 @@
              
 		</tbody>
 			<tr>
-			<td id="paging" colspan="6">
+			<td class="paging" colspan="6">
 				<!-- 플러그인 사용 -->
 				<div class="container">
 					<nav aria-label="page navigation" style="text-align: center">
@@ -33,14 +34,9 @@
 				</div>
 				<!--// 플러그인 사용 -->
 			</td>
-		</tr>
-			
+		</tr>			
         </table>
-        
     </div>
-    
-    
-    
      <div>
         <table>
         <thead>
@@ -54,24 +50,19 @@
              
 		</tbody>
 			<tr>
-			<td id="paging" colspan="6">
+			<td class="paging" colspan="6">
 				<!-- 플러그인 사용 -->
 				<div class="container">
 					<nav aria-label="page navigation" style="text-align: center">
-						<ul class="pagination" id="pagination"></ul>
+						<ul class="pagination" id="pagination2"></ul>
 					</nav>
 				</div>
 				<!--// 플러그인 사용 -->
 			</td>
 		</tr>
-			
         </table>
-        
     </div>
-		
-		<div>
-			
-		</div>
+
 </body>
 <script> 
 var showPage = 1;
@@ -124,14 +115,14 @@ function listCall(reqPage,reqPagePerNum){
 			 console.log(data.list);
 			 //listPrint(data.list);
 			 listPrint2(data.list);
-				$("#pagination").twbsPagination({
+				$("#pagination2").twbsPagination({
 					startPage:data.currPage,//시작 페이지
 					totalPages:data.range,//생성 가능 최대 페이지
 					visiblePages:5,//5개씩 보여 주겠다.(1~5)
 					onPageClick:function(evt,page){//각 페이지를 눌렀을 경우
 						console.log(evt);
 						console.log(page);
-						listCall(page,pagePerNum);
+						listCall2(page,pagePerNum);
 					}
 				});
 		 },
@@ -150,7 +141,7 @@ function listCall(reqPage,reqPagePerNum){
 			content +="<td><a href='msgDetail/"+list[i].msgIdx+"'>"+list[i].content+"</a></td>"
 			var date = new Date(list[i].reg_date);
 			content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"		
-			content +="<td><button id='"+list[i].msgIdx+"'>삭제</button></td>"
+			content +="<td><button onclick=\"location.href='msgDelete/"+list[i].msgIdx+"'\">삭제</button></td>"
 			content +="</tr>"
 		}
 		$("#list").empty();
@@ -161,14 +152,19 @@ function listCall(reqPage,reqPagePerNum){
 		 for(var i = 0; i<list.length; i++){
 			content +="<tr>"
 			content +="<td>"+list[i].sender+"</td>"
-			content +="<td><a>"+list[i].content+"</a></td>"
+			content +="<td><a href='msgDetail/"+list[i].msgIdx+"'>"+list[i].content+"</a></td>"
 			var date = new Date(list[i].reg_date);
 			content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"		
-			content +="<td><button id='"+list[i].msgIdx+"'>삭제</button></td>"
+			content +="<td><button onclick=\"location.href='msgDelete/"+list[i].msgIdx+"'\">삭제</button></td>"
 			content +="</tr>"
 		}
 		$("#list2").empty();
 		$("#list2").append(content);
 	}
+	 
+	 var msg = "${msg}";
+	 if(msg != ""){
+		 alert(msg);
+	 }
 </script>
 </html>

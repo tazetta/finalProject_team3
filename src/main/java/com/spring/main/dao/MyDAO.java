@@ -38,6 +38,12 @@ public interface MyDAO {
 	
 	MsgDTO msgDetail(int msgIdx);
 
+	MsgDTO whoSR(int msgIdx);
+	
+	int deleteSender(int msgIdx);
+	
+	int deleteReceiver(int msgIdx);
+	
 	int myupdate(MyDTO dto);
 
 	int mypwreset(String id, String encrypt);

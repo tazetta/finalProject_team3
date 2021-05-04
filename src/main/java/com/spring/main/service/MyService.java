@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +13,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.main.dao.BoardDAO;
 import com.spring.main.dao.MyDAO;
@@ -168,6 +171,28 @@ public class MyService {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("info", dto);
 		mav.setViewName("msgDetailPage");
+		return mav;
+	}
+
+	public ModelAndView msgDelete(int msgIdx, HttpSession session, RedirectAttributes rAttr) {
+		MsgDTO dto =  MyDAO.whoSR(msgIdx);
+		ModelAndView mav = new ModelAndView();
+		String loginId = (String) session.getAttribute("loginId");
+		String sender = dto.getSender();
+		String receiver = dto.getReceiver();
+		String msg ="삭제 실패하였습니다.";
+		String page = "msgAllPage";
+		if(loginId.equals(sender)) {
+			MyDAO.deleteSender(msgIdx);
+			msg = "삭제 성공하였습니다.";
+			page = "redirect:/msgsenderpage";
+		}else if(loginId.equals(receiver)) {
+			MyDAO.deleteReceiver(msgIdx);
+			msg = "삭제 성공하였습니다.";
+			page = "redirect:/msgreceivepage";
+		}
+		rAttr.addFlashAttribute("msg", msg);
+		mav.setViewName(page);
 		return mav;
 	}
 
