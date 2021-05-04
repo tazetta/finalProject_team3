@@ -7,7 +7,7 @@
 <mapper namespace="com.spring.main.dao.BoardDAO">
 <!--글상세보기-->
 <select id="Boarddetail" resultType="board">
-	 SELECT BOARDIDX,SUBJECT,CONTENT,ID,REG_DATE,ROOMSIZE,BUDGET,KEYITEMS,BHIT,BLIND,BRDCTGIDX,FORMIDX,EMAIL FROM BOARD WHERE BOARDIDX=#{boardIdx}
+	 SELECT BOARDIDX,SUBJECT,CONTENT,ID,REG_DATE,ROOMSIZE,BUDGET,KEYITEMS,BHIT,BLIND,BRDCTGIDX,FORMIDX,EMAIL,CNTRECO FROM BOARD WHERE BOARDIDX=#{boardIdx}
 	</select>
 	
 <!-- 글 목록 최신순으로 불러오기 -->
@@ -180,4 +180,18 @@ SELECT BOARDIDX,SUBJECT,CONTENT,ID,REG_DATE,ROOMSIZE,BUDGET,BHIT,BRDCTGIDX,FORMI
 	<update id="boardCommDel">
 		 UPDATE comments SET blind='y' WHERE commIdx=#{commIdx}
 	</update>
+	<!-- 게시판 추천 증가 -->
+	<update id="boardCntUp">
+		UPDATE board SET CNTRECO=CNTRECO+1 WHERE boardIdx=#{boardIdx}
+	</update>
+	<!-- 게시판 추천 취소 -->
+	<update id="boardCntDown">
+		UPDATE board SET CNTRECO=CNTRECO-1 WHERE boardIdx=#{boardIdx}
+	</update>
+	
+	<!-- 조회수감수용 -->
+	<update id="boardbhitDown">
+		UPDATE board SET bHit=bHit-1 WHERE boardIdx=#{boardIdx}
+	</update>
+	
 </mapper>
