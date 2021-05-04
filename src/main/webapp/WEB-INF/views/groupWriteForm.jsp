@@ -73,8 +73,8 @@ input[type='text'] {
 		$("#editable>a").find("b").remove(); //a태그안 b태그 삭제
 	 	$("#editable>a").removeAttr("onclick"); //del(this) 무효화
 		$("#content").val($("#editable").html());
+	 	
 		/* 유효성 검사 */
-		
 		var subject = $("#subject").val();
 		var content = $("#content").val();
 		var chatUrl = $("#chatUrl").val();
@@ -88,8 +88,6 @@ input[type='text'] {
 			console.log("deadline:"+deadline);
 			alert("모든 양식을 작성해주세요");
 		}else{
-			
-	
 			$("form").submit(); 
 		}		
 	});

@@ -276,7 +276,8 @@ font-size:90%;
 		content += reg_date.toLocaleDateString("ko-KR");
 		content += '</td>';
 		content += ' <td style="width:5%" >';
-		content += '<a href="#"><img alt="decommend" src="resources/images/decommend.png" width="15px" height="15px"> </a>';
+		//댓글추천 
+		content += '<a href="javascript:void(0)"; onclick="commRec('+list[i].commIdx+')"><img alt="decommend" src="resources/images/decommend.png" width="15px" height="15px" id="'+list[i].commIdx+'"> </a>';
 		content += '</td>';
 		content += '<td style="text-align:left">';
 		if("${sessionScope.loginId}"==list[i].id){
@@ -321,6 +322,36 @@ font-size:90%;
 	 				console.log("삭제취소");
 	 			}	
 	}
+	
+	/* 댓글 추천-취소 */
+	function commRec(commIdx){
+		console.log("commIdx: "+commIdx);
+		var reqUrl = "./groupCommRec/"+commIdx;
+		$.ajax({
+				url : reqUrl,
+				type : "get",
+				data : {},
+				dataType : "JSON",
+				success : function(data) {
+					console.log("success: ", data);
+					alert(data.msg);
+					console.log("rescResult:"+data.recResult);
+					if(data.recResult =='true'){
+						console.log($("#"+commIdx+""));
+						$("#"+commIdx+"").attr('src','resources/images/recommend.png');
+					}else{
+						console.log($("#"+commIdx+""));
+						$("#"+commIdx+"").attr('src','resources/images/decommend.png');
+					}
+					
+				},
+				error : function(error) {
+					console.log("error:", error);
+				}
+			});
+		
+	}
+	
 	
 	
 </script>
