@@ -10,16 +10,90 @@
  <!-- 페이징 라이브러리(제이쿼리 반드시 필요, 버전도 맞아야 함) -->
 <script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
 </head>
+    <style>
+
+        .title-area{
+            
+            text-align: center;
+            margin-bottom: 20px;
+        }
+       
+        .title-area h3{
+        }
+        .title-area button{
+          margin-left: 200px;
+          position: absolute;
+          background-color: #166cea;
+            color: white;
+          border: none;
+           padding: 8px 8px;
+           cursor: pointer;
+           opacity: 0.9;
+        }
+        .delBtn{
+            background-color: #166cea;
+            color: white;
+          border: none;
+           padding: 8px 8px;
+           cursor: pointer;
+           opacity: 0.9;
+           
+        }
+        #title{
+            display: inline;
+        }
+        .table-area{
+        	text-align: center;
+        }
+        .table-area th{
+            
+            padding: 10px 0px;
+             text-align: center;
+        }
+        .table-area tr td{
+            padding: 1px ;
+       		 text-align: center;
+            
+        }
+        .table-area th{
+            background-color: #166cea;
+            color: white;
+            opacity: 0.9;
+        }
+        #writeButton:hover , .delBtn:hover{
+            cursor: pointer;
+            opacity: 1;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 3px 10px 0 rgba(0,0,0,0.19);
+        }
+        a{
+            color: black;
+            text-decoration: none;
+        } 
+        a:hover{
+            color: #166cea;
+            border-bottom:1px #166cea solid;
+        }
+       
+    </style>
 <body>
-    <div>
+	 <div class="all-area">
+
+        <div class="title-area">
+            <h3 id="title">보낸 편지함</h3>
+            <button id="writeButton">쪽지쓰기</button>
+    </div>
+    <div class="table-area">
         <table>
+        <div class="th-area">
         <thead>
                 <tr>
                     <th>작성자</th>
                     <th>내용</th>
                     <th>날짜</th>
+                    <th></th>
                 </tr>
         </thead>
+        </div>
 		<tbody id="list">
              
 		</tbody>
@@ -84,7 +158,7 @@ var showPage = 1;
 		content +="<td><a href='msgDetail/"+list[i].msgIdx+"'>"+list[i].content+"</a></td>"
 		var date = new Date(list[i].reg_date);
 		content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"		
-		content +="<td><button onclick=\"location.href='msgDelete/"+list[i].msgIdx+"'\">삭제</button></td>"
+		content +="<td><button class=\"delBtn\"  onclick=\"location.href='msgDelete/"+list[i].msgIdx+"'\">삭제</button></td>"
 		content +="</tr>"
 	}
 	$("#list").empty();
