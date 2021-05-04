@@ -1,12 +1,10 @@
 package com.spring.main.dao;
 
-import java.sql.Date;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import com.spring.main.dto.BoardDTO;
 import com.spring.main.dto.CommentsDTO;
-import com.spring.main.dto.GroupDTO;
+import com.spring.main.dto.MyDTO;
 import com.spring.main.dto.PhotoDTO;
 
 public interface BoardDAO {
@@ -50,10 +48,23 @@ public interface BoardDAO {
 	ArrayList<BoardDTO> BoardSearchList(String startStr, String endStr, String opt, String keyword);
 	//세부검색기능
 	int BoardSearchList(String opt, String keyword);
+
+	MyDTO pwconfirm(String loginId);
 	
 	int memberMaxCnt();
-	
+	//집자랑 세부검색
 	Object homeMain(int start, int end, String order, String formcategory, int budget, int roomsize);
+	//추천수
+	Object CNTRECO(int start, int end, int CNTRECO);
+	//게시판 cnt 업
+	int boardCntUp(String boardIdx);
+	//추천/취소 시 조회수도 올라가는거방지용
+	int boardbhitDown(String boardIdx);
+	//게시판 cnt 다운
+	int boardCntDown(String boardIdx);
+	//스크랩하기
+	int boardScrap(int boardIdx, String id);
+
 
 
 	

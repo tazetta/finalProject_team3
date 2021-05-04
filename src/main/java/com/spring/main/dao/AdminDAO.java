@@ -35,6 +35,8 @@ public interface AdminDAO {
 
 	int companyMaxCnt(HashMap<String, Object> mapId);
 
+	CompanyMemberDTO companyDetail(String comId);
 
+	int penaltyCfm(String id, String stateIdx);	
 
 }

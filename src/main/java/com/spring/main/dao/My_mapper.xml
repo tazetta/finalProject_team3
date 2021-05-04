@@ -7,6 +7,14 @@
 
 <mapper namespace="com.spring.main.dao.MyDAO">
 
+<select id="login" resultType="String" parameterType="String">
+	SELECT pw FROM generalmember WHERE id = #{loginId}
+</select>
+
+
+<select id="myprofile" resultType="com.spring.main.dto.MyDTO" parameterType="String">
+	SELECT * FROM generalmember WHERE id = #{loginId}
+</select>
 
  
 
@@ -15,4 +23,14 @@
 	SELECT * FROM board
 </select>
 
+<select id="receiveAllCount" resultType="int">
+	SELECT COUNT()
+</select>
+
+<select id="">
+SELECT msgidx , sender , receiver , content , reg_date, rnum 
+    FROM (SELECT msgidx , sender , receiver , reg_date, content,
+    ROW_NUMBER() OVER(ORDER BY msgidx DESC) AS rnum FROM msg )
+    WHERE rnum BETWEEN #{page} AND #{pagePerCnt};
+</select>
 </mapper>

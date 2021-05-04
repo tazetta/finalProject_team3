@@ -117,22 +117,20 @@ select:hover {
 						<td>${dto.reg_date}</td>
 					<tr>
 						<th>현재 패널티</th>
-						<td>none</td>
-						<th>패널티 받은 횟수</th>
-						<td>0</td>
+						<td colspan="3">none</td>
 					</tr>
 					<tr>
 						<th>패널티 부여</th>
 						<td colspan="3">
-							<select class="inputs">
-								<option>작성 금지 1일</option>
-								<option>작성 금지 3일</option>
-								<option>작성 금지 5일</option>
-								<option>작성 금지 7일</option>
-								<option>작성 금지 30일</option>
-								<option>계정 비활성화</option>
+							<select class="inputs" id="penaltyVal">
+								<option value="1">작성 금지 1일</option>
+								<option value="2">작성 금지 3일</option>
+								<option value="3">작성 금지 5일</option>
+								<option value="4">작성 금지 7일</option>
+								<option value="5">작성 금지 30일</option>
+								<option value="6">계정 비활성화</option>
 							</select>
-							<input type="button" class="inputs" value="확인"/> 
+							<input type="button" class="inputs" id="penaltyBtn" value="확인"/> 
 						</td>
 					</tr>
 				</table>
@@ -142,6 +140,27 @@ select:hover {
 	</div>
 </body>
 <script>	
-	
+function closePopUp() {
+	window.close();
+} 
+
+$("#penaltyBtn").click(()=>{
+	var penalty = $("#penaltyVal").val();
+	console.log(penalty);
+	var id = "";
+	id += "${dto.id}";
+	$.ajax({
+		url: "../adminPenaltyCfm/"+id+"/"+penalty
+		,data:{}
+		,type:'GET'
+
+		,success:(data)=>{
+			alert("["+penalty+"]가 적용되었습니다");
+		}
+		,error:(data)=>{
+			console.log(data);
+		}
+	});
+}); 
 </script>
 </html>

@@ -24,12 +24,22 @@ public class BoardDTO {
 	private int formidx;
 	private String email;
 	private String isrecom;
+	private int CNTRECO;
+
 	public String getIsrecom() {
 		return isrecom;
 	}
 
+
 	public void setIsrecom(String isrecom) {
 		this.isrecom = isrecom;
+	}
+	public int getCNTRECO() {
+		return CNTRECO;
+	}
+	
+	public void setCNTRECO(int cNTRECO) {
+		CNTRECO = cNTRECO;
 	}
 
 	public int getBoardCtgIdx() {

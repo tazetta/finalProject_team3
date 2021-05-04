@@ -1,107 +1,91 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
-<title>회원정보</title>
+<meta charset="UTF-8">
+<title>회원정보수정</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <style>
-
-
-
-.sideBar {
-	float: left;
+#main {
+	width: 400px;
+	height: 300px;
+	margin: 200px auto;
 }
 
-table, td {
-    position: relative;
-	padding: 20px;
-	width: 200px;
-    
-	font-family: Arial, Helvetica, sans-serif;
+.subject {
+	border: 1px solid;
+	width: 300px;
+	margin: auto;
 }
 
-
-
-.flexBox {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	min-height: 100vh;
+h3 {
+	margin: 5px;
 }
 
+div {
+	text-align: center;
+}
 
-input[type="button"], input[type="submit"] {
-	background-color: #acd3fb;
-	cursor: pointer;
+#find_btn {
+	margin-top: 20px;
+}
+
+input[type="text"] {
+	width: 110%;
+	height: 30px;
+	padding: 5px;
+	margin: 10px;
+}
+
+button {
+	width: 100px;
+	height: 40px;
+	margin: 20px 5px;
+	font-size: 15px;
+	background-color: #94a7be;
 	color: white;
-	font-weight: bold;
-    left: 250px;
-    margin: 30px;
+	border: none;
+	border-radius: 5px;
 }
-
-
-
-select:hover {
-	cursor: pointer;
-}
-
-.pagingBtn {
-	text-decoration: none;
-	color: black;
-	font-weight: 600;
-	background-color: lightgray;
-	margin: 1px 2px;
-	margin-top: 0px;
-	padding: 3px;
-	border: 1px white;
-}
-
-
 </style>
 </head>
 <body>
-	<iframe src="mainnavi" scrolling="no" frameborder="0" style="width: 100%; "></iframe>
-	<div class="flexBox" >
-		<div style="border-bottom: 2px solid #f2f2f2; border-top: 2px solid #f2f2f2;">
-			<div class="sideBar" style="margin-right: 15px;">
-				<iframe class="마이프로필네비" src="mynavi" scrolling="no" frameborder="0"
-				style="height: 650px; float: left; width:250px;" ></iframe>
-			</div>
-			<div class="sideBar">
-			<h1>회원정보</h1>
-            <table id="profile">
-				<th >ID</th>
-					<td>${sessionScope.loginId}</td>
+	<div id="main">
+		<div class="subject">
+			<h3>회원 정보 수정</h3>
+		</div>
+		<form action="profileupdate" method="POST">
+			<table id="findFields">
+				<tr>
+					<td id="title">아이디</td>
+					<td><input type="text" id="id" name="id" value="${sessionScope.loginId}" readonly /> </td>
 				</tr>
 				<tr>
-					<th>NAME</th>
-					<td>${profile.name}</td>
+					<td id="title">이름</td>
+					<td><input type="text" name="name" value="${dto.name}"/></td>
 				</tr>
-				<br/>
 				<tr>
-					<th>PHONE</th>
-					<td>${profile.phone}</td>
+					<td id="title">휴대폰</td>
+					<td><input type="text" name="phone" value="${dto.phone}" /></td>
 				</tr>
-				<br/>
 				<tr>
-					<th>EMAIL</th>
-					<td>${profile.email}</td>
+					<td id="title">이메일</td>
+					<td><input type="text" name="email" value="${dto.email}" /></td>
 				</tr>
-				<th>비밀번호</th>
-					<td><input type="password" name="userPw" id="userPw"></td>
-				</tr>
-                <tr>
-                    <td>
-					<input type="button" id="btn" value="회원정보 수정"/>
-                </td>
-				</tr>
-                </table>
-			</div>
+			</table>
+					<button class="find_button">수정</button>
+		</form>
+		<div>
+			<a href="myLib_UpdatePwForm">비밀번호 변경하기</a>
+		</div>
+		<button class="find_button" onclick="location.href='myLib_Update'">취소</button>
+		</div>
 </body>
 <script>
-
-
-
+var msg = "${msg}"; 
+if (msg != "") {  
+	alert(msg); 
+}
 </script>
 </html>

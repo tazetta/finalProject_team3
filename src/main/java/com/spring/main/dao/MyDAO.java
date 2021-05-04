@@ -19,4 +19,13 @@ public interface MyDAO {
 
 	ArrayList<MyDTO> list();
 
+
+	String login(String id);
+
+	MyDTO myprofile(String loginId);
+
+	int profileupdate(MyDTO dto);
+
+	int receiveAllCount();
+
 }

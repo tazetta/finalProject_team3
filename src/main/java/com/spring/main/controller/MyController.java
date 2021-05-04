@@ -2,15 +2,22 @@ package com.spring.main.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dto.BoardDTO;
+import com.spring.main.dto.MemberDTO;
 import com.spring.main.dto.MyDTO;
 import com.spring.main.service.MyService;
 
@@ -33,11 +40,55 @@ public class MyController {
 		return "mynavi";
 	}
 
-	@RequestMapping(value = "/myprofile", method = RequestMethod.GET)
-	public String myprofile() {
-		logger.info("마이페이지 ");
-		return "myprofile";
+	
+	
+	
+	@RequestMapping(value = "/pwconfirm")
+	public String pwconfirm(Model model) {
+		logger.info("회원정보 수정페이지 이동");
+		return "pwconfirm" ;
 	}
+	
+	@RequestMapping(value = "/checkPw") //수정,전 비밀번호 일치여부 체크
+	public ModelAndView  checkPw( HttpSession session, @RequestParam String pw) {
+		String str ="";
+		logger.info("ㅋㅋㅋ");
+		boolean success = myService.checkPw(pw,session);
+		if(success==true) {
+			str = "redirect:/myprofile";
+		}else {
+			str = "redirect:/pwconfirm";
+		}
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName(str);
+		return mav;
+	}
+	@RequestMapping(value = "/myprofile")
+	public String myprofile(Model model,HttpSession session) {
+		String page = "myprofile";
+		logger.info("회원정보 수정페이지로 이동");
+		model.addAttribute("dto", myService.myprofile(session));
+		return page;
+	}
+	
+	@RequestMapping(value = "/profileupdate")
+	public ModelAndView profileupdate(@ModelAttribute MyDTO dto,HttpSession session) {
+		logger.info("회원정보 수정요청");
+		return myService.profileupdate(dto,session);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
 
 	@RequestMapping(value = "/mywrite", method = RequestMethod.GET)
 	public String mywrite() {

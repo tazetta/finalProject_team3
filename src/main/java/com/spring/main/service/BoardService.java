@@ -47,9 +47,6 @@ public class BoardService {
 		 
 		 String category = null; 
 		 String formcategory=null;
-		 //추천수 불러오기
-			int  recIdx = boarddao.recFind(dto);
-			logger.info("게시글 추천수 수: {} ", recIdx);
 			
 		 if (dto != null) {
 				category = boarddao.boardCtg(dto.getBrdctgidx()); // 카테고리 가져오기
@@ -462,7 +459,68 @@ public class BoardService {
 		map.put("currPage", page);
 		return map;
 	}
+	public HashMap<String, Object> cntboardList(int pagePerCnt, int page, int CNTRECO) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int end = page * pagePerCnt;
+		int start = end- (pagePerCnt - 1);
+		int maxCnt = boarddao.memberMaxCnt();
+		int maxpage = (int)Math.ceil(maxCnt/ (double)pagePerCnt);
+		logger.info("maxCnt : {}", maxCnt);
+		logger.info("maxPage : {}", maxpage);
+		
+		map.put("cntboardList", boarddao.CNTRECO(start, end,CNTRECO));
+		map.put("maxPage", maxpage);
+		map.put("currPage", page);
+		return map;
+	}
 
+	public ModelAndView boardCntUp(String boardIdx) {
+		ModelAndView mav = new ModelAndView();
+		int CntUP=boarddao.boardCntUp(boardIdx);
+		int bhitDown=boarddao.boardbhitDown(boardIdx);
+		if(CntUP>0) {
+			msg="추천성공하였습니다.";
+			page="redirect:/boarddetail/" +boardIdx;
+		}else {
+			msg="추천실패했습니다.";
+			page="redirect:/boarddetail/" +boardIdx;
+		}
+		mav.addObject("msg",msg);
+		mav.setViewName(page);
+		return mav;
+	}
+
+	public ModelAndView boardCntDown(String boardIdx) {
+		ModelAndView mav = new ModelAndView();
+		int CntDown=boarddao.boardCntDown(boardIdx);
+		int bhitDown=boarddao.boardbhitDown(boardIdx);
+		if(CntDown>0) {
+			msg="추천취소하였습니다.";
+			page="redirect:/boarddetail/" +boardIdx;
+		}else {
+			msg="추천취소실패했습니다.";
+			page="redirect:/boarddetail/" +boardIdx;
+		}
+		mav.addObject("msg",msg);
+		mav.setViewName(page);
+		return mav;
+	}
+
+	public ModelAndView boardScrap(int boardIdx, String id, RedirectAttributes rAttr) {
+		ModelAndView mav = new ModelAndView();
+		int Scrap = boarddao.boardScrap(boardIdx,id);
+		logger.info("스크랩 쿼리문작동완료");
+		if(Scrap>0) {
+			msg="스크랩하였습니다.";
+			page="redirect:/boarddetail/" +boardIdx;
+		}else {
+			msg="스크랩불가합니다.";
+			page="redirect:/boarddetail/" +boardIdx;
+		}
+		rAttr.addFlashAttribute("msg", msg);
+		mav.setViewName(page);
+		return mav;
+	}
 
 }
 

@@ -54,6 +54,9 @@
 	height: 40px;
 	border-radius: 5px;
 }
+.commDel{
+border:none;
+}
 </style>
 </head>
 <body>
@@ -80,6 +83,12 @@
 				onclick="location.href='../boardUpdateForm/${dto.boardIdx}'">수정</button>
 			<button id="button" style="margin-left: 50;"
 				onclick="location.href='../boardDel/${dto.boardIdx}'">삭제</button>
+				<button id="button" style="margin-left: 50;"
+				onclick="location.href='../boardCntUp/${dto.boardIdx}'">추천하기</button>
+				<button id="button" style="margin-left: 50;"
+				onclick="location.href='../boardCntDown/${dto.boardIdx}'">추천취소</button>
+				<button id="button" style="margin-left: 50;"
+				onclick="location.href='../boardScrap/${dto.boardIdx}/${dto.id}'">스크랩</button>
 		</div>
 		<!--style="
                     background-color: rgb(172, 172, 172);
@@ -96,9 +105,9 @@
 
 	</div>
 	<div class="container" style="text-align: center; padding-top: 100px;">
-
+		아이디:${dto.id}
 		${dto.content} 글번호:${dto.boardIdx} 조회수:${dto.bhit}
-		카테고리:${dto.brdctgidx}
+		카테고리:${dto.brdctgidx} 추천수:${dto.CNTRECO}
 		<div id="content">
 			<button id="contentbtn" style="margin-left: 300;">신고</button>
 			<button onclick="location.href='../Freelist'" id="contentbtn" style="margin-left: 50;">목록</button>
@@ -185,7 +194,7 @@ $("#commentSave").click(function(){
 /* 댓글 리스트 뿌리기 */
 function commentListPrint(list){
 	var content ="";
-
+	
 	for (var i = 0 ; i < list.length ; i++) {
 	content += "<table class='commentTable'>";
 	content += "<tr>";
@@ -203,9 +212,9 @@ function commentListPrint(list){
 	content += ' <td style="width:5%" ><a href="#"><img alt="decommend" src="resources/images/interior3.jpg" width="15px" height="15px"> </a></td>'
 	content += '<td style="text-align:left">';
 	if("${sessionScope.loginId}"==list[i].id){
-		content += '<button class="commDel" onclick="boardCommentDel('+list[i].commIdx+')">삭제</button></td>' ; //댓글삭제호출
-		
+		 content += '<button class="commDel" id="+list[i].commIdx+" onclick="boardCommentDel('+list[i].commIdx+')">삭제</button></td>' ; //댓글삭제호출 
 	}else{
+		 content += '<button class="commDel" onclick="boardCommentDel('+list[i].commIdx+')">삭제</button></td>' ; //댓글삭제호출 
 	content += '<a href="#">답글달기</a>&nbsp;&nbsp;';
 	content += '<a href="#">신고</a></td>' ;
 	}
@@ -223,7 +232,7 @@ function boardCommentDel(commIdx) {
 	//삭제 confirm	
  		 if(confirm("정말로 삭제하시겠습니까?")){
  			 
- 			var reqUrl = "./boardCommDel/"+commIdx;
+ 			var reqUrl = "../boardCommDel/"+commIdx;
  			$.ajax({
  				url : reqUrl,
  				type : "get",

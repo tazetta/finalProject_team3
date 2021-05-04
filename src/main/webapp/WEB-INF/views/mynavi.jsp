@@ -60,7 +60,7 @@ li a:hover, .navi li ul:hover {
 
 	<div>
 		<ul class="navi">
-			<li><a href="myprofile" target="_parent">회원 정보</a></li>
+			
 			<li><a href="mywrite" target="_parent">내 작성글</a>
 				<ul>
 					<li><a href="mywrite" target="_parent">우리집 자랑</a></li>
@@ -85,6 +85,7 @@ li a:hover, .navi li ul:hover {
 					<li><a href="mygroupwrite" target="_parent">작성한 공동구매</a></li>
 				</ul></li>
 			<li><a href="myInteriorHistory" target="_parent">인테리어 변천사</a></li>
+			<li><a href="pwconfirm" target="_parent">회원 정보</a></li>
 		</ul>
 	</div>
 </body>
