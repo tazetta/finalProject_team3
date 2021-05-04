@@ -95,13 +95,26 @@ public class MyService {
 	
 	
 
-	public HashMap<String, Object> msgReceiveList(int pagePerCnt, int page2, HttpSession session) {
+	public HashMap<String, Object> msgReceiveList(int pagePerCnt, int page, HttpSession session) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		String sessionId = (String) session.getAttribute("loginId");
-				
-		int allCnt = MyDAO.receiveAllCount();
+		int All = MyDAO.all();
+		logger.info("all : " + All);
+		logger.info("pagePerCnt : " + pagePerCnt);
+		logger.info("page : " + page);
+		logger.info("세션 아이디 : " + sessionId);
+		int allCount =  MyDAO.receiverAllCount(sessionId);
+		logger.info("총 갯수 : "  + allCount);
+		int range = allCount%pagePerCnt > 0 ? Math.round(allCount/pagePerCnt)+1 : Math.round(allCount/pagePerCnt);
+		logger.info("총 페이지(range): " + range);
+		int end = page * pagePerCnt;
+		int start = end - pagePerCnt + 1;
 		
-		return null;
+		map.put("list", MyDAO.receiveList(start,end,sessionId));
+
+		map.put("range", range);
+		map.put("currPage", page);
+		return map;
 	}
 
 
