@@ -16,6 +16,17 @@
 	SELECT * FROM generalmember WHERE id = #{loginId}
 </select>
 
+<update id="myupdate"  parameterType="String">
+		UPDATE generalmember SET name=#{name}
+			, phone=#{phone}, email=#{email} WHERE id = #{id}
+	</update>
+	
+	
+	
+	<update id="resetpw"  parameterType="String">
+		UPDATE generalmember SET pw=#{newPw} WHERE id = #{loginId}
+	</update>
+
  
 
 

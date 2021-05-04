@@ -70,23 +70,56 @@ public class MyService {
 		return encoder.matches(pw, encrypt_pass);
 	}
 	
-	public ModelAndView profileupdate(@ModelAttribute MyDTO dto,HttpSession session) {
+	/* 회원정보 수정 */
+	public ModelAndView myupdate(@ModelAttribute MyDTO dto,HttpSession session) {
 		logger.info("수정할 params:"+dto.getName()+"/"+dto.getPhone()+"/"+dto.getEmail());
 
 		ModelAndView mav = new ModelAndView();
-		int success = MyDAO.profileupdate(dto);
-		page = "redirect:/myLib_UpdateForm";
+		int success = MyDAO.myupdate(dto);
+		page = "redirect:/myprofile";
 		msg = "회원정보 수정에 실패하였습니다.";
 		
 		if(success>0) {
 			dto.getId();
 			msg = "회원정보를 수정하였습니다.";
-			page = "myLib_UpdateForm";
+			page = "myupdate";
 		}
 		logger.info("수정성공여부:"+success);
 		mav.addObject("msg", msg);
 		mav.setViewName(page);
 		return mav;
+	}
+	
+	
+	/* 패스워드 변경 */
+	public ModelAndView pwreset(String newPw, HttpSession session) {
+        logger.info("새로바꿀 비밀번호:"+newPw);    
+        String loginId = (String) session.getAttribute("loginId");
+        logger.info("해당 id:"+loginId);
+        MyDTO dto = new MyDTO();
+        dto.setId(loginId); //dto에 해당 id를 넣는다.
+
+        String encrypt_pass  = MyDAO.login(loginId);
+        logger.info("변경전 비밀번호:"+encrypt_pass); // 1. 현재 비밀번호 확인
+    	
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        ModelAndView mav = new ModelAndView();
+        
+       boolean success = encoder.matches(newPw, encrypt_pass);
+        if(success==true) {
+        	msg= "이전과 동일한 비밀번호입니다. 다시 입력해주세요.";
+			page = "mypwreset";
+        }else {
+        	String encrypt = encoder.encode(newPw);
+			dto.setPw(encrypt); //새로운 비밀번호를 dto에 담는다(암호화된)
+			MyDAO.newPw(dto); //담은 비밀번호를 dao에 다시 담는다
+			page = "myprofile";
+			msg= "비밀번호가 변경되었습니다.";
+        }
+		logger.info("변경 후 비밀번호:"+dto.getPw());
+		mav.addObject("msg", msg);
+		mav.setViewName(page);
+		return mav; 
 	}
 
 	

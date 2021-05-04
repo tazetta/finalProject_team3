@@ -31,6 +31,14 @@ public interface MyDAO {
 	int receiverAllCount(String sessionId);
 	
 	ArrayList<MsgDTO>  receiveList(int start, int end, String sessionId);
+	
+	
+
+	int myupdate(MyDTO dto);
+
+	int mypwreset(String id, String encrypt);
+
+	void newPw(MyDTO dto);
 
 
 }
