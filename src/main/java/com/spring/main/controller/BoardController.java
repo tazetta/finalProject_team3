@@ -1,6 +1,8 @@
 package com.spring.main.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.spring.main.dto.BoardDTO;
 import com.spring.main.service.AdminService;
 import com.spring.main.service.BoardService;
 
@@ -50,8 +53,18 @@ public class BoardController {
 	public ModelAndView homemain(@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum) {
 		logger.info("우리집 자랑 목록 조회하기");
 		System.out.println("pageNum : "+ pageNum);
-		ModelAndView mav = BoardService.getBoardList(pageNum, 2);
+		/*
+		// TODO: 삭제 예정
+		ModelAndView mav = BoardService.getBoardList(pageNum, 2, null, null);
 		mav.setViewName("homemain");
+		*/
+		
+	    ModelAndView mav = new ModelAndView();
+	    Map<String, Object> map = BoardService.getBoardList(pageNum, 2, "all", "");
+	  
+	    mav.addObject("boardList", map.get("list"));
+	    mav.setViewName("homemain");
+		
 		return mav;
 	   }
 	@RequestMapping(value = "/Freeview", method = RequestMethod.GET)
@@ -68,11 +81,18 @@ public class BoardController {
 		  return "Freelist";
 		}
 	*/
-	public ModelAndView Freelist(@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum) {
+	public ModelAndView Freelist(
+			@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum,
+			@RequestParam(value="opt", required=false, defaultValue="all") String opt,
+			@RequestParam(value="keyword", required=false, defaultValue="") String keyword
+			) {
 	  logger.info("자유게시판 조회하기");
 	  System.out.println("pageNum : " + pageNum);
 	  
-	  ModelAndView mav = BoardService.getBoardList(pageNum, 1);
+	  ModelAndView mav = new ModelAndView();
+	  Map<String, Object> map = BoardService.getBoardList(pageNum, 1, "all", "");
+	  
+	  mav.addObject("boardList", map.get("list"));
 	  mav.setViewName("Freelist");
 	  
 	  return mav;
@@ -86,7 +106,10 @@ public class BoardController {
 		  logger.info("질문 및 답변");
 		  System.out.println("pageNum : " + pageNum);
 		  
-		  ModelAndView mav = BoardService.getBoardList(pageNum, 4);
+		  ModelAndView mav = new ModelAndView();
+		  Map<String, Object> map = BoardService.getBoardList(pageNum, 4, "all", "");
+		  
+		  mav.addObject("boardList", map.get("list"));
 		  mav.setViewName("helpMain");
 		  
 		  return mav;

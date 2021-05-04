@@ -1,7 +1,9 @@
 package com.spring.main.controller;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.spring.main.dto.BoardDTO;
 import com.spring.main.service.BoardService;;
 
 @RestController
@@ -71,6 +74,27 @@ public class BoardRestController {
 		return BoardService.cntboardList(pagePerCnt,page,CNTRECO);
 	}
 	
+	/**
+	 * 자유게시판 목록 조회
+	 * pageNum : 조회할려는 페이지 번호
+	 * opt : 선택한 검색 select 값
+	 * keyword : 입력한 검색어 값
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/api/Freelist", method = RequestMethod.GET)
+	public Map<String, Object> getFreelist(
+			@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum,
+			@RequestParam(value="opt", required=false, defaultValue="all") String opt,
+			@RequestParam(value="keyword", required=false, defaultValue="") String keyword) {
 		
+		logger.info("pageNum : " + pageNum + ", opt : " + opt + ", keyword : " + keyword);
+		
+		Map<String, Object> map = BoardService.getBoardList(pageNum, 1, opt, keyword);
+		
+		return map;
+	}
+	
+	
 	
 }
