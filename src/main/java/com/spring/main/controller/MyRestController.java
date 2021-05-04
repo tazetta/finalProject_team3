@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.service.MyService;
 
@@ -39,6 +40,12 @@ public class MyRestController {
 	public HashMap<String, Object> msgSenderList(@PathVariable int page , @PathVariable int pagePerCnt ,HttpSession session) {
 		logger.info("보낸쪽지함 리스트");
 		return service.msgSenderList(pagePerCnt,page,session);	
+		
+	}
+	@RequestMapping(value = "/msgDetail/{msgIdx}", method = RequestMethod.GET)
+	public ModelAndView msgDetail(@PathVariable int msgIdx) {
+		logger.info("쪽지 상세보기");
+		return service.msgDetail(msgIdx);
 		
 	}
 }

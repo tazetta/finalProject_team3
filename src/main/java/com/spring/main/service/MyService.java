@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.spring.main.dao.BoardDAO;
 import com.spring.main.dao.MyDAO;
 import com.spring.main.dto.MemberDTO;
+import com.spring.main.dto.MsgDTO;
 import com.spring.main.dto.MyDTO;
 import com.spring.main.dto.PhotoDTO;
 
@@ -160,6 +161,14 @@ public class MyService {
 		map.put("range", range);
 		map.put("currPage", page);
 		return map;
+	}
+
+	public ModelAndView msgDetail(int msgIdx) {
+		MsgDTO dto = MyDAO.msgDetail(msgIdx);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("info", dto);
+		mav.setViewName("msgDetailPage");
+		return mav;
 	}
 
 
