@@ -474,7 +474,7 @@ public class BoardService {
 		return map;
 	}
 
-	public ModelAndView boardCntUp(String boardIdx) {
+	public ModelAndView boardCntUp(String boardIdx, RedirectAttributes rAttr) {
 		ModelAndView mav = new ModelAndView();
 		int CntUP=boarddao.boardCntUp(boardIdx);
 		boarddao.boardbhitDown(boardIdx);
@@ -485,12 +485,12 @@ public class BoardService {
 			msg="추천실패했습니다.";
 			page="redirect:/boarddetail/" +boardIdx;
 		}
-		mav.addObject("msg",msg);
+		rAttr.addFlashAttribute("msg", msg);
 		mav.setViewName(page);
 		return mav;
 	}
 
-	public ModelAndView boardCntDown(String boardIdx) {
+	public ModelAndView boardCntDown(String boardIdx,RedirectAttributes rAttr) {
 		ModelAndView mav = new ModelAndView();
 		int CntDown=boarddao.boardCntDown(boardIdx);
 		boarddao.boardbhitDown(boardIdx);
@@ -501,7 +501,7 @@ public class BoardService {
 			msg="추천취소실패했습니다.";
 			page="redirect:/boarddetail/" +boardIdx;
 		}
-		mav.addObject("msg",msg);
+		rAttr.addFlashAttribute("msg", msg);
 		mav.setViewName(page);
 		return mav;
 	}

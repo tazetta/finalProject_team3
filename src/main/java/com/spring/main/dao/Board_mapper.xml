@@ -239,4 +239,20 @@
 	<delete id="boardScrapDel">
 			DELETE FROM scrap WHERE boardIdx=${param1} and id=#{param2}
 	</delete>
+	<!--게시물신고하기-->
+	<insert id="boardreport">
+		INSERT INTO reports (repIdx,id,boardIdx,repCtgIdx)
+		VALUES (reports_seq.NEXTVAL,'sdk',121,11);
+	</insert>
+	<!--댓글신고하기-->
+	<insert id="comreport">
+	INSERT INTO reports (repIdx,id,commIdx,repCtgIdx)
+		VALUES (reports_seq.NEXTVAL,'sdk',121,11);
+	</insert>
+	<!--대댓글신고하기-->
+	<insert id="com2report">
+		 INSERT INTO reports (repIdx,id,com2ndidx,repCtgIdx)
+		VALUES (reports_seq.NEXTVAL,'sdk',121,11);
+	</insert>
+	
 </mapper>
