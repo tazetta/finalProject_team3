@@ -61,8 +61,8 @@ public class BoardController {
 		return "Freeview";
 	}
 	@RequestMapping(value = "/Freelist", method = RequestMethod.GET)
-	/*
-	public String Freelist() {
+	
+	/*public String Freelist() {
 		  logger.info("자유게시판 조회하기");
 		  System.out.println("자유게시판 ~~ ");
 		  return "Freelist";
@@ -77,6 +77,9 @@ public class BoardController {
 	  
 	  return mav;
 	}
+	 
+
+	
 	
 	@RequestMapping(value = "/helpMain", method = RequestMethod.GET)
 	public ModelAndView helpmain(@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum) {

@@ -20,16 +20,18 @@
 	crossorigin="anonymous"></script>
 </head>
 <body>
+<form action="FreeSearch">
 	<div class="container" style="text-align: center;">
-		<select name="idx" id="idx" style="border-radius: 5px;">
-			<option value="">제목</option>
-			<option value="1">글내용</option>
-			<option value="2">작성자</option>
-		</select> <input type="text" size="75"
-			style="border-radius: 5px; border: 1px solid;"
-			placeholder="검색어를 입력해주세요.">
-		<button id="btn" style="border-radius: 5px; background-color: white; border: 1px solid;">검색</button>
+		<select name="opt" id="searchOpt" style="border-radius: 5px;">
+			<option value="all">전체</option>
+			<option value="subject">제목</option>
+			<option value="content">글내용</option>
+			<option value="id">작성자</option>
+		</select>
+	<input type="text" id="keyword" name="keyword" size="75" style="border-radius: 5px; border: 1px solid;" placeholder="검색어를 입력해주세요.">
+		<button id="btn" style="border-radius: 5px; background-color: white; border: 1px solid;" onclick="searchFree()">검색</button>
 	</div>
+	</form>
 	<hr />
 	<div class="container">
 		<table class="table table-hover">
@@ -42,7 +44,7 @@
 				</tr>
 			</thead>
 
-			<tbody>
+			<tbody id="list">
 				<c:forEach var="board" items="${boardList}" begin="0" end="9" step="1" varStatus="status">
 					<tr>
 						<td><a href="boarddetail/${board.boardIdx}">${board.subject}</a></td>
@@ -54,11 +56,45 @@
 			</tbody>
         </table>
         <hr />
+        <div class="row">
+    <div class="col">
+       
+        <ul class="pagination justify-content-center">
+            <li class="page-item"><a class="page-link" href="#">이전</a></li>
+            <li class="page-item"><a class="page-link" href="">1</a></li>
+            <li class="page-item"><a class="page-link" href="">2</a></li>
+            <li class="page-item"><a class="page-link" href="">3</a></li>
+            <li class="page-item"><a class="page-link" href="">4</a></li>
+            <li class="page-item"><a class="page-link" href="">5</a></li>
+            <li class="page-item"><a class="page-link" href="">다음</a></li>
+        </ul>
+    </div>
+</div>
+   
         <button class="btn" id="comment"
 			style="border-radius: 5px; background-color:rgb(170, 187, 247) ; font-weight: bold;  color: white;"
 			onclick="location.href='boardWriteForm?boardCtgIdx=1'">글쓰기</button>
         </div>
         </body>
+        
+        <script type="text/javascript">
+        var msg="${msg}";
+
+        if(msg!=""){
+        	 alert(msg);
+        }
+        
+        function searchFree(){
+        	var keyword = $("#keyword").val();
+        	console.log("keyword:"+keyword);
+        	if(keyword ==''){
+        		alert("검색어를 입력해주세요");
+        	}else{
+        		$("form").submit();
+        	}
+        }
+       
+        </script>
         </html>
     
        
