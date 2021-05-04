@@ -59,6 +59,12 @@ public interface BoardDAO {
 	Object homeMain(int start, int end, String order, String formcategory, int budget, int roomsize);
 	//추천수
 	Object CNTRECO(int start, int end, int CNTRECO);
+	//게시판 cnt 업
+	int boardCntUp(String boardIdx);
+	//추천/취소 시 조회수도 올라가는거방지용
+	int boardbhitDown(String boardIdx);
+	//게시판 cnt 다운
+	int boardCntDown(String boardIdx);
 
 
 

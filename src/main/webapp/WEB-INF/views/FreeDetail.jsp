@@ -83,6 +83,10 @@ border:none;
 				onclick="location.href='../boardUpdateForm/${dto.boardIdx}'">수정</button>
 			<button id="button" style="margin-left: 50;"
 				onclick="location.href='../boardDel/${dto.boardIdx}'">삭제</button>
+				<button id="button" style="margin-left: 50;"
+				onclick="location.href='../boardCntUp/${dto.boardIdx}'">추천하기</button>
+				<button id="button" style="margin-left: 50;"
+				onclick="location.href='../boardCntDown/${dto.boardIdx}'">추천취소</button>
 		</div>
 		<!--style="
                     background-color: rgb(172, 172, 172);
@@ -101,7 +105,7 @@ border:none;
 	<div class="container" style="text-align: center; padding-top: 100px;">
 
 		${dto.content} 글번호:${dto.boardIdx} 조회수:${dto.bhit}
-		카테고리:${dto.brdctgidx}
+		카테고리:${dto.brdctgidx} 추천수:${dto.CNTRECO}
 		<div id="content">
 			<button id="contentbtn" style="margin-left: 300;">신고</button>
 			<button onclick="location.href='../Freelist'" id="contentbtn" style="margin-left: 50;">목록</button>

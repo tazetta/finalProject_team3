@@ -72,7 +72,7 @@ if(msg != ""){
 			dataType : 'JSON',
 			success : function(data) {
 				console.log(data);
-				listPrint(data.list,data.img);
+				listPrint(data.list);
 			},
 			error : function(error) {
 				console.log(error);
@@ -80,15 +80,14 @@ if(msg != ""){
 		});
 	}
 	
-	function listPrint(list,img) {
+	function listPrint(list) {
 		console.log("listprint실행");
 		console.log(list.length);
 		var content = "";
 		for (var i = 0; i < list.length; i++) {
-			content += "<div>"+ +"</div>"
 			content += "<tr>"
-			content += "<td><a href='#'>" + list[i].subject + "</td>"
-			content += "<td>" + list[i].comId + "</td>"
+			content += "<td><a href='examDetail?combrdIdx="+list[i].combrdIdx+"'>" + list[i].subject + "</a></td>"
+			content += "<td><a href='interiorCompanyDetail?comId="+list[i].comId+"'>" + list[i].comId + "</a></td>"
 			//java에서 가끔 날짜가 milliseconds로 나올 경우..
 			var date = new Date(list[i].reg_date);
 			content += "<td>" + date.toLocaleDateString("ko-KR") + "</td>"
