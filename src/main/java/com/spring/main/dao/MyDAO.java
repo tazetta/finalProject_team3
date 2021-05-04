@@ -26,4 +26,6 @@ public interface MyDAO {
 
 	int profileupdate(MyDTO dto);
 
+	int receiveAllCount();
+
 }
