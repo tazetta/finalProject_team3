@@ -184,7 +184,7 @@
 	 SELECT currUser FROM groupPurchase WHERE gpIdx=#{gpIdx}
 	</select>
 	
-	<select id="commRecChk" resultType="String">
+	<select id="groupCommRecChk" resultType="String">
 		SELECT id FROM recommend WHERE commIdx=#{param1} AND id=#{param2}
 	</select>
 	

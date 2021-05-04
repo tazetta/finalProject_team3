@@ -27,7 +27,12 @@ table, td, th {
 }
 
 #applyMember {
-	margin: 10px;
+	margin-left:6px;
+	margin-right: 18px;
+	font-weight:600;
+}
+#applicant{
+margin:20px;
 }
 
 .deadlineSpan {
@@ -166,21 +171,19 @@ font-size:90%;
 		$.ajax({
 			url : reqUrl,
 			type : "get",
+			
 			data : {},
 			dataType : "JSON",
 			success : function(data) {
-				console.log("success:", data);
+				console.log("applyListSuccess:", data);
 
 				for (var i = 0; i < data.list.length; i++) {
-
-					var content = "";
-
-					content += "<span id='applyMember'>" + data.list[i].id
-							+ "</span>";
-
-					$("#applicant").append(content);
+						console.log("grade:",data.gradeList[i]);
+						var content = "";
+						content += "<span class='grade'>"+ data.gradeList[i]+"</span>";
+						content += "<span id='applyMember'>" + data.list[i].id + "</span>";
+						$("#applicant").append(content);
 				}
-
 			},
 			error : function(error) {
 				console.log("error:", error);

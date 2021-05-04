@@ -472,9 +472,28 @@ public class GroupService {
 	}
 
 	public HashMap<String, Object> applyList(int gpIdx, RedirectAttributes rAttr, HttpSession session) {
+		logger.info("신청자 리스트 서비스");
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		ArrayList<GroupDTO> list = groupdao.applyList(gpIdx);
+		ArrayList<GroupDTO> list = groupdao.applyList(gpIdx); //신청자 리스트 가져오기
+		ArrayList<String> gradeList = new ArrayList<String>();
 		logger.info("신청자  수:" + list.size());
+
+		for (int i = 0; i < list.size() ; i++) {
+			
+				String applyId = list.get(i).getId(); //신청자 아이디 가져오기
+				logger.info("applyId:"+applyId);
+				
+				MemberDTO applyGrade = memberdao.gradeChk(applyId); //신청자 아이디의 등급 idx가져오기
+				logger.info("applyGrade: "+applyGrade.getGradeIdx());
+				
+				String memGrade =memberdao.getGrade(applyGrade.getGradeIdx()); //신청자 아이디의 등급명 가져오기
+				logger.info("memberGrade:"+memGrade);
+				gradeList.add(memGrade);
+
+		}
+		logger.info("size:"+gradeList.size());
+
+		map.put("gradeList",gradeList);
 		map.put("list", list);
 		return map;
 	}
@@ -530,7 +549,7 @@ public class GroupService {
 	}
 
 	public HashMap<String, Object> currUserChk(int gpIdx, int maxUser, RedirectAttributes rAttr) {
-		logger.info("현재인원 확인 서비스");
+		logger.info("현재 신청인원 확인 서비스");
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		int currUser = groupdao.groupcurrUser(gpIdx);
 		logger.info("currUser: " + currUser);
@@ -544,7 +563,7 @@ public class GroupService {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		String loginId = (String) session.getAttribute("loginId");
 
-		String commRecChk = groupdao.commRecChk(commIdx, loginId);
+		String commRecChk = groupdao.groupCommRecChk(commIdx, loginId);
 		logger.info("공동구매 댓글 추천 여부:" + commRecChk);
 
 		String recResult = "";
@@ -575,10 +594,6 @@ public class GroupService {
 		String loginId = (String) session.getAttribute("loginId");
 		ArrayList<GroupDTO> recCommList = groupdao.myRecList(loginId);
 		logger.info("recCommListSize:" + recCommList.size());
-		
-		for (int i = 0; i < recCommList.size(); i++) {
-			logger.info("recCommIdx: ",recCommList.get(i));
-		};
 		
 		map.put("recCommList", recCommList);
 		return map;
