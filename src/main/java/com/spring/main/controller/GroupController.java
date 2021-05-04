@@ -163,6 +163,12 @@ public class GroupController {
 		return groupService.groupCommRec(commIdx,rAttr,session);
 	}
 	
+	@RequestMapping(value = "/recCommList", method = RequestMethod.GET)
+	@ResponseBody HashMap<String , Object> recCommList( HttpSession session,RedirectAttributes rAttr) {
+		logger.info("공동구매 내가 추천한 댓글 리스트: {}");
+		return groupService.recCommList(rAttr,session);
+	}
+	
 	
 	
 

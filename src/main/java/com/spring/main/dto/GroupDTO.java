@@ -25,8 +25,18 @@ public class GroupDTO {
 	private String category;
 	/*gpProgress 테이블*/
 	private String progress;
+	/*recommend테이블*/
+	private int commIdx;
 	
 	
+	
+	
+	public int getCommIdx() {
+		return commIdx;
+	}
+	public void setCommIdx(int commIdx) {
+		this.commIdx = commIdx;
+	}
 	public int getgHit() {
 		return gHit;
 	}

@@ -41,6 +41,11 @@ public class BoardController {
 		logger.info("main");
 		return "main";
 	}
+	@RequestMapping(value = "/QWrite", method = RequestMethod.GET)
+	public String QWrite() {
+		logger.info("질문하기 페이지 입니다.");
+		return "QWrite";
+	}
 	@RequestMapping(value = "/homemain", method = RequestMethod.GET)
 	public ModelAndView homemain(@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum) {
 		logger.info("우리집 자랑 목록 조회하기");
