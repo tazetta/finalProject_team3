@@ -45,14 +45,14 @@
 			</thead>
 
 			<tbody id="list">
-				<c:forEach var="board" items="${boardList}" begin="0" end="9" step="1" varStatus="status">
+				<!--<c:forEach var="board" items="${boardList}" begin="0" end="9" step="1" varStatus="status">
 					<tr>
 						<td><a href="boarddetail/${board.boardIdx}">${board.subject}</a></td>
 						<td>${board.id}</td>
 						<td>${board.bhit}</td>
 						<td>${board.reg_date}</td>
 					</tr>
-				</c:forEach>
+				</c:forEach>-->
 			</tbody>
         </table>
         <hr />
@@ -93,6 +93,7 @@
         		$("form").submit();
         	}
         }
+ 
        
         </script>
         </html>
