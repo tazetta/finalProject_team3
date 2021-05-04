@@ -8,17 +8,6 @@
 </head>
    
     <style>
-        #hidden4{
-            border: 1px solid gray; 
-            width: 80px;
-               height: 25px;
-                color:black;
-                background: white;
-                border-radius: .25em;
-                transition:0.3s;     
-                line-height: normal;
-                font-size: 15px;
-        }
       
         .업체정보{
             border:1px solid gainsboro;
@@ -91,6 +80,7 @@
          
         <iframe  class="업체네비" src="companynavi" scrolling="no" frameborder="0"></iframe>
 		
+		<form action="comMemUpdate" method="post">
         <table style="width: 700px; margin-top: 3%; margin-left: 35%;">
         
         <tr>
@@ -100,64 +90,105 @@
         </tr>
             <tr> 
                 <td style="width: 100px; text-align: center; height: 50px;"><strong>ID</strong></td>
-                <td><input style="width: 250px;" type="text" value="${company.comId}" readonly></td>  
+                <td><input style="width: 250px;" type="text" name="comId" value="${company.comId}" readonly></td>  
             </tr>
+            
             <tr> 
-		
+                <td style="width: 100px; text-align: center; height: 50px;"><strong>PW</strong></td>
+                <td><input style="width: 250px;" type="password" name="pw" id="pw" value=""></td>  
+            </tr>
+            
+            <tr> 
+                <td style="width: 100px; text-align: center; height: 50px;"><strong>PW확인</strong></td>
+                <td><input style="width: 250px;" type="password" id="pwchk" value=""></td>  
+            </tr>
+         	 <tr> 
+                <td colspan="2">
+                	<div id="pwChkMsg"></div>
+                </td> 
+            </tr>
+        
+            <tr> 
                 <td style="width: 100px; text-align: center; height: 50px;"><strong>사업자 번호</strong></td>
                 <td><input style="width: 250px;" type="text" value="${company.license}" readonly></td>  
             </tr>
             <tr> 
                 <td style="width: 100px; text-align: center; height: 50px;"><strong>업체명</strong></td>
-                <td><input style="width: 250px;" type="text" value="${company.comName}" readonly></td>  
+                <td><input style="width: 250px;" type="text" name="comName" value="${company.comName}"></td>  
             </tr>
             <tr> 
                 <td style="width: 100px; text-align: center; height: 50px;"><strong>PHONE</strong></td>
-                <td><input style="width: 250px;" type="text" value="${company.phone}" readonly></td>  
+                <td><input style="width: 250px;" type="text" name="phone" value="${company.phone}"></td>  
             </tr>
             <tr> 
                 <td style="width: 100px; text-align: center; height: 50px;"><strong>주소</strong></td>
-                <td><input style="width: 250px;" type="text" value="${company.addr}" readonly></td>  
+                <td><input style="width: 250px;" type="text" name="addr" value="${company.addr}"></td>  
             </tr>
-            <tr>
-                <td style="width: 100px; text-align: center; height: 30px;"></td>
-                <td id="write">
-                    <button onclick="comwrite()" class="업체정보수정">업체정보 수정하기</button>
-            </td>
-            <td id="hidden1"style="display:none" >비밀번호 입력해주세요.</td>
-            </tr>
-            </table>
-            <form action="comMemUpdateForm" method="post">
-            <table style="width: 700px; margin-top: 3%; margin-left: 35%;">
-            <tr>
-            <td id="hidden2" style="width: 100px; text-align: center; height: 30px; display:none;" ><strong>비밀번호</strong></td>
-            <td>
-            	<input id="hidden3" type="text" name="pw" style=" width: 250px; display: none;">
-            </td>
-            <td>
-            	<button id="hidden4" style="margin-left: 2%; display:none;float: right; margin-right: 280px;">확인</button>
-            </td>
-        	</tr>
-     		
+ 			<tr>
+ 				<td colspan="2" style="width: 100px; text-align: center; height: 50px;">
+ 					<input id="update" type="button" value="수정">
+ 				</td>
+ 			</tr>    
         </table>
         </form>
 
     </body>
     <script>
-    var msg = "${msg}";
-    if(msg != ""){
-    	alert(msg);
-    }
-       function comwrite(){
-       if(hidden1.style.display=="none"){
-            hidden1.style.display="block";
-            hidden2.style.display="block";
-            hidden3.style.display="block";
-            hidden4.style.display="block";
-            write.style.display="none";
-        }
-    }
-
     
+    
+    $("#pw").keyup(function(){
+        var pcm = $("#pwchk").val();
+        if(pcm.length > 0){
+          passwordChek();
+        }
+      });
+
+      var passChk = false;
+      function passwordChek(){
+          var password = $('#pw').val();
+          console.log(password);
+          var passCheck = $('#pwchk').val();
+          console.log(passCheck);
+         if(password === passCheck){
+             $('#pwChkMsg').html('비밀번호가 일치합니다.');
+             $('#pwChkMsg').css("color","yellowgreen");
+              passChk = true;
+          }else{
+          $('#pwChkMsg').html('비밀번호가 일치하지 않습니다.');
+          $('#pwChkMsg').css("color","red");
+              passChk = false;
+         }
+      }
+      
+      $('#pwchk').keyup(function(){
+          var password = $('#pw').val();
+          console.log(password);
+          var passCheck = $('#pwchk').val();
+          console.log(passCheck);
+         if(password === passCheck){
+             $('#pwChkMsg').html('비밀번호가 일치합니다.');
+              $('#pwChkMsg').css("color","yellowgreen");
+              passChk = true;
+          }else{
+          $('#pwChkMsg').html('비밀번호가 일치하지 않습니다.');
+          $('#pwChkMsg').css("color","red");
+              passChk = false;
+         }
+      });
+      
+      $("#update").click(function(){
+    	var reg = /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+    	var pw = $("#pw").val();
+    	console.log(pw);
+    	if(false === reg.test(pw)) {
+    	    alert('비밀번호는 8자 이상이어야 하며, 숫자/대문자/소문자/특수문자를 모두 포함해야 합니다.');
+    	}else if(passChk==false){
+    		alert("비밀번호를 다시 확인해주세요");
+      	}else{
+      		$("form").submit();      		
+      	}
+      });
+      
+      
         </script>
     </html>

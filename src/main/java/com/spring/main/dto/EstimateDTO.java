@@ -16,6 +16,14 @@ public class EstimateDTO {
 	private String license;
 	private String id;
 	private Date reg_date;
+	private String content;
+	
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
 	public int getEstIdx() {
 		return estIdx;
 	}

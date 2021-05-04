@@ -3,6 +3,7 @@ package com.spring.main.dao;
 import java.util.ArrayList;
 
 import com.spring.main.dto.BoardDTO;
+import com.spring.main.dto.EstimateDTO;
 import com.spring.main.dto.ExamDTO;
 import com.spring.main.dto.ReviewDTO;
 
@@ -41,5 +42,7 @@ public interface ExamDAO {
 	ArrayList<ReviewDTO> reviewSemiList(String comId);
 
 	ArrayList<ExamDTO> examListScroll(int cnt);
+
+	ArrayList<EstimateDTO> estimateList(int start, int end, String comId);
 
 }

@@ -54,7 +54,7 @@ public class ExamController {
 		
 	//게시물 삭제(photo내의 데이터 삭제 > bbs내의 데이터 삭제 > 파일삭제)
 	@RequestMapping(value = "/examDel", method = RequestMethod.GET)
-	public ModelAndView groupDel(@RequestParam int combrdIdx, HttpSession session, RedirectAttributes rAttr) {
+	public ModelAndView examDel(@RequestParam int combrdIdx, HttpSession session, RedirectAttributes rAttr) {
 		logger.info("삭제 요청: "+combrdIdx);
 		return examService.examDel(combrdIdx, session, rAttr);
 	}

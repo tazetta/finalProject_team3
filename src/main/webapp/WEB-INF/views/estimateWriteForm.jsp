@@ -33,11 +33,11 @@
 	<table>
 		<tr>
 			<th>업체</th>
-			<td><input type="text" name="comId" value="company1" readonly/></td><!-- 업체명 받아올예정 -->
+			<td><input type="text" name="comId" value="${comId}" readonly/></td><!-- 업체명 받아올예정 -->
 		</tr>
 		<tr>
 			<th>작성자</th>
-			<td><input type="text" name="id" value="mingmang" readonly/></td><!-- 로그인 세션 받아올예정 -->
+			<td><input type="text" name="id" value="${sessionScope.loginId}" readonly/></td><!-- 로그인 세션 받아올예정 -->
 		</tr>
 		<tr>
 			<th>주소</th>

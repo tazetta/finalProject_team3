@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+   "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+<mapper namespace="com.spring.main.dao.CompanyDAO">
+
+	<select id="companydetail" resultType="CompanyMember">
+		SELECT * FROM COMPANYMEMBER WHERE COMID=#{param1}
+	</select>
+	
+	<select id="pwchk" resultType="String">
+		SELECT pw FROM COMPANYMEMBER WHERE COMID=#{param1}
+	</select>
+	
+	<update id="comMemUpdate" parameterType="hashmap">
+		UPDATE COMPANYMEMBER SET pw=#{pw}, phone=#{phone}, addr=#{addr}, comName=#{comName} WHERE COMID=#{comId}
+	</update>
+
+</mapper>

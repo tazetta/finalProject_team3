@@ -339,22 +339,22 @@ public class BoardService {
 		return mav;
 	}
 
-	public ModelAndView getBoardList(int pageNum, int brdCtgIdx) {
-		  ModelAndView mav = new ModelAndView();
-		  logger.info("게시판 글 조회 요청");
+	public ModelAndView getBoardList(int pageNum, int brdCtgIdx) { //데이터 값 받아오기
+		  ModelAndView mav = new ModelAndView(); //변수명 선언
+		  logger.info("게시판 글 조회 요청"); // 글 조회 요청
 		  
 		  // startNum, endNum 생성
-		  int limit = 10;
-		  int startNum = (pageNum - 1) * limit + 1;
-		  int endNum = pageNum * limit;
+		  int limit = 10; //최대 10개 게시물 목록 보여줄거
+		  int startNum = (pageNum - 1) * limit + 1; // 시작페이지 
+		  int endNum = pageNum * limit; // 마지막 페이지
 		  
 		  // 데이터 조회 (board_mapper.xml에 <select id="getBoardList" ... > ... </select>가 있다고 가정.)
 		  // ModelAndView에 반환할 데이터(최근 10개 목록) 추가
 		  
-		  System.out.println("startNum : " + startNum + ", endNum : " + endNum + ", boardCategoryIndex : " + brdCtgIdx);
+		  System.out.println("startNum : " + startNum + ", endNum : " + endNum + ", boardCategoryIndex : " + brdCtgIdx);// 잘 받아왔나 확인
 		  
-		  Object object = boarddao.getBoardList(startNum, endNum, brdCtgIdx);
-		  mav.addObject("boardList", object);
+		  Object object = boarddao.getBoardList(startNum, endNum, brdCtgIdx); // object 로 받기
+		  mav.addObject("boardList", object); // mav 에 보여줄 값
 
 		  // ModelAndView 데이터 반환
 		  return mav;
@@ -474,7 +474,7 @@ public class BoardService {
 		return map;
 	}
 
-	public ModelAndView boardCntUp(String boardIdx) {
+	public ModelAndView boardCntUp(String boardIdx,RedirectAttributes rAttr) {
 		ModelAndView mav = new ModelAndView();
 		int CntUP=boarddao.boardCntUp(boardIdx);
 		boarddao.boardbhitDown(boardIdx);
@@ -485,12 +485,12 @@ public class BoardService {
 			msg="추천실패했습니다.";
 			page="redirect:/boarddetail/" +boardIdx;
 		}
-		mav.addObject("msg",msg);
+		rAttr.addFlashAttribute("msg", msg);
 		mav.setViewName(page);
 		return mav;
 	}
 
-	public ModelAndView boardCntDown(String boardIdx) {
+	public ModelAndView boardCntDown(String boardIdx, RedirectAttributes rAttr) {
 		ModelAndView mav = new ModelAndView();
 		int CntDown=boarddao.boardCntDown(boardIdx);
 		boarddao.boardbhitDown(boardIdx);
@@ -501,7 +501,7 @@ public class BoardService {
 			msg="추천취소실패했습니다.";
 			page="redirect:/boarddetail/" +boardIdx;
 		}
-		mav.addObject("msg",msg);
+		rAttr.addFlashAttribute("msg", msg);
 		mav.setViewName(page);
 		return mav;
 	}

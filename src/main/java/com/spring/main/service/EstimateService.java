@@ -31,6 +31,7 @@ public class EstimateService {
 		dto.setId(params.get("id"));
 		dto.setPhone(params.get("phone"));
 		dto.setRoomsize(params.get("roomsize"));
+		dto.setContent(params.get("content"));
 		int result = estimateDAO.estimateWrite(dto);
 		page = "redirect:/estimateWriteForm";
 		msg="견적서보내기를 실패했습니다.";
@@ -44,6 +45,18 @@ public class EstimateService {
 		mav.setViewName(page);
 		return mav;
 	}
+
+
+
+	public ModelAndView estimateDetail(String estIdx) {
+		ModelAndView mav = new ModelAndView();
+		EstimateDTO dto = estimateDAO.estimateDetail(estIdx);
+		mav.addObject("dto", dto);
+		mav.setViewName("estimateDetail");
+		return mav;
+	}
+
+	
 	
 	
 

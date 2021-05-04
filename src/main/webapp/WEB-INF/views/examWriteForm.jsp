@@ -34,7 +34,7 @@ input[type='text'] {
 		<table>
 			<tr><!-- 업체 세션값 받아와서 설정할예정 -->
 				<th>업체명</th>
-				<td><input type="text" name="comId" value="company1" readonly></td>
+				<td><input type="text" name="comId" value="${sessionScope.cLoginId}" readonly></td>
 			</tr>
 			<tr>
 				<th>제목</th>

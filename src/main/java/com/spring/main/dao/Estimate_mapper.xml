@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+   "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+<mapper namespace="com.spring.main.dao.EstimateDAO">
+
+	<insert id="estimateWrite" parameterType="estimate">
+		INSERT INTO estimate (ESTIDX, ADDRESS, ROOMSIZE, BUDGET,PHONE,COMID,ID,license,content) 
+		VALUES (estimate_seq.NEXTVAL, #{address}, #{roomsize}, #{budget},#{phone},#{comId},#{id},'123456789',#{content})
+	</insert>
+
+	<select id="estimateDetail" resultType="estimate">
+		SELECT * FROM ESTIMATE WHERE ESTIDX=#{param1}
+	</select>
+</mapper>
