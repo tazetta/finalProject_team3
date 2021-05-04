@@ -70,7 +70,7 @@ public class BoardRestController {
 		logger.info("cntreco : {} ", CNTRECO);
 		return BoardService.cntboardList(pagePerCnt,page,CNTRECO);
 	}
-
+	
 		
 	
 }
