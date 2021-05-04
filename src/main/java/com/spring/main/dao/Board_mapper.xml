@@ -236,4 +236,7 @@
 		from dual
 		where not exists (select * from scrap where boardIdx=${param1} and id=#{param2})
 	</insert>
+	<delete id="boardScrapDel">
+			DELETE FROM scrap WHERE boardIdx=${param1} and id=#{param2}
+	</delete>
 </mapper>

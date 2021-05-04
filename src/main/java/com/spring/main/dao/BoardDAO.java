@@ -64,6 +64,8 @@ public interface BoardDAO {
 	int boardCntDown(String boardIdx);
 	//스크랩하기
 	int boardScrap(int boardIdx, String id);
+	//스크랩 삭제하기
+	int boardScrapDel(int boardIdx, String id);
 
 
 
