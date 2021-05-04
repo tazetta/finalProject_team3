@@ -59,6 +59,12 @@ public class ExamRestController {
 		return examService.comExamList(page,comId);
 	}
 	
+	@RequestMapping(value = "/estimatelist/{page}", method = RequestMethod.GET)
+	public HashMap<String, Object> estimatelist(@PathVariable int page,HttpSession session) {
+		logger.info("page:{} , comId:{}",page);
+		String comId = (String) session.getAttribute("cLoginId");
+		return examService.estimatelist(page,comId);
+	}
 	
 	
 }

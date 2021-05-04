@@ -6,4 +6,6 @@ public interface EstimateDAO {
 
 	int estimateWrite(EstimateDTO dto);
 
+	EstimateDTO estimateDetail(String estIdx);
+
 }

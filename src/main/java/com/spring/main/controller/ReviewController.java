@@ -30,9 +30,12 @@ public class ReviewController {
 
 
 	@RequestMapping(value = "/reviewWriteForm", method = RequestMethod.GET)
-	public String reviewWriteForm(HttpSession session) {
+	public ModelAndView reviewWriteForm(HttpSession session,@RequestParam String comId) {
 		logger.info("리뷰 글쓰기 페이지로 이동");
-		return "reviewWriteForm";
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("reviewWriteForm");
+		mav.addObject("comId", comId);
+		return mav;
 	}
 	
 	@RequestMapping(value = "/reviewWrite", method = RequestMethod.POST)

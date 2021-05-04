@@ -33,7 +33,7 @@
 	<table>
 		<tr>
 			<th>업체</th>
-			<td><input type="text" name="comId" value="company1" readonly/></td><!-- 로그인 세션 받아올예정 -->
+			<td><input type="text" name="comId" value="${comId}" readonly/></td><!-- 로그인 세션 받아올예정 -->
 		</tr>
 		<tr>
 			<th>별점</th>

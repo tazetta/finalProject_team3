@@ -39,8 +39,8 @@ li a:hover{
 
 <body>
     <ul class="navi">
-        <li><a href="./estimateWriteForm" target="_parent">견적서보내기</a></li>
-        <li><a href="./reviewWriteForm"  target="_parent">리뷰쓰기</a></li>
+        <li><a href="./estimateWriteForm?comId=${dto.comId}" target="_parent">견적서보내기</a></li>
+        <li><a href="./reviewWriteForm?comId=${dto.comId}"  target="_parent">리뷰쓰기</a></li>
         <li><a href="#" target="_parent" onclick="window.open('./companyReportForm?comId=${dto.comId}','신고','width=500px,height=500px,location=no,status=no,scrollbars=yes');">신고하기</a></li>      
     </ul>
 </body>

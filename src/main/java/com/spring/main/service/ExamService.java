@@ -289,6 +289,28 @@ public class ExamService {
 		return map;
 	}
 
+	public HashMap<String, Object> estimatelist(int page, String comId) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		int allCnt = examDAO.allCount(comId);//전체 게시글 수
+		//게시글수 :21개 ,페이지당 보여줄 수 : 5 = 최대 생성 가능한 페이지 : 5
+		//예 : 21/5 =4.1이면 소수점을 버리고 1을 더해 5가 된다. 딱 떨어지면 그대로.
+		int range = allCnt%10 > 0 ? Math.round(allCnt/10)+1 : Math.round(allCnt/10);
+		
+		//생성 가능한 페이지 보다 현재 페이지가 클 경우..현재페이지를 생성 가능한 페이지로 맞춰준다.
+		page = page>range ? range : page;
+		
+		//시작,끝
+		int end = page * 10;
+		int start = end-10+1;
+		
+		map.put("list", examDAO.estimateList(start,end,comId));
+		//pagePerCnt의 기준으로 몇페이지나 만들수 있는가? 
+		map.put("range",range);
+		map.put("currPage", page);
+		return map;
+	}
+
 	
 
 }

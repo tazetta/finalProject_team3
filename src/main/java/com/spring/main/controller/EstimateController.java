@@ -30,9 +30,12 @@ public class EstimateController {
 	}
 	
 	@RequestMapping(value = "/estimateWriteForm", method = RequestMethod.GET)
-	public String estimateWriteForm(HttpSession session) {
+	public ModelAndView estimateWriteForm(HttpSession session, @RequestParam String comId ) {
 		logger.info("인테리어업체 견적서보내기 페이지로 이동");
-		return "estimateWriteForm";
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("comId", comId);
+		mav.setViewName("estimateWriteForm");
+		return mav;
 	}
 	
 	@RequestMapping(value = "/estimateWrite", method = RequestMethod.POST)
@@ -40,6 +43,13 @@ public class EstimateController {
 		logger.info("견적서 글쓰기 요청");
 		logger.info("params: {}" ,params);	
 		return service.estimateWrite(params);
+	}
+	
+	@RequestMapping(value = "/estimateDetail", method = RequestMethod.GET)
+	public ModelAndView estimateDetail( @RequestParam String estIdx) {
+		logger.info("견적서 상세보기 요청");
+		logger.info("견적서 번호: {}" ,estIdx);	
+		return service.estimateDetail(estIdx);
 	}
 
 }

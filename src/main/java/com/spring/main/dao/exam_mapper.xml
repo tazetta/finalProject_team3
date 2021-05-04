@@ -98,4 +98,13 @@
 	
 	</select>
 	
+	<select id="estimateList" resultType="estimate">
+	SELECT ESTIDX,BUDGET,ID,reg_date,COMID,rnum 
+	FROM( 
+	 		SELECT ESTIDX,BUDGET,ID,reg_date,COMID, 
+	 		ROW_NUMBER() OVER(ORDER BY ESTIDX DESC) AS rnum FROM ESTIMATE WHERE COMID=#{param3}
+	 		)
+	WHERE rnum between #{param1} AND #{param2}
+	</select>
+	
 </mapper>

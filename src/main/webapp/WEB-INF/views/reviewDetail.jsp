@@ -40,7 +40,7 @@
 <hr/>
 	<button onclick="location.href='reviewUpdateForm?revIdx=${dto.revIdx}'">수정</button>
 	<button onclick="location.href='reviewDelete?revIdx=${dto.revIdx}'">삭제</button>
-	<button onclick="location.href='reviewList'">목록</button>
+	<button onclick="location.href='reviewList?comId=${dto.comId}'">목록</button>
 	<table>
 		<tr>
 			<th>업체명</th>
