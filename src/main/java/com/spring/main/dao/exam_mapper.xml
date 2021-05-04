@@ -14,7 +14,7 @@
 	</insert>
 	
 	<select id="list" resultType="exam">
-		SELECT * FROM COMPANYBOARD ORDER BY reg_date DESC
+		SELECT * FROM COMPANYBOARD WHERE blind='N' or blind is null ORDER BY reg_date DESC
 	</select>
 	
 	<insert id="examWriteFile">
@@ -60,7 +60,7 @@
 	SELECT COMBRDIDX,SUBJECT,CONTENT,COMID,reg_date,rnum
 	FROM( 
 	 		SELECT COMBRDIDX,SUBJECT,CONTENT,COMID,reg_date, 
-	 		ROW_NUMBER() OVER(ORDER BY COMBRDIDX DESC) AS rnum FROM COMPANYBOARD WHERE COMID=#{param3}
+	 		ROW_NUMBER() OVER(ORDER BY COMBRDIDX DESC) AS rnum FROM COMPANYBOARD WHERE COMID=#{param3} AND (blind='N' or blind is null)
 	 		)
 	WHERE rnum between #{param1} AND #{param2}
 	</select>
@@ -73,7 +73,7 @@
 		SELECT COMBRDIDX,SUBJECT,CONTENT,COMID,reg_date,rnum
 	FROM( 
 	 		SELECT COMBRDIDX,SUBJECT,CONTENT,COMID,reg_date, 
-	 		ROW_NUMBER() OVER(ORDER BY COMBRDIDX DESC) AS rnum FROM COMPANYBOARD WHERE COMID=#{param1}
+	 		ROW_NUMBER() OVER(ORDER BY COMBRDIDX DESC) AS rnum FROM COMPANYBOARD WHERE COMID=#{param1} AND (blind='N' or blind is null)
 	 		)
 	WHERE rnum between 1 AND 5
 	
@@ -92,7 +92,7 @@
 		SELECT COMBRDIDX,SUBJECT,CONTENT,COMID,reg_date,rnum
 		FROM( 
 	 		SELECT COMBRDIDX,SUBJECT,CONTENT,COMID,reg_date, 
-	 		ROW_NUMBER() OVER(ORDER BY COMBRDIDX DESC) AS rnum FROM COMPANYBOARD
+	 		ROW_NUMBER() OVER(ORDER BY COMBRDIDX DESC) AS rnum FROM COMPANYBOARD WHERE (blind='N' or blind is null)
 	 		)
 		WHERE rnum between 1 AND #{param1}
 	
