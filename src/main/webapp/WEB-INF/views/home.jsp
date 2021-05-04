@@ -7,7 +7,6 @@
 <body>
 
 <a href="main">메인페이지</a>
-<a href="reviewList">리뷰페이지</a>
 <a href="groupListPage">공동구매</a>
 <a href="FAQ">고객센터</a>
 <a href="Freelist">자유게시판</a>
