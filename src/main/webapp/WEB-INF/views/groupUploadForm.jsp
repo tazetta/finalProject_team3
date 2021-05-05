@@ -19,6 +19,7 @@
 		var elem = opener.document.getElementById("editable");
 		// opener : 나를 열어준 페이지. => groupwriteForm
 		var content ="";
+		content +="<br/>";
 		content +="<a href='#' id='${path}' onclick='del(this)'>"; //del은 groupwriteForm에서 처리할거임 
 		content += "<img src='${path}' width='250px'/><b>삭제</b></a><br/>"; //img 태그에 path 담기
 		elem.innerHTML += content; //여러개의 사진을 본문에 보이도록

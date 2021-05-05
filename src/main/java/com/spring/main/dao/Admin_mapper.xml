@@ -96,4 +96,30 @@
 		SELECT comName, comid, license, phone, reg_date, r.rate, r.cnt
     		FROM (SELECT AVG(rate) rate, COUNT(revidx) cnt FROM review WHERE comid=#{param1}) r, companymember c WHERE comid=#{param1}
 	</select>
+	
+	<select id="adminSoundList" resultType="com.spring.main.dto.BoardDTO"> 
+		SELECT subject, brdctgidx, id, reg_date, sgtctg, rnum, boardIdx 
+    		FROM (SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, subject, brdctgidx, sgtctg, id, reg_date, boardIdx FROM board WHERE brdctgidx=5) 
+		<if test= "param3 == 'none'">
+    		WHERE rnum BETWEEN 1 and 10
+		</if>
+		<if test = "param3 != 'none'">
+			WHERE sgtctg = #{param3} AND rnum BETWEEN 1 AND 10
+		</if>
+	</select>
+	
+	<select id="soundMaxCnt" resultType="int">
+		SELECT COUNT(boardIdx) FROM board WHERE brdctgidx=5
+		<if test = "param2 != 'none'" >
+			AND sgtctg=#{param2}
+		</if>
+	</select>
+	
+	<select id="adminSoundDetail" resultType="com.spring.main.dto.BoardDTO">
+		SELECT sgtctg, id, email, subject, content FROM board WHERE boardIdx=#{param1}
+	</select>
+	
+	<select id="checkPenalty" resultType="com.spring.main.dto.BoardDTO">
+		
+	</select>
 </mapper>

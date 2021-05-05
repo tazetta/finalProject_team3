@@ -25,6 +25,17 @@ public class BoardDTO {
 	private String email;
 	private String isrecom;
 	private int CNTRECO;
+	private String sgtctg;
+	
+	public String getSgtctg() {
+		return sgtctg;
+	}
+
+
+	public void setSgtctg(String sgtctg) {
+		this.sgtctg = sgtctg;
+	}
+
 
 	public String getIsrecom() {
 		return isrecom;

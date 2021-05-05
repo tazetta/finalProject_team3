@@ -38,7 +38,7 @@ public class AdminRestController {
 	}
 	
 	@RequestMapping(value = "/adminPenaltyCfm/{id}/{stateIdx}", method = RequestMethod.GET)
-	public String adminPenaltyCfm(@PathVariable String id, @PathVariable String stateIdx) {
+	public HashMap<String, Object> adminPenaltyCfm(@PathVariable String id, @PathVariable String stateIdx) {
 		logger.info("id : {} / state : {}", id, stateIdx);
 		
 		return service.penaltyCfm(id, stateIdx);
@@ -58,7 +58,19 @@ public class AdminRestController {
 		return service.comList(pagePerCnt,page, searchId);
 	}
 	
+	@RequestMapping(value = "/adminSoundList", method = RequestMethod.GET)
+	public ModelAndView adminSoundListPage() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("adminSoundList");
+		return mav;
+	}
 	
+	@RequestMapping(value = "/adminSoundList/{pagePerCnt}/{page}/{stgctg}", method = RequestMethod.GET)
+	public HashMap<String, Object> adminSoundList(@PathVariable int pagePerCnt, @PathVariable int page, @PathVariable String stgctg) {
+		logger.info("pagePerCtn : {} / page : {}", pagePerCnt, page);
+		logger.info("searchId : {}", stgctg);
+		return service.adminSoundList(pagePerCnt,page, stgctg);
+	}
 	
 	
 }

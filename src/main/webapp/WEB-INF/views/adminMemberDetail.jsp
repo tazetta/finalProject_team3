@@ -117,12 +117,36 @@ select:hover {
 						<td>${dto.reg_date}</td>
 					<tr>
 						<th>현재 패널티</th>
-						<td colspan="3">none</td>
+						<c:if test="${dto.stateIdx==0}">
+							<td id="stateIdx" colspan="3">패널티가 없습니다.</td>
+						</c:if>
+						<c:if test="${dto.stateIdx==1}">
+							<td id="stateIdx" colspan="3">작성금지 1일</td>
+						</c:if>
+						<c:if test="${dto.stateIdx==2}">
+							<td id="stateIdx" colspan="3">작성금지 3일</td>
+						</c:if>
+						<c:if test="${dto.stateIdx==3}">
+							<td id="stateIdx" colspan="3">작성금지 5일</td>
+						</c:if>
+						<c:if test="${dto.stateIdx==4}">
+							<td id="stateIdx" colspan="3">작성금지 7일</td>
+						</c:if>
+						<c:if test="${dto.stateIdx==5}">
+							<td id="stateIdx" colspan="3">작성금지 30일</td>
+						</c:if>
+						<c:if test="${dto.stateIdx==6}">
+							<td id="stateIdx" colspan="3">계정 비활성화</td>
+						</c:if>
+						<c:if test="${dto.stateIdx==7}">
+							<td id="stateIdx" colspan="3">탈퇴 회원</td>
+						</c:if>
 					</tr>
 					<tr>
 						<th>패널티 부여</th>
 						<td colspan="3">
 							<select class="inputs" id="penaltyVal">
+								<option value="0">패널티 해제</option>
 								<option value="1">작성 금지 1일</option>
 								<option value="2">작성 금지 3일</option>
 								<option value="3">작성 금지 5일</option>
@@ -154,13 +178,17 @@ $("#penaltyBtn").click(()=>{
 		,data:{}
 		,type:'GET'
 
-		,success:(data)=>{
-			alert("["+penalty+"]가 적용되었습니다");
+		,success:(data)=>{ 
+			console.log(data);
+			if(data.msg!=""){
+				alert(data.msg);
+			}
 		}
 		,error:(data)=>{
 			console.log(data);
 		}
 	});
+	location.reload();
 }); 
 </script>
 </html>
