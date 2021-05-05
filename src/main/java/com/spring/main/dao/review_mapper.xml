@@ -15,7 +15,7 @@
 	</select>
  	
 	<select id="allCount" resultType="Integer">
-		SELECT COUNT(REVIDX) FROM REVIEW
+		SELECT COUNT(REVIDX) FROM REVIEW WHERE COMID=#{param1}
 	</select>      
  
 	<insert id="reviewWrite" 

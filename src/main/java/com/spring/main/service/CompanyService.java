@@ -3,6 +3,8 @@ package com.spring.main.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +23,20 @@ public class CompanyService {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 
-	public ModelAndView companydetail(String comId) {
+	public ModelAndView companydetail(HttpSession session) {
 		logger.info("업체정보보여줘");
+		String comId = (String) session.getAttribute("cLoginId");
 		ModelAndView mav = new ModelAndView();
-		CompanyMemberDTO dto = dao.companydetail(comId);
-		mav.addObject("company", dto);
-		mav.setViewName("companydetail");
+		String msg="업체회원만 접근이 가능합니다.";
+		String page="home";
+		if(comId!=null) {
+			CompanyMemberDTO dto = dao.companydetail(comId);			
+			mav.addObject("company", dto);
+			page="companydetail";
+			msg="";
+		}
+		mav.addObject("msg", msg);
+		mav.setViewName(page);
 		return mav;
 	}
 

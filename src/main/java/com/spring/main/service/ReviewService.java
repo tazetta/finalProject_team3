@@ -25,9 +25,10 @@ public class ReviewService {
 	String msg = "";
 	
 	public HashMap<String, Object> list(int page,String comId) {
+		logger.info("리뷰리스트 내놔");
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		int allCnt = reviewDAO.allCount();//전체 게시글 수
+		int allCnt = reviewDAO.allCount(comId);//전체 게시글 수
 		//게시글수 :21개 ,페이지당 보여줄 수 : 5 = 최대 생성 가능한 페이지 : 5
 		//예 : 21/5 =4.1이면 소수점을 버리고 1을 더해 5가 된다. 딱 떨어지면 그대로.
 		int range = allCnt%10 > 0 ? Math.round(allCnt/10)+1 : Math.round(allCnt/10);
