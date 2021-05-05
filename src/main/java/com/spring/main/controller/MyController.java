@@ -1,7 +1,5 @@
 package com.spring.main.controller;
 
-import java.util.ArrayList;
-
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -13,12 +11,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.spring.main.dto.BoardDTO;
-import com.spring.main.dto.MemberDTO;
 import com.spring.main.dto.MyDTO;
 import com.spring.main.service.MyService;
 
@@ -46,14 +40,14 @@ public class MyController {
 	
 	
 	
-	
-	@RequestMapping(value = "/pwconfirm")
+	//패스워드 확인창 이동
+	@RequestMapping(value = "/pwconfirm")  
 	public String pwconfirm(Model model) {
-		logger.info("회원정보 수정페이지 이동");
+		logger.info("회원정보 패스워드확인창 이동");
 		return "pwconfirm" ;
 	}
-	
-	@RequestMapping(value = "/checkPw") //수정,전 비밀번호 일치여부 체크
+	//수정,전 비밀번호 일치여부 체크
+	@RequestMapping(value = "/checkPw") 
 	public ModelAndView  checkPw( HttpSession session, @RequestParam String pw) {
 		String str ="";
 		logger.info("ㅋㅋㅋ");
@@ -67,6 +61,7 @@ public class MyController {
 		mav.setViewName(str);
 		return mav;
 	}
+	//수정 페이지 이동
 	@RequestMapping(value = "/myprofile")
 	public String myprofile(Model model,HttpSession session) {
 		String page = "myprofile";
@@ -74,22 +69,18 @@ public class MyController {
 		model.addAttribute("dto", myService.myprofile(session));
 		return page;
 	}
-	
-	
 	/* 회원정보 업데이트 */
 	@RequestMapping(value = "/myupdate")
 	public ModelAndView myupdate(@ModelAttribute MyDTO dto, HttpSession session) {
 		logger.info("회원정보 수정요청");
 		return myService.myupdate(dto,session);
 	}
-	
 	/* 패스워드 변경 페이지 이동 */
 	@RequestMapping(value = "/mypwreset")
 	public String mypwreset(Model model) {
 		logger.info("회원 비밀번호 변경 페이지로 이동");
 		return "mypwreset";
 	}
-	
 	/* 패스워드 암호화 변경 */
 	@RequestMapping(value = "/pwreset", method = RequestMethod.POST)
 	public ModelAndView pwreset(@RequestParam String newPw,HttpSession session) {
@@ -97,45 +88,43 @@ public class MyController {
 		return myService.pwreset(newPw,session);
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
+	/* 내작성글 전체 페이지 이동 */
 	@RequestMapping(value = "/mywrite", method = RequestMethod.GET)
 	public String mywrite() {
-		logger.info("내 작성글 페이지");
+		logger.info("내 작성글 페이지이동");
 		return "mywrite";
 	}
-	
+	/* 내작성글 게시판 */
 	@RequestMapping(value = "/mywriteboard", method = RequestMethod.GET)
-	public String mywriteboard(Model model) {		
-		ArrayList<MyDTO> list = myService.list();
+	public String mywriteboard() {
 		logger.info("내 작성글 게시판");
-		model.addAttribute("boardList",list);		
 		return "mywriteboard";
 	}
-	
-
-
-	
-
-	@RequestMapping(value = "/mywriteqna", method = RequestMethod.GET)
-	public String mywriteqna() {
-		logger.info("내 작성글 질문 및 답변");
-		return "mywriteqna";
-	}
-
+	/* 내작성글 꿀팁 */
 	@RequestMapping(value = "/mywritetip", method = RequestMethod.GET)
 	public String mywritetip() {
 		logger.info("내 작성글 꿀팁");
 		return "mywritetip";
 	}
+	/* 내작성글 질문 및 답변 */
+	@RequestMapping(value = "/mywriteqna", method = RequestMethod.GET)
+	public String mywriteqna() {
+		logger.info("내 작성글 질문 및 답변");
+		return "mywriteqna";
+	}
+	
+	/* 내 견적서 페이지 */
+	@RequestMapping(value = "/myestimate", method = RequestMethod.GET)
+	public String myestimate() {
+		logger.info("내 견적서 페이지");
+		return "myestimate";
+	}
+	
+	
+	
+	
+
+	
 
 	@RequestMapping(value = "/msgpage", method = RequestMethod.GET)
 	public String msgpage() {
@@ -155,11 +144,7 @@ public class MyController {
 		return "msgsendpage";
 	}
 
-	@RequestMapping(value = "/myestimate", method = RequestMethod.GET)
-	public String myestimate() {
-		logger.info("견적서 페이지");
-		return "myestimate";
-	}
+
 
 	@RequestMapping(value = "/mygrouppage", method = RequestMethod.GET)
 	public String mygrouppage() {

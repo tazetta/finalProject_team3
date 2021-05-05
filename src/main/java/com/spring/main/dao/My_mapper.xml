@@ -17,22 +17,74 @@
 </select>
 
 <update id="myupdate"  parameterType="String">
-		UPDATE generalmember SET name=#{name}
-			, phone=#{phone}, email=#{email} WHERE id = #{id}
-	</update>
+UPDATE generalmember SET name=#{name}
+, phone=#{phone}, email=#{email} WHERE id = #{id}
+</update>
 	
 	
-	
-	<update id="newPw"  parameterType="String">
-		UPDATE generalmember SET pw=#{pw} WHERE id = #{id}
-	</update>
+<update id="newPw"  parameterType="String">
+UPDATE generalmember SET pw=#{pw} WHERE id = #{id}
+</update>
 
  
 
+<!--내가 작성한 자유게시판  -->
 
-<select id="list" resultType="com.spring.main.dto.MyDTO">
-	SELECT * FROM board where brdctgidx = 4 and blind='n' and id = #{id}
+<select id="mywriteboardAllCount" resultType="int" parameterType="String">
+	SELECT COUNT(BOARDIDX) FROM BOARD WHERE id = #{param1}
 </select>
+	
+<select id="mywriteboardList" resultType="com.spring.main.dto.MyDTO">
+SELECT BOARDIDX , SUBJECT , CONTENT , ID , REG_DATE, BHIT rnum 
+    FROM (SELECT BOARDIDX , SUBJECT , CONTENT , ID , REG_DATE, BHIT,
+    ROW_NUMBER() OVER(ORDER BY BOARDIDX DESC) AS rnum FROM BOARD  WHERE ID=#{param3} AND blind='n'AND brdctgidx = 1)
+    WHERE rnum BETWEEN #{param1} AND #{param2}
+</select>
+
+
+<!--내가 작성한 꿀팁게시판  -->
+
+<select id="mywritetipAllCount" resultType="int" parameterType="String">
+	SELECT COUNT(BOARDIDX) FROM BOARD WHERE id = #{param1}
+</select>
+	
+<select id="mywritetipList" resultType="com.spring.main.dto.MyDTO">
+SELECT BOARDIDX , SUBJECT , CONTENT , ID , REG_DATE, BHIT rnum 
+    FROM (SELECT BOARDIDX , SUBJECT , CONTENT , ID , REG_DATE, BHIT,
+    ROW_NUMBER() OVER(ORDER BY BOARDIDX DESC) AS rnum FROM BOARD  WHERE ID=#{param3} AND blind='n'AND brdctgidx = 3)
+    WHERE rnum BETWEEN #{param1} AND #{param2}
+</select>
+
+<!--내가 작성한 qna게시판  -->
+<select id="mywriteqnaAllCount" resultType="int" parameterType="String">
+	SELECT COUNT(BOARDIDX) FROM BOARD WHERE id = #{param1}
+</select>
+
+<select id="mywriteqnaList" resultType="com.spring.main.dto.MyDTO">
+SELECT BOARDIDX , SUBJECT , CONTENT , ID , REG_DATE, BHIT rnum 
+    FROM (SELECT BOARDIDX , SUBJECT , CONTENT , ID , REG_DATE, BHIT,
+    ROW_NUMBER() OVER(ORDER BY BOARDIDX DESC) AS rnum FROM BOARD  WHERE ID=#{param3} AND blind='n'AND brdctgidx = 4)
+    WHERE rnum BETWEEN #{param1} AND #{param2}
+</select>
+
+
+<!--내가 작성한 견적서 페이지  -->
+<select id="myestimateAllCount" resultType="int" parameterType="String">
+	SELECT COUNT(estIdx) FROM ESTIMATE WHERE id = #{param1}
+</select>
+
+<select id="myestimateList" resultType="com.spring.main.dto.EstimateDTO">
+SELECT estIdx , comId , content , id , budget, REG_DATE, rnum 
+    FROM (SELECT estIdx , comId , content , id , budget, REG_DATE,
+    ROW_NUMBER() OVER(ORDER BY ESTIDX DESC) AS rnum FROM ESTIMATE  WHERE ID=#{param3})
+    WHERE rnum BETWEEN #{param1} AND #{param2}
+</select>
+
+
+
+
+
+
 
 
 <select id="receiverAllCount" resultType="int" parameterType="String">
