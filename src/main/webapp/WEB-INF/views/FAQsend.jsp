@@ -166,7 +166,7 @@
                 <td style="width: 90px; text-align: center; height: 500px;"><strong>글 내 용</strong></td>
                 <td colspan="2" style="width: 250px; text-align: center; height: 500px;">
 					<div contenteditable="true" id="editable" ></div> 
-					<input name="content" type="hidden" />
+					<input id="content" name="content" type="hidden" />
 				</td>  	
             </tr>
             <tr>
