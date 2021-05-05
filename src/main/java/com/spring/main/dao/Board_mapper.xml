@@ -176,7 +176,7 @@
 		<if test="brdctgidx==5">
 			INSERT INTO board(BOARDIDX, SUBJECT, CONTENT, ID,BRDCTGIDX,EMAIL)
 			VALUES
-			(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{brdctgidx},#{email})
+			(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{brdctgidx}, #{email})
 		</if>
 
 	</insert>
@@ -295,4 +295,7 @@
 		VALUES (reports_seq.NEXTVAL,'sdk',121,11);
 	</insert>
 	
+	<select id="fileList" resultType="com.spring.main.dto.PhotoDTO">
+		SELECT * FROM photos WHERE boardIdx=#{param1}
+	</select>
 </mapper>

@@ -69,6 +69,8 @@ public interface BoardDAO {
 	int boardScrap(int boardIdx, String id);
 	//스크랩 삭제하기
 	int boardScrapDel(int boardIdx, String id);
+	//파일리스트
+	ArrayList<PhotoDTO> fileList(int boardIdx);
 
 
 

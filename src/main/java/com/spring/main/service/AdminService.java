@@ -12,17 +12,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.AdminDAO;
+import com.spring.main.dao.BoardDAO;
 import com.spring.main.dto.BoardDTO;
 import com.spring.main.dto.CompanyMemberDTO;
 import com.spring.main.dto.MemberDTO;
+import com.spring.main.dto.PhotoDTO;
 
 @Service
 public class AdminService {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	@Autowired AdminDAO dao; 
+	@Autowired AdminDAO dao;
 	@Autowired AdminService service;
+	@Autowired BoardDAO boardDAO;
 	public ModelAndView adminMain() {
 		ModelAndView mav = new ModelAndView();
 		// 오늘 날짜 불러오기
@@ -125,9 +128,37 @@ public class AdminService {
 		return mav;
 	}
 
-	public String penaltyCfm(String id, String stateIdx) {
+	public HashMap<String, Object> penaltyCfm(String id, String stateIdx) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		int success = dao.penaltyCfm(id, stateIdx);
-		return null;
+		String msg = "";
+		logger.info("패널티 idx : {}", stateIdx);
+		if(success > 0) {
+			if(stateIdx.equals("1")) {
+				logger.info("작성금지 1일");
+				msg += "작성금지 1일 패널티가 부여되었습니다.";
+			} else if (stateIdx.equals("2")) {
+				logger.info("작성금지 3일");
+				msg += "작성금지 3일 패널티가 부여되었습니다.";
+			} else if (stateIdx.equals("3")) {
+				logger.info("작성금지 5일");
+				msg += "작성금지 5일 패널티가 부여되었습니다.";
+			} else if (stateIdx.equals("4")) {
+				logger.info("작성금지 7일");
+				msg += "작성금지 7일 패널티가 부여되었습니다.";
+			} else if (stateIdx.equals("5")) {
+				logger.info("작성금지 30일");
+				msg += "작성금지 30일 패널티가 부여되었습니다.";
+			} else if (stateIdx.equals("6")) {
+				logger.info("계정 비활성화");
+				msg += "계정 비활성화 패널티가 부여되었습니다.";
+			} else if (stateIdx.equals("0")) {
+				logger.info("패널티 해제");
+				msg = "패널티가 해제되었습니다.";
+			}
+		}
+		map.put("msg", msg);
+		return map;
 	}
 
 	public HashMap<String, Object> adminSoundList(int pagePerCnt, int page, String stgctg) {
@@ -150,6 +181,9 @@ public class AdminService {
 		ModelAndView mav = new ModelAndView();
 		BoardDTO dto = new BoardDTO();
 		dto = dao.adminSoundDetail(boardIdx);
+		ArrayList<PhotoDTO> fileList = boardDAO.fileList(boardIdx);
+		logger.info("fileList.size  : {}", fileList.size());
+		mav.addObject("fileList", fileList);
 		mav.addObject("dto", dto);
 		mav.setViewName("adminSoundDetail");
 		return mav;

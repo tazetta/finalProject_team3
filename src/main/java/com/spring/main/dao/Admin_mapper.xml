@@ -118,4 +118,8 @@
 	<select id="adminSoundDetail" resultType="com.spring.main.dto.BoardDTO">
 		SELECT sgtctg, id, email, subject, content FROM board WHERE boardIdx=#{param1}
 	</select>
+	
+	<select id="checkPenalty" resultType="com.spring.main.dto.BoardDTO">
+		
+	</select>
 </mapper>

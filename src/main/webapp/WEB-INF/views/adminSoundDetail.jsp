@@ -117,21 +117,28 @@ select:hover {
 					</tr>
 					<tr>
 						<td colspan="2">
-							<div style="border: 1px solid lightgray; width: 520px; height: 260px;">
+							<div style="border: 1px solid lightgray; width: 520px; height: 260px; padding: 5px;">
 								${dto.content}
 							</div>
 						</td>
 					</tr>
-					<tr>
-						<td colspan="2">
-						<span style="color: #acd3fb; font-size: large; font-weight: bold;">첨부파일</span>
-							<div style="border: 1px solid lightgray; width: 520px; height: auto;">
-								image01.png<br/>
-								image02.png<br/>
-								image03.png
-							</div>
-						</td>
-					</tr>
+					<c:if test="${fileList.size()>0}">
+						<tr>
+							<td colspan="2">
+								<span style="color: #acd3fb; font-size: large; font-weight: bold;">첨부파일</span>
+								<br/>
+								<br/>
+								<div style="border: 1px solid lightgray; width: 520px; height: auto;">
+									<ul>
+										<!-- 마지막에 / 가 없으면 . 이후 확장자사 생략되어 버린다. -->
+										<c:forEach items="${fileList}" var="file">				
+											<li><a href="/main/download/${file.oriFileName}/${file.newFileName}/">${file.oriFileName}</a></li>
+										</c:forEach>				
+									</ul>
+								</div>
+							</td>
+						</tr>
+					</c:if>	
 					<tr>
 						<td colspan="2" style="text-align: right;"><input type="button" class="inputs" style="width: 130px; border-radius: 7px;" value="닫기" onclick="closePopUp()"/></td>
 					</tr>

@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.spring.main.dao.AdminDAO;
 import com.spring.main.dao.MemberDAO;
 import com.spring.main.dto.MemberDTO;
 
@@ -16,7 +17,7 @@ public class MemberInterceptor extends HandlerInterceptorAdapter {
 
 	@Autowired
 	MemberDAO memberdao;
-	
+	AdminDAO admindao;
 	@Override
 	@Transactional
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
@@ -67,4 +68,23 @@ public class MemberInterceptor extends HandlerInterceptorAdapter {
 		
 	}
 
+	@Override
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+			throws Exception {
+		System.out.println("패널티 확인중....");
+		boolean pass = false;
+		HttpSession session = request.getSession();
+		String loginId = (String) session.getAttribute("loginId");
+			
+		MemberDTO dto = admindao.checkPenalty(loginId);	
+		int stateIdx = dto.getStateIdx();
+		if(stateIdx <= 0) {
+			pass = true;
+		}
+		
+		return pass;
+	}
+	
+	
+	
 }
