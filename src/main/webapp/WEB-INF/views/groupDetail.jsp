@@ -155,9 +155,9 @@ font-size:90%;
 		alert(msg);
 	}
 	
-	groupCommentList(); //댓글리스트
+	groupCommentList(); //댓글리스트 호출
 
-	//신청-취소 toggle
+	/*신청-취소 toggle*/
 	$("#toggleApply").click(function() {
 			location.href = '/main/applyGroup/${dto.gpIdx}/${sessionScope.loginId}';
 		});
@@ -282,7 +282,7 @@ font-size:90%;
 		content += ' <td style="width:5%" >';
 		//댓글추천 
 		content += '<a href="javascript:void(0)"; onclick="commRec('+list[i].commIdx+')"><img alt="decommend" src="resources/images/decommend.png" width="15px" height="15px" id="'+list[i].commIdx+'"> </a>';
-		content += '<span id="commIdxrecCnt"></span></td>';
+		content += '<span id="commIdxRecCnt"></span></td>';
 		content += '<td style="text-align:left">';
 		if("${sessionScope.loginId}"==list[i].id){
 			content += '<button class="commDel" onclick="groupCommentDel('+list[i].commIdx+')">삭제</button></td>' ; //댓글삭제호출
@@ -297,7 +297,6 @@ font-size:90%;
 		}
 		$("#commentListDiv").empty(); //#list안의 내용을 버려라
 		$("#commentListDiv").append(content);
-	
 	}
 	
 	/* 댓글삭제 */
@@ -338,7 +337,6 @@ font-size:90%;
 				dataType : "JSON",
 				success : function(data) {
 					console.log("commRecSuccess: ", data);
-					alert(data.msg);
 					console.log("rescResult:"+data.recResult);
 					if(data.recResult =='true'){
 						console.log($("#"+commIdx+""));

@@ -70,13 +70,11 @@ input[type='text'] {
 </body>
 <script>
 	$("#save").click(function() {
-		$("#editable>a").find("b").remove(); //a태그안 b태그 삭제
-	 	$("#editable>a").removeAttr("onclick"); //del(this) 무효화
-		$("#content").val($("#editable").html());
-	 	
+		
+		
 		/* 유효성 검사 */
 		var subject = $("#subject").val();
-		var content = $("#content").val();
+		var editable = $("#editable").html();
 		var chatUrl = $("#chatUrl").val();
 		var maxUser = $("#maxUser").val();
 		var deadline = $("#deadline").val();
@@ -88,6 +86,9 @@ input[type='text'] {
 			console.log("deadline:"+deadline);
 			alert("모든 양식을 작성해주세요");
 		}else{
+			$("#editable>a").find("b").remove(); //a태그안 b태그 삭제
+		 	$("#editable>a").removeAttr("onclick"); //del(this) 무효화
+		 	$("#content").val($("#editable").html()); //입력한 값 content에 넣기
 			$("form").submit(); 
 		}		
 	});

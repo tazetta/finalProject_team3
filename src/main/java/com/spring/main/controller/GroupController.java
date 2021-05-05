@@ -69,7 +69,7 @@ public class GroupController {
 
 	// 비동기로 받기 때문에 @ResponseBody
 	@RequestMapping(value = "/groupFileDelete", method = RequestMethod.GET)
-	public @ResponseBody HashMap<String, Object> groupFileDelete(@RequestParam String fileName, HttpSession session) { // 세션에서도
+	public @ResponseBody HashMap<String, Object> groupFileDelete(@RequestParam ArrayList<String> fileName, HttpSession session) { // 세션에서도
 																														// 삭제
 		logger.info(fileName + " ->파일 삭제 요청");
 		return groupService.fileDelete(fileName, session);
