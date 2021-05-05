@@ -62,6 +62,9 @@ color:orange;
 font-weight:600;
 font-size:90%;
 }
+a:link{
+text-decoration:none;
+}
 </style>
 </head>
 <body>
@@ -279,13 +282,17 @@ font-size:90%;
 		 var reg_date = new Date(list[i].reg_date); 	 
 		content += reg_date.toLocaleDateString("ko-KR");
 		content += '</td>';
-		content += ' <td style="width:5%" >';
+		content += ' <td style="width:7%" >';
 		//댓글추천 
 		content += '<a href="javascript:void(0)"; onclick="commRec('+list[i].commIdx+')"><img alt="decommend" src="resources/images/decommend.png" width="15px" height="15px" id="'+list[i].commIdx+'"> </a>';
-		content += '<span id="commIdxRecCnt"></span></td>';
+		//댓글 추천수
+		if(list[i].recCnt!=0){
+		content += '<span class="commIdxRecCnt">'+list[i].recCnt+'</span></td>';
+		}
 		content += '<td style="text-align:left">';
+		//댓글삭제
 		if("${sessionScope.loginId}"==list[i].id){
-			content += '<button class="commDel" onclick="groupCommentDel('+list[i].commIdx+')">삭제</button></td>' ; //댓글삭제호출
+			content += '<button class="commDel" onclick="groupCommentDel('+list[i].commIdx+')">삭제</button></td>' ; 
 			
 		}else{
 		content += '<a href="#">답글달기</a>&nbsp;&nbsp;';
@@ -341,9 +348,11 @@ font-size:90%;
 					if(data.recResult =='true'){
 						console.log($("#"+commIdx+""));
 						$("#"+commIdx+"").attr('src','resources/images/recommend.png');
+						groupCommentList(); //댓글리스트 호출(댓글추천수 새로고침)
 					}else{
 						console.log($("#"+commIdx+""));
 						$("#"+commIdx+"").attr('src','resources/images/decommend.png');
+						groupCommentList(); //댓글리스트 호출(댓글추천수 새로고침)
 					}
 					
 				},
