@@ -99,8 +99,9 @@ public class BoardService {
 			boarddto.setBudget(Integer.parseInt(params.get("budget")));// 예산
 			boarddto.setFormidx(Integer.parseInt(params.get("formidx")));// 주거형태
 		}
-		if (boardctgidx == 6) {
+		if (boardctgidx == 5) {
 			boarddto.setEmail(params.get("email"));
+			boarddto.setSgtctg(params.get("sgtctg"));
 		}
 		int result = boarddao.boardWrite(boarddto);
 		// 실패시 다시 카테고리에 맞는 수정폼으로 보내기
@@ -142,7 +143,7 @@ public class BoardService {
 			} else if (boardctgidx == 4) {
 				page = "redirect:/qnalist";
 			} else if (boardctgidx == 5) {
-				page = "redirect:/sgtlist";
+				page = "redirect:/FAQ";
 			}
 		} else {// 글쓰기 실패시
 			for (String newFileName : fileList.keySet()) {

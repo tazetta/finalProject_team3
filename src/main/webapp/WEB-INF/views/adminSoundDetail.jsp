@@ -101,37 +101,44 @@ select:hover {
 				</td></tr>
 					<tr>
 						<td style="font-weight: bold;">카테고리 : </td>
-						<td>게시판 관련</td>
+						<td>${dto.sgtctg}</td>
 					</tr>
 					<tr>
 						<td style="font-weight: bold;">신청자 : </td>
-						<td>hello3902</td>
+						<td>${dto.id}</td>
 					</tr>
 					<tr>
 						<td style="font-weight: bold;">EMAIL : </td>
-						<td>hello3902@naver.com</td>
+						<td>${dto.email}</td>
 					</tr>
 					<tr>
 						<td style="font-weight: bold;">제목 : </td>
-						<td>이런게 있었으면 좋겠습니다.</td>
+						<td>${dto.subject}</td>
 					</tr>
 					<tr>
 						<td colspan="2">
-							<div style="border: 1px solid lightgray; width: 520px; height: 260px;">
-								첨부한 이미지처럼 게시판이 바뀌었으면 좋겠어요!
+							<div style="border: 1px solid lightgray; width: 520px; height: 260px; padding: 5px;">
+								${dto.content}
 							</div>
 						</td>
 					</tr>
-					<tr>
-						<td colspan="2">
-						<span style="color: #acd3fb; font-size: large; font-weight: bold;">첨부파일</span>
-							<div style="border: 1px solid lightgray; width: 520px; height: auto;">
-								image01.png<br/>
-								image02.png<br/>
-								image03.png
-							</div>
-						</td>
-					</tr>
+					<c:if test="${fileList.size()>0}">
+						<tr>
+							<td colspan="2">
+								<span style="color: #acd3fb; font-size: large; font-weight: bold;">첨부파일</span>
+								<br/>
+								<br/>
+								<div style="border: 1px solid lightgray; width: 520px; height: auto;">
+									<ul>
+										<!-- 마지막에 / 가 없으면 . 이후 확장자사 생략되어 버린다. -->
+										<c:forEach items="${fileList}" var="file">				
+											<li><a href="../download/${file.oriFileName}/${file.newFileName}/">${file.oriFileName}</a></li>
+										</c:forEach>				
+									</ul>
+								</div>
+							</td>
+						</tr>
+					</c:if>	
 					<tr>
 						<td colspan="2" style="text-align: right;"><input type="button" class="inputs" style="width: 130px; border-radius: 7px;" value="닫기" onclick="closePopUp()"/></td>
 					</tr>

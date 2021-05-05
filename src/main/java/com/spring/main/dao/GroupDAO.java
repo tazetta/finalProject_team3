@@ -22,7 +22,7 @@ public interface GroupDAO {
 
 	ArrayList<GroupDTO> groupList(int start, int end, int opt);
 
-	String groupGetFileName(int gpIdx);
+	ArrayList<String> groupGetFileName(int gpIdx);
 
 	int groupPhotoDel(int gpIdx);
 
@@ -71,6 +71,8 @@ public interface GroupDAO {
 	int groupCommDec(int commIdx, String loginId);
 
 	ArrayList<GroupDTO> myRecList(String loginId);
+
+	int groupRecommWrite(HashMap<String, String> params);
 
 
 

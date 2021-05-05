@@ -81,6 +81,7 @@ public class GroupService {
 		logger.info("groupWrite result:" + result);
 
 		// 1. session에서 fileList를 가져온다
+		@SuppressWarnings("unchecked")
 		HashMap<String, String> fileList = (HashMap<String, String>) session.getAttribute("fileList");
 		logger.info("fileList:" + fileList.size());
 		if (result > 0) { // 글쓰기 성공시
@@ -186,6 +187,7 @@ public class GroupService {
 			Files.write(filePath, bytes);
 
 			// session에 내가 저장한 파일 내역을 저장한다.
+			@SuppressWarnings("unchecked")
 			HashMap<String, String> fileList = (HashMap<String, String>) session.getAttribute("fileList"); // writeForm에서
 																											// 세션에 저장했던
 																											// hashmap가져오고
@@ -204,12 +206,13 @@ public class GroupService {
 
 	/* 파일삭제 */
 	@Transactional
-	public HashMap<String, Object> fileDelete(String fileName, HttpSession session) {
+	public HashMap<String, Object> fileDelete(ArrayList<String> fileName, HttpSession session) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		// File객체를 이용해 fileName으로 실제 파일 삭제
-		File delFile = new File(root + "upload/" + fileName);
 		int success = 1;
 		try {
+		for (int i = 0; i < fileName.size(); i++) {
+			// File객체를 이용해 fileName으로 실제 파일 삭제
+			File delFile = new File(root + "upload/" + fileName.get(i));
 			logger.info("delete File: " + delFile);
 			if (delFile.exists()) { // 해당 경로에 실제 파일이 있으면
 				delFile.delete(); // 삭제
@@ -217,13 +220,16 @@ public class GroupService {
 				logger.info("이미 삭제된 파일");
 			}
 			// session에 있는 fileList에서도 파일명 삭제 -> 변경된 내용 session에 저장
+			@SuppressWarnings("unchecked")
 			HashMap<String, String> fileList = (HashMap<String, String>) session.getAttribute("fileList");
-			if (fileList.get(fileName) != null) { // session의 list안에 삭제한 파일이 있다면
-				fileList.remove(fileName); // 실제로 지워진 파일이니까 파일명을 지정해서 session에서도 삭제
+			if (fileList.get(fileName.get(i)) != null) { // session의 list안에 삭제한 파일이 있다면
+				fileList.remove(fileName.get(i)); // 실제로 지워진 파일이니까 파일명을 지정해서 session에서도 삭제
 				logger.info("삭제후 남은 파일 수:" + fileList.size());
 			}
 			;
 			session.setAttribute("fileList", fileList); // 변경된 내용을 다시 session에 저장
+			
+		}
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -255,14 +261,7 @@ public class GroupService {
 		int start = end - pagePerCnt + 1;
 
 		ArrayList<GroupDTO> groupList = groupdao.groupList(start, end, opt); // 리스트 담기
-		/*
-		 * GroupDTO dto = null; for (int i = 0; i < groupList.size(); i++) {
-		 * 
-		 * int gpCtgIdx = groupList.get(i).getGpCtgIdx(); // list에서 카테고리 idx 가져오기 String
-		 * String groupCtg = groupdao.groupCtg(gpCtgIdx); // 카테고리명 추출
-		 * System.out.println("카테고리명:"+ groupCtg); dto.setCategory(groupCtg); }
-		 */
-
+	
 		logger.info("groupList size: " + groupList.size());
 
 		map.put("list", groupList);
@@ -276,11 +275,13 @@ public class GroupService {
 	@Transactional
 	public ModelAndView groupDel(int gpIdx, HttpSession session, RedirectAttributes rAttr) {
 		ModelAndView mav = new ModelAndView();
-		String newFileName = groupdao.groupGetFileName(gpIdx);
+		ArrayList<String> newFileName = groupdao.groupGetFileName(gpIdx);
 		msg = "삭제에 실패했습니다";
 
-		logger.info("newFileName: " + newFileName);
-		if (newFileName != null) { // 파일이 있으면
+		logger.info("newFileName: " + newFileName.size());
+		
+		if (newFileName.size()>0) { // 파일이 있으면
+			
 			int success = groupdao.groupPhotoDel(gpIdx); // DB에서 삭제
 			logger.info("photos 삭제 결과:" + success);
 		}
@@ -288,7 +289,7 @@ public class GroupService {
 		int success = groupdao.groupDel(gpIdx);
 		logger.info("글 삭제결과: " + success);
 
-		if (success > 0 && newFileName != null) {
+		if (success > 0 && newFileName.size()>0) {
 			HashMap<String, Object> map = fileDelete(newFileName, session);
 			int result = (int) map.get("success");
 			logger.info("result:" + result);
@@ -587,7 +588,6 @@ public class GroupService {
 	}
 
 	/* 내가 추천한 댓글 가져오기 */
-
 	public HashMap<String, Object> recCommList(RedirectAttributes rAttr, HttpSession session) {
 		logger.info("내가 추천한 댓글리스트 서비스");
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -596,6 +596,20 @@ public class GroupService {
 		logger.info("recCommListSize:" + recCommList.size());
 		
 		map.put("recCommList", recCommList);
+		return map;
+	}
+
+	public HashMap<String, Object> groupRecommWrite(HashMap<String, String> params, HttpSession session, RedirectAttributes rAttr) {
+		logger.info("공동구매 대댓글쓰기 서비스");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int result = groupdao.groupRecommWrite(params);
+		logger.info("대댓글쓰기 result: " + result);
+		msg = "답글 등록에 실패했습니다";
+		if (result > 0) {
+			msg = "답글이 등록되었습니다";
+		}
+
+		map.put("msg", msg);
 		return map;
 	}
 

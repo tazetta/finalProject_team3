@@ -69,7 +69,7 @@ public class GroupController {
 
 	// 비동기로 받기 때문에 @ResponseBody
 	@RequestMapping(value = "/groupFileDelete", method = RequestMethod.GET)
-	public @ResponseBody HashMap<String, Object> groupFileDelete(@RequestParam String fileName, HttpSession session) { // 세션에서도
+	public @ResponseBody HashMap<String, Object> groupFileDelete(@RequestParam ArrayList<String> fileName, HttpSession session) { // 세션에서도
 																														// 삭제
 		logger.info(fileName + " ->파일 삭제 요청");
 		return groupService.fileDelete(fileName, session);
@@ -167,6 +167,13 @@ public class GroupController {
 	@ResponseBody HashMap<String , Object> recCommList( HttpSession session,RedirectAttributes rAttr) {
 		logger.info("공동구매 내가 추천한 댓글 리스트: {}");
 		return groupService.recCommList(rAttr,session);
+	}
+	
+
+	@RequestMapping(value = "/groupRecommWrite", method = RequestMethod.GET)
+	@ResponseBody HashMap<String , Object> groupRecommWrite(@RequestParam HashMap<String, String> params,HttpSession session, RedirectAttributes rAttr) {
+		logger.info("공동구매 대댓글쓰기 요청 params: {}", params);
+		return groupService.groupRecommWrite(params,session,rAttr);
 	}
 	
 	

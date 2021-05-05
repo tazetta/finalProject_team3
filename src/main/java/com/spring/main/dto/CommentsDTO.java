@@ -14,6 +14,17 @@ public class CommentsDTO {
 	private String id;
 	private int gpIdx;
 	
+	/*recommend테이블*/
+	private int recCnt;
+	
+	
+	
+	public int getRecCnt() {
+		return recCnt;
+	}
+	public void setRecCnt(int recCnt) {
+		this.recCnt = recCnt;
+	}
 	public int getCommIdx() {
 		return commIdx;
 	}

@@ -185,7 +185,7 @@ select:hover {
 								<th style="width: 150px;">현재 패널티</th>
 								<th>탈퇴 여부</th>
 							</tr>
-							<tbody id="list">
+							<tbody id="list" style="border-bottom: 1px solid lightgray;">
 								
 							</tbody>
 							<tr>
@@ -233,6 +233,7 @@ select:hover {
 		thisPage = 1;
 		gradeIdx = $("#grade").val();
 		stateIdx = 0;
+		$("#pagination").twbsPagination('destroy');
 		$("#penalty").val([0]);
 		$("#drop").val([0]);
 		listCall(thisPage, gradeIdx, stateIdx);
@@ -242,6 +243,7 @@ select:hover {
 		thisPage = 1;
 		stateIdx = $("#penalty").val();
 		gradeIdx = 0;
+		$("#pagination").twbsPagination('destroy');
 		$("#grade").val([0]);
 		$("#drop").val([0]);
 		listCall(thisPage, gradeIdx, stateIdx);
@@ -251,6 +253,7 @@ select:hover {
 		thisPage = 1;
 		stateIdx = $("#drop").val();
 		gradeIdx = 0;
+		$("#pagination").twbsPagination('destroy');
 		$("#grade").val([0]);
 		$("#penalty").val([0]);
 		listCall(thisPage, gradeIdx, stateIdx);
@@ -261,6 +264,7 @@ select:hover {
 		if($("#searchId").val()== ""){
 			alert("검색할 아이디를 입력해주세요!");
 		} else {
+			$("#pagination").twbsPagination('destroy');
 			searchId = $("#searchId").val();
 			console.log(searchId);
 			listCall(thisPage, gradeIdx, stateIdx, searchId);
@@ -268,7 +272,7 @@ select:hover {
 	});
 	
 	function listCall(reqPage, gradeIdx, stateIdx) {	
-		var reqUrl = 'adminMemberList'+'/'+15+'/'+reqPage+'/'+gradeIdx +'/'+ stateIdx +'/'+searchId;
+		var reqUrl = 'adminMemberList'+'/'+10+'/'+reqPage+'/'+gradeIdx +'/'+ stateIdx +'/'+searchId;
 		$.ajax({
 			url:reqUrl
 			,data:{}
@@ -311,8 +315,21 @@ select:hover {
 					content += "<td>"+0+"</td>"
 					var date = new Date(list[i].reg_date);
 					content += "<td>"+date.toLocaleDateString("ko-KR")+"</td>"
-					
-					content += "<td>"+list[i].stateIdx+"</td>"
+					if(list[i].stateIdx == 0){
+						content += "<td>패널티가 없습니다.</td>"						
+					} else if (list[i].stateIdx == 1){
+						content += "<td>작성금지 1일</td>"
+					} else if (list[i].stateIdx == 2){
+						content += "<td>작성금지 3일</td>"
+					} else if (list[i].stateIdx == 3){
+						content += "<td>작성금지 5일</td>"
+					} else if (list[i].stateIdx == 4){
+						content += "<td>작성금지 7일</td>"
+					} else if (list[i].stateIdx == 5){
+						content += "<td>작성금지 30일</td>"
+					} else if (list[i].stateIdx == 6){
+						content += "<td>계정 비활성화</td>"
+					}
 					content += "<td>false</td>"
 				content += "</tr>"
 			}

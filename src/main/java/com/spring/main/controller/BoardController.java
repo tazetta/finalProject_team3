@@ -160,7 +160,7 @@ public class BoardController {
 			page = "QnaWriteForm";
 			logger.info("4 카테고리글쓰기 페이지로 이동");
 		} else if (boardCtgIdx.equals("5")) {
-			page = "SgtWriteForm";
+			page = "FAQsend";
 			logger.info("5 카테고리글쓰기 페이지로 이동");
 		}
 		return page;

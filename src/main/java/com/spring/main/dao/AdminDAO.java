@@ -37,6 +37,16 @@ public interface AdminDAO {
 
 	CompanyMemberDTO companyDetail(String comId);
 
-	int penaltyCfm(String id, String stateIdx);	
+	int penaltyCfm(String id, String stateIdx);
+
+	int soundMaxCnt(int boardCtg);
+
+	ArrayList<BoardDTO> adminSoundList(int start, int end, String stgctg);
+
+	int soundMaxCnt(int boardCtg, String stgctg);
+
+	BoardDTO adminSoundDetail(int boardIdx);
+
+	MemberDTO checkPenalty(String loginId);	
 
 }
