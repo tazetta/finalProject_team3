@@ -233,6 +233,7 @@ select:hover {
 		thisPage = 1;
 		gradeIdx = $("#grade").val();
 		stateIdx = 0;
+		$("#pagination").twbsPagination('destroy');
 		$("#penalty").val([0]);
 		$("#drop").val([0]);
 		listCall(thisPage, gradeIdx, stateIdx);
@@ -242,6 +243,7 @@ select:hover {
 		thisPage = 1;
 		stateIdx = $("#penalty").val();
 		gradeIdx = 0;
+		$("#pagination").twbsPagination('destroy');
 		$("#grade").val([0]);
 		$("#drop").val([0]);
 		listCall(thisPage, gradeIdx, stateIdx);
@@ -251,6 +253,7 @@ select:hover {
 		thisPage = 1;
 		stateIdx = $("#drop").val();
 		gradeIdx = 0;
+		$("#pagination").twbsPagination('destroy');
 		$("#grade").val([0]);
 		$("#penalty").val([0]);
 		listCall(thisPage, gradeIdx, stateIdx);
@@ -261,6 +264,7 @@ select:hover {
 		if($("#searchId").val()== ""){
 			alert("검색할 아이디를 입력해주세요!");
 		} else {
+			$("#pagination").twbsPagination('destroy');
 			searchId = $("#searchId").val();
 			console.log(searchId);
 			listCall(thisPage, gradeIdx, stateIdx, searchId);
@@ -268,7 +272,7 @@ select:hover {
 	});
 	
 	function listCall(reqPage, gradeIdx, stateIdx) {	
-		var reqUrl = 'adminMemberList'+'/'+15+'/'+reqPage+'/'+gradeIdx +'/'+ stateIdx +'/'+searchId;
+		var reqUrl = 'adminMemberList'+'/'+10+'/'+reqPage+'/'+gradeIdx +'/'+ stateIdx +'/'+searchId;
 		$.ajax({
 			url:reqUrl
 			,data:{}
