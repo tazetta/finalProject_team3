@@ -91,9 +91,9 @@ public class MyController {
 	}
 	
 	/* 패스워드 암호화 변경 */
-	@RequestMapping(value = "/pwreset")
+	@RequestMapping(value = "/pwreset", method = RequestMethod.POST)
 	public ModelAndView pwreset(@RequestParam String newPw,HttpSession session) {
-		logger.info("회원 비밀번호 변경 요청");
+		logger.info("회원 비밀번호 변경 요청",newPw);
 		return myService.pwreset(newPw,session);
 	}
 
