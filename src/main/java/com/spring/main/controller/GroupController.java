@@ -169,6 +169,13 @@ public class GroupController {
 		return groupService.recCommList(rAttr,session);
 	}
 	
+
+	@RequestMapping(value = "/groupRecommWrite", method = RequestMethod.GET)
+	@ResponseBody HashMap<String , Object> groupRecommWrite(@RequestParam HashMap<String, String> params,HttpSession session, RedirectAttributes rAttr) {
+		logger.info("공동구매 대댓글쓰기 요청 params: {}", params);
+		return groupService.groupRecommWrite(params,session,rAttr);
+	}
+	
 	
 	
 
