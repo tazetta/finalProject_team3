@@ -22,6 +22,9 @@
 <script src="resources/js/jquery.twbsPagination.js"
 	type="text/javascript"></script>
 </head>
+<style>
+
+</style>
 <body>
 	<form action="Freelist">
 		<div class="container" style="text-align: center;">
@@ -34,7 +37,7 @@
 				style="border-radius: 5px; border: 1px solid;"
 				placeholder="검색어를 입력해주세요.">
 			<button id="btn" type="button"
-				style="border-radius: 5px; background-color: white; border: 1px solid;">검색</button>
+				style="border-radius: 5px; background-color: white; border: 1px solid;" onclick="searchFree()">검색</button>
 		</div>
 	</form>
 	<hr />
@@ -65,46 +68,32 @@
 		</table>
 		<hr />
 		<div class="row">
-			<div class="col">
-				<div id="pagination-div"></div>
+			<div class="col" >
+				<div id="pagination-div">
+				</div>
 
-				<!--  <ul class="pagination justify-content-center">
-            <li class="page-item"><a class="page-link" href="#">이전</a></li>
-            <li class="page-item"><a class="page-link" href="">1</a></li>
-            <li class="page-item"><a class="page-link" href="">2</a></li>
-            <li class="page-item"><a class="page-link" href="">3</a></li>
-            <li class="page-item"><a class="page-link" href="">4</a></li>
-            <li class="page-item"><a class="page-link" href="">5</a></li>
-            <li class="page-item"><a class="page-link" href="">다음</a></li>
-        </ul>-->
+
 			</div>
 		</div>
 
-		<button class="btn" id="comment"
+		<button class="btn" id="btn2"
 			style="border-radius: 5px; background-color: rgb(170, 187, 247); font-weight: bold; color: white;"
 			onclick="location.href='boardWriteForm?boardCtgIdx=1'">글쓰기</button>
 	</div>
 </body>
 
 <script type="text/javascript">
-// 페이지 로딩이 끝난 후 동작. 
-$(document).ready(function() {
-	var msg="${msg}";
 
-    if(msg!=""){
-    	 alert(msg);
-    }
-    
-    function searchFree(){
-    	var keyword = $("#keyword").val();
-    	console.log("keyword:"+keyword);
-    	if(keyword ==''){
-    		alert("검색어를 입력해주세요");
-    	}else{
-    		$("form").submit();
-    	}
-    }
-    
+// 페이지 로딩이 끝난 후 동작. 
+	$('button').click(function(){
+		if($('#keyword').val()==''){
+			alert("검색어를 입력해주세요.");
+			$('#keyword').focus();
+		}else{
+			$("from").submit();
+		}
+	});
+$(document).ready(function() {
     // 목록을 조회하는 함수.
     function getList(pageNum, opt, keyword) {
     	/*
