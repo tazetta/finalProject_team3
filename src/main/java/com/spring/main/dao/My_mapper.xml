@@ -23,15 +23,15 @@
 	
 	
 	
-	<update id="resetpw"  parameterType="String">
-		UPDATE generalmember SET pw=#{newPw} WHERE id = #{loginId}
+	<update id="newPw"  parameterType="String">
+		UPDATE generalmember SET pw=#{pw} WHERE id = #{id}
 	</update>
 
  
 
 
 <select id="list" resultType="com.spring.main.dto.MyDTO">
-	SELECT * FROM board
+	SELECT * FROM board where brdctgidx = 4 and blind='n' and id = #{id}
 </select>
 
 

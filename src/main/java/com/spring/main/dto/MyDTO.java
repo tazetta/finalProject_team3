@@ -17,7 +17,6 @@ public class MyDTO {
 	private int bhit;
 	private String phone;
 	
-	
 	public String getSubject() {
 		return subject;
 	}

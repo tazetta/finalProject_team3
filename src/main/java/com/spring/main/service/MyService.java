@@ -102,13 +102,13 @@ public class MyService {
         logger.info("해당 id:"+loginId);
         MyDTO dto = new MyDTO();
         dto.setId(loginId); //dto에 해당 id를 넣는다.
-
+       
         String encrypt_pass  = MyDAO.login(loginId);
         logger.info("변경전 비밀번호:"+encrypt_pass); // 1. 현재 비밀번호 확인
-    	
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+      
         ModelAndView mav = new ModelAndView();
-        
+        logger.info(newPw,encrypt_pass+"서비");
        boolean success = encoder.matches(newPw, encrypt_pass);
         if(success==true) {
         	msg= "이전과 동일한 비밀번호입니다. 다시 입력해주세요.";
