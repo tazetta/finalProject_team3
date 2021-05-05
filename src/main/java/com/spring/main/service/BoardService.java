@@ -101,6 +101,7 @@ public class BoardService {
 		}
 		if (boardctgidx == 5) {
 			boarddto.setEmail(params.get("email"));
+			boarddto.setSgtctg(params.get("sgtctg"));
 		}
 		int result = boarddao.boardWrite(boarddto);
 		// 실패시 다시 카테고리에 맞는 수정폼으로 보내기

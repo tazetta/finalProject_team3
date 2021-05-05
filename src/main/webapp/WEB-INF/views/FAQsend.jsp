@@ -142,11 +142,11 @@
             <tr>
                 <td  style="width: 100px; text-align: center;"><strong>접 수 종 류</strong></td>
                     <td>
-                    	<select name="select">
-                    		<option value="board">게시판관련</option>
-                    		<option value="user">유저관련</option>
-                    		<option value="report">신고관련</option>
-                    		<option value="other">기타</option>
+                    	<select name="sgtctg">
+                    		<option value="게시판">게시판관련</option>
+                    		<option value="유저">유저관련</option>
+                    		<option value="신고">신고관련</option>
+                    		<option value="기타">기타</option>
  	               		</select>
  	               </td>
             </tr>
