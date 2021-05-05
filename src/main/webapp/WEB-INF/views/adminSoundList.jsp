@@ -6,6 +6,13 @@
 <head>
 <title>Home</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<link
+	href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	rel="stylesheet">
+<script
+	src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script src="resources/js/jquery.twbsPagination.js"
+	type="text/javascript"></script>
 <style>
 table, td, th {
 	border-collapse: collapse;
@@ -33,6 +40,7 @@ td {
 	justify-content: center;
 	align-items: center;
 	min-height: 100vh;
+		min-width: 1680px;
 }
 
 .inputs {
@@ -95,7 +103,7 @@ select:hover {
 </head>
 <body>
 	<div class="flexBox">
-		<div>
+		<div   style="min-height: 800px;">
 			<div class="sideBar" style="margin-right: 15px;">
 				<table style="border: none;">
 					<tr>
@@ -103,7 +111,7 @@ select:hover {
 							style="text-align: left; font-size: 20px; border: none; font-weight: 600; text-decoration: underline; text-underline-position: under;">Category</td>
 					</tr>
 					<tr>
-						<td style="text-align: right; border: none; font-weight: 600;">메인></td>
+						<td style="text-align: right; border: none;">메인</td>
 					</tr>
 					<tr>
 						<td style="text-align: right; border: none;">일반회원 목록</td>
@@ -112,7 +120,7 @@ select:hover {
 						<td style="text-align: right; border: none;">업체회원 목록</td>
 					</tr>
 					<tr>
-						<td style="text-align: right; border: none;">고객의소리</td>
+						<td style="text-align: right; border: none; font-weight: 600;">고객의소리></td>
 					</tr>
 					<tr>
 						<td style="text-align: right; border: none;">신고된 게시글</td>
@@ -140,45 +148,110 @@ select:hover {
 						style="display: flex; justify-content: space-between; margin-right: 10px;">
 						<div class="headDESC">고객의 소리</div>
 						<div>
-							<select class="inputs">
-								<option>전체</option>
-								<option>게시판 관련</option>
-								<option>유저 관련</option>
-								<option>신고 관련</option>
-								<option>기타</option>
+							<select id="sgtCtgSelect" class="inputs">
+								<option value="none">전체</option>
+								<option value="게시판">게시판 관련</option>
+								<option value="유저">유저 관련</option>
+								<option value="신고">신고 관련</option>
+								<option value="기타">기타</option>
 							</select>
 						</div>
 					</div>
-					<table>
+					<table style="min-width: 1100px">
 						<tr>
-							<th>제목</th>
+							<th style="text-align: left;">제목</th>
 							<th>카테고리</th>
 							<th>신청자</th>
 							<th>작성일</th>
 						</tr>
+						<tbody id="list">
+						
+						</tbody>
 						<tr>
-							<td style="text-align: left;" onclick="popUp()">이런게 있었으면 좋겠습니다.</td>
-							<td>게시판</td>
-							<td>hello3892</td>
-							<td>2021-04-12</td>
+							<td colspan="4">
+								<!-- PlugIn -->
+								<div class="container">
+									<nav aria-label="page navigation" style="text-align: center;">
+										<ul class="pagination" id="pagination"></ul>
+									</nav>
+								</div>
+								<!-- /PlugIn -->
+							</td>
 						</tr>
 					</table>
-					<div style="text-align: center;">
-						<a href="#" class="pagingBtn">처 음</a> <a href="#"
-							class="pagingBtn">이전</a> <a href="#" class="pagingBtn"
-							style="background-color: skyblue; color: white;">&nbsp;1&nbsp;</a>
-						<a href="cQuestionList?page=${currPage+1}" class="pagingBtn">다음</a>
-						<a href="#" class="pagingBtn">마지막</a>
-					</div>
 				</form>
 			</div>
 		</div>
 	</div>
 </body>
 <script>
-	function popUp(){
-		window.open('adminSoundDetail','Detail','width=620, height=660, scrollbars=no, resizable=no');
-
+	function detailPopUp(idx){
+		var url = "adminSoundDetail/";
+		var boardIdx = idx;
+		console.log(idx);
+		url += boardIdx;
+		window.open(url ,"상세보기","width=600, height=650");
+	}
+	
+	var thisPage = 1;
+	var sgtctg = 'none';
+	listCall(thisPage, sgtctg);
+	
+	$("#sgtCtgSelect").change(()=>{
+		thisPage = 1;
+		sgtctg = $("#sgtCtgSelect").val();
+		listCall(thisPage, sgtctg);
+	});
+	
+	function listCall(reqPage,sgtctg) {	
+		var reqUrl = 'adminSoundList/'+10+'/'+reqPage+'/'+sgtctg;
+		$.ajax({
+			url:reqUrl
+			,data:{}
+			,type:'GET'
+			,dataType:'JSON'
+			,success:(data)=>{
+				if(reqPage > data.maxPage){listCall(data.maxPage,sgtctg);}
+				console.log(reqUrl);
+				console.log(data);
+				thisPage = data.currPage;
+				listPrint(data.list);
+				$("#pagination").twbsPagination({
+					startPage:data.currPage
+					,totalPages:data.maxPage
+					,visiblePages:5
+					,onPageClick:(evt, page)=>{
+						console.log(evt);
+						console.log(page);
+						listCall(page,sgtctg);
+					}
+				});
+			}
+			,error:(data)=>{
+				console.log(data);
+			}
+		});
+	}
+	
+	function listPrint(list){
+		var content = "";
+		console.log("list.length : "+list.length);
+			if(list.length == 0) {
+				content += "<tr><td colspan='5'>해당 회원이 존재하지 않습니다.</td></tr>";
+			} else {
+				for(var i=0;i<list.length;i++){
+				content += "<tr>"
+					content += "<td style='text-align: left;' onclick='detailPopUp("+(list[i].boardIdx)+")'>"+list[i].subject+"</td>"
+					content += "<td>"+list[i].sgtctg+"</td>"
+					content += "<td>"+list[i].id+"</td>"
+					var date = new Date(list[i].reg_date);
+					content += "<td>"+date.toLocaleDateString("ko-KR")+"</td>"
+					content += "<td style='display: none;'>"+list[i].boardIdx+"</td>"
+				content += "</tr>"
+			}
+		}
+		$("#list").empty();
+		$("#list").append(content);
 	}
 </script>
 </html>

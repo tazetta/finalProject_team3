@@ -36,17 +36,13 @@ public class AdminController {
 		return service.companyDetail(comid);
 	}
 	
-	@RequestMapping(value = "/adminSoundList", method = RequestMethod.GET)
-	public String adminSoundList() {
-		logger.info("관리자 고객의 소리 리스트 페이지로 이동");
-		return "adminSoundList";
+	@RequestMapping(value = "/adminSoundDetail/{boardIdx}", method = RequestMethod.GET)
+	public ModelAndView adminSoundDetail(@PathVariable int boardIdx) {
+		logger.info("관리자 고객의 소리 상세보기 팝업");
+		return service.adminSoundDetail(boardIdx);
 	}
 	
-	@RequestMapping(value = "/adminSoundDetail", method = RequestMethod.GET)
-	public String adminSoundDetail() {
-		logger.info("관리자 고객의 소리 상세보기 팝업");
-		return "adminSoundDetail";
-	}
+	
 	
 	@RequestMapping(value = "/adminReportedBrdList", method = RequestMethod.GET)
 	public String adminReportedBrdList() {
