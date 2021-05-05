@@ -99,7 +99,7 @@ public class BoardService {
 			boarddto.setBudget(Integer.parseInt(params.get("budget")));// 예산
 			boarddto.setFormidx(Integer.parseInt(params.get("formidx")));// 주거형태
 		}
-		if (boardctgidx == 6) {
+		if (boardctgidx == 5) {
 			boarddto.setEmail(params.get("email"));
 		}
 		int result = boarddao.boardWrite(boarddto);
@@ -142,7 +142,7 @@ public class BoardService {
 			} else if (boardctgidx == 4) {
 				page = "redirect:/qnalist";
 			} else if (boardctgidx == 5) {
-				page = "redirect:/sgtlist";
+				page = "redirect:/FAQ";
 			}
 		} else {// 글쓰기 실패시
 			for (String newFileName : fileList.keySet()) {

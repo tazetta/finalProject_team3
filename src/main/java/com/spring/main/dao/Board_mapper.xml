@@ -176,7 +176,7 @@
 		<if test="brdctgidx==5">
 			INSERT INTO board(BOARDIDX, SUBJECT, CONTENT, ID,BRDCTGIDX,EMAIL)
 			VALUES
-			(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{brdctgidx},#{email})
+			(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{brdctgidx}, #{email})
 		</if>
 
 	</insert>
