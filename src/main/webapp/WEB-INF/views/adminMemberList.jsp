@@ -185,7 +185,7 @@ select:hover {
 								<th style="width: 150px;">현재 패널티</th>
 								<th>탈퇴 여부</th>
 							</tr>
-							<tbody id="list">
+							<tbody id="list" style="border-bottom: 1px solid lightgray;">
 								
 							</tbody>
 							<tr>

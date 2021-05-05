@@ -12,17 +12,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.AdminDAO;
+import com.spring.main.dao.BoardDAO;
 import com.spring.main.dto.BoardDTO;
 import com.spring.main.dto.CompanyMemberDTO;
 import com.spring.main.dto.MemberDTO;
+import com.spring.main.dto.PhotoDTO;
 
 @Service
 public class AdminService {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	@Autowired AdminDAO dao; 
+	@Autowired AdminDAO dao;
 	@Autowired AdminService service;
+	@Autowired BoardDAO boardDAO;
 	public ModelAndView adminMain() {
 		ModelAndView mav = new ModelAndView();
 		// 오늘 날짜 불러오기
@@ -178,6 +181,9 @@ public class AdminService {
 		ModelAndView mav = new ModelAndView();
 		BoardDTO dto = new BoardDTO();
 		dto = dao.adminSoundDetail(boardIdx);
+		ArrayList<PhotoDTO> fileList = boardDAO.fileList(boardIdx);
+		logger.info("fileList.size  : {}", fileList.size());
+		mav.addObject("fileList", fileList);
 		mav.addObject("dto", dto);
 		mav.setViewName("adminSoundDetail");
 		return mav;
