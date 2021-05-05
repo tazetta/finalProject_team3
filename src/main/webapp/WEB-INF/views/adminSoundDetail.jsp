@@ -132,7 +132,7 @@ select:hover {
 									<ul>
 										<!-- 마지막에 / 가 없으면 . 이후 확장자사 생략되어 버린다. -->
 										<c:forEach items="${fileList}" var="file">				
-											<li><a href="/main/download/${file.oriFileName}/${file.newFileName}/">${file.oriFileName}</a></li>
+											<li><a href="../download/${file.oriFileName}/${file.newFileName}/">${file.oriFileName}</a></li>
 										</c:forEach>				
 									</ul>
 								</div>

@@ -1,5 +1,8 @@
 package com.spring.main.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,10 +59,9 @@ public class AdminController {
 		return "adminReportedCommList";
 	}
 	
-	@RequestMapping(value = "/NewFile", method = RequestMethod.GET)
-	public String NewFile() {
-		logger.info("NewFile");
-		return "NewFile";
+	@RequestMapping(value = "/download/{oriFileName}/{newFileName}", method = RequestMethod.GET)
+	public void download(@PathVariable String oriFileName, @PathVariable String newFileName, HttpServletResponse resp) {
+		logger.info("ori : {} / new : {}",oriFileName, newFileName);
+		service.download(oriFileName, newFileName, resp);
 	}
-
 }

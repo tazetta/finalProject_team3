@@ -1,13 +1,23 @@
 package com.spring.main.service;
 
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.URLEncoder;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -26,6 +36,9 @@ public class AdminService {
 	@Autowired AdminDAO dao;
 	@Autowired AdminService service;
 	@Autowired BoardDAO boardDAO;
+	
+	@Value("#{config['Globals.root']}") String root;
+	
 	public ModelAndView adminMain() {
 		ModelAndView mav = new ModelAndView();
 		// 오늘 날짜 불러오기
@@ -187,6 +200,29 @@ public class AdminService {
 		mav.addObject("dto", dto);
 		mav.setViewName("adminSoundDetail");
 		return mav;
+	}
+
+	public void download(String oriFileName, String newFileName, HttpServletResponse resp) {
+		logger.info("파일 다운로드 시작");
+		try {
+			//1. 파일 불러오기(java.nio)
+			Path path = Paths.get(root+"upload/"+newFileName);
+			byte[] file = Files.readAllBytes(path);
+			//2. response 객체에 넣기(java.io)
+			resp.setContentType("application/octet-stream");
+			oriFileName = URLEncoder.encode(oriFileName, "UTF-8");//한글 깨짐 방지
+			resp.setHeader("content-Disposition", "attachment;fileName=\""+oriFileName+"\"");			
+			//전송하기
+			OutputStream os = resp.getOutputStream();
+			BufferedOutputStream bos = new BufferedOutputStream(os);
+			bos.write(file);
+			bos.flush();
+			bos.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		
 	}
 
 
