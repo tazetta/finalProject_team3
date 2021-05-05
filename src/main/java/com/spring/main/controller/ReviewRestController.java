@@ -39,4 +39,20 @@ public class ReviewRestController {
 		return service.list(page,comId);
 	}
 	
+	@RequestMapping(value = "/cMreviewlist", method = RequestMethod.GET)
+	public ModelAndView cMreviewlist() {
+		logger.info("업체시공리뷰홈페이지");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("cMreviewlist");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/cMreviewList/{page}", method = RequestMethod.GET)
+	public HashMap<String, Object> cMreviewList(HttpSession session, @PathVariable int page) {
+		logger.info("page:{}",page);
+		String comId = (String) session.getAttribute("cLoginId");
+		logger.info("업체 아이디:{}",comId);
+		return service.list(page,comId);
+	}
+	
 }

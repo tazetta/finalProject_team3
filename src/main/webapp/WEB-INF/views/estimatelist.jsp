@@ -47,7 +47,13 @@
                 margin-left: 4%;
                 z-index: 3;
             } 
-            
+            #견적서 {
+				position: absolute;
+				left: 20%;
+				font-size: 22px;
+				color: blue;
+				font-weight: 600;
+			}
         </style>
      
     
@@ -55,7 +61,7 @@
             <iframe src="mainnavi" scrolling="no" frameborder="0" style="width: 100%; "></iframe>
              
             <iframe  class="업체네비" src="companynavi" scrolling="no" frameborder="0"></iframe>
-    
+    		<h3 id="견적서">받은 견적서</h3>
             <table id="estimateTable">
 				<thead>
 					<tr>

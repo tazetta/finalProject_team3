@@ -6,7 +6,7 @@ import com.spring.main.dto.ReviewDTO;
 
 public interface ReviewDAO {
 
-	int allCount();
+	int allCount(String comId);
 
 	ArrayList<ReviewDTO> reviewList(int start, int end,String comId);
 
