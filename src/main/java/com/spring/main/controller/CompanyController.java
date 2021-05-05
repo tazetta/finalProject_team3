@@ -45,11 +45,7 @@ public class CompanyController {
 		return service.comMemUpdate(params,comId);
 	}
 	
-	@RequestMapping(value = "/examlist", method = RequestMethod.GET)
-	public String examlist() {
-		logger.info("시공사례리스트");
-		return "examlist";
-	}
+	
 	@RequestMapping(value = "/companynavi", method = RequestMethod.GET)
 	public String mainnavi() {
 		logger.info("업체네비바실행");
