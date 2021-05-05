@@ -109,24 +109,18 @@ a.page-link:hover {
 		<div class="row">
 			<a href="QWrite" class="button"
 				style="max-width: 110; margin: 10px; padding: 10px 20px; font-weight: bold;">질문하기</a>
-			<a href="#" class="button2"
+			<a href="#" class="button2" id="isWaitForAnswerBtn"
 				style="max-width: 200; margin: 10px; padding: 10px 20px; font-weight: bold;">답변을
 				기다리는 질문</a>
 			<div class="container">
-				<select name="idx" id="idx"
+				<select name="idx" id="miniopt"
 					style="float: right; border-radius: 5px; border: 2px solid gray;">
-					<option value="">최신순</option>
-					<option value="1">답변순</option>
-
+					<option value="recent">최신순</option>
+					<option value="comment">답변순</option>
 				</select>
 			</div>
 		</div>
-
 	</div>
-
-
-
-
 
 	<div class="container">
 		<table class="table">
@@ -179,13 +173,13 @@ $('button#btnForTotalSearch').click(function() {
 		alert("검색어를 입력해주세요1.");
 		$('#keywordForTotalSearch').focus();
 	} else {
-		alert("검색1 !");
+		alert("검색!");
 	}
 });
 
 $(document).ready(function() {
 			// 목록을 조회하는 함수.
-			function getList(pageNum, opt, keyword) {
+			function getList(pageNum, opt, keyword, orderBy, isWaitForAnswer) {
 				/*
 				 * pageNum, opt, keyword
 				 * 값이 없으면 초기값 사용.
@@ -194,12 +188,18 @@ $(document).ready(function() {
 				var pageNum = !pageNum ? 1 : pageNum;
 				var opt = !opt ? 'all' : opt;
 				var keyword = !keyword ? '' : keyword;
+				var orderBy = !orderBy ? 'recent' : orderBy;
+				var isWaitForAnswer = !isWaitForAnswer ? 'F' : isWaitForAnswer;
 				var oData = {
 					pageNum : pageNum,
 					opt : opt,
-					keyword : keyword
+					keyword : keyword,
+					orderBy: orderBy,
+					isWaitForAnswer: isWaitForAnswer
 				};
 
+				console.log(oData);
+				
 				$.ajax({
 					url : '/main/api/helpmain',
 					type : 'GET',
@@ -219,9 +219,7 @@ $(document).ready(function() {
 			function appendList(aList) {
 				// jquery의 반복문을 사용.
 				var sHtml = '';
-				$.each(
-								aList,
-								function(index, oInfo) {
+				$.each(aList,function(index, oInfo) {
 									/*
 									행 html 소스
 									<tr>
@@ -254,6 +252,8 @@ $(document).ready(function() {
 			// 페이징 요소 생성
 			var opt = '';
 			var keyword = '';
+			var orderBy = '';
+			var isWaitForAnswer = '';
 
 			function createPagination(iTotalPage, iStartPage) {
 				console.log('iTotalPage : ' + iTotalPage);
@@ -277,7 +277,7 @@ $(document).ready(function() {
 					anchorClass : "page-link", //버튼 안의 앵커에 대한 CSS class
 
 					onPageClick : function(event, page) {
-						getList(page, opt, keyword);
+						getList(page, opt, keyword, orderBy, isWaitForAnswer);
 					}
 				});
 			}
@@ -291,8 +291,20 @@ $(document).ready(function() {
 					opt = $("#searchOpt").val();
 					keyword = $('#keywordForSearch').val();
 					
-					getList(1, opt, keyword);
+					getList(1, opt, keyword, orderBy, isWaitForAnswer);
 				}
+			});
+			
+			// 정렬이 변경된 경우 동작.
+			$('#miniopt').on('change', function(){
+				orderBy = $(this).val();
+				getList(1, opt, keyword, orderBy, isWaitForAnswer);
+			});
+			
+			// 답변을 기다리는 질문을 click 했을 때 동작.
+			$('a#isWaitForAnswerBtn').on('click', function () {
+				isWaitForAnswer = isWaitForAnswer === 'T' ? 'F' : 'T'; // 답변을 기다리는가?
+				getList(1, opt, keyword, orderBy, isWaitForAnswer);
 			});
 			
 			// 페이지 진입시 초기에 목록 조회.

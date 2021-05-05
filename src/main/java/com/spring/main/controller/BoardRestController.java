@@ -44,7 +44,7 @@ public class BoardRestController {
 			Map<String, Object> map = BoardService.getBoardList(pageNum, 4, opt, keyword);
 			return map;
 	}
-	*/
+	
 	@RequestMapping(value = "/homemain/{pagePerCnt}/{page}/{order}/{formcategory}/{budget}/{roomsize}",  method = RequestMethod.GET)
 	public HashMap<String, Object> homeMainList(@PathVariable int pagePerCnt,@PathVariable int page,
 		@PathVariable String order,@PathVariable String formcategory,@PathVariable int budget,@PathVariable int roomsize){
@@ -63,15 +63,31 @@ public class BoardRestController {
 		logger.info("pagePerCnt : {} / page :{}", pagePerCnt, page);
 		logger.info("cntreco : {} ", CNTRECO);
 		return BoardService.cntboardList(pagePerCnt,page,CNTRECO);
-	}
+	}*/
 	
-	@RequestMapping(value = "/tipMain/{pagePerCnt}/{page}/{cntreco}", method = RequestMethod.GET)
-	public HashMap<String, Object> tipMain(@PathVariable int pagePerCnt,@PathVariable int page, @PathVariable int CNTRECO){
+	
+	/**
+	 * 꿀팁 목록 조회
+	 * @param pageNum 이동하려는 페이지 번호
+	 * @param orderBy 정렬 (최신순/추천순)
+	 * @return
+	 */
+	@RequestMapping(value = "/api/tip", method = RequestMethod.GET)
+	public Map<String, Object> getApitipmainrecent(
+			@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum,
+			@RequestParam(value="orderBy", required=false, defaultValue="recent") String orderBy,
+			@RequestParam(value="opt", required=false, defaultValue="all") String opt,
+			@RequestParam(value="keyword", required=false, defaultValue="") String keyword
+			){
+		logger.info("tipList");
 		
-		logger.info("pagePerCnt : {} / page :{}", pagePerCnt, page);
-		logger.info("cntreco : {} ", CNTRECO);
-		return BoardService.cntboardList(pagePerCnt,page,CNTRECO);
+		System.out.println("pageNum: " + pageNum + ", orderBy : " + orderBy + ", opt : " + opt + ", keyword : " + keyword);
+		
+		return BoardService.getTipmain(pageNum, orderBy, opt, keyword); //사용
 	}
+
+	
+	
 	
 	/**
 	 * 자유게시판 목록 조회
@@ -104,11 +120,13 @@ public class BoardRestController {
 	public Map<String, Object> getApiHelpmain(
 			@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum,
 			@RequestParam(value="opt", required=false, defaultValue="all") String opt,
-			@RequestParam(value="keyword", required=false, defaultValue="") String keyword) {
+			@RequestParam(value="keyword", required=false, defaultValue="") String keyword,
+			@RequestParam(value="orderBy", required=false, defaultValue="recent") String orderBy,
+			@RequestParam(value="isWaitForAnswer", required=false, defaultValue="F") char isWaitForAnswer) {
 		
-		logger.info("pageNum : " + pageNum + ", opt : " + opt + ", keyword : " + keyword);
+		logger.info("pageNum : " + pageNum + ", opt : " + opt + ", keyword : " + keyword + ", orderBy : " + orderBy + ", isWaitForAnswer : " + isWaitForAnswer);
 		
-		Map<String, Object> map = BoardService.getBoardList(pageNum, 4, opt, keyword);
+		Map<String, Object> map = BoardService.getHelpmain(pageNum, opt, keyword, orderBy, isWaitForAnswer);
 		
 		return map;
 	}
@@ -118,14 +136,14 @@ public class BoardRestController {
 	 * @param pageNum 이동하려는 페이지 번호
 	 * @param orderBy 정렬 (최신순/추천순)
 	 * @return
-	 */
+	
 	@RequestMapping(value = "/api/homemain", method = RequestMethod.GET)
 	public Map<String, Object> getApiHomemainRecent(
 			@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum,
-			@RequestParam(value="orderBy", required=false, defaultValue="1") String orderBy
+			@RequestParam(value="orderBy", required=false, defaultValue="recent") String orderBy
 			){
 		logger.info("cntBoardList");
 		
-		return BoardService.getHomemain(pageNum, orderBy);
-	}
+		return BoardService.getTipmain(pageNum, orderBy);
+	}*/
 }

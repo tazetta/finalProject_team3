@@ -363,6 +363,28 @@ public class BoardService {
 
 		return map;
 	}
+	
+	public Map<String, Object> getHelpmain(int pageNum, String opt, String keyword, String orderBy, char isWaitForAnswer) { // 데이터 값 받아오기
+		logger.info("도와줘요 게시판 글 조회 요청"); // 글 조회 요청
+
+		Map<String, Object> map = new HashMap<>();
+
+		// startNum, endNum 생성
+		int limit = 10; // 최대 10개 게시물 목록 보여줄거
+		int startNum = (pageNum - 1) * limit + 1; // 시작페이지
+		int endNum = pageNum * limit; // 마지막 페이지
+
+		// 검색 조건에 맞는 목록의 전체 개수
+		int totalListCount = boarddao.getHelpmainCount(4, opt, keyword, isWaitForAnswer);
+		System.out.println("totalListCount : " + totalListCount);
+		map.put("total_page", totalListCount / 10 + 1);
+		
+		// 검색 조건에 맞는 목록 데이터
+		ArrayList<BoardDTO> list = boarddao.getHelpmainList(startNum, endNum, 4, opt, keyword, orderBy, isWaitForAnswer);
+		map.put("list", list);
+
+		return map;
+	}
 
 	public HashMap<String, Object> BoardSearchList(int pagePerCnt, int page, String opt, String keyword) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -459,7 +481,7 @@ public class BoardService {
 		return map;
 	}
 
-	public Map<String, Object> getHomemain (int pageNum, String orderBy) {
+	public Map<String, Object> getTipmain (int pageNum, String orderBy, String opt, String keyword) { //메서드 선언
 		Map<String, Object> map = new HashMap<>();
 		
 		// startNum, endNum 생성
@@ -467,11 +489,16 @@ public class BoardService {
 		int startNum = (pageNum - 1) * limit + 1; // 시작페이지
 		int endNum = pageNum * limit; // 마지막 페이지
 		
-		ArrayList<BoardDTO> list = boarddao.getHomemain(startNum, endNum, orderBy);
+		int totalListCount = boarddao.getBoardListCount(3, opt, keyword);
+		map.put("total_page", totalListCount / 10 + 1);
+		
+		ArrayList<BoardDTO> list = boarddao.getTipmain(startNum, endNum, orderBy, opt, keyword);
 		map.put("list", list);
 		
 		return map;
 	}
+	
+	
 	
 	public HashMap<String, Object> cntboardList(int pagePerCnt, int page, int CNTRECO) {
 		HashMap<String, Object> map = new HashMap<String, Object>();

@@ -107,12 +107,11 @@ span:hover {
                         <tr>
                             <th style="border-color: white;">새로운글</th>
                         </tr>
-                        <td>중수 아이디 날짜 조회 댓글 추천</td>
+                        <tr>
+                            <td>중수 아이디 날짜 조회 댓글 추천</td>
+                        </tr>
                     </table>
                 </div>
-
-            
-
 
                 <div style=" border-radius:20px; border: 5px solid white; margin-right: 90px; box-shadow:0 0 5px lightslategray;">
                     <img src="C:\Users\user\Desktop\BootStrap\interior2.jpg" width="250" height="250"  style=" border-radius:20px;" >
@@ -122,12 +121,10 @@ span:hover {
                         </tr>
                         <tr>
                             <td>중수 아이디 날짜 조회 댓글 추천</td>
-
                         </tr>
                     </table>
-
-
                 </div>
+                
                 <div style="  border-radius:20px;  border: 5px solid white; margin-right: 90px; box-shadow:0 0 5px lightslategray;">
                     <img src="C:\Users\user\Desktop\BootStrap\interior3.jpg" width="250" height="250"  style=" border-radius:20px;">
                     <table class="table">
@@ -135,12 +132,13 @@ span:hover {
                             <th style="border-color: white;">힘들다</th>
                         </tr>
                         <tr>
-                        <td>중수 아이디 날짜 조회 댓글 추천</td>
+                        	<td>중수 아이디 날짜 조회 댓글 추천</td>
                         </tr>
                     </table>
                 </div>
             </div>
             <br />
+            
             <div style="display: flex;  justify-content: center; border: 1px solid rgb(255, 255, 255);">
                 <div style="border-radius:20px; border: 5px solid white; margin-right: 90px; box-shadow:0 0 5px lightslategray;">
                     <img src="C:\Users\user\Desktop\BootStrap\interior1.jpg" width="250" height="250" style=" border-radius:20px;">
