@@ -4,6 +4,11 @@
 <head>
 <title>내 작성글-자유게시판</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- 반응형 디자인을 위한 css/js 라이브러리 -->
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>   
+ <!-- 페이징 라이브러리(제이쿼리 반드시 필요, 버전도 맞아야 함) -->
+<script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
 <style>
 table, td, th {
 	border-collapse: collapse;
@@ -93,23 +98,29 @@ th{
 				<form>
 					<table>
 						<h2>자유 게시판</h2>
-					<tr class="table"> 
-						<th style="width:70px">글 번호</th>
-						<th>제목</th>
+					   <tr>
+                   	<th style="width:70px">글 번호</th>
+						<th style="width:300px">제목</th>
 						<th style="width:120px">작성자</th>
 						<th style="width:60px">조회수</th>
 						<th style="width:100px">작성일</th>
-					</tr>
-					
-					<c:forEach items="${boardList}" var="dto">
-						<tr>
-							<td>${dto.boardidx}</td>
-							<td><a class="mouse_over" href="boardDetail?boardIdx=${board.boardIdx}&page=${currPage}">${dto.subject}</a></td>
-							<td>${dto.id}</td>
-							<td>${dto.bhit}</td>
-							<td>${dto.reg_date}</td>
-						</tr>
-					</c:forEach>
+                </tr>
+        </thead>
+        </div>
+		<tbody id="list">
+             
+		</tbody>
+			<tr>
+			<td id="paging" colspan="6">
+				<!-- 플러그인 사용 -->
+				<div class="container">
+					<nav aria-label="page navigation" style="text-align: center">
+						<ul class="pagination" id="pagination"></ul>
+					</nav>
+				</div>
+				<!--// 플러그인 사용 -->
+			</td>
+		</tr>
 					</table>
 
 				</form>
@@ -119,6 +130,64 @@ th{
 	</div>
 </body>
 <script>
+var showPage = 1;
+var pagePerNum = 10;
+listCall(showPage,pagePerNum);
+
+function listCall(reqPage,reqPagePerNum){
+	 
+	 var reqUrl ='./mywriteboardList/' + reqPagePerNum + "/" + reqPage;
+	 $.ajax({
+		 url:reqUrl
+		 ,type:'GET'
+		 ,data:{}
+		 ,dataType:'JSON'
+		 ,success:function(data){
+			 console.log(data);
+			 showPage = data.currPage;
+			 console.log(showPage);
+			 console.log(data.list);
+			 listPrint(data.list);
+			 
+				$("#pagination").twbsPagination({
+					startPage:data.currPage,//시작 페이지
+					totalPages:data.range,//생성 가능 최대 페이지
+					visiblePages:5,//5개씩 보여 주겠다.(1~5)
+					onPageClick:function(evt,page){//각 페이지를 눌렀을 경우
+						console.log(evt);
+						console.log(page);
+						listCall(page,pagePerNum);
+					}
+				});
+		 },
+		 error:function(error){
+				console.log(error);
+		 }
+	 });
+}
+	 
+function listPrint(list){
+	 var content = "";
+	 for(var i = 0; i<list.length; i++){
+		content +="<tr>"
+		content +="<td>"+list[i].boardidx+"</td>"
+		content +="<td>"+list[i].subject+"</td>"
+		content +="<td>"+list[i].id+"</td>"
+		content +="<td>"+list[i].bhit+"</td>"
+		var date = new Date(list[i].reg_date);
+		content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"		
+		
+		content +="</tr>"
+	}
+	
+	
+	$("#list").empty();
+	$("#list").append(content);
+}
+var msg = "${msg}";
+if(msg != ""){
+	 alert(msg);
+}
 
 </script>
 </html>
