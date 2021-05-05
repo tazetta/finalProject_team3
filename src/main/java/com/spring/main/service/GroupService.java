@@ -588,7 +588,6 @@ public class GroupService {
 	}
 
 	/* 내가 추천한 댓글 가져오기 */
-
 	public HashMap<String, Object> recCommList(RedirectAttributes rAttr, HttpSession session) {
 		logger.info("내가 추천한 댓글리스트 서비스");
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -597,6 +596,20 @@ public class GroupService {
 		logger.info("recCommListSize:" + recCommList.size());
 		
 		map.put("recCommList", recCommList);
+		return map;
+	}
+
+	public HashMap<String, Object> groupRecommWrite(HashMap<String, String> params, HttpSession session, RedirectAttributes rAttr) {
+		logger.info("공동구매 대댓글쓰기 서비스");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int result = groupdao.groupRecommWrite(params);
+		logger.info("대댓글쓰기 result: " + result);
+		msg = "답글 등록에 실패했습니다";
+		if (result > 0) {
+			msg = "답글이 등록되었습니다";
+		}
+
+		map.put("msg", msg);
 		return map;
 	}
 

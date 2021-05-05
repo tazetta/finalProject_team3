@@ -200,6 +200,11 @@
 	<select id="myRecList" resultType="group">
 		 SELECT commIdx FROM recommend WHERE id=#{param1}
 	</select>
+	
+	<insert id="groupRecommWrite">
+		INSERT INTO comments_2nd (com2ndIdx, COMMENTS, id, commIdx) 
+		VALUES (comments_2nd_seq.NEXTVAL, #{comments}, #{loginId}, #{commIdx})
+	</insert>
 
 	
 </mapper>

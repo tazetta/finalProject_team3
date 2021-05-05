@@ -42,6 +42,7 @@ margin:20px;
 	background-color : lightgray;
 	padding:10px;
 }
+/*댓글창 영역*/
 #comment{
 width:800px;
 height:40px;
@@ -49,6 +50,11 @@ height:40px;
 
 #loginId{
 margin:20px;
+}
+
+/* 댓글리스트영역 */
+.commentDiv{
+	border:2px solid red;
 }
 .commentTable{
 width:1000px;
@@ -64,6 +70,18 @@ font-size:90%;
 }
 a:link{
 text-decoration:none;
+}
+/*대댓글창 영역*/
+#recommentBox{
+	margin-left:50px;
+}
+
+#recomment{
+width:800px;
+height:40px;
+}
+#recommentSave{
+margin:5px;
 }
 </style>
 </head>
@@ -146,7 +164,7 @@ text-decoration:none;
 	<div>현재 댓글이 없습니다</div>
 	</c:if>
 	<div id="commentListDiv">
-	
+	<!-- 댓글 불러올 영역 -->
 	</div>
 
 </body>
@@ -270,6 +288,7 @@ text-decoration:none;
 	function commentListPrint(list){
 		var content ="";
 		for (var i = 0 ; i < list.length ; i++) {
+		content +=	"<div id='commentDiv"+list[i].commIdx+"'>";
 		content += "<table class='commentTable'>";
 		content += "<tr>";
 		content += '<td style="width:14%;"><b>'+list[i].id+'</b></td>';
@@ -295,11 +314,13 @@ text-decoration:none;
 			content += '<button class="commDel" onclick="groupCommentDel('+list[i].commIdx+')">삭제</button></td>' ; 
 			
 		}else{
-		content += '<a href="#">답글달기</a>&nbsp;&nbsp;';
+		//대댓글작성
+		content += '<a href="javascript:void(0)"; onclick="recommForm('+list[i].commIdx+')">답글달기</a>&nbsp;&nbsp;';
 		content += '<a href="#">신고</a></td>' ;
 		}
 		content += '</tr>';
 		content += '</table>';
+		content +=	"</div>";
 		
 		}
 		$("#commentListDiv").empty(); //#list안의 내용을 버려라
@@ -381,6 +402,43 @@ text-decoration:none;
 					console.log("error:", error);
 				}
 			});
+	}
+	
+	/*대댓글 창 노출*/
+	function recommForm(commIdx){
+		console.log("대댓글달기: "+commIdx);
+		var content ="";
+		content +='<div id="recommentBox">';
+		content +='<span><b id="loginId">${sessionScope.loginId }</b></span>';
+		content += '<input type="text" name="recomment" id="recomment" placeholder="개인정보를 공유 및 요청하거나, 명예훼손, 무단 광고시 모니터링 후 삭제될수 있습니다"/>';
+		content += '<input type="button" value="등록" id="recommentSave" onclick="recommWirte('+commIdx+')"/>';
+		content += '</div>';
+		$("#commentDiv"+commIdx).after(content);
+	}
+	
+	
+	/*대댓글 작성*/
+	function recommWirte(commIdx){
+		var recomment = $("#recomment").val();
+		var loginId = "${sessionScope.loginId }";
+		console.log("loginID:"+loginId+"/commIdx"+commIdx+"/recomment:"+recomment);
+		if(recomment!=''){
+			
+			$.ajax({
+				url : "groupRecommWrite",
+				type : "get",
+				data : {"commIdx":commIdx,"comments":recomment, "loginId":loginId},
+				dataType : "JSON",
+				success : function(data) {
+					console.log("recommWirteSuccess: ", data);
+					alert(data.msg);
+					$("#recommentBox").remove();
+				},
+				error : function(error) {
+					console.log("recommWirteError:", error);
+				}
+			});	
+		}
 	}
 	
 	

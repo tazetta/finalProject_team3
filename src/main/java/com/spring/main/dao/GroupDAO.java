@@ -72,6 +72,8 @@ public interface GroupDAO {
 
 	ArrayList<GroupDTO> myRecList(String loginId);
 
+	int groupRecommWrite(HashMap<String, String> params);
+
 
 
 	
