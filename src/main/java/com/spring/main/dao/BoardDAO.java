@@ -70,7 +70,7 @@ public interface BoardDAO {
 	//스크랩 삭제하기
 	int boardScrapDel(int boardIdx, String id);
 
-
-
+	// 우리집 자랑 게시판 목록 조회
+	ArrayList<BoardDTO> getHomemain(int startNum, int endNum, String orderBy);
 	
 }

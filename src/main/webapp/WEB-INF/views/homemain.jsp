@@ -82,7 +82,7 @@ span:hover {
             <option value="8">그 이상</option>
         </select>
         <label>평수</label>
-        <input type="range" id="range" min="10" max="100" step="1" value="0" oninput="document.getElementById('value').innerHTML=this.value;">
+        <input type="range" id="range" min="10" max="100" step="1" value="0" oninput="document.getElementById('value').innerHTML=this.value;" onchange="console.log(this.value);">
         <span id="value"></span>평
         
    

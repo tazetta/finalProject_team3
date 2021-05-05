@@ -78,6 +78,27 @@
 		WHERE RNUM BETWEEN #{param1} AND #{param2}
 	</select>
 
+	<select id="getHomemain" resultType="com.spring.main.dto.BoardDTO">
+		SELECT
+		  BOARDIDX, SUBJECT, CONTENT, ID, REG_DATE, ROOMSIZE, BUDGET, KEYITEMS, BHIT, BLIND, BRDCTGIDX, FORMIDX, EMAIL, CNTRECO
+		FROM (
+		  SELECT CNTRECO, ROW_NUMBER() OVER (ORDER BY 
+		  <choose>
+		    <when test="param3.equals('recent')">
+			  REG_DATE
+		    </when>
+		    <otherwise>
+		      CNTRECO
+		    </otherwise>
+		  </choose>
+		   DESC) AS RNUM,
+		    BOARDIDX,SUBJECT,CONTENT,ID,REG_DATE,ROOMSIZE,BUDGET,KEYITEMS,BHIT,BLIND,BRDCTGIDX,FORMIDX,EMAIL
+		  FROM BOARD
+		  WHERE BRDCTGIDX = 2 and blind='n'
+		)
+		WHERE RNUM BETWEEN #{param1} AND #{param2}
+	</select>
+
 	<!-- 세부검색 -->
 	<select id="BoardSearchList"
 		resultType="com.spring.main.dto.BoardDTO">

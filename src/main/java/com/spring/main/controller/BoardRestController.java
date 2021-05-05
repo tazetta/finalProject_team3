@@ -34,19 +34,17 @@ public class BoardRestController {
 		mav.setViewName("Freelist");
 		return mav;
 	}
+	/*
 	@RequestMapping(value = "/helpSearchList", method = RequestMethod.GET)
-	public ModelAndView BoardSearchList(Model model, @RequestParam HashMap<String, String> params,
-			RedirectAttributes rAttr) {
-		logger.info("도와줘요 자취만렙 세부검색 리스트");
-		ModelAndView mav = new ModelAndView();
-		String opt = params.get("opt");
-		String keyword = params.get("keyword");
-		mav.addObject("searchopt", opt);
-		mav.addObject("keyword", keyword);
-		
-		mav.setViewName("helpSearchList");
-		return mav;
+	public Map<String, Object> gethelplist(
+			@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum,
+			@RequestParam(value="opt", required=false, defaultValue="all") String opt,
+			@RequestParam(value="keyword", required=false, defaultValue="") String keyword){
+			logger.info("pageNum : "+ pageNum +",opt: "+ opt + ",keyword : "+ keyword);
+			Map<String, Object> map = BoardService.getBoardList(pageNum, 4, opt, keyword);
+			return map;
 	}
+	*/
 	@RequestMapping(value = "/homemain/{pagePerCnt}/{page}/{order}/{formcategory}/{budget}/{roomsize}",  method = RequestMethod.GET)
 	public HashMap<String, Object> homeMainList(@PathVariable int pagePerCnt,@PathVariable int page,
 		@PathVariable String order,@PathVariable String formcategory,@PathVariable int budget,@PathVariable int roomsize){
@@ -58,9 +56,10 @@ public class BoardRestController {
 		
 		return BoardService.homeMainList(pagePerCnt,page, order,formcategory,budget,roomsize);
 	}
+	
 	@RequestMapping(value = "/homemain/{pagePerCnt}/{page}/{cntreco}", method = RequestMethod.GET)
 	public HashMap<String, Object> cntboardList(@PathVariable int pagePerCnt,@PathVariable int page, @PathVariable int CNTRECO){
-		
+		logger.info("cntBoardList");
 		logger.info("pagePerCnt : {} / page :{}", pagePerCnt, page);
 		logger.info("cntreco : {} ", CNTRECO);
 		return BoardService.cntboardList(pagePerCnt,page,CNTRECO);
@@ -76,14 +75,13 @@ public class BoardRestController {
 	
 	/**
 	 * 자유게시판 목록 조회
-	 * pageNum : 조회할려는 페이지 번호
-	 * opt : 선택한 검색 select 값
-	 * keyword : 입력한 검색어 값
-	 * 
+	 * @param pageNum 이동하려는 페이지번호
+	 * @param opt 선택한 select 값
+	 * @param keyword 입력한 검색어 값
 	 * @return
 	 */
-	@RequestMapping(value = "/api/Freelist", method = RequestMethod.GET)
-	public Map<String, Object> getFreelist(
+	@RequestMapping(value = "/api/freelist", method = RequestMethod.GET)
+	public Map<String, Object> getApiFreelist(
 			@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum,
 			@RequestParam(value="opt", required=false, defaultValue="all") String opt,
 			@RequestParam(value="keyword", required=false, defaultValue="") String keyword) {
@@ -95,6 +93,39 @@ public class BoardRestController {
 		return map;
 	}
 	
+	/**
+	 * 도와줘요 게시판 목록 조회
+	 * @param pageNum 이동하려는 페이지번호
+	 * @param opt 선택한 select 값
+	 * @param keyword 입력한 검색어 값
+	 * @return
+	 */
+	@RequestMapping(value = "/api/helpmain", method = RequestMethod.GET)
+	public Map<String, Object> getApiHelpmain(
+			@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum,
+			@RequestParam(value="opt", required=false, defaultValue="all") String opt,
+			@RequestParam(value="keyword", required=false, defaultValue="") String keyword) {
+		
+		logger.info("pageNum : " + pageNum + ", opt : " + opt + ", keyword : " + keyword);
+		
+		Map<String, Object> map = BoardService.getBoardList(pageNum, 4, opt, keyword);
+		
+		return map;
+	}
 	
-	
+	/**
+	 * 우리집 자랑 게시판 목록 조회 
+	 * @param pageNum 이동하려는 페이지 번호
+	 * @param orderBy 정렬 (최신순/추천순)
+	 * @return
+	 */
+	@RequestMapping(value = "/api/homemain", method = RequestMethod.GET)
+	public Map<String, Object> getApiHomemainRecent(
+			@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum,
+			@RequestParam(value="orderBy", required=false, defaultValue="1") String orderBy
+			){
+		logger.info("cntBoardList");
+		
+		return BoardService.getHomemain(pageNum, orderBy);
+	}
 }

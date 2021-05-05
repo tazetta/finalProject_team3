@@ -458,6 +458,20 @@ public class BoardService {
 		return map;
 	}
 
+	public Map<String, Object> getHomemain (int pageNum, String orderBy) {
+		Map<String, Object> map = new HashMap<>();
+		
+		// startNum, endNum 생성
+		int limit = 10; // 최대 10개 게시물 목록 보여줄거
+		int startNum = (pageNum - 1) * limit + 1; // 시작페이지
+		int endNum = pageNum * limit; // 마지막 페이지
+		
+		ArrayList<BoardDTO> list = boarddao.getHomemain(startNum, endNum, orderBy);
+		map.put("list", list);
+		
+		return map;
+	}
+	
 	public HashMap<String, Object> cntboardList(int pagePerCnt, int page, int CNTRECO) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		int end = page * pagePerCnt;

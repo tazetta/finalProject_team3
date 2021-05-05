@@ -105,9 +105,12 @@ border:none;
 
 	</div>
 	<div class="container" style="text-align: center; padding-top: 100px;">
-		아이디:${dto.id}
-		${dto.content} 글번호:${dto.boardIdx} 조회수:${dto.bhit}
-		카테고리:${dto.brdctgidx} 추천수:${dto.CNTRECO}
+		아이디:${dto.id} <br>
+		내용: ${dto.content} <br>
+		글번호: ${dto.boardIdx} <br>
+		조회수: ${dto.bhit} <br>
+		카테고리: ${dto.brdctgidx} <br>
+		추천수: ${dto.CNTRECO}
 		<div id="content">
 			<button id="contentbtn" style="margin-left: 300;">신고</button>
 			<button onclick="location.href='../Freelist'" id="contentbtn" style="margin-left: 50;">목록</button>

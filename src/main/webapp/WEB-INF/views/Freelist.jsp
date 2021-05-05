@@ -92,7 +92,8 @@ a {
 </body>
 
 <script type="text/javascript">
-	// 페이지 로딩이 끝난 후 동작. 
+	// 페이지 로딩이 끝난 후 동작.
+	/*
 	$('button').click(function() {
 		if ($('#keyword').val() == '') {
 			alert("검색어를 입력해주세요.");
@@ -101,8 +102,8 @@ a {
 			$("from").submit();
 		}
 	});
-	$(document)
-			.ready(
+	*/
+	$(document).ready(
 					function() {
 						// 목록을 조회하는 함수.
 						function getList(pageNum, opt, keyword) {
@@ -121,7 +122,7 @@ a {
 							};
 
 							$.ajax({
-								url : '/main/api/Freelist',
+								url : '/main/api/freelist',
 								type : 'GET',
 								data : oData,
 								dataType : 'JSON',
