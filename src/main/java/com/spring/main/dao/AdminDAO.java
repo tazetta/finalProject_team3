@@ -45,6 +45,8 @@ public interface AdminDAO {
 
 	int soundMaxCnt(int boardCtg, String stgctg);
 
-	BoardDTO adminSoundDetail(int boardIdx);	
+	BoardDTO adminSoundDetail(int boardIdx);
+
+	MemberDTO checkPenalty(String loginId);	
 
 }

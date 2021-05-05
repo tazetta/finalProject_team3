@@ -125,9 +125,37 @@ public class AdminService {
 		return mav;
 	}
 
-	public String penaltyCfm(String id, String stateIdx) {
+	public HashMap<String, Object> penaltyCfm(String id, String stateIdx) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		int success = dao.penaltyCfm(id, stateIdx);
-		return null;
+		String msg = "";
+		logger.info("패널티 idx : {}", stateIdx);
+		if(success > 0) {
+			if(stateIdx.equals("1")) {
+				logger.info("작성금지 1일");
+				msg += "작성금지 1일 패널티가 부여되었습니다.";
+			} else if (stateIdx.equals("2")) {
+				logger.info("작성금지 3일");
+				msg += "작성금지 3일 패널티가 부여되었습니다.";
+			} else if (stateIdx.equals("3")) {
+				logger.info("작성금지 5일");
+				msg += "작성금지 5일 패널티가 부여되었습니다.";
+			} else if (stateIdx.equals("4")) {
+				logger.info("작성금지 7일");
+				msg += "작성금지 7일 패널티가 부여되었습니다.";
+			} else if (stateIdx.equals("5")) {
+				logger.info("작성금지 30일");
+				msg += "작성금지 30일 패널티가 부여되었습니다.";
+			} else if (stateIdx.equals("6")) {
+				logger.info("계정 비활성화");
+				msg += "계정 비활성화 패널티가 부여되었습니다.";
+			} else if (stateIdx.equals("0")) {
+				logger.info("패널티 해제");
+				msg = "패널티가 해제되었습니다.";
+			}
+		}
+		map.put("msg", msg);
+		return map;
 	}
 
 	public HashMap<String, Object> adminSoundList(int pagePerCnt, int page, String stgctg) {

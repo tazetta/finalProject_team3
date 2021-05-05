@@ -38,7 +38,7 @@ public class AdminRestController {
 	}
 	
 	@RequestMapping(value = "/adminPenaltyCfm/{id}/{stateIdx}", method = RequestMethod.GET)
-	public String adminPenaltyCfm(@PathVariable String id, @PathVariable String stateIdx) {
+	public HashMap<String, Object> adminPenaltyCfm(@PathVariable String id, @PathVariable String stateIdx) {
 		logger.info("id : {} / state : {}", id, stateIdx);
 		
 		return service.penaltyCfm(id, stateIdx);

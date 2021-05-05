@@ -311,8 +311,21 @@ select:hover {
 					content += "<td>"+0+"</td>"
 					var date = new Date(list[i].reg_date);
 					content += "<td>"+date.toLocaleDateString("ko-KR")+"</td>"
-					
-					content += "<td>"+list[i].stateIdx+"</td>"
+					if(list[i].stateIdx == 0){
+						content += "<td>패널티가 없습니다.</td>"						
+					} else if (list[i].stateIdx == 1){
+						content += "<td>작성금지 1일</td>"
+					} else if (list[i].stateIdx == 2){
+						content += "<td>작성금지 3일</td>"
+					} else if (list[i].stateIdx == 3){
+						content += "<td>작성금지 5일</td>"
+					} else if (list[i].stateIdx == 4){
+						content += "<td>작성금지 7일</td>"
+					} else if (list[i].stateIdx == 5){
+						content += "<td>작성금지 30일</td>"
+					} else if (list[i].stateIdx == 6){
+						content += "<td>계정 비활성화</td>"
+					}
 					content += "<td>false</td>"
 				content += "</tr>"
 			}
