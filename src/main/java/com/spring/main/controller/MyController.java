@@ -91,9 +91,9 @@ public class MyController {
 	}
 	
 	/* 패스워드 암호화 변경 */
-	@RequestMapping(value = "/pwreset")
+	@RequestMapping(value = "/pwreset", method = RequestMethod.POST)
 	public ModelAndView pwreset(@RequestParam String newPw,HttpSession session) {
-		logger.info("회원 비밀번호 변경 요청");
+		logger.info("회원 비밀번호 변경 요청",newPw);
 		return myService.pwreset(newPw,session);
 	}
 
@@ -184,5 +184,15 @@ public class MyController {
 		logger.info("스크랩북 페이지");
 		return "myscrappage";
 	}
-	
+	@RequestMapping(value = "/msgsenderpage", method = RequestMethod.GET)
+	public String msgsenderpage() {
+		logger.info("보낸 쪽지 전체페이지");
+		return "msgsenderpage";
+	}
+
+	@RequestMapping(value = "/msgAllPage", method = RequestMethod.GET)
+	public String msgAllPage() {
+		logger.info("보낸 쪽지 전체페이지");
+		return "msgAllPage";
+	}
 }

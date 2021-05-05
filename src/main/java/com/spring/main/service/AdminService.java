@@ -130,6 +130,31 @@ public class AdminService {
 		return null;
 	}
 
+	public HashMap<String, Object> adminSoundList(int pagePerCnt, int page, String stgctg) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int end = page * pagePerCnt;
+		int start = end - (pagePerCnt - 1);
+		int boardCtg = 5;
+		logger.info("boardCtg : {}", boardCtg);
+		int maxCnt = dao.soundMaxCnt(boardCtg, stgctg);
+		int maxPage = (int) Math.ceil(maxCnt / (double) pagePerCnt);
+		logger.info("maxCnt : {}", maxCnt);
+		logger.info("maxPage : {}", maxPage);
+		map.put("list", dao.adminSoundList(start, end, stgctg));
+		map.put("maxPage", maxPage);
+		map.put("currPage", page);
+		return map;
+	}
+
+	public ModelAndView adminSoundDetail(int boardIdx) {
+		ModelAndView mav = new ModelAndView();
+		BoardDTO dto = new BoardDTO();
+		dto = dao.adminSoundDetail(boardIdx);
+		mav.addObject("dto", dto);
+		mav.setViewName("adminSoundDetail");
+		return mav;
+	}
+
 
 	
 }

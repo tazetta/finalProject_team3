@@ -32,8 +32,18 @@ public interface MyDAO {
 	
 	ArrayList<MsgDTO>  receiveList(int start, int end, String sessionId);
 	
+	int senderAllCount(String sessionId);
 	
+	ArrayList<MsgDTO>  senderList(int start, int end, String sessionId);
+	
+	MsgDTO msgDetail(int msgIdx);
 
+	MsgDTO whoSR(int msgIdx);
+	
+	int deleteSender(int msgIdx);
+	
+	int deleteReceiver(int msgIdx);
+	
 	int myupdate(MyDTO dto);
 
 	int mypwreset(String id, String encrypt);

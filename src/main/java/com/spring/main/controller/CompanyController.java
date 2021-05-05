@@ -23,10 +23,9 @@ public class CompanyController {
 	@Autowired CompanyService service;
 
 	@RequestMapping(value = "/companydetail", method = RequestMethod.GET)
-	public ModelAndView companydetail(HttpSession session) {
-		String comId = (String) session.getAttribute("cLoginId");
-		logger.info("업체페이지상세보기",comId);
-		return service.companydetail(comId);
+	public ModelAndView companydetail(HttpSession session) {	
+		logger.info("업체페이지상세보기");
+		return service.companydetail(session);
 	}
 	
 	@RequestMapping(value = "/comMemUpdateForm", method = RequestMethod.POST)
@@ -45,16 +44,13 @@ public class CompanyController {
 		return service.comMemUpdate(params,comId);
 	}
 	
+	
 	@RequestMapping(value = "/companynavi", method = RequestMethod.GET)
 	public String mainnavi() {
 		logger.info("업체네비바실행");
 		return "companynavi";
 	}
-	@RequestMapping(value = "/cMreviewlist", method = RequestMethod.GET)
-	public String cMreviewlist() {
-		logger.info("업체시공리뷰홈페이지");
-		return "cMreviewlist";
-	}
+	
 	
 	
 }

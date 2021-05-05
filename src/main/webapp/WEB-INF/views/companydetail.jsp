@@ -64,9 +64,11 @@
     <body>
         <iframe src="mainnavi" scrolling="no" frameborder="0" style="width: 100%; "></iframe>
         <table class="업체정보">
+       		 <tr>
             <td style="font-size: 20px; padding-top: 20px;">
                 <strong>서울인테리어</strong>
             </td>
+            </tr>
             <tr>
                 <td style="color: gainsboro;">
                    ─────────

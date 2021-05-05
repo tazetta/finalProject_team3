@@ -34,8 +34,11 @@ public interface BoardDAO {
 	int boardDel(String boardIdx);
 
 	ArrayList<PhotoDTO> getMyPhotos(String id);
-	
-	ArrayList<BoardDTO> getBoardList(int startNum, int endNum, int brdCtgIdx);
+
+	// 게시판 목록 전체 개수 조회
+	int getBoardListCount(int brdCtgIdx, String opt, String keyword);
+	// 게시판 목록 조회
+	ArrayList<BoardDTO> getBoardList(int startNum, int endNum, int brdCtgIdx, String opt, String keyword);
 	//게시글 추천수 불러오기
 	int recFind(BoardDTO dto);
 	//댓글 가져오기

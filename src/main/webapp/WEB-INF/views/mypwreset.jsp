@@ -59,7 +59,7 @@ button {
 			<table id="findFields">
 				<tr>
 					<td id="title">새 비밀번호</td>
-					<td><input type="password" id="newPw" name="newPw" placeholder="새로운 비밀번호를 입력해주세요." /></td>
+					<td><input type="password" id="newPw" name="newPw" value="" placeholder="새로운 비밀번호를 입력해주세요." /></td>
 				</tr>
 				<tr>
 					<td id="title">비밀번호 확인</td>

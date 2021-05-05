@@ -66,5 +66,19 @@ public class ExamRestController {
 		return examService.estimatelist(page,comId);
 	}
 	
+	@RequestMapping(value = "/examlist", method = RequestMethod.GET)
+	public ModelAndView examlist() {
+		logger.info("시공사례리스트 페이지 이동");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("examlist");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/examlist/{page}", method = RequestMethod.GET)
+	public HashMap<String, Object> examlist(@PathVariable int page,HttpSession session) {
+		String comId = (String) session.getAttribute("cLoginId");
+		logger.info("page:{} , comId:{}",page,comId);
+		return examService.comExamList(page,comId);
+	}
 	
 }

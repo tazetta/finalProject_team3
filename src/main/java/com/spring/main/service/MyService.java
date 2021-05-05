@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,11 +13,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.main.dao.BoardDAO;
 import com.spring.main.dao.MyDAO;
 import com.spring.main.dto.MemberDTO;
+import com.spring.main.dto.MsgDTO;
 import com.spring.main.dto.MyDTO;
 import com.spring.main.dto.PhotoDTO;
 
@@ -98,13 +102,13 @@ public class MyService {
         logger.info("해당 id:"+loginId);
         MyDTO dto = new MyDTO();
         dto.setId(loginId); //dto에 해당 id를 넣는다.
-
+       
         String encrypt_pass  = MyDAO.login(loginId);
         logger.info("변경전 비밀번호:"+encrypt_pass); // 1. 현재 비밀번호 확인
-    	
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+      
         ModelAndView mav = new ModelAndView();
-        
+        logger.info(newPw,encrypt_pass+"서비");
        boolean success = encoder.matches(newPw, encrypt_pass);
         if(success==true) {
         	msg= "이전과 동일한 비밀번호입니다. 다시 입력해주세요.";
@@ -143,6 +147,53 @@ public class MyService {
 		map.put("range", range);
 		map.put("currPage", page);
 		return map;
+	}
+
+	public HashMap<String, Object> msgSenderList(int pagePerCnt, int page, HttpSession session) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String sessionId = (String) session.getAttribute("loginId");
+		int allCount =  MyDAO.senderAllCount(sessionId);
+		logger.info("총 갯수 : "  + allCount);
+		int range = allCount%pagePerCnt > 0 ? Math.round(allCount/pagePerCnt)+1 : Math.round(allCount/pagePerCnt);
+		logger.info("총 페이지(range): " + range);
+		int end = page * pagePerCnt;
+		int start = end - pagePerCnt + 1;
+		
+		map.put("list", MyDAO.senderList(start,end,sessionId));
+
+		map.put("range", range);
+		map.put("currPage", page);
+		return map;
+	}
+
+	public ModelAndView msgDetail(int msgIdx) {
+		MsgDTO dto = MyDAO.msgDetail(msgIdx);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("info", dto);
+		mav.setViewName("msgDetailPage");
+		return mav;
+	}
+
+	public ModelAndView msgDelete(int msgIdx, HttpSession session, RedirectAttributes rAttr) {
+		MsgDTO dto =  MyDAO.whoSR(msgIdx);
+		ModelAndView mav = new ModelAndView();
+		String loginId = (String) session.getAttribute("loginId");
+		String sender = dto.getSender();
+		String receiver = dto.getReceiver();
+		String msg ="삭제 실패하였습니다.";
+		String page = "msgAllPage";
+		if(loginId.equals(sender)) {
+			MyDAO.deleteSender(msgIdx);
+			msg = "삭제 성공하였습니다.";
+			page = "redirect:/msgsenderpage";
+		}else if(loginId.equals(receiver)) {
+			MyDAO.deleteReceiver(msgIdx);
+			msg = "삭제 성공하였습니다.";
+			page = "redirect:/msgreceivepage";
+		}
+		rAttr.addFlashAttribute("msg", msg);
+		mav.setViewName(page);
+		return mav;
 	}
 
 

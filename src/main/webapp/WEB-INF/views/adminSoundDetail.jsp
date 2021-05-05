@@ -101,24 +101,24 @@ select:hover {
 				</td></tr>
 					<tr>
 						<td style="font-weight: bold;">카테고리 : </td>
-						<td>게시판 관련</td>
+						<td>${dto.sgtctg}</td>
 					</tr>
 					<tr>
 						<td style="font-weight: bold;">신청자 : </td>
-						<td>hello3902</td>
+						<td>${dto.id}</td>
 					</tr>
 					<tr>
 						<td style="font-weight: bold;">EMAIL : </td>
-						<td>hello3902@naver.com</td>
+						<td>${dto.email}</td>
 					</tr>
 					<tr>
 						<td style="font-weight: bold;">제목 : </td>
-						<td>이런게 있었으면 좋겠습니다.</td>
+						<td>${dto.subject}</td>
 					</tr>
 					<tr>
 						<td colspan="2">
 							<div style="border: 1px solid lightgray; width: 520px; height: 260px;">
-								첨부한 이미지처럼 게시판이 바뀌었으면 좋겠어요!
+								${dto.content}
 							</div>
 						</td>
 					</tr>
