@@ -178,13 +178,12 @@ boardCommentList(); //댓글리스트
 /* 댓글 등록 */
 $("#commentSave").click(function(){
 	var comment = $("#comment").val();
-	/* var loginId = "${sessionScope.loginId}"; */
-	var loginId = "sdk";
+	var loginId = "${sessionScope.loginId}"; 
 	var boardIdx ="${dto.boardIdx}";
 	console.log("loginID:"+loginId+"/comment:"+comment);
 	if(comment!=''){
 		
-		var reqUrl =' ../boardCommentWrite/${dto.boardIdx}'; 
+		var reqUrl =' ../boardCommentWrite'; 
 		$.ajax({
 			url : reqUrl,
 			type : "GET",
@@ -332,8 +331,7 @@ function recommForm(commIdx){
 /*대댓글 작성*/
 function recommWirte(commIdx){
 	var recomment = $("#recomment").val();
-	/* var loginId = "${sessionScope.loginId }"; */
-	var loginId = "sdk";
+	var loginId = "${sessionScope.loginId }";
 	console.log("loginID:"+loginId+"/commIdx"+commIdx+"/recomment:"+recomment);
 	if(recomment!=''){
 		
