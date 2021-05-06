@@ -145,9 +145,9 @@ public class GroupController {
 	}
 	
 	@RequestMapping(value = "/groupCommDel/{commIdx}", method = RequestMethod.GET)
-	@ResponseBody HashMap<String , Object> groupCommDel(@PathVariable int  commIdx,HttpSession session,	RedirectAttributes rAttr) {
+	@ResponseBody HashMap<String , Object> groupCommDel(@PathVariable int  commIdx,HttpSession session) {
 		logger.info("공동구매 댓글삭제 요청 gpIdx: {}", commIdx);
-		return groupService.groupCommDel(commIdx,rAttr);
+		return groupService.groupCommDel(commIdx);
 	}
 	
 	
@@ -186,6 +186,12 @@ public class GroupController {
 	public String reportBoardPage(HttpSession session) {
 		logger.info("게시글 신고 팝업 요청");
 		return "reportBoard";
+	}
+	
+	@RequestMapping(value = "/groupRecommDel/{com2ndIdx}", method = RequestMethod.GET)
+	@ResponseBody HashMap<String , Object> groupRecommDel(@PathVariable int  com2ndIdx) {
+		logger.info("공동구매 대댓글삭제 요청 gpIdx: {}", com2ndIdx);
+		return groupService.groupRecommDel(com2ndIdx);
 	}
 	
 	

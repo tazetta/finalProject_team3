@@ -538,7 +538,7 @@ public class GroupService {
 		return map;
 	}
 
-	public HashMap<String, Object> groupCommDel(int commIdx, RedirectAttributes rAttr) {
+	public HashMap<String, Object> groupCommDel(int commIdx) {
 		logger.info("공동구매 댓글 삭제 서비스");
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		int result = groupdao.groupCommDel(commIdx);
@@ -621,6 +621,18 @@ public class GroupService {
 		int listSize = list.size();
 		logger.info("listSize:" + listSize);
 		map.put("list", list);
+		return map;
+	}
+
+	public HashMap<String, Object> groupRecommDel(int com2ndIdx) {
+		logger.info("공동구매 대댓글 삭제 서비스");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int result = groupdao.groupRecommDel(com2ndIdx);
+		msg = "답글 삭제에 실패했습니다";
+		if (result > 0) {
+			msg = "답글이 삭제 되었습니다";
+		}
+		map.put("msg", msg);
 		return map;
 	}
 

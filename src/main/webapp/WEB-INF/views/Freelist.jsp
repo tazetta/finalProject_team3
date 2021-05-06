@@ -120,6 +120,7 @@ a {
 								opt : opt,
 								keyword : keyword
 							};
+							console.log(oData);
 
 							$.ajax({
 								url : '/main/api/freelist',
@@ -128,7 +129,7 @@ a {
 								dataType : 'JSON',
 								success : function(data) {
 									appendList(data.list);
-									createPagination(data.total_page);
+									createPagination(data.total_page,pageNum);
 								},
 								error : function(error) {
 									console.log('에러 났음...');
@@ -140,10 +141,7 @@ a {
 						function appendList(aList) {
 							// jquery의 반복문을 사용.
 							var sHtml = '';
-							$
-									.each(
-											aList,
-											function(index, oInfo) {
+							$.each(aList,function(index, oInfo) {
 												/*
 												행 html 소스
 												<tr>
@@ -174,13 +172,16 @@ a {
 						}
 
 						// 페이징 요소 생성
-						function createPagination(iTotalPage) {
+						var opt = '';
+						var keyword = '';
+
+						function createPagination(iTotalPage, iStartPage) {
 							console.log('iTotalPage : ' + iTotalPage);
 							$('#pagination-div').twbsPagination('destroy');
 							$('#pagination-div').twbsPagination({
 								totalPages : iTotalPage, // 총 페이지 번호 수 TODO:
 								visiblePages : 5, // 하단에서 한번에 보여지는 페이지 번호 수
-								startPage : 1, // 시작시 표시되는 현재 페이지
+								startPage : iStartPage, // 시작시 표시되는 현재 페이지
 								initiateStartPageClick : false, // 플러그인이 시작시 페이지 버튼 클릭 여부 (default : true)
 								first : '<span aria-hidden="true"><<</span>', // 페이지네이션 버튼중 처음으로 돌아가는 버튼에 쓰여 있는 텍스트
 								prev : "이전", // 이전 페이지 버튼에 쓰여있는 텍스트
@@ -201,17 +202,20 @@ a {
 							});
 						}
 
-						var opt = '';
-						var keyword = '';
+					
 
 						// 버튼 click event 실행
-						$('#btn').on('click', function(e) {
+						$('button#btn').on('click', function(e) {
+							if ($('#keyword').val() == '') {
+								alert("검색어를 입력해주세요.");
+								$('#keyword').focus();
+							} else {
 							// 유저가 입력한 값이 무엇인지 가져와야 함.
 							opt = $("#searchOpt").val();
 							keyword = $("#keyword").val();
 
 							// 목록을 조회한 후
-							getList(1, opt, keyword);
+							getList(1, opt, keyword);}
 						});
 
 						// 페이지 진입시 초기에 목록 조회.

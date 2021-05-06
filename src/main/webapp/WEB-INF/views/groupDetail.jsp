@@ -89,7 +89,7 @@ margin:5px;
  margin-left:50px;
 }
 .recommentTable{
-background-color: #E6E6E6;
+background-color: #F2F1F1;
 }
 </style>
 </head>
@@ -451,6 +451,7 @@ background-color: #E6E6E6;
 					console.log("recommWirteSuccess: ", data);
 					alert(data.msg);
 					$("#recommentBox").remove(); //대댓글창 삭제
+					groupCommentList();//댓글 리스트 불러오기
 				},
 				error : function(error) {
 					console.log("recommWirteError:", error);
@@ -470,7 +471,7 @@ background-color: #E6E6E6;
 				console.log("commentsListsuccess: ", data);
 				for (var i = 0 ; i < data.list.length ; i++) {
 					console.log(data.list[i].commIdx);
-					groupRecommPrint(data.list[i]);
+					groupRecommPrint(data.list[i]); //대댓글 리스트 뿌리기
 				}
 					console.log("--------------------------------");
 			},
@@ -481,7 +482,6 @@ background-color: #E6E6E6;
 	}
 	
 	/*대댓글 리스트 뿌리기*/
-
 	 function groupRecommPrint(list){
 		var content ="";
 		content +=	"<div id='recommentDiv"+list.commIdx+"'>";
@@ -498,9 +498,9 @@ background-color: #E6E6E6;
 		content += reg_date.toLocaleDateString("ko-KR");
 		content += '</td>';
 		content += ' <td  style="text-align:left">';
-		//댓글삭제
+		//대댓글삭제
 		if("${sessionScope.loginId}"==list.id){
-			content += '<button class="commDel" onclick="groupCommentDel('+list.commIdx+')">삭제</button>' ; 
+			content += '<button class="commDel" onclick="groupRecommentDel('+list.com2ndIdx+')">삭제</button>' ; 
 			
 		}else{
 		content += '<a href="#">신고</a></td>' ;
@@ -511,8 +511,31 @@ background-color: #E6E6E6;
 
 		$("#recommentListDiv"+list.commIdx).empty(); //#list안의 내용을 버려라
 		$("#recommentListDiv"+list.commIdx).after(content);
-		
-		
+
+	}
+	
+	/*대댓글 삭제*/
+	function groupRecommentDel(com2ndIdx){
+		//삭제 confirm	
+		 if(confirm("정말로 삭제하시겠습니까?")){
+			 
+			var reqUrl = "./groupRecommDel/"+com2ndIdx;
+			$.ajax({
+				url : reqUrl,
+				type : "get",
+				data : {},
+				dataType : "JSON",
+				success : function(data) {
+					console.log("success: ", data);
+					groupCommentList(); //삭제 후 댓글리스트 요청
+				},
+				error : function(error) {
+					console.log("error:", error);
+				}
+			});
+			}else{
+				console.log("삭제취소");
+			}	
 	}
 	
 	

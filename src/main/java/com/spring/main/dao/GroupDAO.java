@@ -77,6 +77,8 @@ public interface GroupDAO {
 
 	ArrayList<Comments2ndDTO> groupRecommList(int commIdx);
 
+	int groupRecommDel(int com2ndIdx);
+
 
 
 	
