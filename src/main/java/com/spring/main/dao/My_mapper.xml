@@ -80,6 +80,10 @@ SELECT estIdx , comId , content , id , budget, REG_DATE, rnum
     WHERE rnum BETWEEN #{param1} AND #{param2}
 </select>
 
+<select id="estDetail" resultType="com.spring.main.dto.EstimateDTO">
+	SELECT * FROM ESTIMATE WHERE estIdx = #{param1}
+</select>
+
 
 
 

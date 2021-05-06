@@ -420,4 +420,26 @@
 	<select id="fileList" resultType="com.spring.main.dto.PhotoDTO">
 		SELECT * FROM photos WHERE boardIdx=#{param1}
 	</select>
+	<!--  -->
+	<select id="boardCommRecChk" resultType="String">
+		SELECT id FROM recommend WHERE commIdx=#{param1} AND id=#{param2}
+	</select>
+	
+	<insert id="boardCommRec">
+		INSERT INTO recommend (recIdx,commIdx,id) VALUES (recomend_seq.NEXTVAL,#{param1},#{param2}) 
+	</insert>
+	
+	<delete id="boardCommDec">
+		DELETE  FROM recommend WHERE commIdx=#{param1} AND id=#{param2}
+	</delete>
+	
+	<select id="myRecList" resultType="board">
+		 SELECT commIdx FROM recommend WHERE id=#{param1}
+	</select>
+	
+	<insert id="boardRecommWrite">
+		INSERT INTO comments_2nd (com2ndIdx, COMMENTS, id, commIdx) 
+		VALUES (comments_2nd_seq.NEXTVAL, #{comments}, #{loginId}, #{commIdx})
+	</insert>
+	
 </mapper>

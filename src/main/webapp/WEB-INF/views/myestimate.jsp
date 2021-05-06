@@ -87,11 +87,11 @@ th{
 </style>
 </head>
 <body>
-	<iframe src="mainnavi.html" scrolling="no" frameborder="0" style="width: 100%; "></iframe>
+	<iframe src="mainnavi" scrolling="no" frameborder="0" style="width: 100%; "></iframe>
 	<div class="flexBox" >
 		<div style="border-bottom: 2px solid #f2f2f2; border-top: 2px solid #f2f2f2;">
 			<div class="sideBar" style="margin-right: 15px;">
-				<iframe class="마이프로필네비" src="mynavi.html" scrolling="no" frameborder="0"
+				<iframe class="마이프로필네비" src="mynavi" scrolling="no" frameborder="0"
 				style="height: 650px; float: left; width:250px;" ></iframe>
 			</div>
 			<div class="sideBar">
@@ -173,7 +173,7 @@ function listPrint(list){
 		content +="<td>"+list[i].estIdx+"</td>"
 		content +="<td>"+list[i].comId+"</td>"
 		content +="<td>"+list[i].budget+"</td>"
-		content +="<td>"+list[i].content+"</td>"
+		content +="<td><a href='estDetail/"+list[i].estIdx+"'>"+list[i].content+"</a></td>"
 		var date = new Date(list[i].reg_date);
 		content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"		
 		

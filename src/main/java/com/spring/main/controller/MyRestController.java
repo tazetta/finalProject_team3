@@ -54,6 +54,12 @@ public class MyRestController {
 		logger.info("작성한 견적서");
 		return service.myestimateList(pagePerCnt,page,session);	
 	}
+	@RequestMapping(value = "/estDetail/{msgIdx}", method = RequestMethod.GET)
+	public ModelAndView estDetail(@PathVariable int msgIdx) {
+		logger.info("견적서 상세보기");
+		return service.estDetail(msgIdx);
+		
+	}
 	
 	
 	
