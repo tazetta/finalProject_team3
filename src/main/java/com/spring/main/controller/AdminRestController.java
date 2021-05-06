@@ -72,5 +72,18 @@ public class AdminRestController {
 		return service.adminSoundList(pagePerCnt,page, stgctg);
 	}
 	
+	@RequestMapping(value = "/adminReportedBrdList", method = RequestMethod.GET)
+	public ModelAndView adminReportedBrdListPage() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("adminReportedBrdList");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/adminReportedBrdList/{pagePerCnt}/{page}/{repCtgIdx}", method = RequestMethod.GET)
+	public HashMap<String, Object> adminReportedBrdList(@PathVariable int pagePerCnt, @PathVariable int page, @PathVariable int repCtgIdx) {
+		logger.info("pagePerCtn : {} / page : {}", pagePerCnt, page);
+		logger.info("repCtg : {}", repCtgIdx);
+		return service.adminReportedBrdList(pagePerCnt, pagePerCnt, repCtgIdx);
+	}
 	
 }

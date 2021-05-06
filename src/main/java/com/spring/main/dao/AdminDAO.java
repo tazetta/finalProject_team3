@@ -6,6 +6,7 @@ import java.util.HashMap;
 import com.spring.main.dto.BoardDTO;
 import com.spring.main.dto.CompanyMemberDTO;
 import com.spring.main.dto.MemberDTO;
+import com.spring.main.dto.ReportDTO;
 
 public interface AdminDAO {
 
@@ -47,6 +48,10 @@ public interface AdminDAO {
 
 	BoardDTO adminSoundDetail(int boardIdx);
 
-	MemberDTO checkPenalty(String loginId);	
+	MemberDTO checkPenalty(String loginId);
+
+	int reportedBrdMaxCnt(int repCtgIdx);
+
+	ArrayList<ReportDTO> adminReportedBrdList(int start, int end, int repCtgIdx);	
 
 }
