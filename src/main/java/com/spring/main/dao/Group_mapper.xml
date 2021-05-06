@@ -208,7 +208,7 @@
 	
 	<select id="groupRecommList" resultType="comments2nd">
 		  SELECT s.commIdx, s.com2ndIdx, s.comments, s.reg_date, s.id FROM comments c, comments_2nd s 
-		  WHERE gpIdx=301 AND c.commIdx=s.commIdx(+) AND c.commIdx=#{param1} AND s.blind='n' ORDER BY s.com2ndIdx DESC 
+		  WHERE  c.commIdx=s.commIdx(+) AND c.commIdx=#{param1} AND s.blind='n' ORDER BY s.com2ndIdx DESC 
 	</select>
 
 	
