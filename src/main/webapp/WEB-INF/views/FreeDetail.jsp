@@ -40,6 +40,7 @@
 .commentTable {
 	width: 1000px;
 	margin: 10px;
+	
 }
 /* 댓글작성란 스타일 */
 #comment {
@@ -161,7 +162,7 @@ margin:20px;
 			type="button" value="등록" id="commentSave" />
 	</div>
 	<div id="commentListDiv">
-
+	
 	</div>
 
 
@@ -219,6 +220,7 @@ $("#commentSave").click(function(){
 					$("#commentListDiv").html("현재 댓글이 없습니다!");
 				} else {
 					commentListPrint(data.list);
+					recCommList(); //내가 추천한 댓글 이미지 활성화로 고정
 				}
 			},
 			error : function(error) {
@@ -257,12 +259,14 @@ function commentListPrint(list){
 	if("${sessionScope.loginId}"==list[i].id){
 		 content += '<button class="commDel" id="+list[i].commIdx+" onclick="boardCommentDel('+list[i].commIdx+')">삭제</button></td>' ; //댓글삭제호출 
 	}else{
-		 content += '<button class="commDel" onclick="boardCommentDel('+list[i].commIdx+')">삭제</button></td>' ; //댓글삭제호출 
+		//대댓글작성
+	content += '<button class="commDel" id="+list[i].commIdx+" onclick="boardCommentDel('+list[i].commIdx+')">삭제</button></td>' ; //댓글삭제호출 
 	content +='<a href="javascript:void(0)"; onclick="recommForm('+list[i].commIdx+')">답글달기</a>&nbsp;&nbsp;';
 	content +=  '<a href="#">신고</a></td>' ;
 	}
 	content += '</tr>';
 	content += '</table>';
+	content +=	"</div>";
 	
 	}
 	$("#commentListDiv").empty(); //#list안의 내용을 버려라
@@ -295,7 +299,7 @@ function boardCommentDel(commIdx) {
 }
 /* 내가 추천한 댓글 이미지 활성화로 고정*/
 function recCommList(){
-	var reqUrl = "./boardrecCommList";
+	var reqUrl = "../boardrecCommList";
 	$.ajax({
 			url : reqUrl,
 			type : "get",
