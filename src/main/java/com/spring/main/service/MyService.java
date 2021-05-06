@@ -36,11 +36,18 @@ public class MyService {
 	String page = "";
 	String msg = "";
 	
-	public HashMap<String, Object> myPhotos(int num) {
+	public HashMap<String, Object> myPhotos(int pagePerCnt, int page, String id) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		String id = "mingmang17";
-		ArrayList<PhotoDTO> list = dao.getMyPhotos(id); 
-		map.put("images", list);
+		int end = page * pagePerCnt;
+		int start = end - (pagePerCnt - 1);
+		int photoMaxCnt = dao.getPhotoMax(id);
+		ArrayList<PhotoDTO> list = dao.getMyPhotos(start, end, id); 
+		logger.info("list Size : {}", list.size());
+		int maxPage = (int) Math.ceil(photoMaxCnt / (double) pagePerCnt);
+		logger.info("사진 수 : {}", photoMaxCnt);
+		map.put("maxPage", maxPage);
+		map.put("list", list);
+		map.put("currPage", page);
 		return map;
 	}
 
@@ -288,6 +295,15 @@ public class MyService {
 		map.put("range", range);
 		map.put("currPage", page);
 		return map;
+	}
+
+
+	public ModelAndView myInteriorSlider(String id) {
+		ModelAndView mav = new ModelAndView();
+		ArrayList<PhotoDTO> slide = dao.myInteriorSlider(id);
+		mav.addObject("slide", slide);
+		mav.setViewName("myInteriorHistory");
+		return mav;
 	}
 
 

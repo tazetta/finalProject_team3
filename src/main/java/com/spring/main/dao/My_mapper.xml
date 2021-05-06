@@ -142,4 +142,10 @@ SELECT msgidx , sender , receiver , content , reg_date, rnum
 	UPDATE msg SET receivedel = 'y' WHERE msgIdx = #{param1}
 </update>
 
+
+<select id="myInteriorSlider" resultType="photo">
+	SELECT rnum, newFileName 
+			FROM (SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, newFileName, id FROM photos WHERE id=#{param1}) 
+</select>
+
 </mapper>

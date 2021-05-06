@@ -24,12 +24,12 @@ public class MyRestController {
 	
 	@Autowired MyService service;
 	
-	@RequestMapping(value = "/myPhotos/{num}", method = RequestMethod.GET)
-	public HashMap<String, Object> list(@PathVariable int num) {
+	@RequestMapping(value = "/myPhotos/{pagePerCnt}/{page}/{id}", method = RequestMethod.GET)
+	public HashMap<String, Object> list(@PathVariable int pagePerCnt, @PathVariable int page, @PathVariable String id) {
 		HashMap<String , Object> map = new HashMap<String, Object>();	
-		logger.info("pagePerCnt :{}, page :{}",num);
-		logger.info("리스트 요청");
-		return service.myPhotos(num);
+		logger.info("pagePerCnt :{}, page :{}",pagePerCnt, page);
+		logger.info("ID : {} ", id);
+		return service.myPhotos(pagePerCnt, page, id);
 	}
 	
 	
