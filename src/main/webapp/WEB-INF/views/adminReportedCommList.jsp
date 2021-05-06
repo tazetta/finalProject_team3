@@ -109,12 +109,12 @@ select:hover {
 							style="display: flex; justify-content: space-between; margin-right: 10px;">
 							<div class="headDESC">신고된 댓글</div>
 							<div>
-								<select class="inputs">
-									<option>신고사유</option>
-									<option>무분별한 욕설 및 비방</option>
-									<option>과도한 광고</option>
-									<option>사행성 조장</option>
-									<option>기타</option>
+								<select id="repCtgIdx" class="inputs">
+									<option value="0">신고사유</option>
+									<option value="11">무분별한 욕설 및 비방</option>
+									<option value="12">과도한 광고</option>
+									<option value="13">사행성 조장</option>
+									<option value="14">기타</option>
 								</select>
 							</div>
 						</div>
@@ -127,23 +127,20 @@ select:hover {
 								<th style="width: 100px;">신고 처리</th>
 								<th>확인</th>
 							</tr>
+							<tbody id="list">
+								
+							</tbody>
 							<tr>
-								<td>제 게시글 보면 2000원 버는 방법 나와있어요.</td>
-								<td>과도한 광고</td>
-								<td>youtuber2000</td>
-								<td>2021-04-12</td>
-								<td><input type="checkbox" value="블라인드" />블라인드</td>
-								<td><input type="button" value="확인" style="width: 50px;"
-									class="inputs" /></td>
+								<td colspan="6">
+									<!-- PlugIn -->
+									<div class="container">
+										<nav aria-label="page navigation" style="text-align: center;">
+											<ul class="pagination" id="pagination"></ul>
+										</nav>
+									</div> <!-- /PlugIn -->
+								</td>
 							</tr>
 						</table>
-						<div style="text-align: center;">
-							<a href="#" class="pagingBtn">처 음</a> <a href="#"
-								class="pagingBtn">이전</a> <a href="#" class="pagingBtn"
-								style="background-color: skyblue; color: white;">&nbsp;1&nbsp;</a>
-							<a href="cQuestionList?page=${currPage+1}" class="pagingBtn">다음</a>
-							<a href="#" class="pagingBtn">마지막</a>
-						</div>
 					</div>
 				</div>
 			</form>
@@ -151,6 +148,91 @@ select:hover {
 	</div>
 </body>
 <script>
-	
+function detailPopUp(idx){
+	var url = "adminReportedBrdDetail/";
+	var boardIdx = idx;
+	console.log(idx);
+	url += boardIdx;
+	window.open(url ,"상세보기","width=600, height=650");
+}
+
+var thisPage = 1;
+var repCtg = 0;
+listCall(thisPage, repCtg);
+
+$("#repCtgIdx").change(()=>{
+	thisPage = 1;
+	repCtgIdx = $("#repCtgIdx").val();
+	listCall(thisPage, repCtgIdx);
+});
+
+function listCall(reqPage,repCtgIdx) {	
+	var reqUrl = 'adminReportedCommList/'+10+'/'+reqPage+'/'+repCtgIdx;
+	$.ajax({
+		url:reqUrl
+		,data:{}
+		,type:'GET'
+		,dataType:'JSON'
+		,success:(data)=>{
+			if(reqPage > data.maxPage){listCall(data.maxPage,repCtgIdx);}
+			console.log(reqUrl);
+			console.log(data);
+			thisPage = data.currPage;
+			listPrint(data.list);
+			$("#pagination").twbsPagination({
+				startPage:data.currPage
+				,totalPages:data.maxPage
+				,visiblePages:5
+				,first : '<span aria-hidden="true"><<</span>'
+					,prev : "이전"
+					,next : "다음"
+					,last : '<span aria-hidden="true">>></span>'
+				,onPageClick:(evt, page)=>{
+					console.log(evt);
+					console.log(page);
+					listCall(page,repCtgIdx);
+				}
+			});
+		}
+		,error:(data)=>{
+			console.log(data);
+		}
+	});
+}
+
+function listPrint(list){
+	var content = "";
+	console.log("list.length : "+list.length);
+		if(list.length == 0) {
+			content += "<tr><td colspan='6'>현재 신고된 댓글이 없습니다.</td></tr>";
+		} else {
+			for(var i=0;i<list.length;i++){
+			content += "<tr>"
+				content += "<td style='text-align: left;' onclick='detailPopUp("+(list[i].boardIdx)+")'>"+list[i].subject+"</td>"
+				if(list[i].repCtgIdx == 11) {
+					content += "<td>무분별한 욕설 및 비방</td>"
+				} else if (list[i].repCtgIdx == 12) {
+					content += "<td>과도한 광고</td>"
+				} else if (list[i].repCtgIdx == 13) {
+					content += "<td>사행성 유도</td>"
+				} else if (list[i].repCtgIdx == 14) {
+					content += "<td>기타</td>"
+				}
+				content += "<td>"+list[i].targetId+"</td>"
+				var date = new Date(list[i].reg_date);
+				content += "<td>"+date.toLocaleDateString("ko-KR")+"</td>"
+				if(list[i].blind.equals('n')){
+					content += "<td><input type='checkbox' id="+(list[i].boardIdx)+" value='블라인드' />블라인드</td>"
+				} else {
+					content += "<td style='color: red;'>블라인드 중</td>"
+				}
+				content += "<td><input type='button' value='확인' style='width: 50px;' class='inputs' id="+(list[i].boardIdx+'Btn')+" /></td>"
+			content += "</tr>"
+		}
+	}
+	$("#list").empty();
+	$("#list").append(content);
+}
+
 </script>
 </html>

@@ -48,6 +48,7 @@ public class ExamRestController {
 	}
 	@RequestMapping(value = "/examListScroll/{count}", method = RequestMethod.GET)
 	public HashMap<String, Object> examListScroll(@PathVariable int count) {
+		logger.info("스크롤됨!!");
 		logger.info("count:{} ",count);
 		return examService.examListScroll(count);
 	}
