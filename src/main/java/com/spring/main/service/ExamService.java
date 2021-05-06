@@ -283,9 +283,15 @@ public class ExamService {
 	}
 
 	public HashMap<String, Object> examListScroll(int count) {
-		int cnt = count*9;
+		int cnt = count*5;
+		int allCnt = examDAO.allScrollCount();
+		logger.info("전체 게시물수:{},불러올 게시물수:{}",allCnt,cnt);
 		HashMap<String, Object> map = new HashMap<String, Object>();	
-		map.put("list",examDAO.examListScroll(cnt));
+		if(allCnt>=cnt) {
+			map.put("list",examDAO.examListScroll(cnt));			
+		}else {
+			map.put("list",examDAO.examListScroll(allCnt));			
+		}
 		return map;
 	}
 

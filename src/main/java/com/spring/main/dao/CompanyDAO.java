@@ -12,4 +12,6 @@ public interface CompanyDAO {
 
 	String pwchk(String comId);
 
+	int companyReport(HashMap<String, String> params);
+
 }

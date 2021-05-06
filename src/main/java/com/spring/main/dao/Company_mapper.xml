@@ -17,4 +17,8 @@
 		UPDATE COMPANYMEMBER SET pw=#{pw}, phone=#{phone}, addr=#{addr}, comName=#{comName} WHERE COMID=#{comId}
 	</update>
 
+	<insert id="companyReport" parameterType="hashmap">
+		INSERT INTO REPORTS (REPIDX,ID,COMID,REPCTGIDX) VALUES(REPORTS_SEQ.NEXTVAL,#{id},#{comId},#{repCtgIdx})
+	</insert>
+
 </mapper>
