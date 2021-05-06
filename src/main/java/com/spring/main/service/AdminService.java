@@ -255,6 +255,21 @@ public class AdminService {
 		return map;
 	}
 
+	public HashMap<String, Object> adminReportedGroupList(int pagePerCnt, int page, int repCtgIdx) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int end = page * pagePerCnt;
+		int start = end - (pagePerCnt - 1);
+		logger.info("repCtgIdx : {}", repCtgIdx);
+		int maxCnt = dao.reportedGroupMaxCnt(repCtgIdx);
+		int maxPage = (int) Math.ceil(maxCnt / (double) pagePerCnt);
+		logger.info("maxCnt : {}", maxCnt);
+		logger.info("maxPage : {}", maxPage);
+		map.put("list", dao.adminReportedGroupList(start, end, repCtgIdx));
+		map.put("maxPage", maxPage);
+		map.put("currPage", page);
+		return map;
+	}
+
 
 	
 }

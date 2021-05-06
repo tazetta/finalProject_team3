@@ -20,7 +20,6 @@ public class ReportDTO {
 	private String targetId;
 	private String subject;
 	private String blind;
-
 	private int gpIdx;
 
 	private String comments;
