@@ -114,6 +114,19 @@
 		
 </body>
 <script> 
+function msgFormPopUp(){
+	var url = "msgFormPopUp";
+	
+	window.open(url,"쪽지보내기폼","width=500, height=450");
+	
+}
+function msgDetailPopUp(idx){
+	var url ="msgDetailPopUp/"+idx;
+	
+	window.open(url,"쪽지 상세보기","width=500, height=450");
+}
+
+
 var showPage = 1;
  var pagePerNum = 10;
  listCall(showPage,pagePerNum);
@@ -155,11 +168,11 @@ var showPage = 1;
 	 for(var i = 0; i<list.length; i++){
 		content +="<tr>"
 		content +="<td>"+list[i].sender+"</td>"
-		content +="<td><a href='msgDetail/"+list[i].msgIdx+"'>"+list[i].content+"</a></td>"
+		content +="<td><a href='#' id="+list[i].msgIdx+" onclick='msgDetailPopUp("+list[i].msgIdx+")'>"+list[i].content+"</td>"
 		var date = new Date(list[i].reg_date);
 		content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"		
 		content +="<td><button class=\"delBtn\"  onclick=\"deleteMsg("+list[i].msgIdx+")\""+">삭제</button></td>"
-		//content +="<td><button class=\"delBtn\"  onclick=\"location.href='msgDelete/"+list[i].msgIdx+"'\">삭제</button></td>"
+		//content +="<td><button onclick=\"location.href='msgDelete/"+list[i].msgIdx+"'\">삭제</button></td>"
 		content +="</tr>"
 	}
 	$("#list").empty();
@@ -169,11 +182,26 @@ var showPage = 1;
  if(msg != ""){
 	 alert(msg);
  }
- 
  function deleteMsg(msgIdx){
 	 if(confirm("정말 삭제하시겠습니까?")){
 		
-		 location.href="msgDelete/"+msgIdx;
+		 
+		var params = {};
+		
+		params.msgIdx = msgIdx;
+		$.ajax({
+			   type:'get'
+                   ,url:'msgDelete/'+msgIdx
+                   ,data:{}
+                   ,dataType:'json'
+                   ,success:function(data){
+                       console.log(data);	
+           				alert(data.msg);
+           				location.reload(true);
+                       },error:function(e){
+                   }
+		})
+		
 	 }
  }
 </script>

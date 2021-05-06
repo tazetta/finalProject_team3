@@ -87,7 +87,7 @@ public class MyRestController {
 		
 	}
 	
-	@RequestMapping(value = "/msgDetail/{msgIdx}", method = RequestMethod.GET)
+	@RequestMapping(value = "/msgDetailPopUp/{msgIdx}", method = RequestMethod.GET)
 	public ModelAndView msgDetail(@PathVariable int msgIdx) {
 		logger.info("쪽지 상세보기");
 		return service.msgDetail(msgIdx);
