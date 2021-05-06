@@ -6,6 +6,7 @@ import java.util.HashMap;
 import com.spring.main.dto.Comments2ndDTO;
 import com.spring.main.dto.CommentsDTO;
 import com.spring.main.dto.GroupDTO;
+import com.spring.main.dto.ReportDTO;
 
 public interface GroupDAO {
 
@@ -78,6 +79,9 @@ public interface GroupDAO {
 	ArrayList<Comments2ndDTO> groupRecommList(int commIdx);
 
 	int groupRecommDel(int com2ndIdx);
+
+	ReportDTO groupRepBoardForm(int gpIdx);
+
 
 
 

@@ -140,4 +140,17 @@
 			AND repctgidx = ${param3}
 		</if>
 	</select>
+	
+	<select id="reportedCommMaxCnt" resultType="int">
+		SELECT COUNT(commIdx) FROM reports
+	</select>
+	
+	<select id="adminReportedCommList" resultType="com.spring.main.dto.ReportDTO"> 
+		SELECT c.comments, r.repctgidx, r.targetid, r.reg_date, c.blind 
+    		FROM (SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, repctgidx, targetid, reg_date, commIdx FROM reports) r
+        , comments c WHERE r.commIdx = c.commIdx AND r.rnum BETWEEN ${param1} AND ${param2}
+		<if test = "param3 != 0">
+			AND repctgidx = ${param3}
+		</if>
+	</select>
 </mapper>
