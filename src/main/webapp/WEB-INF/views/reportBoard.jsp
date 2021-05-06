@@ -111,7 +111,7 @@ select:hover {
 					</tr>
 					<tr>
 						<th>신고자</th>
-						<td>${sessionScope.loginId }</td>
+						<td>loginId</td>
 					</tr>
 					<tr>
 						<th>신고사유</th>

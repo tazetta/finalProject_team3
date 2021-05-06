@@ -165,7 +165,7 @@ public class GroupController {
 	
 	@RequestMapping(value = "/recCommList", method = RequestMethod.GET)
 	@ResponseBody HashMap<String , Object> recCommList( HttpSession session,RedirectAttributes rAttr) {
-		logger.info("공동구매 내가 추천한 댓글 리스트: {}");
+		logger.info("공동구매 내가 추천한 댓글 리스트");
 		return groupService.recCommList(rAttr,session);
 	}
 	
@@ -174,6 +174,12 @@ public class GroupController {
 	@ResponseBody HashMap<String , Object> groupRecommWrite(@RequestParam HashMap<String, String> params) {
 		logger.info("공동구매 대댓글쓰기 요청 params: {}", params);
 		return groupService.groupRecommWrite(params);
+	}
+	
+	@RequestMapping(value = "/groupRecommList/{commIdx}", method = RequestMethod.GET)
+	@ResponseBody HashMap<String , Object> groupRecommList(@PathVariable int commIdx) {
+		logger.info("공동구매 대댓글 리스트 요청 commIdx: {}", commIdx);
+		return groupService.groupRecommList(commIdx);
 	}
 	
 	@RequestMapping(value = "/reportBoardPage", method = RequestMethod.GET)

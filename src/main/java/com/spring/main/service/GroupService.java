@@ -25,6 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.main.dao.GroupDAO;
 import com.spring.main.dao.MemberDAO;
+import com.spring.main.dto.Comments2ndDTO;
 import com.spring.main.dto.CommentsDTO;
 import com.spring.main.dto.GroupDTO;
 import com.spring.main.dto.MemberDTO;
@@ -610,6 +611,16 @@ public class GroupService {
 		}
 
 		map.put("msg", msg);
+		return map;
+	}
+
+	public HashMap<String, Object> groupRecommList(int commIdx) {
+		logger.info("공동구매 대댓글 리스트 서비스");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ArrayList<Comments2ndDTO> list = groupdao.groupRecommList(commIdx);
+		int listSize = list.size();
+		logger.info("listSize:" + listSize);
+		map.put("list", list);
 		return map;
 	}
 

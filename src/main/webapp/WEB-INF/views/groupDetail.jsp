@@ -53,9 +53,7 @@ margin:20px;
 }
 
 /* 댓글리스트영역 */
-.commentDiv{
-	border:2px solid red;
-}
+
 .commentTable{
 width:1000px;
 margin:10px;
@@ -82,6 +80,16 @@ height:40px;
 }
 #recommentSave{
 margin:5px;
+}
+
+/*대댓글 리스트 영역*/
+.recommentTable{
+ width:1000px;
+ margin:10px;
+ margin-left:50px;
+}
+.recommentTable{
+background-color: #E6E6E6;
 }
 </style>
 </head>
@@ -281,7 +289,7 @@ margin:5px;
 				console.log("success: ", data);
 				console.log("listSize:"+data.listSize);
 				$("#listSize").html(data.listSize);
-				commentListPrint(data.list);
+				commentListPrint(data.list); //댓글 리스트 뿌리기
 				recCommList(); //내가 추천한 댓글 이미지 활성화로 고정
 			},
 			error : function(error) {
@@ -327,10 +335,14 @@ margin:5px;
 		content += '</tr>';
 		content += '</table>';
 		content +=	"</div>";
-		
+		content +=	"<div id='recommentListDiv"+list[i].commIdx+"'></div>"; //대댓글 리스트 가져올 영역
+	
+		groupRecommList(list[i].commIdx); //대댓글 리스트 호출
 		}
 		$("#commentListDiv").empty(); //#list안의 내용을 버려라
 		$("#commentListDiv").append(content);
+		
+		
 	}
 	
 	/* 댓글삭제 */
@@ -398,7 +410,7 @@ margin:5px;
 				data : {},
 				dataType : "JSON",
 				success : function(data) {
-					console.log("recCommListsuccess: ", data);
+					console.log("recommendSuccess: ", data);
 					for (var i = 0; i < data.recCommList.length; i++) {
 						console.log(data.recCommList[i].commIdx);
 						$("#"+data.recCommList[i].commIdx+"").attr('src','resources/images/recommend.png');
@@ -448,15 +460,19 @@ margin:5px;
 	}
 	
 	/*대댓글 리스트 불러오기*/
-	function groupRecommList() {
+	function groupRecommList(commIdx) {
 		$.ajax({
-			url : "groupRecommList",
+			url : "groupRecommList/"+commIdx,
 			type : "get",
 			data : {},
 			dataType : "JSON",
 			success : function(data) {
-				console.log("success: ", data);
-				
+				console.log("commentsListsuccess: ", data);
+				for (var i = 0 ; i < data.list.length ; i++) {
+					console.log(data.list[i].commIdx);
+					groupRecommPrint(data.list[i]);
+				}
+					console.log("--------------------------------");
 			},
 			error : function(error) {
 				console.log("error:", error);
@@ -464,7 +480,40 @@ margin:5px;
 		});
 	}
 	
-	
+	/*대댓글 리스트 뿌리기*/
+
+	 function groupRecommPrint(list){
+		var content ="";
+		content +=	"<div id='recommentDiv"+list.commIdx+"'>";
+		content += "<table class='recommentTable'>";
+		content += "<tr>";
+		content += '<td  style="width:14%"><b>'+list.id+'</b></td>';
+		content += '<td colspan="2" style="text-align:left">';
+		content += list.comments;
+	 	content += '</td>';
+		content += '</tr>';
+		content += '<tr>';
+		content += '<td style=" font-size:90%; color:gray; ">';
+		 var reg_date = new Date(list.reg_date); 	 
+		content += reg_date.toLocaleDateString("ko-KR");
+		content += '</td>';
+		content += ' <td  style="text-align:left">';
+		//댓글삭제
+		if("${sessionScope.loginId}"==list.id){
+			content += '<button class="commDel" onclick="groupCommentDel('+list.commIdx+')">삭제</button>' ; 
+			
+		}else{
+		content += '<a href="#">신고</a></td>' ;
+		}
+		content += '</tr>';
+		content += '</table>';
+		content +=	"</div>";
+
+		$("#recommentListDiv"+list.commIdx).empty(); //#list안의 내용을 버려라
+		$("#recommentListDiv"+list.commIdx).after(content);
+		
+		
+	}
 	
 	
 </script>
