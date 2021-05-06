@@ -45,6 +45,11 @@
             color: rgb(143, 201, 248);
 	        box-shadow: rgb(143, 201, 248) 0 0px 0px 40px inset;
         }
+         span:hover {
+        color: black;
+       
+    }
+     
 </style>
 <div class="logo-area">
                <a href="main">
@@ -61,25 +66,25 @@
             <c:set var="loginId" value="${sessionScope.loginId}" />
              <c:set var="comloginId" value="${sessionScope.cLoginId}" />
             <c:if  test="${empty loginId and empty comloginId}">
-        <a href="FAQ" style="font-size:small; float: right; color: gray; padding-left: 5px;">|<span
+        <a href="FAQ" style="font-weight: bold; font-size:small; float: right; color: gray; padding-left: 5px;">|<span
                 style="padding-left: 5px;">고객센터</span></a>
-        <a href="registForm" style="font-size:small; float: right; color: gray; padding-left: 5px;">|<span
+        <a href="registForm" style="font-weight: bold; font-size:small; float: right; color: gray; padding-left: 5px;">|<span
                 style="padding-left: 5px;">회원가입</span></a>
-        <a href="membership" style="font-size:small; float: right; color: gray; "><span>로그인</span></a>
+        <a href="membership" style="font-weight: bold; font-size:small; float: right; color: gray; "><span>로그인</span></a>
         </c:if>
           <c:if  test="${!empty loginId}">
-        <a href="FAQ" style="font-size:small; float: right; color: gray; padding-left: 5px;">|<span
-                style="padding-left: 5px;">고객센터</span></a>
-        <a href="mywrite" style="font-size:small; float: right; color: gray; padding-left: 5px;">|<span
-                style="padding-left: 5px;">마이페이지</span></a>
-        <a href="membership" style="font-size:small; float: right; color: gray; "><span>로그아웃</span></a>
+        <a href="FAQ" style="font-weight: bold; font-size:small; float: right; color: gray; padding-left: 5px;">|<span
+                style="font-weight: bold; padding-left: 5px;">고객센터</span></a>
+        <a href="mywrite" style="font-weight: bold; font-size:small; float: right; color: gray; padding-left: 5px;">|<span
+                style="font-weight: bold; padding-left: 5px;">마이페이지</span></a>
+        <a href="membership" style="font-weight: bold; font-size:small; float: right; color: gray; "><span>로그아웃</span></a>
         </c:if>
          <c:if  test="${!empty comloginId}">
-        <a href="FAQ" style="font-size:small; float: right; color: gray; padding-left: 5px;">|<span
-                style="padding-left: 5px;">고객센터</span></a>
-        <a href="companydetail" style="font-size:small; float: right; color: gray; padding-left: 5px;">|<span
-                style="padding-left: 5px;">업체페이지</span></a>
-        <a href="membership" style="font-size:small; float: right; color: gray; "><span>로그아웃</span></a>
+        <a href="FAQ" style="font-weight: bold; font-size:small; float: right; color: gray; padding-left: 5px;">|<span
+                style="font-weight: bold; padding-left: 5px;">고객센터</span></a>
+        <a href="companydetail" style="font-weight: bold; font-size:small; float: right; color: gray; padding-left: 5px;">|<span
+                style="font-weight: bold; padding-left: 5px;">업체페이지</span></a>
+        <a href="membership" style="font-weight: bold; font-size:small; float: right; color: gray; "><span>로그아웃</span></a>
         </c:if>
     </div>
 <div class="bar">

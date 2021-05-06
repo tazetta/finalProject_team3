@@ -2,25 +2,21 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-
-
+<!DOCTYPE html>
 <html>
-
 <head>
-
 <meta  charset= "UTF-8">
 <title>자유게시판 글쓰기</title>
-
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <!-- 부트스트랩 사용 -->
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" 
 integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" 
 integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+
+</head>
 <style>
 a,.button {
 	text-decoration: none;
@@ -52,14 +48,16 @@ a.button2:hover,.button2:hover {
 	box-shadow: rgb(255, 210, 180) 0 0px 0px 40px inset;
 }
 </style>
-</head>
+
+
+
 
 <body>
 
     
-    <form id = "form" method="POST" action="boardWrite">
+    <form name = "form" method="POST" action="boardWrite">
     	<input type="number" value="1" name="boardCtgIdx"/>
-    	<input type="text" value="sdk" name="id"/>
+    	<input type="text" value="${sessionScope.loginId}" name="id"/>
         <div class="container" style="text-align: center; padding-top: 10px;">
             <input type="text" size="75" style="border-radius: 5px; border: 2px solid rgb(203, 228, 248); " placeholder="검색어를 입력해주세요.">
             &nbsp;
@@ -102,34 +100,15 @@ a.button2:hover,.button2:hover {
 
 </body>
 <script>
-$("#save").on("click", function(){
-	var subject = $("#subject").val();
-	var editable = $("#editable").val();
-	
-	if(subject==''){
-		alert("제목을 입력해주세요");
-		$("#subject").focus();
-		
-	}else if(editable==''){
-		alert("내용을 입력해주세요.");
-		$("#editable").focus();
-	}
 
-	/*else{
-		$("#editable>a").find("b").remove(); //a태그안 b태그 삭제
-		$("#editable>a").removeAttr("onclick"); //del(this) 무효화
-		$("#content").val($("#editable").html());
-		$("form").submit();
-	}*/
-});
 //boarduploadForm에서 보내는 elem확인
-/*$("#save").click(function() {
+$("#save").click(function() {
 	console.log($("#editable").html());
 	$("#editable>a").find("b").remove(); //a태그안 b태그 삭제
 	$("#editable>a").removeAttr("onclick"); //del(this) 무효화
 	$("#content").val($("#editable").html());
 	$("form").submit();
-});*/
+});
 
 function fileUp(){
 	window.open("boardUploadForm","fileUpload","width=400, height=100");
@@ -163,3 +142,5 @@ $.ajax({
 </script>
 
 </html>
+
+

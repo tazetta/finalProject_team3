@@ -221,11 +221,10 @@ public class BoardController {
 		return BoardService.BoardCommentList(boardIdx,rAttr);
 	}
 
-	@RequestMapping(value = "/boardCommentWrite/{boardIdx}", method = RequestMethod.GET)
-	@ResponseBody HashMap<String , Object> boardCommentWrite(@PathVariable String boardIdx,@RequestParam String comment,HttpSession session, RedirectAttributes rAttr) {
-		logger.info("글idx"+boardIdx);
-		logger.info("글내용"+comment);
-		return BoardService.boardCommentWrite(comment,boardIdx,rAttr);
+	@RequestMapping(value = "/boardCommentWrite", method = RequestMethod.GET)
+	@ResponseBody HashMap<String , Object> boardCommentWrite(@RequestParam HashMap<String, String> params) {
+	
+		return BoardService.boardCommentWrite(params);
 	}
 	@RequestMapping(value = "/boardCommDel/{commIdx}", method = RequestMethod.GET)
 	@ResponseBody HashMap<String , Object> CommDel(@PathVariable int  commIdx,HttpSession session,	RedirectAttributes rAttr) {
