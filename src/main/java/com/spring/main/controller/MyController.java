@@ -120,6 +120,16 @@ public class MyController {
 		return "myestimate";
 	}
 	
+	/* 작성한 공동구매 */
+	@RequestMapping(value = "/mygroupwrite", method = RequestMethod.GET)
+	public String mygroupwrite() {
+		logger.info("작성한 공동구매 페이지");
+		return "mygroupwrite";
+	}
+
+	
+	
+	
 	
 	
 	
@@ -158,11 +168,7 @@ public class MyController {
 		return "mygroupbuy";
 	}
 
-	@RequestMapping(value = "/mygroupwrite", method = RequestMethod.GET)
-	public String mygroupwrite() {
-		logger.info("작성한 공동구매 페이지");
-		return "mygroupwrite";
-	}
+
 
 	@RequestMapping(value = "/myscrappage", method = RequestMethod.GET)
 	public String myscrappage() {

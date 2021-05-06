@@ -45,7 +45,7 @@ public class MyRestController {
 	}
 	@RequestMapping(value = "/mywriteqnaList/{pagePerCnt}/{page}", method = RequestMethod.GET)
 	public HashMap<String, Object> mywriteqnaList(@PathVariable int page , @PathVariable int pagePerCnt ,HttpSession session) {
-		logger.info("작성한 꿀팁");
+		logger.info("작성한 질문 및 답변");
 		return service.mywriteqnaList(pagePerCnt,page,session);	
 	}
 	
@@ -58,8 +58,13 @@ public class MyRestController {
 	public ModelAndView estDetail(@PathVariable int msgIdx) {
 		logger.info("견적서 상세보기");
 		return service.estDetail(msgIdx);
-		
 	}
+	@RequestMapping(value = "/mygroupwriteList/{pagePerCnt}/{page}", method = RequestMethod.GET)
+	public HashMap<String, Object> mygroupwriteList(@PathVariable int page , @PathVariable int pagePerCnt ,HttpSession session) {
+		logger.info("작성한 공동구매");
+		return service.mygroupwriteList(pagePerCnt,page,session);	
+	}
+	
 	
 	
 	

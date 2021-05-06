@@ -70,6 +70,10 @@ public interface MyDAO {
 
 	EstimateDTO estDetail(int estIdx);
 
+	int mygroupwriteAllCount(String sessionId);
+
+	ArrayList<MyDTO> mygroupwriteList(int start, int end, String sessionId);
+
 
 
 

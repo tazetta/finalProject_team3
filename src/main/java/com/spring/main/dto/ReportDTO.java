@@ -2,6 +2,9 @@ package com.spring.main.dto;
 
 import java.sql.Date;
 
+import org.apache.ibatis.type.Alias;
+
+@Alias("report")
 public class ReportDTO {
 
 	private int repIdx;

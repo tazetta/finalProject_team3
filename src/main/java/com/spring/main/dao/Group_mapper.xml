@@ -205,6 +205,15 @@
 		INSERT INTO comments_2nd (com2ndIdx, COMMENTS, id, commIdx) 
 		VALUES (comments_2nd_seq.NEXTVAL, #{comments}, #{loginId}, #{commIdx})
 	</insert>
+	
+	<select id="groupRecommList" resultType="comments2nd">
+		  SELECT s.commIdx, s.com2ndIdx, s.comments, s.reg_date, s.id FROM comments c, comments_2nd s 
+		  WHERE  c.commIdx=s.commIdx(+) AND c.commIdx=#{param1} AND s.blind='n' ORDER BY s.com2ndIdx DESC 
+	</select>
+	
+	<update id="groupRecommDel">
+		 UPDATE comments_2nd SET blind='y' WHERE com2ndIdx=#{com2ndIdx}
+	</update>
 
 	
 </mapper>
