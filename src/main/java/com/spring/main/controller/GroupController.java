@@ -195,6 +195,12 @@ public class GroupController {
 		return groupService.groupRepBoardForm(gpIdx,session);
 	}
 	
+	@RequestMapping(value = "/groupRepBoard", method = RequestMethod.GET)
+	@ResponseBody HashMap<String , Object> groupRepBoard(@RequestParam HashMap<String, String> params,  HttpSession session) {
+		logger.info("공동구매 게시글 신고 요청 : params:{}",params);
+		return groupService.groupRepBoard(params);
+	}
+	
 	
 
 }
