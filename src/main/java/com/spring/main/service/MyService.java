@@ -273,6 +273,15 @@ public class MyService {
 	}
 
 
+	public ModelAndView sendMsg(HashMap<String, String> params) {
+		String receiver = params.get(receiver);
+		logger.info("받는 사람" + receiver);
+		
+		
+		return null;
+	}
+
+
 
 
 	

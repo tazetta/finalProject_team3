@@ -9,10 +9,22 @@
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>   
  <!-- 페이징 라이브러리(제이쿼리 반드시 필요, 버전도 맞아야 함) -->
 <script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
+<style>
+	table th , table td,  h4{
+		text-align: center;
+	}
+
+</style>
+
 </head>
 <body>
 <h3>전체 쪽지함</h3>
-    <div>
+    <div class="receive-area">
+    	<div class="receive">
+    		<h4>받은쪽지함</h4>
+    		<h7><a href="#">더보기</a></h7>
+    		<button onclick="msgFormPopUp()">쪽지 쓰기</button>
+    	</div>
         <table>
         <thead>
                 <tr>
@@ -38,6 +50,10 @@
         </table>
     </div>
      <div>
+     	<div class="sender">
+    		<h4>받은쪽지함</h4>
+    		<h7><a href="#">더보기</a></h7>
+    	</div>
         <table>
         <thead>
                 <tr>
@@ -65,6 +81,14 @@
 
 </body>
 <script> 
+function msgFormPopUp(){
+	var url = "msgFormPopUp";
+	
+	window.open(url,"쪽지보내기폼","width=600, height=650");
+	
+}
+
+
 var showPage = 1;
  var pagePerNum = 5;
  listCall(showPage,pagePerNum);

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -86,6 +87,24 @@ public class MyRestController {
 	public ModelAndView msgDelete(@PathVariable int msgIdx ,HttpSession session , RedirectAttributes rAttr) {
 		logger.info("쪽지 삭제하기");
 		return service.msgDelete(msgIdx , session ,rAttr);
+		
+	}
+	@RequestMapping(value = "/msgFormPopUp", method = RequestMethod.GET)
+	public ModelAndView msgFormPopUp(HttpSession session) {
+		logger.info("쪽지쓰기 팝업창");
+		ModelAndView mav = new ModelAndView();
+		String loginId = (String) session.getAttribute("loginId");
+		mav.addObject("loginId", loginId);
+		mav.setViewName("msgForm");
+		return mav;
+		
+	}
+	@RequestMapping(value = "/sendMsg", method = RequestMethod.GET)
+	public ModelAndView sendMsg(@RequestParam HashMap<String, String> params) {
+		logger.info("쪽지쓰기 요청");
+		logger.info("params {}" + params);
+		
+		return service.sendMsg(params);
 		
 	}
 }
