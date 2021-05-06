@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,13 +12,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.main.dao.BoardDAO;
 import com.spring.main.dao.MyDAO;
-import com.spring.main.dto.MemberDTO;
+import com.spring.main.dto.EstimateDTO;
 import com.spring.main.dto.MsgDTO;
 import com.spring.main.dto.MyDTO;
 import com.spring.main.dto.PhotoDTO;
@@ -46,11 +44,61 @@ public class MyService {
 		return map;
 	}
 
-	public ArrayList<MyDTO> list() {
-		logger.info("리스트 접근");
-		ArrayList<MyDTO> list = MyDAO.list();
-		return list;
+	
+	/* 내가 작성한 게시글 */
+	public HashMap<String, Object> mywriteboardList(int pagePerCnt, int page, HttpSession session) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String sessionId = (String) session.getAttribute("loginId");
+		int allCount =  MyDAO.mywriteboardAllCount(sessionId);
+		logger.info("총 갯수 : "  + allCount);
+		int range = allCount%pagePerCnt > 0 ? Math.round(allCount/pagePerCnt)+1 : Math.round(allCount/pagePerCnt);
+		logger.info("총 페이지(range): " + range);
+		int end = page * pagePerCnt;
+		int start = end - pagePerCnt + 1;
+		
+		map.put("list", MyDAO.mywriteboardList(start,end,sessionId));
+
+		map.put("range", range);
+		map.put("currPage", page);
+		return map;
 	}
+	/* 내가 작성한 꿀팁 */
+	public HashMap<String, Object> mywritetipList(int pagePerCnt, int page, HttpSession session) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String sessionId = (String) session.getAttribute("loginId");
+		int allCount =  MyDAO.mywritetipAllCount(sessionId);
+		logger.info("총 갯수 : "  + allCount);
+		int range = allCount%pagePerCnt > 0 ? Math.round(allCount/pagePerCnt)+1 : Math.round(allCount/pagePerCnt);
+		logger.info("총 페이지(range): " + range);
+		int end = page * pagePerCnt;
+		int start = end - pagePerCnt + 1;
+		
+		map.put("list", MyDAO.mywritetipList(start,end,sessionId));
+
+		map.put("range", range);
+		map.put("currPage", page);
+		return map;
+	}
+	
+
+	public HashMap<String, Object> mywriteqnaList(int pagePerCnt, int page, HttpSession session) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String sessionId = (String) session.getAttribute("loginId");
+		int allCount =  MyDAO.mywriteqnaAllCount(sessionId);
+		logger.info("총 갯수 : "  + allCount);
+		int range = allCount%pagePerCnt > 0 ? Math.round(allCount/pagePerCnt)+1 : Math.round(allCount/pagePerCnt);
+		logger.info("총 페이지(range): " + range);
+		int end = page * pagePerCnt;
+		int start = end - pagePerCnt + 1;
+		
+		map.put("list", MyDAO.mywriteqnaList(start,end,sessionId));
+
+		map.put("range", range);
+		map.put("currPage", page);
+		return map;
+	}
+	
+	
 	
 	
 	
@@ -126,6 +174,13 @@ public class MyService {
 		return mav; 
 	}
 
+	public ModelAndView estDetail(int estIdx) {
+		EstimateDTO dto = MyDAO.estDetail(estIdx);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("info", dto);
+		mav.setViewName("myestimatedetail");
+		return mav;
+	}
 	
 
 	
@@ -148,6 +203,9 @@ public class MyService {
 		map.put("currPage", page);
 		return map;
 	}
+	
+
+	
 
 	public HashMap<String, Object> msgSenderList(int pagePerCnt, int page, HttpSession session) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -195,6 +253,29 @@ public class MyService {
 		mav.setViewName(page);
 		return mav;
 	}
+
+
+	public HashMap<String, Object> myestimateList(int pagePerCnt, int page, HttpSession session) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String sessionId = (String) session.getAttribute("loginId");
+		int allCount =  MyDAO.myestimateAllCount(sessionId);
+		logger.info("총 갯수 : "  + allCount);
+		int range = allCount%pagePerCnt > 0 ? Math.round(allCount/pagePerCnt)+1 : Math.round(allCount/pagePerCnt);
+		logger.info("총 페이지(range): " + range);
+		int end = page * pagePerCnt;
+		int start = end - pagePerCnt + 1;
+		
+		map.put("list", MyDAO.myestimateList(start,end,sessionId));
+
+		map.put("range", range);
+		map.put("currPage", page);
+		return map;
+	}
+
+
+
+
+	
 
 
 

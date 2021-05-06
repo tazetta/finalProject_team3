@@ -32,6 +32,37 @@ public class MyRestController {
 		return service.myPhotos(num);
 	}
 	
+	
+	@RequestMapping(value = "/mywriteboardList/{pagePerCnt}/{page}", method = RequestMethod.GET)
+	public HashMap<String, Object> mywriteboardList(@PathVariable int page , @PathVariable int pagePerCnt ,HttpSession session) {
+		logger.info("작성한 게시판");
+		return service.mywriteboardList(pagePerCnt,page,session);	
+	}
+	@RequestMapping(value = "/mywritetipList/{pagePerCnt}/{page}", method = RequestMethod.GET)
+	public HashMap<String, Object> mywritetipList(@PathVariable int page , @PathVariable int pagePerCnt ,HttpSession session) {
+		logger.info("작성한 꿀팁");
+		return service.mywritetipList(pagePerCnt,page,session);	
+	}
+	@RequestMapping(value = "/mywriteqnaList/{pagePerCnt}/{page}", method = RequestMethod.GET)
+	public HashMap<String, Object> mywriteqnaList(@PathVariable int page , @PathVariable int pagePerCnt ,HttpSession session) {
+		logger.info("작성한 꿀팁");
+		return service.mywriteqnaList(pagePerCnt,page,session);	
+	}
+	
+	@RequestMapping(value = "/myestimateList/{pagePerCnt}/{page}", method = RequestMethod.GET)
+	public HashMap<String, Object> myestimateList(@PathVariable int page , @PathVariable int pagePerCnt ,HttpSession session) {
+		logger.info("작성한 견적서");
+		return service.myestimateList(pagePerCnt,page,session);	
+	}
+	@RequestMapping(value = "/estDetail/{msgIdx}", method = RequestMethod.GET)
+	public ModelAndView estDetail(@PathVariable int msgIdx) {
+		logger.info("견적서 상세보기");
+		return service.estDetail(msgIdx);
+		
+	}
+	
+	
+	
 	@RequestMapping(value = "/msgReceiveList/{pagePerCnt}/{page}", method = RequestMethod.GET)
 	public HashMap<String, Object> msgReceiveList(@PathVariable int page , @PathVariable int pagePerCnt ,HttpSession session) {
 		logger.info("받은쪽지함 리스트");
@@ -44,6 +75,7 @@ public class MyRestController {
 		return service.msgSenderList(pagePerCnt,page,session);	
 		
 	}
+	
 	@RequestMapping(value = "/msgDetail/{msgIdx}", method = RequestMethod.GET)
 	public ModelAndView msgDetail(@PathVariable int msgIdx) {
 		logger.info("쪽지 상세보기");

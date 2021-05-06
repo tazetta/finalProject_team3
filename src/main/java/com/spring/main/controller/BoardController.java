@@ -53,13 +53,8 @@ public class BoardController {
 	public ModelAndView homemain(@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum) {
 		logger.info("우리집 자랑 목록 조회하기");
 		System.out.println("pageNum : "+ pageNum);
-		/*
-		// TODO: 삭제 예정
-		ModelAndView mav = BoardService.getBoardList(pageNum, 2, null, null);
-		mav.setViewName("homemain");
-		*/
-		
-	    ModelAndView mav = new ModelAndView();
+
+		ModelAndView mav = new ModelAndView();
 	    Map<String, Object> map = BoardService.getBoardList(pageNum, 2, "all", "");
 	  
 	    mav.addObject("boardList", map.get("list"));
@@ -84,9 +79,10 @@ public class BoardController {
 	public ModelAndView Freelist(
 			@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum,
 			@RequestParam(value="opt", required=false, defaultValue="all") String opt,
-			@RequestParam(value="keyword", required=false, defaultValue="") String keyword
-			) {
+			@RequestParam(value="keyword", required=false, defaultValue="") String keyword,
+			HttpSession session) {
 	  logger.info("자유게시판 조회하기");
+	  System.out.print(session); 
 	  System.out.println("pageNum : " + pageNum);
 	  
 	  ModelAndView mav = new ModelAndView();
@@ -97,12 +93,27 @@ public class BoardController {
 	  
 	  return mav;
 	}
+		@RequestMapping(value = "/tip", method = RequestMethod.GET)
+		public ModelAndView tipmain(@RequestParam(value="pageNum",required=false,defaultValue="1")int pageNum,
+				@RequestParam(value="opt",required=false, defaultValue="all")String opt,
+				@RequestParam(value="keyword", required=false, defaultValue="") String keyword) {
+			logger.info("꿀팁");
+			
+			ModelAndView mav = new ModelAndView();
+			Map<String, Object> map = BoardService.getBoardList(pageNum,3,"all","");
+			
+			mav.addObject("boardList", map.get("list"));
+			mav.setViewName("tipMain");
+			return mav;
+		}
 	 
 
 	
 	
 	@RequestMapping(value = "/helpMain", method = RequestMethod.GET)
-	public ModelAndView helpmain(@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum) {
+	public ModelAndView helpmain(@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum,
+			@RequestParam(value="opt", required=false, defaultValue="all" )String opt,
+			@RequestParam(value="keyword", required=false, defaultValue="") String keyword) { //페이지 번호 옵션 키워드 받을거
 		  logger.info("질문 및 답변");
 		  System.out.println("pageNum : " + pageNum);
 		  

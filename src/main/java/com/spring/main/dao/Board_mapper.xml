@@ -78,6 +78,127 @@
 		WHERE RNUM BETWEEN #{param1} AND #{param2}
 	</select>
 
+	<select id="getTipmain" resultType="com.spring.main.dto.BoardDTO">
+		SELECT
+		  BOARDIDX, SUBJECT, CONTENT, ID, REG_DATE, ROOMSIZE, BUDGET, KEYITEMS, BHIT, BLIND, BRDCTGIDX, FORMIDX, EMAIL, CNTRECO
+		FROM (
+		  SELECT CNTRECO, ROW_NUMBER() OVER (ORDER BY 
+		  <choose>
+		    <when test="param3.equals('recent')">
+			  REG_DATE
+		    </when>
+		    <otherwise>
+		      CNTRECO
+		    </otherwise>
+		  </choose>
+		   DESC) AS RNUM,
+		    BOARDIDX,SUBJECT,CONTENT,ID,REG_DATE,ROOMSIZE,BUDGET,KEYITEMS,BHIT,BLIND,BRDCTGIDX,FORMIDX,EMAIL
+		  FROM BOARD
+		  WHERE BRDCTGIDX = 3 and blind='n' 
+		  <if test="!param5.equals('')">
+			 <choose>
+			   <when test="param4.equals('subject')">
+			     AND subject LIKE '%'||#{param5}||'%'
+			   </when>
+			   <when test="param4.equals('content')">
+			     AND content LIKE '%'||#{param5}||'%'
+			   </when>
+			   <when test="param4.equals('id')">
+			     AND id LIKE '%'||#{param5}||'%'
+			   </when>
+			   <otherwise>
+			     AND (subject LIKE '%'||#{param5}||'%' OR content LIKE '%'||#{param5}||'%' OR id LIKE '%'||#{param5}||'%' )
+			   </otherwise>
+			 </choose>
+	      </if>
+		  
+		)
+		WHERE RNUM BETWEEN #{param1} AND #{param2}
+		
+	</select>
+
+	<!-- 도와줘요게시판 목록 전체 개수 조회 -->
+	<select id="getHelpmainCount" resultType="int">
+		SELECT COUNT(BOARDIDX) AS CNT FROM (
+		  SELECT board.BOARDIDX, COUNT(comments.COMMIDX) AS CNT
+		  FROM BOARD board
+			LEFT JOIN COMMENTS comments ON comments.BOARDIDX = board.BOARDIDX
+		  WHERE BRDCTGIDX = #{param1} and board.blind='n'
+		  <if test="!param3.equals('')">
+		    <choose>
+		      <when test="param2.equals('subject')">
+		        AND subject LIKE '%'||#{param3}||'%'
+		      </when>
+		      <when test="param2.equals('content')">
+  		        AND content LIKE '%'||#{param3}||'%'
+		      </when>
+		      <when test="param2.equals('id')">
+  		        AND id LIKE '%'||#{param3}||'%'
+		      </when>
+		      <otherwise>
+		        AND (subject LIKE '%'||#{param3}||'%' OR content LIKE '%'||#{param3}||'%' OR id LIKE '%'||#{param3}||'%' )
+		      </otherwise>
+		    </choose>
+          </if>
+		  
+		  <if test="param4.equals('T')">
+		    AND COMMIDX IS NULL
+		  </if>
+	      GROUP BY board.BOARDIDX
+	    )
+	</select>
+	<!-- 도와줘요 게시판 목록 조회 -->
+	<select id="getHelpmainList" resultType="com.spring.main.dto.BoardDTO">
+	  SELECT BOARDIDX, SUBJECT, CONTENT, ID, REG_DATE, ROOMSIZE, BUDGET, KEYITEMS, BHIT, BLIND, BRDCTGIDX, FORMIDX, EMAIL, COMMENTS_CNT
+	  FROM (
+		  SELECT ROW_NUMBER() OVER (ORDER BY 
+		  <choose>
+		    <when test="param6.equals('recent')">
+			  REG_DATE
+		    </when>
+		    <otherwise>
+		      COMMENTS_CNT
+		    </otherwise>
+		  </choose>
+		   DESC) AS RNUM,
+		    BOARDIDX,SUBJECT,CONTENT,ID,REG_DATE,ROOMSIZE,BUDGET,KEYITEMS,BHIT,BLIND,BRDCTGIDX,FORMIDX,EMAIL, COMMENTS_CNT
+		  FROM (
+		    SELECT board.BOARDIDX, SUBJECT, CONTENT, board.ID, board.REG_DATE, ROOMSIZE, BUDGET, KEYITEMS, BHIT, board.BLIND, BRDCTGIDX, FORMIDX, EMAIL, COMMENTS_CNT
+		    FROM BOARD board
+		      LEFT JOIN (
+			    SELECT board.BOARDIDX, COUNT(comments.COMMIDX) AS COMMENTS_CNT
+			    FROM BOARD board
+			      LEFT JOIN COMMENTS comments ON comments.BOARDIDX = board.BOARDIDX
+			    GROUP BY board.BOARDIDX
+		    ) v ON v.boardidx = board.boardidx
+		  )
+		  WHERE BRDCTGIDX = #{param3} and blind='n' 
+		  	<if test="param7.equals('T')">
+		      AND COMMENTS_CNT = 0
+		  	</if>
+		    <if test="!param5.equals('')">
+			    <choose>
+			      <when test="param4.equals('subject')">
+			        AND subject LIKE '%'||#{param5}||'%'
+			      </when>
+			      <when test="param4.equals('content')">
+	  		        AND content LIKE '%'||#{param5}||'%'
+			      </when>
+			      <when test="param4.equals('id')">
+	  		        AND id LIKE '%'||#{param5}||'%'
+			      </when>
+			      <otherwise>
+			        AND (subject LIKE '%'||#{param5}||'%' OR content LIKE '%'||#{param5}||'%' OR id LIKE '%'||#{param5}||'%' )
+			      </otherwise>
+			    </choose>
+	          </if>
+	         
+		)
+		
+		WHERE RNUM BETWEEN #{param1} AND #{param2}
+	</select>
+
+
 	<!-- 세부검색 -->
 	<select id="BoardSearchList"
 		resultType="com.spring.main.dto.BoardDTO">
@@ -99,6 +220,7 @@
 		WHERE rnum BETWEEN #{param1} AND #{param2}
 
 	</select>
+	
 	<!-- 우리집 자랑 세부검색 -->
 	<select resultType="com.spring.main.dto.BoardDTO"
 		id="homeMainList">
@@ -174,9 +296,9 @@
 			(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{brdctgidx})
 		</if>
 		<if test="brdctgidx==5">
-			INSERT INTO board(BOARDIDX, SUBJECT, CONTENT, ID,BRDCTGIDX,EMAIL)
+			INSERT INTO board(BOARDIDX, SUBJECT, CONTENT, ID,BRDCTGIDX,EMAIL, SGTCTG)
 			VALUES
-			(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{brdctgidx}, #{email})
+			(board_seq.NEXTVAL, #{subject}, #{content}, #{id},#{brdctgidx}, #{email}, #{sgtctg})
 		</if>
 
 	</insert>

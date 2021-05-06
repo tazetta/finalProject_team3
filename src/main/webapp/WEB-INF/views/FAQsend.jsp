@@ -142,11 +142,11 @@
             <tr>
                 <td  style="width: 100px; text-align: center;"><strong>접 수 종 류</strong></td>
                     <td>
-                    	<select name="select">
-                    		<option value="board">게시판관련</option>
-                    		<option value="user">유저관련</option>
-                    		<option value="report">신고관련</option>
-                    		<option value="other">기타</option>
+                    	<select name="sgtctg">
+                    		<option value="게시판">게시판관련</option>
+                    		<option value="유저">유저관련</option>
+                    		<option value="신고">신고관련</option>
+                    		<option value="기타">기타</option>
  	               		</select>
  	               </td>
             </tr>
@@ -166,7 +166,7 @@
                 <td style="width: 90px; text-align: center; height: 500px;"><strong>글 내 용</strong></td>
                 <td colspan="2" style="width: 250px; text-align: center; height: 500px;">
 					<div contenteditable="true" id="editable" ></div> 
-					<input name="content" type="hidden" />
+					<input id="content" name="content" type="hidden" />
 				</td>  	
             </tr>
             <tr>

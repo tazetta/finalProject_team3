@@ -72,7 +72,13 @@ public interface BoardDAO {
 	//파일리스트
 	ArrayList<PhotoDTO> fileList(int boardIdx);
 
-
-
+	// 꿀팁 게시판 목록 조회
+	ArrayList<BoardDTO> getTipmain(int startNum, int endNum, String orderBy, String opt, String keyword);
+	
+	// 도와줘요 게시판 목록 전체 개수 조회
+	int getHelpmainCount(int brdCtgIdx, String opt, String keyword, char isWaitForAnswer);
+	
+	// 도와줘요 게시판 목록 조회
+	ArrayList<BoardDTO> getHelpmainList(int startNum, int endNum, int brdCtgIdx, String opt, String keyword, String orderBy, char isWaitForAnswer);
 	
 }

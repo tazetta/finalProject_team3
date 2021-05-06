@@ -4,6 +4,11 @@
 <head>
 <title>견적서-상세보기</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- 반응형 디자인을 위한 css/js 라이브러리 -->
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>   
+ <!-- 페이징 라이브러리(제이쿼리 반드시 필요, 버전도 맞아야 함) -->
+<script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
 <style>
 
 
@@ -81,48 +86,49 @@ h4{
 </style>
 </head>
 <body>
-	<iframe src="mainnavi.html" scrolling="no" frameborder="0" style="width: 100%; "></iframe>
+		<iframe src="mainnavi" scrolling="no" frameborder="0" style="width: 100%; "></iframe>
 	<div class="flexBox" >
 		<div style="border-bottom: 2px solid #f2f2f2; border-top: 2px solid #f2f2f2;">
 			<div class="sideBar" style="margin-right: 15px;">
-				<iframe class="마이프로필네비" src="mynavi.html" scrolling="no" frameborder="0"
+				<iframe class="마이프로필네비" src="mynavi" scrolling="no" frameborder="0"
 				style="height: 650px; float: left; width:250px;" ></iframe>
 			</div>
 			<div class="sideBar">
                 <div id="content">
                     <table id="msg">
 						<h4>견적서</h4>
-                          <tr>
-                            <td><span>업체명</span> ${id}</td>
-                         </tr>
-                         <tr>
-                            <td><span>주소</span> ${addr}</td><br/>
-                         </tr>
-                         <tr>
-                            <td><span>평수</span> ${size}</td><br/>
-                         </tr>
-                         <tr>
-                            <td><span>예산</span> ${cost}</td>
-                        </tr>
-                        <tr>
-                            <td><span>연락처</span> ${phone}</td>
-                        </tr>
-                        <tr>
+                        		 <tr>
+									<th>업체명</th>
+									<td>${info.comId}</td>
+								</tr>
+								<tr>
+									<th>주소</th>
+									<td>${info.address}</td>
+								</tr>
+								<tr>
+									<th>평수</th>
+									<td>${info.roomsize}</td>
+								</tr>
+								<tr>
+									<th>예산</th>
+									<td>${info.budget}</td>
+								</tr>
+								<tr>
+									<th>연락처</th>
+									<td>${info.phone}</td>
+								</tr>
+                      	<tr> 
                             <td colspan="2" style="padding-top:10px;padding-bottom:60px;"><hr/>
 							   <span>내용</span><br/><br/>
-							    ${content}
-								글내용 입니다.
-								</td>
-                        </tr>
+							    ${info.content}
+							</td>
+						</tr>
+                       
                  </table>
-                </div>
+          </div>
 	</div>
 </body>
 <script>
-    var msg = "${msg}";
-if (msg != "") {
-	alert(msg);
-}
 
 
 </script>
