@@ -9,85 +9,119 @@
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>   
  <!-- 페이징 라이브러리(제이쿼리 반드시 필요, 버전도 맞아야 함) -->
 <script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
-<style>
-	table th , table td,  h4{
-		text-align: center;
-	}
+ <style>
 
-</style>
+        .body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+           
+        }
+        .all-area{
+            min-height: 900px;
+	        min-width: 1680px;
+        }
+        .mainnavi-area{
+            height: 200px;
+            
+        }
+        .sidenavi-area{
+            float: left;
+            width: 200px;
+            height: 634px;
+        }
+        .table-area{
+           
+            float: left;
+        }
+        .table-top {
+           text-align: center;
+       }
+    </style>
+    
+    </head>
+    <body>
+    <div class="all-area">
+        
+        <div class="mainnavi-area">
+  		  <jsp:include page="./mainnavi.jsp"></jsp:include>
+                     
+        </div>
+        <div class="sidenavi-area">
+   			 <jsp:include page="./mynavi.jsp"></jsp:include>
+           
+        </div>
+        <div class="table-area">
+                <h3>전체 쪽지함</h3>
+                      <div class="table-top">
+                            <span>받은쪽지함</span>
+                            <a href="msgreceivepage">더보기</a>
+                        </div>
+                        <button onclick="msgFormPopUp()">쪽지 쓰기</button>
+                <table>
+                <thead>
+                        <tr>
+                            <th>작성자</th>
+                            <th>내용</th>
+                            <th>날짜</th>
+                        </tr>
+                </thead>
+                <tbody id="list"><tr><td>자취만렙</td><td><a href="msgDetail/84">테스트25</a></td><td>2021. 5. 5.</td><td><button class="delBtn" onclick="deleteMsg(84)">삭제</button></td></tr><tr><td>자취만렙</td><td><a href="msgDetail/83">테스트24</a></td><td>2021. 5. 5.</td><td><button class="delBtn" onclick="deleteMsg(83)">삭제</button></td></tr><tr><td>자취만렙</td><td><a href="msgDetail/82">테스트23</a></td><td>2021. 5. 5.</td><td><button class="delBtn" onclick="deleteMsg(82)">삭제</button></td></tr><tr><td>자취만렙</td><td><a href="msgDetail/81">테스트22</a></td><td>2021. 5. 5.</td><td><button class="delBtn" onclick="deleteMsg(81)">삭제</button></td></tr><tr><td>자취만렙</td><td><a href="msgDetail/80">테스트22</a></td><td>2021. 5. 5.</td><td><button class="delBtn" onclick="deleteMsg(80)">삭제</button></td></tr></tbody>
+                    <tbody><tr>
+                    <td class="paging" colspan="6">
+                        <!-- 플러그인 사용 -->
+                        <div class="container">
+                            <nav aria-label="page navigation" style="text-align: center">
+                                <ul class="pagination" id="pagination"><li class="page-item first disabled"><a href="#" class="page-link">First</a></li><li class="page-item prev disabled"><a href="#" class="page-link">Previous</a></li><li class="page-item active"><a href="#" class="page-link">1</a></li><li class="page-item"><a href="#" class="page-link">2</a></li><li class="page-item"><a href="#" class="page-link">3</a></li><li class="page-item"><a href="#" class="page-link">4</a></li><li class="page-item next"><a href="#" class="page-link">Next</a></li><li class="page-item last"><a href="#" class="page-link">Last</a></li></ul>
+                            </nav>
+                        </div>
+                        <!--// 플러그인 사용 -->
+                    </td>
+                </tr>			
+                </tbody></table>
 
-</head>
-<body>
-<h3>전체 쪽지함</h3>
-    <div class="receive-area">
-    	<div class="receive">
-    		<h4>받은쪽지함</h4>
-    		<h7><a href="msgreceivepage">더보기</a></h7>
-    		<button onclick="msgFormPopUp()">쪽지 쓰기</button>
-    	</div>
-        <table>
-        <thead>
-                <tr>
-                    <th>작성자</th>
-                    <th>내용</th>
-                    <th>날짜</th>
+                  <div class="table-top">
+                    <span>보낸 쪽지함</span>
+                    <a href="msgreceivepage">더보기</a>
+                </div>
+                <table>
+                <thead>
+                        <tr>
+                            <th>작성자</th>
+                            <th>내용</th>
+                            <th>날짜</th>
+                        </tr>
+                </thead>
+                <tbody id="list2"><tr><td>kthwan</td><td><a href="msgDetail/107">하위</a></td><td>2021. 5. 6.</td><td><button class="delBtn" onclick="deleteMsg(107)">삭제</button></td></tr><tr><td>kthwan</td><td><a href="msgDetail/106">hihi</a></td><td>2021. 5. 6.</td><td><button class="delBtn" onclick="deleteMsg(106)">삭제</button></td></tr><tr><td>kthwan</td><td><a href="msgDetail/66">테스트9</a></td><td>2021. 5. 5.</td><td><button class="delBtn" onclick="deleteMsg(66)">삭제</button></td></tr><tr><td>kthwan</td><td><a href="msgDetail/65">테스트8</a></td><td>2021. 5. 5.</td><td><button class="delBtn" onclick="deleteMsg(65)">삭제</button></td></tr><tr><td>kthwan</td><td><a href="msgDetail/64">테스트7</a></td><td>2021. 5. 5.</td><td><button class="delBtn" onclick="deleteMsg(64)">삭제</button></td></tr></tbody>
+                    <tbody><tr>
+                    <td class="paging" colspan="6">
+                        <!-- 플러그인 사용 -->
+                        <div class="container">
+                            <nav aria-label="page navigation" style="text-align: center">
+                                <ul class="pagination" id="pagination2"><li class="page-item first disabled"><a href="#" class="page-link">First</a></li><li class="page-item prev disabled"><a href="#" class="page-link">Previous</a></li><li class="page-item active"><a href="#" class="page-link">1</a></li><li class="page-item"><a href="#" class="page-link">2</a></li><li class="page-item"><a href="#" class="page-link">3</a></li><li class="page-item next"><a href="#" class="page-link">Next</a></li><li class="page-item last"><a href="#" class="page-link">Last</a></li></ul>
+                            </nav>
+                        </div>
+                        <!--// 플러그인 사용 -->
+                    </td>
                 </tr>
-        </thead>
-		<tbody id="list">
-             
-		</tbody>
-			<tr>
-			<td class="paging" colspan="6">
-				<!-- 플러그인 사용 -->
-				<div class="container">
-					<nav aria-label="page navigation" style="text-align: center">
-						<ul class="pagination" id="pagination"></ul>
-					</nav>
-				</div>
-				<!--// 플러그인 사용 -->
-			</td>
-		</tr>			
-        </table>
-    </div>
-     <div>
-     	<div class="sender">
-    		<h4>받은쪽지함</h4>
-    		<h7><a href="msgsenderpage">더보기</a></h7>
-    	</div>
-        <table>
-        <thead>
-                <tr>
-                    <th>작성자</th>
-                    <th>내용</th>
-                    <th>날짜</th>
-                </tr>
-        </thead>
-		<tbody id="list2">
-             
-		</tbody>
-			<tr>
-			<td class="paging" colspan="6">
-				<!-- 플러그인 사용 -->
-				<div class="container">
-					<nav aria-label="page navigation" style="text-align: center">
-						<ul class="pagination" id="pagination2"></ul>
-					</nav>
-				</div>
-				<!--// 플러그인 사용 -->
-			</td>
-		</tr>
-        </table>
-    </div>
-
+                </tbody>
+                </table>
+            
+        </div>
 </body>
 <script> 
 function msgFormPopUp(){
 	var url = "msgFormPopUp";
 	
-	window.open(url,"쪽지보내기폼","width=400, height=400");
+	window.open(url,"쪽지보내기폼","width=500, height=450");
 	
 }
-
+function msgDetailPopUp(idx){
+	var url ="msgDetailPopUp/"+idx;
+	
+	window.open(url,"쪽지 상세보기","width=500, height=450");
+}
 
 var showPage = 1;
  var pagePerNum = 5;
@@ -162,7 +196,7 @@ function listCall(reqPage,reqPagePerNum){
 		 for(var i = 0; i<list.length; i++){
 			content +="<tr>"
 			content +="<td>"+list[i].sender+"</td>"
-			content +="<td><a href='msgDetail/"+list[i].msgIdx+"'>"+list[i].content+"</a></td>"
+			content +="<td><a href='#' id="+list[i].msgIdx+" onclick='msgDetailPopUp("+list[i].msgIdx+")'>"+list[i].content+"</td>"
 			var date = new Date(list[i].reg_date);
 			content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"		
 			content +="<td><button class=\"delBtn\"  onclick=\"deleteMsg("+list[i].msgIdx+")\""+">삭제</button></td>"
@@ -177,7 +211,7 @@ function listCall(reqPage,reqPagePerNum){
 		 for(var i = 0; i<list.length; i++){
 			content +="<tr>"
 			content +="<td>"+list[i].sender+"</td>"
-			content +="<td><a href='msgDetail/"+list[i].msgIdx+"'>"+list[i].content+"</a></td>"
+			content +="<td><a href='#' id="+list[i].msgIdx+" onclick='msgDetailPopUp("+list[i].msgIdx+")'>"+list[i].content+"</td>"
 			var date = new Date(list[i].reg_date);
 			content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"		
 			content +="<td><button class=\"delBtn\"  onclick=\"deleteMsg("+list[i].msgIdx+")\""+">삭제</button></td>"
@@ -205,7 +239,7 @@ function listCall(reqPage,reqPagePerNum){
                        ,data:{}
                        ,dataType:'json'
                        ,success:function(data){
-                           console.log(data);
+                           console.log(data);	
                				alert(data.msg);
                				location.reload(true);
                            },error:function(e){
