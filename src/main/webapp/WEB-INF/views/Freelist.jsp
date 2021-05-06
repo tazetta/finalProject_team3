@@ -103,8 +103,7 @@ a {
 		}
 	});
 	*/
-	$(document).ready(
-					function() {
+	$(document).ready(function() {
 						// 목록을 조회하는 함수.
 						function getList(pageNum, opt, keyword) {
 							/*

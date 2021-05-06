@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>우리 집 자랑</title>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" 
 integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 <!-- JavaScript Bundle with Popper -->
@@ -102,7 +103,12 @@ span:hover {
 
 
             <div style="display: flex;  justify-content: center; border: 1px solid rgb(255, 255, 255);">
-                <div style="border-radius:20px; border: 5px solid white; margin-right: 90px; box-shadow:0 0 5px lightslategray;">
+               <div id="totaldiv" class="container" style="font-size: large; font-weight: bold; padding-left: 40px;">
+			<div id="list" style="display: flex; flex-flow: wrap;  justify-content: center; border: 1px solid rgb(255, 255, 255);">
+
+			</div> 
+				</div>
+               <!--  <div style="border-radius:20px; border: 5px solid white; margin-right: 90px; box-shadow:0 0 5px lightslategray;">
                     <img src="C:\Users\user\Desktop\BootStrap\interior1.jpg" width="250" height="250" style=" border-radius:20px;">
                     <table class="table">
                         <tr>
@@ -114,71 +120,7 @@ span:hover {
                     </table>
                 </div>
 
-                <div style=" border-radius:20px; border: 5px solid white; margin-right: 90px; box-shadow:0 0 5px lightslategray;">
-                    <img src="C:\Users\user\Desktop\BootStrap\interior2.jpg" width="250" height="250"  style=" border-radius:20px;" >
-                    <table class="table" >
-                        <tr>
-                            <th style="border-color: white;">에바야</th>
-                        </tr>
-                        <tr>
-                            <td>중수 아이디 날짜 조회 댓글 추천</td>
-                        </tr>
-                    </table>
-                </div>
-                
-                <div style="  border-radius:20px;  border: 5px solid white; margin-right: 90px; box-shadow:0 0 5px lightslategray;">
-                    <img src="C:\Users\user\Desktop\BootStrap\interior3.jpg" width="250" height="250"  style=" border-radius:20px;">
-                    <table class="table">
-                        <tr>
-                            <th style="border-color: white;">힘들다</th>
-                        </tr>
-                        <tr>
-                        	<td>중수 아이디 날짜 조회 댓글 추천</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            <br />
-            
-            <div style="display: flex;  justify-content: center; border: 1px solid rgb(255, 255, 255);">
-                <div style="border-radius:20px; border: 5px solid white; margin-right: 90px; box-shadow:0 0 5px lightslategray;">
-                    <img src="C:\Users\user\Desktop\BootStrap\interior1.jpg" width="250" height="250" style=" border-radius:20px;">
-                    <table class="table">
-                        <tr>
-                            <th style="border-color: white;">새로운글</th>
-                        </tr>
-                        <tr>
-                        <td>중수 아이디 날짜 조회 댓글 추천</td>
-                        </tr>
-                    </table>
-                </div>
-
-            
-                <div style=" border-radius:20px; border: 5px solid white; margin-right: 90px; box-shadow:0 0 5px lightslategray;">
-                    <img src="C:\Users\user\Desktop\BootStrap\interior2.jpg" width="250" height="250"  style=" border-radius:20px;" >
-                    <table class="table" >
-                        <tr>
-                            <th style="border-color: white;">에바야</th>
-                        </tr>
-                        <tr>
-                            <td>중수 아이디 날짜 조회 댓글 추천</td>
-
-                        </tr>
-                    </table>
-
-
-                </div>
-                <div style="  border-radius:20px;  border: 5px solid white; margin-right: 90px; box-shadow:0 0 5px lightslategray;">
-                    <img src="C:\Users\user\Desktop\BootStrap\interior3.jpg" width="250" height="250"  style=" border-radius:20px;">
-                    <table class="table">
-                        <tr>
-                            <th style="border-color: white;">힘들다</th>
-                        </tr>
-                        <tr>
-                        <td>중수 아이디 날짜 조회 댓글 추천</td>
-                        </tr>
-                    </table>
-                </div>
+                </div>-->
             </div>
 
 
@@ -187,6 +129,75 @@ span:hover {
         </div>
     </div>  
 </body>
+<script>
+$(document).ready(function() {
+	// 목록을 조회하는 함수.
+	function getList(pageNum, opt, keyword) {
+		/*
+		 * pageNum, opt, keyword
+		 * 값이 없으면 초기값 사용.
+		 * 값이 있으면 입력받은 값 사용.
+		 */
+		var pageNum = !pageNum ? 1 : pageNum;
+		var opt = !opt ? 'all' : opt;
+		var keyword = !keyword ? '' : keyword;
+		var oData = {
+			pageNum : pageNum,
+			opt : opt,
+			keyword : keyword
+		};
+		console.log(oData);
+
+		$.ajax({
+			url : '/main/api/freelist',
+			type : 'GET',
+			data : oData,
+			dataType : 'JSON',
+			success : function(data) {
+				appendList(data.list);
+				createPagination(data.total_page,pageNum);
+			},
+			error : function(error) {
+				console.log('에러 났음...');
+			}
+		});
+	}
+
+	// 목록을 UI에 추가하는 함수.
+	function appendList(aList) {
+		// jquery의 반복문을 사용.
+		var sHtml = '';
+		$.each(aList,function(index, oInfo) {
+							/*
+							행 html 소스
+							<tr>
+								<td><a href="boarddetail/${board.boardIdx}">${board.subject}</a></td>
+								<td>${board.id}</td>
+								<td>${board.bhit}</td>
+								<td>${board.reg_date}</td>
+							</tr>
+							 */
+							sHtml += '<tr>';
+							sHtml += '	<td><a href="boarddetail/' + oInfo.boardIdx +'">'
+									+ oInfo.subject
+									+ '</a></td>';
+							sHtml += '	<td>' + oInfo.id
+									+ '</td>';
+							sHtml += '	<td>' + oInfo.bhit
+									+ '</td>';
+							sHtml += '	<td>'
+									+ new Date(
+											oInfo.reg_date)
+											.toLocaleDateString("ko-KR")
+									+ '</td>';
+							sHtml += '</tr>';
+						});
+
+		$("#list").empty();
+		$("#list").append(sHtml);
+	}
+});
+</script>
 </html>
 
 

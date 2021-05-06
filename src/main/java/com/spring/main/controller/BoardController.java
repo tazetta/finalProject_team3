@@ -50,7 +50,9 @@ public class BoardController {
 		return "QWrite";
 	}
 	@RequestMapping(value = "/homemain", method = RequestMethod.GET)
-	public ModelAndView homemain(@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum) {
+	public ModelAndView homemain(@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum,
+			@RequestParam(value="opt", required=false, defaultValue="all") String opt,
+			@RequestParam(value="keyword", required=false, defaultValue="") String keyword) {
 		logger.info("우리집 자랑 목록 조회하기");
 		System.out.println("pageNum : "+ pageNum);
 
