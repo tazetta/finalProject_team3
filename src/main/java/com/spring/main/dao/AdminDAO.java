@@ -52,6 +52,10 @@ public interface AdminDAO {
 
 	int reportedBrdMaxCnt(int repCtgIdx);
 
-	ArrayList<ReportDTO> adminReportedBrdList(int start, int end, int repCtgIdx);	
+	ArrayList<ReportDTO> adminReportedBrdList(int start, int end, int repCtgIdx);
+
+	int reportedCommMaxCnt(int repCtgIdx);
+
+	ArrayList<ReportDTO> adminReportedCommList(int start, int end, int repCtgIdx);	
 
 }
