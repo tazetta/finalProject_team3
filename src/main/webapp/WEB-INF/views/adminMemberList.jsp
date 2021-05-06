@@ -100,51 +100,18 @@ select:hover {
 	float: left;
 }
 
+#generalMember {
+	font-weight: 600;
+	text-decoration: underline;
+}
+
 </style>
 </head>
 <body>
 	<div class="flexBox">
 		<div style="min-height: 800px;">
 			<div>
-				<div class="sideBar" style="margin-right: 15px;">
-					<table style="border: none;">
-							<tr>
-								<td
-									style="text-align: left; font-size: 20px; border: none; font-weight: 600; text-decoration: underline; text-underline-position: under;">Category</td>
-							</tr>
-							<tr>
-								<td style="text-align: right; border: none;">메인</td>
-							</tr>
-							<tr>
-								<td style="text-align: right; border: none; font-weight: 600;">일반회원
-									목록></td>
-							</tr>
-							<tr>
-								<td style="text-align: right; border: none;">업체회원 목록</td>
-							</tr>
-							<tr>
-								<td style="text-align: right; border: none;">고객의소리</td>
-							</tr>
-							<tr>
-								<td style="text-align: right; border: none;">신고된 게시글</td>
-							</tr>
-							<tr>
-								<td style="text-align: right; border: none;">신고된 댓글</td>
-							</tr>
-							<tr>
-								<td style="text-align: right; border: none;"></td>
-							</tr>
-							<tr>
-								<td style="text-align: right; border: none;"></td>
-							</tr>
-							<tr>
-								<td style="text-align: right; border: none;"></td>
-							</tr>
-							<tr>
-								<td style="text-align: right; border: none;"></td>
-							</tr>
-					</table>
-				</div>
+				<jsp:include page="adminSideBar.jsp" />
 				<div class="sideBar">
 				<div style="display: flex; justify-content: space-between; ">
 					<div class="headDESC">
