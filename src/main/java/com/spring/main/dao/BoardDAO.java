@@ -1,6 +1,7 @@
 package com.spring.main.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.spring.main.dto.BoardDTO;
 import com.spring.main.dto.CommentsDTO;
@@ -80,5 +81,15 @@ public interface BoardDAO {
 	
 	// 도와줘요 게시판 목록 조회
 	ArrayList<BoardDTO> getHelpmainList(int startNum, int endNum, int brdCtgIdx, String opt, String keyword, String orderBy, char isWaitForAnswer);
+	
+	String boardCommRecChk(int commIdx, String loginId);
+	
+	int boardCommDec(int commIdx, String loginId);
+	
+	int boardCommRec(int commIdx, String loginId);
+	
+	ArrayList<BoardDTO> myRecList(String loginId);
+	
+	int boardRecommWrite(HashMap<String, String> params);
 	
 }

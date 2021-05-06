@@ -363,8 +363,8 @@
 	</select>
 	<!--댓글가져오기 resultType=commentsDTO파일 어노테이션 -->
 	<select id="boardCommentList" resultType="comments">
-		SELECT COMMIDX,COMMENTS, REG_DATE, BLIND, BOARDIDX,ID,GPIDX FROM comments
-		WHERE boardIdx =#{param1} AND blind ='n' ORDER BY COMMIDX DESC
+		SELECT COMMIDX,COMMENTS, REG_DATE, BLIND, BOARDIDX,ID,GPIDX , (SELECT COUNT (recIdx) FROM recommend WHERE commIdx=c.commIdx) AS recCnt
+		 FROM comments c WHERE boardIdx =#{param1} AND blind ='n' ORDER BY COMMIDX DESC
 	</select>
 	<!--댓글 작성하기 -->
 	<insert id="boardCommentWrite">
@@ -420,4 +420,25 @@
 	<select id="fileList" resultType="com.spring.main.dto.PhotoDTO">
 		SELECT * FROM photos WHERE boardIdx=#{param1}
 	</select>
+	<!--로그인아이디 비교-->
+	<select id="boardCommRecChk" resultType="String">
+		SELECT id FROM recommend WHERE commIdx=#{param1} AND id=#{param2}
+	<!--대댓글작성--></select>
+	<insert id="boardCommRec">
+		INSERT INTO recommend (recIdx,commIdx,id) VALUES (recomend_seq.NEXTVAL,#{param1},#{param2}) 
+	</insert>
+	<!--대댓글삭제-->
+	<delete id="boardCommDec">
+		DELETE  FROM recommend WHERE commIdx=#{param1} AND id=#{param2}
+	</delete>
+	<!--해당아이디대댓글표시 -->
+	<select id="myRecList" resultType="board">
+		 SELECT commIdx FROM recommend WHERE id=#{param1}
+	</select>
+	
+	<insert id="boardRecommWrite">
+		INSERT INTO comments_2nd (com2ndIdx, COMMENTS, id, commIdx) 
+		VALUES (comments_2nd_seq.NEXTVAL, #{comments}, #{loginId}, #{commIdx})
+	</insert>
+	
 </mapper>

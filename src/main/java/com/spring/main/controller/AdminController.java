@@ -45,20 +45,6 @@ public class AdminController {
 		return service.adminSoundDetail(boardIdx);
 	}
 	
-	
-	
-	@RequestMapping(value = "/adminReportedBrdList", method = RequestMethod.GET)
-	public String adminReportedBrdList() {
-		logger.info("신고된 게시글 리스트");
-		return "adminReportedBrdList";
-	}
-	
-	@RequestMapping(value = "/adminReportedCommList", method = RequestMethod.GET)
-	public String adminReportedCommList() {
-		logger.info("신고된 댓글 리스트");
-		return "adminReportedCommList";
-	}
-	
 	@RequestMapping(value = "/download/{oriFileName}/{newFileName}", method = RequestMethod.GET)
 	public void download(@PathVariable String oriFileName, @PathVariable String newFileName, HttpServletResponse resp) {
 		logger.info("ori : {} / new : {}",oriFileName, newFileName);

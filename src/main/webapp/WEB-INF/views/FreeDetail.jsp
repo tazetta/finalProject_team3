@@ -40,6 +40,7 @@
 .commentTable {
 	width: 1000px;
 	margin: 10px;
+	
 }
 /* 댓글작성란 스타일 */
 #comment {
@@ -56,6 +57,39 @@
 }
 .commDel{
 border:none;
+}
+.commentDiv{
+	border:2px solid red;
+}
+.commentTable{
+width:1000px;
+margin:10px;
+}
+.commDel{
+border:none;
+}
+.grade{
+color:orange;
+font-weight:600;
+font-size:90%;
+}
+a:link{
+text-decoration:none;
+}
+/*대댓글창 영역*/
+#recommentBox{
+	margin-left:50px;
+}
+
+#recomment{
+width:800px;
+height:40px;
+}
+#recommentSave{
+margin:5px;
+}
+#loginId{
+margin:20px;
 }
 </style>
 </head>
@@ -123,12 +157,12 @@ border:none;
 	<b>댓글 <span id="listSize"></span>개
 	</b>
 	<div id="commentBox" class="container" style="text-align: center;">
-		<span><b name="loginId">${sessionScope.loginId }</b></span> <input
+		<span><b id="loginId">${sessionScope.loginId }</b></span> <input
 			type="text" name="comment" id="comment" placeholder="댓글을 입력해주세요" /> <input
 			type="button" value="등록" id="commentSave" />
 	</div>
 	<div id="commentListDiv">
-
+	
 	</div>
 
 
@@ -186,6 +220,7 @@ $("#commentSave").click(function(){
 					$("#commentListDiv").html("현재 댓글이 없습니다!");
 				} else {
 					commentListPrint(data.list);
+					recCommList(); //내가 추천한 댓글 이미지 활성화로 고정
 				}
 			},
 			error : function(error) {
@@ -199,30 +234,39 @@ function commentListPrint(list){
 	var content ="";
 	
 	for (var i = 0 ; i < list.length ; i++) {
-	content += "<table class='commentTable'>";
-	content += "<tr>";
-	content += '<td style="width:14%;"><b>'+list[i].id+'</b></td>';
-	content += '<td colspan="2" style="text-align:left">';
-	content += list[i].comments;
- 	content += '</td>';
-	content += '</tr>';
-	content += '<tr>';
-	content += '<td style="width:14% ">';
-	
+		content +=	"<div id='commentDiv"+list[i].commIdx+"'>";
+		content += "<table class='commentTable'>";
+		content += "<tr>";
+		content += '<td style="width:14%;"><b>'+list[i].id+'</b></td>';
+		content += '<td colspan="2" style="text-align:left">';
+		content += list[i].comments;
+	 	content += '</td>';
+		content += '</tr>';
+		content += '<tr>';
+		content += '<td style="width:14%; font-size:90%; color:gray; ">';
 	 var reg_date = new Date(list[i].reg_date); 	 
-	content += reg_date.toLocaleDateString("ko-KR");
-	content += '</td>';
-	content += ' <td style="width:5%" ><a href="#"><img alt="decommend" src="resources/images/interior3.jpg" width="15px" height="15px"> </a></td>'
-	content += '<td style="text-align:left">';
+	 content += reg_date.toLocaleDateString("ko-KR");
+		content += '</td>';
+		content += ' <td style="width:7%" >';
+		//댓글추천 
+		content += '<a href="javascript:void(0)"; onclick="boardCommRec('+list[i].commIdx+')"><img alt="decommend" src="resources/images/decommend.png" width="15px" height="15px" id="'+list[i].commIdx+'"> </a>';
+		//댓글 추천수
+		if(list[i].recCnt!=0){
+		content += '<span class="commIdxRecCnt">'+list[i].recCnt+'</span></td>';
+		}
+		content += '<td style="text-align:left">';
+	
 	if("${sessionScope.loginId}"==list[i].id){
 		 content += '<button class="commDel" id="+list[i].commIdx+" onclick="boardCommentDel('+list[i].commIdx+')">삭제</button></td>' ; //댓글삭제호출 
 	}else{
-		 content += '<button class="commDel" onclick="boardCommentDel('+list[i].commIdx+')">삭제</button></td>' ; //댓글삭제호출 
-	content += '<a href="#">답글달기</a>&nbsp;&nbsp;';
-	content += '<a href="#">신고</a></td>' ;
+		//대댓글작성
+	content += '<button class="commDel" id="+list[i].commIdx+" onclick="boardCommentDel('+list[i].commIdx+')">삭제</button></td>' ; //댓글삭제호출 
+	content +='<a href="javascript:void(0)"; onclick="recommForm('+list[i].commIdx+')">답글달기</a>&nbsp;&nbsp;';
+	content +=  '<a href="#">신고</a></td>' ;
 	}
 	content += '</tr>';
 	content += '</table>';
+	content +=	"</div>";
 	
 	}
 	$("#commentListDiv").empty(); //#list안의 내용을 버려라
@@ -234,8 +278,7 @@ function boardCommentDel(commIdx) {
 	
 	//삭제 confirm	
  		 if(confirm("정말로 삭제하시겠습니까?")){
- 			 
- 			var reqUrl = "../boardCommDel/"+commIdx;
+ 			  var reqUrl = "../boardCommDel/"+commIdx;
  			$.ajax({
  				url : reqUrl,
  				type : "get",
@@ -244,8 +287,7 @@ function boardCommentDel(commIdx) {
  				success : function(data) {
  					console.log("success: ", data);
  					boardCommentList(); //삭제 후 댓글리스트 요청
- 					
- 				},
+ 				 				},
  				error : function(error) {
  					console.log("error:", error);
  				}
@@ -254,6 +296,62 @@ function boardCommentDel(commIdx) {
  			}else{
  				console.log("삭제취소");
  			}	
+}
+/* 내가 추천한 댓글 이미지 활성화로 고정*/
+function recCommList(){
+	var reqUrl = "../boardrecCommList";
+	$.ajax({
+			url : reqUrl,
+			type : "get",
+			data : {},
+			dataType : "JSON",
+			success : function(data) {
+				console.log("recCommListsuccess: ", data);
+				for (var i = 0; i < data.recCommList.length; i++) {
+					console.log(data.recCommList[i].commIdx);
+					$("#"+data.recCommList[i].commIdx+"").attr('src','resources/images/recommend.png');
+				}		
+			},
+			error : function(error) {
+				console.log("error:", error);
+			}
+		});
+}
+/*대댓글 창 노출*/
+function recommForm(commIdx){
+	console.log("대댓글달기: "+commIdx);
+	var content ="";
+	
+	content +='<div id="recommentBox">';
+	content +='<span><b id="loginId">${sessionScope.loginId }</b></span>';
+	content += '<input type="text" name="recomment" id="recomment" placeholder="답글 작성해주세요."/>';
+	content += '<input type="button" value="등록" id="recommentSave" onclick="recommWirte('+commIdx+')"/>';
+	content += '</div>';
+	$("#commentDiv"+commIdx).after(content);
+}
+/*대댓글 작성*/
+function recommWirte(commIdx){
+	var recomment = $("#recomment").val();
+	/* var loginId = "${sessionScope.loginId }"; */
+	var loginId = "sdk";
+	console.log("loginID:"+loginId+"/commIdx"+commIdx+"/recomment:"+recomment);
+	if(recomment!=''){
+		
+		$.ajax({
+			url : "../boardRecommWrite",
+			type : "get",
+			data : {"commIdx":commIdx,"comments":recomment, "loginId":loginId},
+			dataType : "JSON",
+			success : function(data) {
+				console.log("recommWirteSuccess: ", data);
+				alert(data.msg);
+				$("#recommentBox").remove();
+			},
+			error : function(error) {
+				console.log("recommWirteError:", error);
+			}
+		});	
+	}
 }
 </script>
 </html>

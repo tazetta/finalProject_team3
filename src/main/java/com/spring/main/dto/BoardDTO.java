@@ -26,7 +26,18 @@ public class BoardDTO {
 	private String isrecom;
 	private int CNTRECO;
 	private String sgtctg;
+	private int commIdx;
 	
+	public int getCommIdx() {
+		return commIdx;
+	}
+
+
+	public void setCommIdx(int commIdx) {
+		this.commIdx = commIdx;
+	}
+
+
 	public String getSgtctg() {
 		return sgtctg;
 	}
