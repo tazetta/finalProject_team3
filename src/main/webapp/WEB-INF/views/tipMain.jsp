@@ -63,6 +63,15 @@
         color: rgb(255, 210, 180);
         box-shadow: rgb(248, 172, 121) 0 0px 0px 40px inset;
     }
+    a.page-link {
+	color: gray;
+	font-weight:bold;
+}
+
+a.page-link:hover {
+	color: rgba(255, 255, 255, 0.85);
+	box-shadow: rgb(173, 170, 169) 0 0px 0px 40px inset;
+}
 </style>
 
 
@@ -181,56 +190,17 @@
               <tbody  id="list">
               
               </tbody>
-                <!-- <tr>
-                    <td>
-                        <div style="display: flex; justify-content: space-between;">
-                            <div>
-                                <ul style="list-style: none;">
-                                    <li id="list" style="font-weight: bold; font-size: x-large;" ></li>
-                                    
-                                   
-                                </ul>
-                                  
-
-                              
-                            </div>
-                     <div style="text-align: right; margin-right: 250;">
-                                <img src="C:\Users\user\Desktop\BootStrap\interior2.jpg" width="150" height="150">
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-               
-               <tr>
-                    <td>
-                        <div style="display: flex; justify-content: space-between;">
-                            <div>
-                                <ul style="list-style: none;">
-                                    <li style="font-weight: bold; font-size: x-large;">새로운글</li>
-                                    <br><br><br><br><br>
-                                    <li>중수 아이디 날짜 조회 댓글 추천</li>
-                                </ul>
-
-                                
-                            </div>
-                            <div style="text-align: right; margin-right: 250;">
-                                <img src="C:\Users\user\Desktop\BootStrap\interior2.jpg" width="150" height="150">
-                            </div>
-                        </div>
-                    </td>
-                </tr>-->
-
-
+            
             </table>
         </div>
 
 
     </div>
-    <br /><br />
-    <br />
-    <div class="container">
+   
+  
+    <div class="container" >
       
-           <div id="pagination-div" style="text-align : center"></div>
+           <div id="pagination-div"  style="padding-left:33%; margin-top:15px;"></div>
         
     </div>
 

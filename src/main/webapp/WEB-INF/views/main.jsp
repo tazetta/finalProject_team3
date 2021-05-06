@@ -35,7 +35,8 @@
             color: rgb(143, 201, 248);
 	        box-shadow: rgb(143, 201, 248) 0 0px 0px 40px inset;
         }
-   
+
+  
     </style>
 </head>
 
@@ -52,14 +53,16 @@
                 style="padding-left: 5px;">회원가입</span></a>
         <a href="" style="font-size:small; float: right; color: gray; "><span>로그인</span></a>
     </div>-->
-          <iframe src="mainnavi" scrolling="no" frameborder="0" style="width: 100%; margin-left: 28%"></iframe>
-    <div class="flexBox">
-        <br />
+    <div class="flexBox" style="padding-bottom: 300px;">
+    
+       
         <div>
-            <br />
-            <%-- <jsp:include page="mainnavi.jsp"></jsp:include>  --%>
+           
+            <%-- <jsp:include page"mainnavi.jsp"></jsp:include>  --%>
             <div class="container">
-                <h4>오늘의 땃쥐 룸</h4>
+         <iframe  width="1500" height="280" align="middle" src="mainnavi" scrolling="no" frameborder="0" style="padding-left:100px;"></iframe>
+              
+                <h4 style="padding-top:3%;">오늘의 땃쥐 룸</h4>
                 <br/>
                 <div class="container">
                     <div style="display: flex;  justify-content: center; border: 1px solid rgb(255, 255, 255); height: 100%;">

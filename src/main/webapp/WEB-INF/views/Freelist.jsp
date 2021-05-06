@@ -28,6 +28,15 @@ a {
 	text-decoration: none;
 	border-radius: 4px;
 }
+    a.page-link {
+	color: gray;
+	font-weight:bold;
+}
+
+a.page-link:hover {
+	color: rgba(255, 255, 255, 0.85);
+	box-shadow: rgb(173, 170, 169) 0 0px 0px 40px inset;
+}
 </style>
 <body>
 	<form action="Freelist">
@@ -51,6 +60,7 @@ a {
 		</div>
 	</form>
 	<hr />
+	
 	<div class="container">
 		<table class="table table-hover">
 			<thead style="background-color: rgb(170, 187, 247); color: white;">
@@ -77,18 +87,15 @@ a {
 			</tbody>
 		</table>
 		<hr />
-		<div class="row">
-			<div class="col">
-				<div id="pagination-div"></div>
-
-
-			</div>
-		</div>
-
 		<button class="btn" id="btn2"
-			style="border-radius: 5px; background-color: rgb(170, 187, 247); font-weight: bold; color: white;"
+			style="border-radius: 5px; float:right; background-color: rgb(170, 187, 247); font-weight: bold; color: white;"
 			onclick="location.href='boardWriteForm?boardCtgIdx=1'">글쓰기</button>
 	</div>
+		
+				<div id="pagination-div"  style="padding-left:43%; margin-top:25px;"></div>
+
+
+		
 </body>
 
 <script type="text/javascript">

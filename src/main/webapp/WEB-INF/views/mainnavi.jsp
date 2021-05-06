@@ -17,6 +17,7 @@
         border-top: 2px solid dodgerblue;
         border-bottom: 2px solid dodgerblue;
         float: left;
+       
         padding: 0px 20px;
         background-color: white;
         font-size: 25px;
@@ -39,7 +40,7 @@
         }
         div.bar{
             background-color: white;
-            min-width: 700px;
+            min-width: 300px;
         }
             #btn:hover{
             color: rgb(143, 201, 248);
@@ -56,7 +57,7 @@
                     <img src="resources/css/memberCSS/logo.png" style="height: 50px; width: 100px;">
                </a>
            </div>
-<div class="container" style="text-align: center;">
+<div class="container" style="text-align: center; ">
         <input type="text" size="75" style="border-radius: 5px; border: 2px solid rgb(203, 228, 248);"
             placeholder="검색어를 입력해주세요.">
         <button id="btn"
