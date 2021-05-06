@@ -20,7 +20,18 @@ public class ReportDTO {
 	private String targetId;
 	private String subject;
 	private String blind;
+	private int gpIdx;
 	
+	
+	
+	public int getGpIdx() {
+		return gpIdx;
+	}
+
+	public void setGpIdx(int gpIdx) {
+		this.gpIdx = gpIdx;
+	}
+
 	public String getSubject() {
 		return subject;
 	}

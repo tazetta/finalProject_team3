@@ -153,7 +153,9 @@ background-color: #F2F1F1;
 		</c:if>
 	</table>
 	<button onclick="location.href='groupListPage'">목록</button>
+	<c:if test="${ dto.id != sessionScope.loginId }">
 	<button onclick="reportBoard()" >신고</button>
+	</c:if>
 	<c:if test="${ dto.id == sessionScope.loginId }">
 	<button onclick="location.href='groupDel/${dto.gpIdx}'">삭제</button>
 	<button onclick="location.href='groupUpdateForm/${dto.gpIdx}'">수정</button>
@@ -189,9 +191,10 @@ background-color: #F2F1F1;
 
 	/*글 신고*/
 	function reportBoard(){
-		window.open("reportBoardPage","reportBoard","width=800, height=600");
+		window.open("groupRepBoardForm/${dto.gpIdx}","reportBoard","width=800, height=600");
 		//요청url,타이틀,옵션
 	}
+	
 	/*신청-취소 toggle*/
 	$("#toggleApply").click(function() {
 			location.href = '/main/applyGroup/${dto.gpIdx}/${sessionScope.loginId}';
@@ -429,7 +432,7 @@ background-color: #F2F1F1;
 		content +='<div id="recommentBox">';
 		content +='<span><b id="loginId">${sessionScope.loginId }</b></span>';
 		content += '<input type="text" name="recomment" id="recomment" placeholder="개인정보를 공유 및 요청하거나, 명예훼손, 무단 광고시 모니터링 후 삭제될수 있습니다"/>';
-		content += '<input type="button" value="등록" id="recommentSave" onclick="recommWirte('+commIdx+')"/>';
+		content += '<input type="button" value="등록" id="recommentSave" onclick="recommWirte('+commIdx+')"/>'; //대댓글 작성 호출
 		content += '</div>';
 		$("#commentDiv"+commIdx).after(content);
 	}
