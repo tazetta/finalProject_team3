@@ -55,6 +55,7 @@ span:hover {
         <a href="" style="font-size:small; float: right; color: gray;  font-weight: bold; "><span>로그인</span></a>
        </div>
    <br/>
+   
    <br/>
     <div class="container" style="text-align: center;">
         <select name="idx" id="idx" style="border-radius: 5px; border: 2px solid gray; ">
