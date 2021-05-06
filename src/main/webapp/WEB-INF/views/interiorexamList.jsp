@@ -15,16 +15,39 @@ integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKm
 integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <style>
-        
+#totaldiv {
+	position: absolute;
+	left: 10%;
+	top: 40%;
+}
+
+button {
+	position: absolute;
+	right: 5%;
+	top: 22%;
+	height: 40px;
+	background-color: white;
+	color: blue;
+	border-color: lightgray;
+}
+
+button:hover {
+	background-color: rgb(144, 209, 240);
+	color: white;
+}
+table{
+	text-align: center;
+}
 </style>
 </head>
 <body>
-	<h3>시공사례 리스트 페이지</h3>
+	
+	
 	<!-- 업체세션있는 사람만 글쓰기 보이게 -->
 	<c:if test="${sessionScope.cLoginId ne null}">
 		<button onclick="location.href='./examWriteForm'">시공사례쓰기</button>
 	</c:if>
-		<div class="container" style="font-size: large; font-weight: bold; padding-left: 40px;">
+		<div id="totaldiv" class="container" style="font-size: large; font-weight: bold; padding-left: 40px;">
 			<div id="list" style="display: flex; flex-flow: wrap;  justify-content: center; border: 1px solid rgb(255, 255, 255);">
 
 			</div> 
