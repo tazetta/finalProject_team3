@@ -40,7 +40,7 @@
 </head>
 
 <body>
-    <br/>
+    <!--  <br/>
     <div class="container" style="text-align: center;">
         <input type="text" size="75" style="border-radius: 5px; border: 2px solid rgb(203, 228, 248);"
             placeholder="검색어를 입력해주세요.">
@@ -51,8 +51,8 @@
         <a href="" style="font-size:small; float: right; color: gray; padding-left: 5px;">|<span
                 style="padding-left: 5px;">회원가입</span></a>
         <a href="" style="font-size:small; float: right; color: gray; "><span>로그인</span></a>
-    </div>
-          <iframe src="mainnavi" scrolling="no" frameborder="0" style="width: 100%; margin-left: 15%"></iframe>
+    </div>-->
+          <iframe src="mainnavi" scrolling="no" frameborder="0" style="width: 100%; margin-left: 28%"></iframe>
     <div class="flexBox">
         <br />
         <div>
