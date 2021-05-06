@@ -1,6 +1,5 @@
 package com.spring.main.controller;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
@@ -33,10 +32,10 @@ public class AdminController {
 		return service.memberDetail(id);
 	}
 	
-	@RequestMapping(value = "/adminCompanyDetail/{comid}", method = RequestMethod.GET)
-	public ModelAndView adminCompanyDetail(@PathVariable String comid) {
+	@RequestMapping(value = "/adminCompanyDetail/{comId}", method = RequestMethod.GET)
+	public ModelAndView adminCompanyDetail(@PathVariable String comId) {
 		logger.info("관리자 업체회원 상세보기");
-		return service.companyDetail(comid);
+		return service.companyDetail(comId);
 	}
 	
 	@RequestMapping(value = "/adminSoundDetail/{boardIdx}", method = RequestMethod.GET)

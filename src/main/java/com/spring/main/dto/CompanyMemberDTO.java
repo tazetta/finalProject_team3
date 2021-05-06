@@ -15,15 +15,17 @@ public class CompanyMemberDTO {
 	private String comName;
 	private int stateIdx;
 	private int license;
-	private long rate;
+	private float rate;
 	private int cnt;
 	
-	public long getRate() {
-		return rate;
-	}
-	public void setRate(long rate) {
+	public void setRate(float rate) {
 		this.rate = rate;
 	}
+
+	public float getRate() {
+		return rate;
+	}
+
 	public int getCnt() {
 		return cnt;
 	}

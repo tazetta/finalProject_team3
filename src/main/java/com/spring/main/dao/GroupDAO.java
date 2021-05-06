@@ -3,6 +3,7 @@ package com.spring.main.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.spring.main.dto.Comments2ndDTO;
 import com.spring.main.dto.CommentsDTO;
 import com.spring.main.dto.GroupDTO;
 
@@ -73,6 +74,10 @@ public interface GroupDAO {
 	ArrayList<GroupDTO> myRecList(String loginId);
 
 	int groupRecommWrite(HashMap<String, String> params);
+
+	ArrayList<Comments2ndDTO> groupRecommList(int commIdx);
+
+	int groupRecommDel(int com2ndIdx);
 
 
 
