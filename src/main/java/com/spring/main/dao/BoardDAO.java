@@ -93,5 +93,7 @@ public interface BoardDAO {
 	int boardRecommWrite(HashMap<String, String> params);
 	int getPhotoMax(String id);
 	ArrayList<PhotoDTO> myInteriorSlider(String id);
+	//우리집 자랑 목록 조회
+	ArrayList<BoardDTO> homeMainList(int startNum, int endNum, String keyword,String orderBy, String formcategory,int budget, int roomsize);
 	
 }

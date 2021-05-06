@@ -48,7 +48,19 @@ span:hover {
         color: rgb(143, 201, 248);
         box-shadow: rgb(143, 201, 248) 0 0px 0px 40px inset;
     }
+input.button{
+	border : 1px rgba(30, 22, 54, 0.6);
+ 	border-radius: 10px;
+	color: rgba(30, 22, 54, 0.6);
+    background-color: rgb(230, 226, 224);
+	box-shadow: rgb(230, 226, 224) 0 0px 0px 2px inset;
+	
+}
+input.button:hover{
+	color: rgba(255, 255, 255, 0.85);
+	box-shadow: rgb(230, 226, 224) 0 0px 0px 40px inset;
 
+}
 
 </style>
 </head>
@@ -89,7 +101,8 @@ span:hover {
             </tr>
         </table>
         <div class="container">
-            <a href="#" class="button" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; ">첨부파일</a>
+            <!--  a href="#" class="button" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; ">첨부파일</a>-->
+            <input id="button" class="button" style="max-width: 100; margin: 10px ;  padding: 10px 10px; font-weight: bold;" type="button" value="파일업로드" onclick="fileUp()" />
             <div class="row" style="float: right;">
                 <a href="#" class="button2" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; ">저장</a>
             </div>

@@ -464,21 +464,24 @@ public class BoardService {
 	}
 
 //우리집 자랑 세부검색
-	public HashMap<String, Object> homeMainList(int pagePerCnt, int page, String order, String formcategory, int budget,
+	public Map<String, Object> homeMainList(int pageNum, String orderBy,String opt, String keyword, String formcategory, int budget,
 			int roomsize) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		int end = page * pagePerCnt;
-		int start = end - (pagePerCnt - 1);
-		int maxCnt = boarddao.memberMaxCnt();
-		int maxpage = (int) Math.ceil(maxCnt / (double) pagePerCnt);
-		logger.info("maxCnt : {}", maxCnt);
-		logger.info("maxPage : {}", maxpage);
-
-		map.put("homeMainList", boarddao.homeMain(start, end, order, formcategory, budget, roomsize));
-		map.put("maxPage", maxpage);
-		map.put("currPage", page);
+		Map<String, Object> map = new HashMap<>();
+		// startNum, endNum 생성
+		int limit = 10; // 최대 10개 게시물 목록 보여줄거
+		int startNum = (pageNum - 1) * limit + 1; // 시작페이지
+		int endNum = pageNum * limit; // 마지막 페이지
+		
+		int totalListCount = boarddao.getBoardListCount(2, opt, keyword);
+		map.put("total_page", totalListCount / 10 + 1);
+		
+		ArrayList<BoardDTO> list = boarddao.homeMainList(startNum, endNum, orderBy, keyword, formcategory, budget, roomsize);
+		map.put("list", list);
+		
 		return map;
 	}
+
+		
 
 	public Map<String, Object> getTipmain (int pageNum, String orderBy, String opt, String keyword) { //메서드 선언
 		Map<String, Object> map = new HashMap<>();

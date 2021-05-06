@@ -59,21 +59,21 @@ span:hover {
    
    <br/>
     <div class="container" style="text-align: center;">
-        <select name="idx" id="idx" style="border-radius: 5px; border: 2px solid gray; ">
-            <option value="">정렬</option>
-            <option value="1">최신순</option>
-            <option value="2">추천순</option>
+        <select name="idx" id="miniopt" style="border-radius: 5px; border: 2px solid gray; ">
+            <option value="all">전체</option>
+            <option value="recent">최신순</option>
+            <option value="cntreco">추천순</option>
         </select>
-        <select name="idx" id="idx" style="border-radius: 5px; border: 2px solid gray;">
-            <option value="">주거형태</option>
+        <select name="idx" id="miniopt" style="border-radius: 5px; border: 2px solid gray;">
+            <option value="0">주거형태</option>
             <option value="1">원룸&오피스텔</option>
             <option value="2">아파트</option>
             <option value="3">단독주택</option>
             <option value="4">기타</option>
         </select>
       
-        <select name="idx" id="idx" style="border-radius: 5px; border: 2px solid gray;">
-            <option value="">예산</option>
+        <select name="idx" id="miniopt" style="border-radius: 5px; border: 2px solid gray;">
+            <option value="0">예산</option>
             <option value="1">1백만원미만</option>
             <option value="2">1백만원대</option>
             <option value="3">2백만원대</option>
@@ -90,7 +90,7 @@ span:hover {
    
        <div style="float: right;">
         <button id="btn"
-        style="border-radius: 5px; background-color: rgb(95, 176, 241); border: 2px solid rgb(203, 228, 248); font-weight: bold; color: white;">글쓰기</button>
+        style="border-radius: 5px; background-color: rgb(95, 176, 241); border: 2px solid rgb(203, 228, 248); font-weight: bold; color: white;" onclick="location.href='boardWriteForm?boardCtgIdx=2'">글쓰기</button>
         </div>
 
     </div>
@@ -149,13 +149,13 @@ $(document).ready(function() {
 		console.log(oData);
 
 		$.ajax({
-			url : '/main/api/freelist',
+			url : '/main/homemain',
 			type : 'GET',
 			data : oData,
 			dataType : 'JSON',
 			success : function(data) {
 				appendList(data.list);
-				createPagination(data.total_page,pageNum);
+				
 			},
 			error : function(error) {
 				console.log('에러 났음...');
