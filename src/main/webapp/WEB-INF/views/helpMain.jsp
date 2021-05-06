@@ -39,7 +39,7 @@ a {
 }
 
 .row {
-	width: 400px;
+	width: 200px;
 }
 
 a.button2 {
@@ -54,6 +54,7 @@ a.button2:hover {
 
 a.page-link {
 	color: gray;
+	font-weight:bold;
 }
 
 a.page-link:hover {
@@ -108,10 +109,12 @@ a.page-link:hover {
 	<div class="container">
 		<div class="row">
 			<a href="QWrite" class="button"
-				style="max-width: 110; margin: 10px; padding: 10px 20px; font-weight: bold;">질문하기</a>
+				style="max-width: 70; margin: 10px; padding: 10px 20px; font-weight: bold;">질문하기</a>
+		
 			<a href="#" class="button2" id="isWaitForAnswerBtn"
-				style="max-width: 200; margin: 10px; padding: 10px 20px; font-weight: bold;">답변을
+				style="max-width: 150; margin: 10px; padding: 10px 20px; font-weight: bold;">답변을
 				기다리는 질문</a>
+		</div>
 			<div class="container">
 				<select name="idx" id="miniopt"
 					style="float: right; border-radius: 5px; border: 2px solid gray;">
@@ -119,7 +122,6 @@ a.page-link:hover {
 					<option value="comment">답변순</option>
 				</select>
 			</div>
-		</div>
 	</div>
 
 	<div class="container">
@@ -153,7 +155,7 @@ a.page-link:hover {
 		</div>
 	</div>
 	
-	<div id="pagination-div" style="text-align : center"></div>
+	<div id="pagination-div" style="padding-left:40%; margin-top:15px;"></div>
 			<!-- <ul class="pagination justify-content-center">
 				<li class="page-item"><a class="page-link" href="#">이전</a></li>
 				<li class="page-item"><a class="page-link" href="#">1</a></li>
