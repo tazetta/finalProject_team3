@@ -162,10 +162,8 @@ select:hover {
 								<td style="color: lightgray;"></td>
 							</tr>
 							<tr>
-								<td colspan="2" style="text-align: right;"><span
-									style="color: #acd3fb">+더보기</span></td>
-								<td colspan="2" style="text-align: right;"><span
-									style="color: #acd3fb">+더보기</span></td>
+								<td colspan="2" style="text-align: right;"><a href="adminReportedBrdList" style="color: #acd3fb">+더보기</a></td>
+								<td colspan="2" style="text-align: right;"><a href="" style="color: #acd3fb">+더보기</a></td>
 							</tr>
 						</table>
 					</form>

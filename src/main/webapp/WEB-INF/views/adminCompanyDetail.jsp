@@ -158,21 +158,6 @@ select:hover {
 		window.close();
 	}
 	
-	/* $("#penaltyBtn").click(()=>{
-		var penalty = $("#penaltyVal").val();
-		console.log(penalty);
-		$.ajax({
-			url: "adminPenaltyCfm/"+${dto.comid}+"/"+penalty;
-			,data:{}
-			,type:'GET'
-			,dataType:'JSON'
-			,success:(data)=>{
-				
-			}
-			,error:(data)=>{
-				console.log(data);
-			}
-		});
-	}); */
+
 </script>
 </html>

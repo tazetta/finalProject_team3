@@ -46,11 +46,11 @@ public class AdminService {
 		logger.info("date:{}",sqlDate);
 		
 		// 오늘 가입자 수 불러오기
-		int newMemberCnt = dao.cntNewMember("21/04/23");
+		int newMemberCnt = dao.cntNewMember(sqlDate);
 		logger.info("오늘 가입자 수: {} ", newMemberCnt);
 		
 		// 오늘 가입한 회원 불러오기
-		ArrayList<MemberDTO> newMemberList = dao.listNewMember("21/04/23");
+		ArrayList<MemberDTO> newMemberList = dao.listNewMember(sqlDate);
 		logger.info("오늘 가입자 ID : {}", newMemberList.size());
 		mav.addObject("newMemberList", newMemberList);
 		mav.addObject("memberCnt", newMemberCnt);
@@ -66,23 +66,23 @@ public class AdminService {
 		mav.addObject("adminCnt", adminCnt);
 		
 		// 오늘 신고된 게시글 수 불러오기
-		int reportedBrdCnt = dao.reportedBrdCnt("21/04/23");
+		int reportedBrdCnt = dao.reportedBrdCnt(sqlDate);
 		logger.info("신고된 게시글 수 : {}", reportedBrdCnt);
 		
 		// 오늘 신고된 게시글 제목, 카테고리 불러오기
-		HashMap<String, Object> reportedBrdList = dao.reportedBrdList("21/04/23");
+		HashMap<String, Object> reportedBrdList = dao.reportedBrdList(sqlDate);
 		logger.info("신고된 게시글 : {}", reportedBrdList);
 		mav.addObject("reportedBrdCnt", reportedBrdCnt);
 		mav.addObject("reportedBrdList", reportedBrdList);
 		
 		// 오늘 게시된 댓글 수 불러오기
-		int reportedCommCnt = dao.reportedCommCnt("21/04/23");
+		int reportedCommCnt = dao.reportedCommCnt(sqlDate);
 		logger.info("신고된 댓글 수 : {}", reportedCommCnt);
 		
 		// 오늘 신고된 댓글 내용, 카테고리 불러오기
-		HashMap<String, Object> reportedCommList = dao.reportedCommList("21/04/23");
+		HashMap<String, Object> reportedCommList = dao.reportedCommList(sqlDate);
 		logger.info("신고된 댓글 : {}", reportedCommList);
-		mav.addObject("reportedBrdCnt", reportedCommCnt);
+		mav.addObject("reportedCommCnt", reportedCommCnt);
 		mav.addObject("reportedBrdList", reportedCommList);
 		
 		mav.setViewName("adminMain");
@@ -134,7 +134,7 @@ public class AdminService {
 		ModelAndView mav = new ModelAndView();
 		CompanyMemberDTO dto = new CompanyMemberDTO();
 		dto = dao.companyDetail(comId);
-		long rate = dto.getRate();
+		float rate = dto.getRate();
 		logger.info("rate : {}",rate);
 		mav.addObject("dto", dto);
 		mav.setViewName("adminCompanyDetail");
