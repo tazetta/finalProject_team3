@@ -373,8 +373,8 @@
 	</select>
 	<!--댓글 작성하기 -->
 	<insert id="boardCommentWrite">
-		INSERT INTO comments (COMMIDX, COMMENTS, BOARDIDX,id)
-		VALUES (comments_seq.NEXTVAL, #{param1}, #{param2}, #{param3})
+		INSERT INTO comments (COMMIDX,COMMENTS,id,BOARDIDX)
+		VALUES (comments_seq.NEXTVAL, #{comment}, #{loginId}, #{boardIdx})
 	</insert>
 	<!--댓글삭제:블라인드처리 -->
 	<update id="boardCommDel">
@@ -409,17 +409,17 @@
 	<!--게시물신고하기-->
 	<insert id="boardreport">
 		INSERT INTO reports (repIdx,id,boardIdx,repCtgIdx)
-		VALUES (reports_seq.NEXTVAL,'sdk',121,11);
+		VALUES (reports_seq.NEXTVAL,#{id},#{boardIdx},#{repCtgIdx});
 	</insert>
 	<!--댓글신고하기-->
 	<insert id="comreport">
 	INSERT INTO reports (repIdx,id,commIdx,repCtgIdx)
-		VALUES (reports_seq.NEXTVAL,'sdk',121,11);
+		VALUES (reports_seq.NEXTVAL,#{id},#{commIdx},#{repCtgIdx});
 	</insert>
 	<!--대댓글신고하기-->
 	<insert id="com2report">
 		 INSERT INTO reports (repIdx,id,com2ndidx,repCtgIdx)
-		VALUES (reports_seq.NEXTVAL,'sdk',121,11);
+		VALUES (reports_seq.NEXTVAL,#{id},#{com2ndIdx},#{repCtgIdx});
 	</insert>
 	
 	<select id="fileList" resultType="com.spring.main.dto.PhotoDTO">

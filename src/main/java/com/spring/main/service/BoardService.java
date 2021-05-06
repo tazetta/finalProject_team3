@@ -438,11 +438,10 @@ public class BoardService {
 		return map;
 	}
 
-	public HashMap<String, Object> boardCommentWrite(String comment, String boardIdx, RedirectAttributes rAttr) {
+	public HashMap<String, Object> boardCommentWrite(HashMap<String, String> params) {
 		logger.info("댓글쓰기 서비스");
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		String id = "sdk";
-		int result = boarddao.boardCommentWrite(comment, boardIdx, id);
+		int result = boarddao.boardCommentWrite(params);
 		logger.info("댓글쓰기 result: " + result);
 		msg = "댓글 등록에 실패했습니다";
 		if (result > 0) {

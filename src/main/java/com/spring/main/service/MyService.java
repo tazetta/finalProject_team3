@@ -298,12 +298,23 @@ public class MyService {
 	}
 
 
+
 	public ModelAndView myInteriorSlider(String id) {
 		ModelAndView mav = new ModelAndView();
 		ArrayList<PhotoDTO> slide = dao.myInteriorSlider(id);
 		mav.addObject("slide", slide);
 		mav.setViewName("myInteriorHistory");
 		return mav;
+	}
+	
+	
+	public ModelAndView sendMsg(HashMap<String, String> params) {
+		String receiver = params.get(receiver);
+		logger.info("받는 사람" + receiver);
+		
+		
+		return null;
+
 	}
 
 
