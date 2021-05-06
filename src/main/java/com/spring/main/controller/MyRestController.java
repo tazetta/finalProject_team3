@@ -109,9 +109,9 @@ public class MyRestController {
 		return mav;
 		
 	}
-	@RequestMapping(value = "/msgFormPopUp/{receiver}", method = RequestMethod.GET)
+	@RequestMapping(value = "/msgDetailPopUp/msgFormPopUp/{receiver}", method = RequestMethod.GET)
 	public ModelAndView msgFormPopUp(@PathVariable String receiver, HttpSession session) {
-		logger.info("쪽지쓰기 팝업창");
+		logger.info("쪽지쓰기 팝업창2");
 		ModelAndView mav = new ModelAndView();
 		String loginId = (String) session.getAttribute("loginId");
 		mav.addObject("loginId", loginId);
