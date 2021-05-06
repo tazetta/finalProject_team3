@@ -563,5 +563,59 @@ public class BoardService {
 		mav.setViewName(page);
 		return mav;
 	}
+	
+	public HashMap<String, Object> boardCommRec(int commIdx, RedirectAttributes rAttr, HttpSession session) {
+		logger.info("댓글추천 서비스");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String loginId = (String) session.getAttribute("loginId");
+
+		String commRecChk = boarddao.boardCommRecChk(commIdx, loginId);
+		logger.info("댓글 추천 여부:" + commRecChk);
+
+		String recResult = "";
+		if (commRecChk != null) {
+			logger.info("추천취소하기");
+			int result = boarddao.boardCommDec(commIdx, loginId);
+			logger.info("result:" + result);
+			recResult = "false";
+			msg = "추천취소되었습니다";
+		} else {
+			logger.info("추천하기");
+			int result = boarddao.boardCommRec(commIdx, loginId);
+			logger.info("result:" + result);
+			recResult = "true";
+			msg = "추천되었습니다";
+		}
+
+		map.put("recResult", recResult);
+		map.put("msg", msg);
+		return map;
+	}
+
+	/* 내가 추천한 댓글 가져오기 */
+	public HashMap<String, Object> boardrecCommList(RedirectAttributes rAttr, HttpSession session) {
+		logger.info("내가 추천한 댓글리스트 서비스");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String loginId = (String) session.getAttribute("loginId");
+		ArrayList<BoardDTO> recCommList = boarddao.myRecList(loginId);
+		logger.info("recCommListSize:" + recCommList.size());
+		
+		map.put("recCommList", recCommList);
+		return map;
+	}
+
+	public HashMap<String, Object> boardRecommWrite(HashMap<String, String> params, HttpSession session, RedirectAttributes rAttr) {
+		logger.info("대댓글쓰기 서비스");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int result = boarddao.boardRecommWrite(params);
+		logger.info("대댓글쓰기 result: " + result);
+		msg = "답글 등록에 실패했습니다";
+		if (result > 0) {
+			msg = "답글이 등록되었습니다";
+		}
+
+		map.put("msg", msg);
+		return map;
+	}
 
 }
