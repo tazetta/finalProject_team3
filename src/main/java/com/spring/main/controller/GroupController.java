@@ -133,9 +133,9 @@ public class GroupController {
 	}
 	
 	@RequestMapping(value = "/groupCommentWrite", method = RequestMethod.GET)
-	@ResponseBody HashMap<String , Object> groupCommentWrite(@RequestParam HashMap<String, String> params,HttpSession session, RedirectAttributes rAttr) {
+	@ResponseBody HashMap<String , Object> groupCommentWrite(@RequestParam HashMap<String, String> params) {
 		logger.info("공동구매 댓글쓰기 요청 params: {}", params);
-		return groupService.groupCommentWrite(params,rAttr);
+		return groupService.groupCommentWrite(params);
 	}
 	
 	@RequestMapping(value = "/groupCommentList/{gpIdx}", method = RequestMethod.GET)
@@ -145,9 +145,9 @@ public class GroupController {
 	}
 	
 	@RequestMapping(value = "/groupCommDel/{commIdx}", method = RequestMethod.GET)
-	@ResponseBody HashMap<String , Object> groupCommDel(@PathVariable int  commIdx,HttpSession session,	RedirectAttributes rAttr) {
+	@ResponseBody HashMap<String , Object> groupCommDel(@PathVariable int  commIdx,HttpSession session) {
 		logger.info("공동구매 댓글삭제 요청 gpIdx: {}", commIdx);
-		return groupService.groupCommDel(commIdx,rAttr);
+		return groupService.groupCommDel(commIdx);
 	}
 	
 	
@@ -165,15 +165,33 @@ public class GroupController {
 	
 	@RequestMapping(value = "/recCommList", method = RequestMethod.GET)
 	@ResponseBody HashMap<String , Object> recCommList( HttpSession session,RedirectAttributes rAttr) {
-		logger.info("공동구매 내가 추천한 댓글 리스트: {}");
+		logger.info("공동구매 내가 추천한 댓글 리스트");
 		return groupService.recCommList(rAttr,session);
 	}
 	
 
 	@RequestMapping(value = "/groupRecommWrite", method = RequestMethod.GET)
-	@ResponseBody HashMap<String , Object> groupRecommWrite(@RequestParam HashMap<String, String> params,HttpSession session, RedirectAttributes rAttr) {
+	@ResponseBody HashMap<String , Object> groupRecommWrite(@RequestParam HashMap<String, String> params) {
 		logger.info("공동구매 대댓글쓰기 요청 params: {}", params);
-		return groupService.groupRecommWrite(params,session,rAttr);
+		return groupService.groupRecommWrite(params);
+	}
+	
+	@RequestMapping(value = "/groupRecommList/{commIdx}", method = RequestMethod.GET)
+	@ResponseBody HashMap<String , Object> groupRecommList(@PathVariable int commIdx) {
+		logger.info("공동구매 대댓글 리스트 요청 commIdx: {}", commIdx);
+		return groupService.groupRecommList(commIdx);
+	}
+	
+	@RequestMapping(value = "/reportBoardPage", method = RequestMethod.GET)
+	public String reportBoardPage(HttpSession session) {
+		logger.info("게시글 신고 팝업 요청");
+		return "reportBoard";
+	}
+	
+	@RequestMapping(value = "/groupRecommDel/{com2ndIdx}", method = RequestMethod.GET)
+	@ResponseBody HashMap<String , Object> groupRecommDel(@PathVariable int  com2ndIdx) {
+		logger.info("공동구매 대댓글삭제 요청 gpIdx: {}", com2ndIdx);
+		return groupService.groupRecommDel(com2ndIdx);
 	}
 	
 	

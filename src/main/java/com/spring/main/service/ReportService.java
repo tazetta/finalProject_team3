@@ -14,6 +14,7 @@ public class ReportService {
 	
 	public ModelAndView companyReport(HashMap<String, String> params) {
 		logger.info("신고요청 서비스 : "+params);
+		
 		return null;
 	}
 

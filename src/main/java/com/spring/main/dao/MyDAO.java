@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.spring.main.dto.BoardDTO;
+import com.spring.main.dto.EstimateDTO;
 import com.spring.main.dto.MsgDTO;
 import com.spring.main.dto.MyDTO;
 
@@ -66,6 +67,12 @@ public interface MyDAO {
 	int myestimateAllCount(String sessionId);
 
 	ArrayList<MyDTO> myestimateList(int start, int end, String sessionId);
+
+	EstimateDTO estDetail(int estIdx);
+
+	int mygroupwriteAllCount(String sessionId);
+
+	ArrayList<MyDTO> mygroupwriteList(int start, int end, String sessionId);
 
 
 

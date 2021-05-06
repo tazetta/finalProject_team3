@@ -80,6 +80,23 @@ SELECT estIdx , comId , content , id , budget, REG_DATE, rnum
     WHERE rnum BETWEEN #{param1} AND #{param2}
 </select>
 
+<select id="estDetail" resultType="com.spring.main.dto.EstimateDTO">
+	SELECT * FROM ESTIMATE WHERE estIdx = #{param1}
+</select>
+
+
+<!--내가 작성한 공동구매  -->
+<select id="mygroupwriteAllCount" resultType="int" parameterType="String">
+	SELECT COUNT(gpIdx) FROM GROUPPURCHASE WHERE id = #{param1}
+</select>
+
+<select id="mygroupwriteList" resultType="com.spring.main.dto.GroupDTO">
+SELECT gpIdx ,  subject , content , id , progIdx, reg_date, gHit rnum 
+    FROM (SELECT gpIdx , subject , content , id , progIdx, reg_date, gHit,
+    ROW_NUMBER() OVER(ORDER BY gpIdx DESC) AS rnum FROM GROUPPURCHASE  WHERE ID=#{param3})
+    WHERE rnum BETWEEN #{param1} AND #{param2}
+</select>
+
 
 
 

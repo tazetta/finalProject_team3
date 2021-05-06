@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.main.dao.BoardDAO;
 import com.spring.main.dao.MyDAO;
+import com.spring.main.dto.EstimateDTO;
 import com.spring.main.dto.MsgDTO;
 import com.spring.main.dto.MyDTO;
 import com.spring.main.dto.PhotoDTO;
@@ -91,6 +92,24 @@ public class MyService {
 		int start = end - pagePerCnt + 1;
 		
 		map.put("list", MyDAO.mywriteqnaList(start,end,sessionId));
+
+		map.put("range", range);
+		map.put("currPage", page);
+		return map;
+	}
+	
+	/* 내가 작성한 공동구매 */
+	public HashMap<String, Object> mygroupwriteList(int pagePerCnt, int page, HttpSession session) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String sessionId = (String) session.getAttribute("loginId");
+		int allCount =  MyDAO.mygroupwriteAllCount(sessionId);
+		logger.info("총 갯수 : "  + allCount);
+		int range = allCount%pagePerCnt > 0 ? Math.round(allCount/pagePerCnt)+1 : Math.round(allCount/pagePerCnt);
+		logger.info("총 페이지(range): " + range);
+		int end = page * pagePerCnt;
+		int start = end - pagePerCnt + 1;
+		
+		map.put("list", MyDAO.mygroupwriteList(start,end,sessionId));
 
 		map.put("range", range);
 		map.put("currPage", page);
@@ -173,6 +192,13 @@ public class MyService {
 		return mav; 
 	}
 
+	public ModelAndView estDetail(int estIdx) {
+		EstimateDTO dto = MyDAO.estDetail(estIdx);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("info", dto);
+		mav.setViewName("myestimatedetail");
+		return mav;
+	}
 	
 
 	

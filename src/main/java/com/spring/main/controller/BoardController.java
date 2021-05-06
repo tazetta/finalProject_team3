@@ -247,4 +247,23 @@ public class BoardController {
 		logger.info("ID : {} / boardIdx : {} ",id, boardIdx);
 		return BoardService.boardScrap(boardIdx,id, rAttr);
 	}
+	@RequestMapping(value = "/boardCommRec/{commIdx}", method = RequestMethod.GET)
+	@ResponseBody HashMap<String , Object> groupCommRec(@PathVariable int  commIdx, HttpSession session,RedirectAttributes rAttr) {
+		logger.info("댓글 추천 commIdx: {}", commIdx);
+		return BoardService.boardCommRec(commIdx,rAttr,session);
+	}
+	
+	@RequestMapping(value = "/boardrecCommList", method = RequestMethod.GET)
+	@ResponseBody HashMap<String , Object> recCommList( HttpSession session,RedirectAttributes rAttr) {
+		logger.info("내가 추천한 댓글 리스트: {}");
+		return BoardService.boardrecCommList(rAttr,session);
+	}
+	
+
+	@RequestMapping(value = "/boardRecommWrite", method = RequestMethod.GET)
+	@ResponseBody HashMap<String , Object> groupRecommWrite(@RequestParam HashMap<String, String> params,HttpSession session, RedirectAttributes rAttr) {
+		logger.info("대댓글쓰기 요청 params: {}", params);
+		return BoardService.boardRecommWrite(params,session,rAttr);
+	}
+	
 }
