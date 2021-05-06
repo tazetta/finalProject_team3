@@ -94,21 +94,21 @@ margin:5px;
 #loginId{
 margin:20px;
 }
+.commDel{
+color: red;
+}
+.flexBox {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+}
 </style>
 </head>
 <body>
-	<div class="container" style="text-align: center;">
-		<input type="text" size="75"
-			style="border-radius: 5px; border: 2px solid rgb(203, 228, 248);"
-			placeholder="검색어를 입력해주세요."> &nbsp;
-		<button id="btn"
-			style="border-radius: 5px; background-color: rgb(203, 228, 248); border: 2px solid rgb(203, 228, 248);">검색</button>
-		<span><a href=""
-			style="font-size: small; float: right; color: gray;">|고객센터</a></span> <span><a
-			href="" style="font-size: small; float: right; color: gray;">|회원가입</a></span>
-		<span><a href=""
-			style="font-size: small; float: right; color: gray;">로그인</a></span>
-	</div>
+<div class="flexBox">
+<jsp:include page="mainnavi.jsp" />
+</div>
 	<br />
 	<br />
 	<div class="container"
@@ -410,5 +410,27 @@ function boardRecommList(commIdx) {
 	$("#recommentListDiv"+list.commIdx).after(content);
 
 }
+ function boardRecommentDel(com2ndIdx){
+		//삭제 confirm	
+		 if(confirm("정말로 삭제하시겠습니까?")){
+			 
+			var reqUrl = "./boardRecommentDel/"+com2ndIdx;
+			$.ajax({
+				url : reqUrl,
+				type : "get",
+				data : {},
+				dataType : "JSON",
+				success : function(data) {
+					console.log("success: ", data);
+					groupCommentList(); //삭제 후 댓글리스트 요청
+				},
+				error : function(error) {
+					console.log("error:", error);
+				}
+			});
+			}else{
+				console.log("삭제취소");
+			}	
+	}
 </script>
 </html>

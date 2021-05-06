@@ -437,19 +437,19 @@
 	<!--로그인아이디 비교-->
 	<select id="boardCommRecChk" resultType="String">
 		SELECT id FROM recommend WHERE commIdx=#{param1} AND id=#{param2}
-	<!--대댓글작성--></select>
+	<!--댓글작성--></select>
 	<insert id="boardCommRec">
 		INSERT INTO recommend (recIdx,commIdx,id) VALUES (recomend_seq.NEXTVAL,#{param1},#{param2}) 
 	</insert>
 	<!--대댓글삭제-->
-	<delete id="boardCommDec">
-		DELETE  FROM recommend WHERE commIdx=#{param1} AND id=#{param2}
-	</delete>
+	<update id="boardCommDec">
+		 UPDATE recommend SET blind='y' WHERE commIdx=#{commIdx}
+	</update>
 	<!--해당아이디대댓글표시 -->
 	<select id="myRecList" resultType="board">
 		 SELECT commIdx FROM recommend WHERE id=#{param1}
 	</select>
-	
+	<!--대댓글작성 -->
 	<insert id="boardRecommWrite">
 		INSERT INTO comments_2nd (com2ndIdx, COMMENTS, id, commIdx) 
 		VALUES (comments_2nd_seq.NEXTVAL, #{comments}, #{loginId}, #{commIdx})
@@ -464,4 +464,8 @@
 		  SELECT s.commIdx, s.com2ndIdx, s.comments, s.reg_date, s.id FROM comments c, comments_2nd s 
 		  WHERE  c.commIdx=s.commIdx(+) AND c.commIdx=#{param1} AND s.blind='n' ORDER BY s.com2ndIdx DESC 
 	</select>
+	<!--대댓글삭제-->
+	<update id="boardRecommDel">
+		 UPDATE comments_2nd SET blind='y' WHERE com2ndIdx=#{com2ndIdx}
+	</update>
 </mapper>
