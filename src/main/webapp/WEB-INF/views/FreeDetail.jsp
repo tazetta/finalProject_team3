@@ -80,6 +80,9 @@ text-decoration:none;
 #recommentBox{
 	margin-left:50px;
 }
+.recommentTable{
+background-color: #F2F1F1;
+}
 
 #recomment{
 width:800px;
@@ -154,6 +157,8 @@ margin:20px;
                 <b>user</b> : <input type="text" size="75" placeholder="댓글을 입력해주세요."> 
                 <button id="commentSave">댓글 작성</button>
             </div> -->
+            
+       <hr />     
 	<b>댓글 <span id="listSize"></span>개
 	</b>
 	<div id="commentBox" class="container" style="text-align: center;">
@@ -266,7 +271,8 @@ function commentListPrint(list){
 	content += '</tr>';
 	content += '</table>';
 	content +=	"</div>";
-	
+	content +=	"<div id='recommentListDiv"+list[i].commIdx+"'></div>"; //대댓글 리스트 가져올 영역
+	boardRecommList(list[i].commIdx); //대댓글 리스트 호출
 	}
 	$("#commentListDiv").empty(); //#list안의 내용을 버려라
 	$("#commentListDiv").append(content);
@@ -298,7 +304,7 @@ function boardCommentDel(commIdx) {
 }
 /* 내가 추천한 댓글 이미지 활성화로 고정*/
 function recCommList(){
-	var reqUrl = "../boardrecCommList";
+	var reqUrl = "../brdrecCommList";
 	$.ajax({
 			url : reqUrl,
 			type : "get",
@@ -350,6 +356,59 @@ function recommWirte(commIdx){
 			}
 		});	
 	}
+}
+/*대댓글 리스트 불러오기*/
+function boardRecommList(commIdx) {
+	$.ajax({
+		url : "../boardRecommList/"+commIdx,
+		type : "get",
+		data : {},
+		dataType : "JSON",
+		success : function(data) {
+			console.log("commentsListsuccess: ", data);
+			for (var i = 0 ; i < data.list.length ; i++) {
+				console.log(data.list[i].commIdx);
+				boardRecommPrint(data.list[i]); //대댓글 리스트 뿌리기
+			}
+				console.log("--------------------------------");
+		},
+		error : function(error) {
+			console.log("error:", error);
+		}
+	});
+}
+
+/*대댓글 리스트 뿌리기*/
+ function boardRecommPrint(list){
+	var content ="";
+	content +=	"<div id='recommentDiv"+list.commIdx+"'>";
+	content += "<table class='recommentTable'>";
+	content += "<tr>";
+	content += '<td  style="width:14%"><b>'+list.id+'</b></td>';
+	content += '<td colspan="2" style="text-align:left">';
+	content += list.comments;
+ 	content += '</td>';
+	content += '</tr>';
+	content += '<tr>';
+	content += '<td style=" font-size:90%; color:gray; ">';
+	 var reg_date = new Date(list.reg_date); 	 
+	content += reg_date.toLocaleDateString("ko-KR");
+	content += '</td>';
+	content += ' <td  style="text-align:left">';
+	//대댓글삭제
+	if("${sessionScope.loginId}"==list.id){
+		content += '<button class="commDel" onclick="boardRecommentDel('+list.com2ndIdx+')">삭제</button>' ; 
+		
+	}else{
+	content += '<a href="#">신고</a></td>' ;
+	}
+	content += '</tr>';
+	content += '</table>';
+	content +=	"</div>";
+
+	$("#recommentListDiv"+list.commIdx).empty(); //#list안의 내용을 버려라
+	$("#recommentListDiv"+list.commIdx).after(content);
+
 }
 </script>
 </html>

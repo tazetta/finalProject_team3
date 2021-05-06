@@ -254,9 +254,9 @@ public class BoardController {
 		return BoardService.boardCommRec(commIdx,rAttr,session);
 	}
 	
-	@RequestMapping(value = "/boardrecCommList", method = RequestMethod.GET)
+	@RequestMapping(value = "/brdrecCommList", method = RequestMethod.GET)
 	@ResponseBody HashMap<String , Object> recCommList( HttpSession session,RedirectAttributes rAttr) {
-		logger.info("내가 추천한 댓글 리스트: {}");
+		logger.info("내가 추천한 댓글 리스트: {}",session);
 		return BoardService.boardrecCommList(rAttr,session);
 	}
 	
@@ -266,5 +266,9 @@ public class BoardController {
 		logger.info("대댓글쓰기 요청 params: {}", params);
 		return BoardService.boardRecommWrite(params,session,rAttr);
 	}
-	
+	@RequestMapping(value = "/boardRecommList/{commIdx}", method = RequestMethod.GET)
+	@ResponseBody HashMap<String , Object> groupRecommList(@PathVariable int commIdx) {
+		logger.info("대댓글 리스트 요청 commIdx: {}", commIdx);
+		return BoardService.boardRecommList(commIdx);
+	}
 }

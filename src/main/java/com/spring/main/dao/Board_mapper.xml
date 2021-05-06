@@ -459,5 +459,9 @@
 	SELECT rnum, newFileName 
 			FROM (SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, newFileName, id FROM photos WHERE id=#{param1}) 
 	</select>
-	
+	<!--대댓글 리스트-->
+	<select id="boardRecommList" resultType="comments2nd">
+		  SELECT s.commIdx, s.com2ndIdx, s.comments, s.reg_date, s.id FROM comments c, comments_2nd s 
+		  WHERE  c.commIdx=s.commIdx(+) AND c.commIdx=#{param1} AND s.blind='n' ORDER BY s.com2ndIdx DESC 
+	</select>
 </mapper>

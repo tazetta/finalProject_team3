@@ -24,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.main.dao.BoardDAO;
 import com.spring.main.dto.BoardDTO;
+import com.spring.main.dto.Comments2ndDTO;
 import com.spring.main.dto.CommentsDTO;
 import com.spring.main.dto.GroupDTO;
 
@@ -617,6 +618,16 @@ public class BoardService {
 		}
 
 		map.put("msg", msg);
+		return map;
+	}
+
+	public HashMap<String, Object> boardRecommList(int commIdx) {
+		logger.info(" 대댓글 리스트 서비스");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ArrayList<Comments2ndDTO> list = boarddao.boardRecommList(commIdx);
+		int listSize = list.size();
+		logger.info("listSize:" + listSize);
+		map.put("list", list);
 		return map;
 	}
 
