@@ -82,6 +82,8 @@ public interface GroupDAO {
 
 	ReportDTO groupRepBoardForm(int gpIdx);
 
+	int groupRepBoard(HashMap<String, String> params);
+
 
 
 
