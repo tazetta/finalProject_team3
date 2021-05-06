@@ -142,4 +142,7 @@ SELECT msgidx , sender , receiver , content , reg_date, rnum
 	UPDATE msg SET receivedel = 'y' WHERE msgIdx = #{param1}
 </update>
 
+
+
+
 </mapper>

@@ -357,9 +357,14 @@
 		UPDATE BOARD SET blind='y' WHERE boardIdx=#{boardIdx}
 	</delete>
 
-	<select id="getMyPhotos" resultType="String">
-		SELECT newFileName FROM
-		photos WHERE id=#{id} ORDER BY photoidx DESC
+	<select id="getMyPhotos" resultType="photo">
+		SELECT rnum, newFileName 
+			FROM (SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, newFileName, id FROM photos WHERE id=#{param3}) 
+			WHERE rnum BETWEEN #{param1} AND #{param2}
+	</select>
+	
+	<select id="getPhotoMax" resultType="int">
+		SELECT COUNT(newFileName) FROM photos WHERE id=#{param1}
 	</select>
 	<!--댓글가져오기 resultType=commentsDTO파일 어노테이션 -->
 	<select id="boardCommentList" resultType="comments">
@@ -440,5 +445,10 @@
 		INSERT INTO comments_2nd (com2ndIdx, COMMENTS, id, commIdx) 
 		VALUES (comments_2nd_seq.NEXTVAL, #{comments}, #{loginId}, #{commIdx})
 	</insert>
+	
+	<select id="myInteriorSlider" resultType="photo">
+	SELECT rnum, newFileName 
+			FROM (SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, newFileName, id FROM photos WHERE id=#{param1}) 
+	</select>
 	
 </mapper>
