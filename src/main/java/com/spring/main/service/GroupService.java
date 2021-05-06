@@ -650,13 +650,17 @@ public class GroupService {
 		return mav;
 	}
 
-	public ModelAndView groupRepBoard(HashMap<String, String> params) {
+	public HashMap<String, Object> groupRepBoard(HashMap<String, String> params) {
 		logger.info("공동구매 게시글 신고 서비스");
-		ModelAndView mav = new ModelAndView();
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		int result = groupdao.groupRepBoard(params); 
 		logger.info("result:"+result);
-		mav.setViewName("groupReportBoard");
-		return mav;
+		String success="fail";
+		if(result>0) {
+			success="success";
+		}
+		map.put("success", success);
+		return map;
 		
 	}
 

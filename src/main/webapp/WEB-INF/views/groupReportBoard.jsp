@@ -99,20 +99,20 @@ select:hover {
 	<div class="flexBox">
 		<div>
 			<div class="headDESC">게시글 신고</div>
-				<form action="/main/groupRepBoard"> 
+			
 				<table>
 					<tr>
 						<th>게시글 제목</th>
-						<td style="width: 350px;">${dto.subject }<input type="hidden" name="gpIdx" value="${dto.gpIdx }" /></td>
+						<td style="width: 350px;">${dto.subject }</td>
 					</tr>
 					<tr>
 						<th>작성자</th>
 						
-						<td style="width: 350px;">${dto.id }<input type="hidden" name="targetId"  value="${dto.id }"/></td>
+						<td style="width: 350px;">${dto.id }</td>
 					</tr>
 					<tr>
 						<th>신고자</th>
-						<td>${loginId}<input type="hidden" name="id" value="${loginId}"/></td>
+						<td>${loginId}</td>
 					</tr>
 					<tr>
 						<th>신고사유</th>
@@ -136,7 +136,6 @@ select:hover {
 						</td>
 					</tr>
 				</table>
-			</form>
 		</div>
 	</div>
 </body>
@@ -148,13 +147,30 @@ select:hover {
 		alert("신고사유를 선택해주세요");
 	}
 	 else{
-		 console.log("submit");
-		$("form").submit();
 		
-	} 
-		
+		 $.ajax({
+				url : "/main/groupRepBoard",
+				type : "get",
+				
+				data : {"id":"${loginId}", "targetId":"${dto.id}", "gpIdx":"${dto.gpIdx}", "repCtgIdx":selected},
+				dataType : "JSON",
+				success : function(data) {
+					console.log("success:", data.success);
+					if(data.success=='success'){
+						alert("신고되었습니다"); 
+						window.open('','_self').close();
+					}else{
+						alert("신고에 실패했습니다");
+					}
+				},
+				error : function(error) {
+					console.log("error:", error);
+				}
+			});
+		} 	
 	}
-		
+	
+
 		
 	function winClose(){
 		 window.open('','_self').close();
