@@ -17,7 +17,13 @@
         </tr>
         <tr>
             <th>받는 사람</th>
-            <td><input id="receiver" type="text" name="receiver"></td>
+            <td>
+            	<c:set var="receiver" value="<%=request.getParameter(\"receiver\")%>"></c:set>
+            	<c:if test="${receiver == null}">
+            	<input id="receiver" type="text" name="receiver"></c:if>
+            	<c:if test="${receiver != null}">
+            	<input id="receiver" type="text" name="receiver" value="<%=request.getParameter(\"receiver\")%>" readonly/></c:if>
+            </td>
         </tr>
         <tr>
             <th>내용</th>

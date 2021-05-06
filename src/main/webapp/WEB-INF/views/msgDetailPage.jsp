@@ -16,14 +16,19 @@
 			<td>${info.sender}</td>
 		</tr>
 		<tr>
-			<th>보낸사람</th>
-			<td>${info.reg_date}</td>
+			<th>받는 사람</th>
+			<td>${info.receiver}</td>
 		</tr>
 		<tr>
-			<th>보낸사람</th>
+			<th>내용</th>
 			<td>${info.content}</td>
 		</tr>
 	</table>
+		<button onclick="msgWrite(${info.receiver})">답장</button>
 	</body>
-	<script></script>
+	<script>
+		function msgWrite(receiver){
+			location.href="msgFormPopUp/"+receiver;
+		}
+	</script>
 </html>
