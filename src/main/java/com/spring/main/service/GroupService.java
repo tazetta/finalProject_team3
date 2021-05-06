@@ -29,6 +29,7 @@ import com.spring.main.dto.Comments2ndDTO;
 import com.spring.main.dto.CommentsDTO;
 import com.spring.main.dto.GroupDTO;
 import com.spring.main.dto.MemberDTO;
+import com.spring.main.dto.ReportDTO;
 
 @Service
 public class GroupService {
@@ -634,6 +635,33 @@ public class GroupService {
 		}
 		map.put("msg", msg);
 		return map;
+	}
+
+	public ModelAndView groupRepBoardForm(int gpIdx, HttpSession session) {
+		logger.info("공동구매 게시글 신고 form 서비스");
+		String loginId = (String) session.getAttribute("loginId");
+		ModelAndView mav = new ModelAndView();
+		GroupDTO dto = groupdao.groupDetail(gpIdx);
+		if(dto!=null) {
+			mav.addObject("dto",dto);
+			mav.addObject("loginId",loginId);
+		}
+		mav.setViewName("groupReportBoard");
+		return mav;
+	}
+
+	public HashMap<String, Object> groupRepBoard(HashMap<String, String> params) {
+		logger.info("공동구매 게시글 신고 서비스");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int result = groupdao.groupRepBoard(params); 
+		logger.info("result:"+result);
+		String success="fail";
+		if(result>0) {
+			success="success";
+		}
+		map.put("success", success);
+		return map;
+		
 	}
 
 }

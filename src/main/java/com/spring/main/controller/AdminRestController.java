@@ -99,4 +99,18 @@ public class AdminRestController {
 		logger.info("repCtg : {}", repCtgIdx);
 		return service.adminReportedCommList(pagePerCnt, page, repCtgIdx);
 	}
+	
+	@RequestMapping(value = "/adminReportedGroupList", method = RequestMethod.GET)
+	public ModelAndView adminReportedGroupListPage() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("adminReportedGroupList");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/adminReportedGroupList/{pagePerCnt}/{page}/{repCtgIdx}", method = RequestMethod.GET)
+	public HashMap<String, Object> adminReportedGroupList(@PathVariable int pagePerCnt, @PathVariable int page, @PathVariable int repCtgIdx) {
+		logger.info("pagePerCtn : {} / page : {}", pagePerCnt, page);
+		logger.info("repCtg : {}", repCtgIdx);
+		return service.adminReportedGroupList(pagePerCnt, page, repCtgIdx);
+	}
 }

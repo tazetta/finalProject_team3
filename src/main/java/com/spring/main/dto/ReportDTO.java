@@ -20,6 +20,8 @@ public class ReportDTO {
 	private String targetId;
 	private String subject;
 	private String blind;
+	private int gpIdx;
+
 	private String comments;
 	
 
@@ -31,7 +33,16 @@ public class ReportDTO {
 		this.comments = comments;
 	}
 
+
 	
+	public int getGpIdx() {
+		return gpIdx;
+	}
+
+	public void setGpIdx(int gpIdx) {
+		this.gpIdx = gpIdx;
+	}
+
 	public String getSubject() {
 		return subject;
 	}

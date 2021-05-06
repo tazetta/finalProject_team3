@@ -153,4 +153,17 @@
 			AND repctgidx = ${param3}
 		</if>
 	</select>
+	
+	<select id="adminReportedGroupList" resultType="com.spring.main.dto.ReportDTO">
+		SELECT g.subject, r.repctgidx, r.targetid, r.reg_date, g.blind, r.gpidx
+			FROM (SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, repctgidx, targetid, reg_date, boardidx, gpIdx FROM reports) r , grouppurchase g
+			WHERE r.gpidx = g.gpidx AND r.rnum BETWEEN #{param1} AND #{param2}
+			<if test = "param3 != 0">
+				AND repctgidx = ${param3}
+			</if>
+	</select>
+	
+	<select id="reportedGroupMaxCnt" resultType="int">
+		SELECT COUNT(gpIdx) FROM reports
+	</select>
 </mapper>

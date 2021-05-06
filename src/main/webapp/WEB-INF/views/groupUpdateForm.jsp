@@ -203,14 +203,14 @@ var today = new Date();
 today = today.format("yyyy-MM-dd");
 
 
-/* 날짜 변경시  초기값으로 등록된 날짜 이후로 설정하도록 강제*/
+/* 날짜 변경시  오늘 이전으로 설정하지 못하도록 강제*/
 $("#deadline").on("change", function dateChk(e){
  		var deadline = $(this).val();
  		var defaultVal = $(this).prop("defaultValue");
  		console.log("deadline:"+deadline);
  		console.log("defaultVal:"+defaultVal);
- 	if(deadline<defaultVal){
- 		alert("마감일은 처음 등록된 값보다 이전으로 설정 할 수 없습니다.")
+ 	if(deadline<today){
+ 		alert("마감일은 오늘날짜보다 이전으로 설정 할 수 없습니다.")
  		$(this).val(defaultVal); 
  	}
 });

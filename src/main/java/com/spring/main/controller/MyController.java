@@ -24,9 +24,10 @@ public class MyController {
 	
 
 	@RequestMapping(value = "/myInteriorHistory", method = RequestMethod.GET)
-	public String adminMain() {
+	public ModelAndView adminMain() {
 		logger.info("인테리어변천사");
-		return "myInteriorHistory";
+		String id = "mingmang17";
+		return myService.myInteriorSlider(id);
 	}
 
 	@RequestMapping(value = "/mynavi", method = RequestMethod.GET)

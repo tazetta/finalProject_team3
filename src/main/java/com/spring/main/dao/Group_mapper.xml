@@ -214,6 +214,10 @@
 	<update id="groupRecommDel">
 		 UPDATE comments_2nd SET blind='y' WHERE com2ndIdx=#{com2ndIdx}
 	</update>
+	
+	 <insert id="groupRepBoard">
+		INSERT INTO reports (repIdx,id,targetId,gpIdx,repCtgIdx) VALUES (reports_seq.NEXTVAL,#{id},#{targetId},#{gpIdx},#{repCtgIdx})
+	</insert> 
 
 	
 </mapper>

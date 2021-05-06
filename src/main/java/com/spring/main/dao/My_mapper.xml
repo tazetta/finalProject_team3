@@ -142,6 +142,7 @@ SELECT msgidx , sender , receiver , content , reg_date, rnum
 	UPDATE msg SET receivedel = 'y' WHERE msgIdx = #{param1}
 </update>
 
+
 <select id="receiverChk" resultType="int">
 	SELECT COUNT(id) FROM generalmember WHERE id=#{param1}
 </select>

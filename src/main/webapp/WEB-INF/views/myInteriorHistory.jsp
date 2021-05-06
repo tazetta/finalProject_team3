@@ -20,8 +20,8 @@
 			autoControls : true,
 			stopAutoOnClick : true,
 			pager : true,
-			slideWidth : 400,
-			slideHeight : 250
+			slideWidth : 900,
+			slideHeight : 400
 		});
 	});
 	//]]>
@@ -109,7 +109,8 @@ h2 {
 	color: tomato;
 	margin-left: 10px;
 	margin-right: 10px;
-	margin-bottom: 0px;
+	margin-bottom: 10px;
+	margin-top: 15px;
 }
 
 .myPhotos {
@@ -127,58 +128,33 @@ h2 {
 </style>
 </head>
 <body>
-	<%-- <div class="sideBar" style="margin-right: 15px;">
-		<jsp:include page="mynavi.jsp"/>
-	</div> --%>
-	<div class="flexBox" >
-			<jsp:include page="mainnavi.jsp"/>
+	<div class="sideBar"
+		style="margin-right: 15px; position: fixed; left: 150px;">
+		<jsp:include page="mynavi.jsp" />
+	</div>
+	<div class="flexBox">
+		<jsp:include page="mainnavi.jsp" />
 		<div class="testDiv" style="max-width: 900px;">
 			<!-- <div id="eventImage">
 				<i class="arrow left" onclick="imageSlider2()"></i> <i
 					class="arrow right" onclick="imageSlider()"></i>
 			</div> -->
 			<div>
-				<div class="wraping" style="height: 300px">
-					<div class="bxslider">
-						<div>
-							<img src="resources/images/interior1.jpg" width="400px"
-								height="250px">
-						</div>
-						<div>
-							<img src="resources/images/interior2.jpg" width="400px"
-								height="250px">
-						</div>
-						<div>
-							<img src="resources/images/interior3.jpg" width="400px"
-								height="250px">
-						</div>
-					</div>
-				</div>
-				<div class="wraping" style="height: 300px">
-					<div class="bxslider">
-						<div>
-							<img src="resources/images/interior1.jpg" width="400px"
-								height="250px">
-						</div>
-						<div>
-							<img src="resources/images/interior2.jpg" width="400px"
-								height="250px">
-						</div>
-						<div>
-							<img src="resources/images/interior3.jpg" width="400px"
-								height="250px">
+				<div class="sliderBox">
+					<div class="wraping" style="height: 300px">
+						<div class="bxslider">
+						<c:forEach items="${slide}" var="slide">
+							<div>
+								<img src="resources/images/${slide.newFileName}" width="880px"
+									height=300px>
+							</div>
+						</c:forEach>
 						</div>
 					</div>
 				</div>
 				<div class="something">
-					<div class="headDESC" style="border-bottom: 2px solid lightgray;">내
-						사진들</div>
-					<div class="box">
-						<div class="myPhotos">
-							<img src="resources/images/interior1.jpg" width="400px"
-								height="250px">
-						</div>
-					</div>
+					<div class="headDESC" style="border-bottom: 2px solid lightgray;">내 사진들</div>
+					<div class="box"></div>
 				</div>
 			</div>
 		</div>
@@ -188,57 +164,55 @@ h2 {
 const getDataLength = 4;
 let count = 0;
 let image = "";
-$(document).ready(() => {
-	loop();
-});
+var thisPage = 1;
+var id = 'mingmang17';
 
-const loop = () => {
-	Array.from({ length: getDataLength }, (_, i) => i + count).forEach(
-		num => {
-			getTodos(num);
-		}
-	);
-};
+	getTodos(thisPage, id);
 
-const getTodos = num => {
-	if (!num) return;
-	
+function getTodos (reqPage, id){	
 	count++;
 	/* $.get(`https://jsonplaceholder.typicode.com/todos/${num}`, data => {
 		addTodoCard({ data, target: '.something' });
 	}); */
+	var reqUrl = 'myPhotos'+'/'+4+'/'+reqPage+'/'+id;
 	$.ajax({
-		url : 'myPhotos/'+num,
-		type : "get",
-		data : {},
-		dataType : "JSON",
-		success : function(data) {
-			image = data.images[count];
-			if (count > data.images.length) {
-				console.log('데이터 끝');
-			} else {	
-				addTodoCard({ data, target: '.something' });
-			}
-		},
-		error : function(error) {
-			console.log(error); 
-		} 
+		url:reqUrl
+		,data:{}
+		,type:'GET'
+		,dataType:'JSON'
+		,success:(data)=>{
+			if(reqPage > data.maxPage){listCall(data.maxPage, id);}
+			console.log(reqUrl);
+			console.log(data);
+			thisPage = data.currPage;
+			appendPhotos(data.list);
+			
+			console.log('최대 페이지 '+data.maxPage);
+		}
+		,error:(data)=>{
+			console.log(data);
+		}
 	});
 	
 };
 
-const addTodoCard = ({ data, target }) => {
-	
-	var src = 'resources/images/'+data.images[0];
-	const card = "<div class='myPhotos'><img src='" + src + "' alt='image' width='400px' height='250px'><div class='container'><p>이미지</p></div></div>"
-	      
-	$(target).append(card);
+
+function appendPhotos(list){
+	var card = "";
+	var src = "";
+	for(var i = 0; i<list.length;i++){
+		src += "C:/upload/"+list[i].newFileName;
+		card += "<div class='myPhotos'><img src='" + src + "' alt='image' width='400px' height='250px'><div class='container'><p>"+src+"</p></div></div>"
+		src = "";
+	}
+	$(".box").append(card);
 };
 
 
 $(window).scroll(function () {
 	if ($(window).scrollTop() == $(document).height()-1007) {
-		loop();
+		thisPage++;
+		getTodos(thisPage, id);
 	} 
 });
 </script>

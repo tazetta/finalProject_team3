@@ -85,7 +85,7 @@ public class GroupController {
 	
 
 	@RequestMapping(value = "/groupUpdateForm/{gpIdx}", method = RequestMethod.GET)
-	public @ResponseBody ModelAndView groupUpdateForm(@PathVariable int gpIdx, HttpSession session) {
+	public  ModelAndView groupUpdateForm(@PathVariable int gpIdx, HttpSession session) {
 		logger.info("공동구매 수정하기 form 요청: " + gpIdx);
 		// 업로드할 파일이름을 저장한 HashMap생성해서 session에 저장(upload메서드에서 여러파일을 관리하기위해)
 		HashMap<String, String> fileList = new HashMap<String, String>();
@@ -182,11 +182,6 @@ public class GroupController {
 		return groupService.groupRecommList(commIdx);
 	}
 	
-	@RequestMapping(value = "/reportBoardPage", method = RequestMethod.GET)
-	public String reportBoardPage(HttpSession session) {
-		logger.info("게시글 신고 팝업 요청");
-		return "reportBoard";
-	}
 	
 	@RequestMapping(value = "/groupRecommDel/{com2ndIdx}", method = RequestMethod.GET)
 	@ResponseBody HashMap<String , Object> groupRecommDel(@PathVariable int  com2ndIdx) {
@@ -194,6 +189,17 @@ public class GroupController {
 		return groupService.groupRecommDel(com2ndIdx);
 	}
 	
+	@RequestMapping(value = "/groupRepBoardForm/{gpIdx}", method = RequestMethod.GET)
+	public ModelAndView reportBoardPage(@PathVariable int gpIdx,  HttpSession session) {
+		logger.info("공동구매 게시글 신고 form 요청:"+gpIdx);
+		return groupService.groupRepBoardForm(gpIdx,session);
+	}
+	
+	@RequestMapping(value = "/groupRepBoard", method = RequestMethod.GET)
+	@ResponseBody HashMap<String , Object> groupRepBoard(@RequestParam HashMap<String, String> params,  HttpSession session) {
+		logger.info("공동구매 게시글 신고 요청 : params:{}",params);
+		return groupService.groupRepBoard(params);
+	}
 	
 	
 

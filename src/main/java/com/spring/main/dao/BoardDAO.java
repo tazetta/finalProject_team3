@@ -34,7 +34,7 @@ public interface BoardDAO {
 	//게시글 삭제
 	int boardDel(String boardIdx);
 
-	ArrayList<PhotoDTO> getMyPhotos(String id);
+	ArrayList<PhotoDTO> getMyPhotos(int pagePerCnt, int page, String id);
 
 	// 게시판 목록 전체 개수 조회
 	int getBoardListCount(int brdCtgIdx, String opt, String keyword);
@@ -45,7 +45,7 @@ public interface BoardDAO {
 	//댓글 가져오기
 	ArrayList<CommentsDTO> boardCommentList(int boardIdx);
 	//댓글 작성
-	int boardCommentWrite(String comment, String boardIdx, String id );
+	int boardCommentWrite(HashMap<String, String> params);
 	//댓글삭제(상태값변경)
 	int boardCommDel(int commIdx);
 	//세부검색기능
@@ -91,5 +91,7 @@ public interface BoardDAO {
 	ArrayList<BoardDTO> myRecList(String loginId);
 	
 	int boardRecommWrite(HashMap<String, String> params);
+	int getPhotoMax(String id);
+	ArrayList<PhotoDTO> myInteriorSlider(String id);
 	
 }
