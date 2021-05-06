@@ -22,7 +22,7 @@
     <div class="receive-area">
     	<div class="receive">
     		<h4>받은쪽지함</h4>
-    		<h7><a href="#">더보기</a></h7>
+    		<h7><a href="msgreceivepage">더보기</a></h7>
     		<button onclick="msgFormPopUp()">쪽지 쓰기</button>
     	</div>
         <table>
@@ -52,7 +52,7 @@
      <div>
      	<div class="sender">
     		<h4>받은쪽지함</h4>
-    		<h7><a href="#">더보기</a></h7>
+    		<h7><a href="msgsenderpage">더보기</a></h7>
     	</div>
         <table>
         <thead>
@@ -84,7 +84,7 @@
 function msgFormPopUp(){
 	var url = "msgFormPopUp";
 	
-	window.open(url,"쪽지보내기폼","width=600, height=650");
+	window.open(url,"쪽지보내기폼","width=400, height=400");
 	
 }
 
@@ -165,7 +165,8 @@ function listCall(reqPage,reqPagePerNum){
 			content +="<td><a href='msgDetail/"+list[i].msgIdx+"'>"+list[i].content+"</a></td>"
 			var date = new Date(list[i].reg_date);
 			content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"		
-			content +="<td><button onclick=\"location.href='msgDelete/"+list[i].msgIdx+"'\">삭제</button></td>"
+			content +="<td><button class=\"delBtn\"  onclick=\"deleteMsg("+list[i].msgIdx+")\""+">삭제</button></td>"
+			//content +="<td><button onclick=\"location.href='msgDelete/"+list[i].msgIdx+"'\">삭제</button></td>"
 			content +="</tr>"
 		}
 		$("#list").empty();
@@ -179,7 +180,8 @@ function listCall(reqPage,reqPagePerNum){
 			content +="<td><a href='msgDetail/"+list[i].msgIdx+"'>"+list[i].content+"</a></td>"
 			var date = new Date(list[i].reg_date);
 			content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"		
-			content +="<td><button onclick=\"location.href='msgDelete/"+list[i].msgIdx+"'\">삭제</button></td>"
+			content +="<td><button class=\"delBtn\"  onclick=\"deleteMsg("+list[i].msgIdx+")\""+">삭제</button></td>"
+			//content +="<td><button onclick=\"location.href='msgDelete/"+list[i].msgIdx+"'\">삭제</button></td>"
 			content +="</tr>"
 		}
 		$("#list2").empty();
@@ -189,6 +191,12 @@ function listCall(reqPage,reqPagePerNum){
 	 var msg = "${msg}";
 	 if(msg != ""){
 		 alert(msg);
+	 }
+	 function deleteMsg(msgIdx){
+		 if(confirm("정말 삭제하시겠습니까?")){
+			
+			
+		 }
 	 }
 </script>
 </html>

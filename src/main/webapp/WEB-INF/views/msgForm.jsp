@@ -64,8 +64,9 @@
 			success:function(data){
 				console.log(data);
 				alert(data.msg);
-				if(data.success){
+				if(data.success > 0){
 					self.close();
+					opener.parent.location.reload();
 				}
 			},error:function(error){
 				console.log(error);

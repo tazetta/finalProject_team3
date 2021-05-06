@@ -261,14 +261,14 @@ public class MyService {
 		if(loginId.equals(sender)) {
 			MyDAO.deleteSender(msgIdx);
 			msg = "삭제 성공하였습니다.";
-			page = "redirect:/msgsenderpage";
+			
 		}else if(loginId.equals(receiver)) {
 			MyDAO.deleteReceiver(msgIdx);
 			msg = "삭제 성공하였습니다.";
-			page = "redirect:/msgreceivepage";
+			
 		}
 		rAttr.addFlashAttribute("msg", msg);
-		mav.setViewName(page);
+		
 		return mav;
 	}
 
@@ -291,12 +291,22 @@ public class MyService {
 	}
 
 
-	public ModelAndView sendMsg(HashMap<String, String> params) {
-		String receiver = params.get(receiver);
+	public HashMap<String, Object> sendMsg(HashMap<String, String> params) {
+		String receiver = params.get("receiver");
 		logger.info("받는 사람" + receiver);
-		
-		
-		return null;
+		int success  = MyDAO.receiverChk(receiver);
+		int sendMsgSuccess = 0;
+		String msg = "없는 유저입니다.";
+		if(success > 0) {
+			sendMsgSuccess = MyDAO.sendMsg(params);
+		}
+		if(sendMsgSuccess > 0) {
+			msg = "쪽지를 보냈습니다.";			
+		}
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("msg", msg);
+		map.put("success", success);
+		return map;
 	}
 
 
