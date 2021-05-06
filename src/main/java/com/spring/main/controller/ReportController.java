@@ -23,18 +23,16 @@ public class ReportController {
 	
 	//업체 신고
 	@RequestMapping(value = "/companyReportForm", method = RequestMethod.GET)
-	public ModelAndView examWrcompanyReportForm(@RequestParam String comId) {
+	public ModelAndView examWrcompanyReportForm(@RequestParam String comId,HttpSession session) {
 		logger.info("신고새창 페이지로 이동");
 		ModelAndView mav = new ModelAndView();
+		String loginId = (String) session.getAttribute("loginId");
 		mav.addObject("comId",comId);
+		mav.addObject("loginId", loginId);
 		mav.setViewName("companyReportForm");
 		return mav;
 	}
 	
-	@RequestMapping(value = "/companyReport", method = RequestMethod.POST)
-	public ModelAndView companyReport(@RequestParam HashMap<String , String> params) {
-		logger.info("신고요청");
-		return service.companyReport(params);
-	}
+	
 	
 }

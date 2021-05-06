@@ -68,6 +68,7 @@ public class MemberInterceptor extends HandlerInterceptorAdapter {
 		
 	}
 
+	/*
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
@@ -75,6 +76,7 @@ public class MemberInterceptor extends HandlerInterceptorAdapter {
 		boolean pass = false;
 		HttpSession session = request.getSession();
 		String loginId = (String) session.getAttribute("loginId");
+		System.out.println("loginId:"+loginId);
 			
 		MemberDTO dto = admindao.checkPenalty(loginId);	
 		int stateIdx = dto.getStateIdx();
@@ -84,7 +86,7 @@ public class MemberInterceptor extends HandlerInterceptorAdapter {
 		
 		return pass;
 	}
-	
+	*/
 	
 	
 }

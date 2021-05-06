@@ -2,6 +2,9 @@ package com.spring.main.dto;
 
 import java.sql.Date;
 
+import org.apache.ibatis.type.Alias;
+
+@Alias("report")
 public class ReportDTO {
 
 	private int repIdx;
@@ -17,6 +20,17 @@ public class ReportDTO {
 	private String targetId;
 	private String subject;
 	private String blind;
+	private String comments;
+	
+
+	public String getComments() {
+		return comments;
+	}
+
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
+
 	
 	public String getSubject() {
 		return subject;

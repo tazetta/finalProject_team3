@@ -45,4 +45,6 @@ public interface ExamDAO {
 
 	ArrayList<EstimateDTO> estimateList(int start, int end, String comId);
 
+	int allScrollCount();
+
 }

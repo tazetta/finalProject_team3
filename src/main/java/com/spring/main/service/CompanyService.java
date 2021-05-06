@@ -85,4 +85,19 @@ public class CompanyService {
 		return mav;
 	}
 
+
+	public ModelAndView companyReport(HashMap<String, String> params) {
+		logger.info("업체신고요청");
+		ModelAndView mav = new ModelAndView();
+		int result = dao.companyReport(params);
+		//String comId = params.get("comId");
+		String msg = "신고처리에 실패했습니다.";
+		if(result>0) {
+			msg="신고처리가 완료되었습니다.";	
+		}
+		mav.addObject("msg", msg);
+		mav.setViewName("companyReportForm");
+		return mav;
+	}
+
 }

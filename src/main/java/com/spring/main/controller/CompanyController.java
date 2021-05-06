@@ -21,7 +21,13 @@ public class CompanyController {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired CompanyService service;
-
+	
+	@RequestMapping(value = "/companyReport", method = RequestMethod.POST)
+	public ModelAndView companyReport(@RequestParam HashMap<String , String> params) {
+		logger.info("신고요청");
+		return service.companyReport(params);
+	}
+	
 	@RequestMapping(value = "/companydetail", method = RequestMethod.GET)
 	public ModelAndView companydetail(HttpSession session) {	
 		logger.info("업체페이지상세보기");

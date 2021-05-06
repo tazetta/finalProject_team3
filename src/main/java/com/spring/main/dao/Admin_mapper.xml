@@ -42,20 +42,21 @@
 	</select>
 	
 	<select resultType="com.spring.main.dto.MemberDTO" id="adminMemberList">
-		SELECT m.rnum, m.id, g.grade, m.stateIdx, m.reg_date 
-	    FROM membergrade g cross join 
-	        (SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, id, gradeidx ,stateidx , reg_date FROM generalmember) m
+		SELECT * FROM
+			(SELECT ROW_NUMBER() OVER(ORDER BY m.reg_date DESC) as rnum, m.id, g.grade, m.stateIdx, m.reg_date 
+			FROM membergrade g cross join (SELECT id, gradeidx ,stateidx , reg_date FROM generalmember) 
+			m WHERE g.gradeidx = m.gradeidx 
 	        <if test = "param3 == 0 and param4 == 0 and param5 == 'none'">
-			    WHERE g.gradeidx = m.gradeidx AND rnum BETWEEN #{param1} AND #{param2} order by m.rnum asc
+			    )WHERE rnum BETWEEN #{param1} AND #{param2} order by rnum asc
 	        </if>
 	        <if test = "param3 == 1 || param3 == 2 || param3 == 3 || param3 == 4 || param3 == 5">
-	        	WHERE g.gradeidx = m.gradeidx AND g.gradeidx=#{param3} AND rnum BETWEEN #{param1} AND #{param2} order by m.rnum asc
+	        	AND g.gradeidx=#{param3}) WHERE rnum BETWEEN #{param1} AND #{param2} order by rnum asc
 	        </if>
 	        <if test = "param4 == 1 || param4 == 2 || param4 == 3 || param4 == 4 || param4 == 5 || param4 == 6 || param4 == 7"  >
-	        	WHERE g.gradeidx = m.gradeidx AND m.stateidx = #{param4} AND rnum BETWEEN #{param1} AND #{param2} order by m.rnum asc
+	        	AND m.stateidx = #{param4}) WHERE rnum BETWEEN #{param1} AND #{param2} order by rnum asc
 	        </if>
 	        <if test = "param5 != 'none'">
-	        	WHERE g.gradeidx = m.gradeidx AND m.id = #{param5} AND rnum BETWEEN #{param1} AND #{param2} order by m.rnum asc
+	        	AND m.id = #{param5}) WHERE rnum BETWEEN #{param1} AND #{param2} order by rnum asc
 	        </if>
 	</select>
 	
@@ -81,7 +82,11 @@
 	</update>
 	
 	<select id="adminCompanyList" resultType="com.spring.main.dto.CompanyMemberDTO"> 
-		SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, comid,comname, license, phone, reg_date FROM companymember 
+		SELECT * FROM 
+		(SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, comid,comname, license, phone, reg_date FROM companymember) 
+		<if test = "param3 == 'none'">
+			WHERE rnum BETWEEN #{param1} AND #{param2}
+		</if>
 		<if test = "param3 != 'none'">
 			WHERE comid = #{param3}
 		</if>
@@ -93,18 +98,18 @@
 			</if>
 	</select>
 	<select id="companyDetail" resultType="com.spring.main.dto.CompanyMemberDTO">
-		SELECT comName, comid, license, phone, reg_date, r.rate, r.cnt
-    		FROM (SELECT AVG(rate) rate, COUNT(revidx) cnt FROM review WHERE comid=#{param1}) r, companymember c WHERE comid=#{param1}
+		SELECT comName, comId, license, phone, reg_date, r.rate, r.cnt
+    		FROM (SELECT AVG(rate) rate, COUNT(revidx) cnt FROM review WHERE comId=#{param1}) r, companymember c WHERE comId=#{param1}
 	</select>
 	
 	<select id="adminSoundList" resultType="com.spring.main.dto.BoardDTO"> 
-		SELECT subject, brdctgidx, id, reg_date, sgtctg, rnum, boardIdx 
+		SELECT *
     		FROM (SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, subject, brdctgidx, sgtctg, id, reg_date, boardIdx FROM board WHERE brdctgidx=5) 
 		<if test= "param3 == 'none'">
-    		WHERE rnum BETWEEN 1 and 10
+            WHERE rnum BETWEEN #{param1} AND #{param2}
 		</if>
 		<if test = "param3 != 'none'">
-			WHERE sgtctg = #{param3} AND rnum BETWEEN 1 AND 10
+			WHERE sgtctg = #{param3} AND rnum BETWEEN #{param1} AND #{param2}
 		</if>
 	</select>
 	
@@ -131,6 +136,19 @@
 		SELECT b.subject, r.repctgidx, r.targetid, r.reg_date, b.blind 
     		FROM (SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, repctgidx, targetid, reg_date, boardidx FROM reports) r
         , board b WHERE r.boardidx = b.boardidx AND r.rnum BETWEEN ${param1} AND ${param2}
+		<if test = "param3 != 0">
+			AND repctgidx = ${param3}
+		</if>
+	</select>
+	
+	<select id="reportedCommMaxCnt" resultType="int">
+		SELECT COUNT(commIdx) FROM reports
+	</select>
+	
+	<select id="adminReportedCommList" resultType="com.spring.main.dto.ReportDTO"> 
+		SELECT c.comments, r.repctgidx, r.targetid, r.reg_date, c.blind 
+    		FROM (SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, repctgidx, targetid, reg_date, commIdx FROM reports) r
+        , comments c WHERE r.commIdx = c.commIdx AND r.rnum BETWEEN ${param1} AND ${param2}
 		<if test = "param3 != 0">
 			AND repctgidx = ${param3}
 		</if>

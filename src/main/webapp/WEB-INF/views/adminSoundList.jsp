@@ -168,6 +168,7 @@ select:hover {
 	$("#sgtCtgSelect").change(()=>{
 		thisPage = 1;
 		sgtctg = $("#sgtCtgSelect").val();
+		$("#pagination").twbsPagination('destroy');
 		listCall(thisPage, sgtctg);
 	});
 	
@@ -188,6 +189,10 @@ select:hover {
 					startPage:data.currPage
 					,totalPages:data.maxPage
 					,visiblePages:5
+					,first : '<span aria-hidden="true"><<</span>'
+						,prev : "이전"
+						,next : "다음"
+						,last : '<span aria-hidden="true">>></span>'
 					,onPageClick:(evt, page)=>{
 						console.log(evt);
 						console.log(page);
