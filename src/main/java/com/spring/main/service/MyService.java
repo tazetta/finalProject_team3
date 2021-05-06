@@ -257,7 +257,7 @@ public class MyService {
 		return mav;
 	}
 
-	public ModelAndView msgDelete(int msgIdx, HttpSession session, RedirectAttributes rAttr) {
+	public HashMap<String, Object> msgDelete(int msgIdx, HttpSession session, RedirectAttributes rAttr) {
 		MsgDTO dto =  MyDAO.whoSR(msgIdx);
 		ModelAndView mav = new ModelAndView();
 		String loginId = (String) session.getAttribute("loginId");
@@ -274,9 +274,10 @@ public class MyService {
 			msg = "삭제 성공하였습니다.";
 			
 		}
-		rAttr.addFlashAttribute("msg", msg);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("msg", msg);
 		
-		return mav;
+		return map;
 	}
 
 

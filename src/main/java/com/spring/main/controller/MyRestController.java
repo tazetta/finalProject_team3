@@ -88,7 +88,7 @@ public class MyRestController {
 		
 	}
 	@RequestMapping(value = "/msgDelete/{msgIdx}", method = RequestMethod.GET)
-	public ModelAndView msgDelete(@PathVariable int msgIdx ,HttpSession session , RedirectAttributes rAttr) {
+	public HashMap<String, Object> msgDelete(@PathVariable int msgIdx ,HttpSession session , RedirectAttributes rAttr) {
 		logger.info("쪽지 삭제하기");
 		return service.msgDelete(msgIdx , session ,rAttr);
 		

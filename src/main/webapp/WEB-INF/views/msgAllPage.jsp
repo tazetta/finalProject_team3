@@ -195,6 +195,22 @@ function listCall(reqPage,reqPagePerNum){
 	 function deleteMsg(msgIdx){
 		 if(confirm("정말 삭제하시겠습니까?")){
 			
+			 
+			var params = {};
+			
+			params.msgIdx = msgIdx;
+			$.ajax({
+				   type:'get'
+                       ,url:'msgDelete/'+msgIdx
+                       ,data:{}
+                       ,dataType:'json'
+                       ,success:function(data){
+                           console.log(data);
+               				alert(data.msg);
+               				location.reload(true);
+                           },error:function(e){
+                       }
+			})
 			
 		 }
 	 }
