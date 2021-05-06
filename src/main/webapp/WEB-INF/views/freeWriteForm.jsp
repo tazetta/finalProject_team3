@@ -30,6 +30,7 @@ a.button,.button {
 	color: rgba(30, 22, 54, 0.6);
     background-color: rgb(230, 226, 224);
 	box-shadow: rgb(230, 226, 224) 0 0px 0px 2px inset;
+	border: 1px  rgb(230, 226, 224);
 }
 
 a.button:hover,.button:hover {
@@ -41,9 +42,12 @@ a.button2,.button2 {
 	color: rgba(30, 22, 54, 0.6);
     background-color: rgb(255, 210, 180);
 	box-shadow: rgb(255, 210, 180) 0 0px 0px 2px inset;
+	border-radius: 10px;
+	border: 1px  rgba(30, 22, 54, 0.6);
+	
 }
 
-a.button2:hover,.button:hover {
+a.button2:hover,.button2:hover {
 	color: rgba(255, 255, 255, 0.85);
 	box-shadow: rgb(255, 210, 180) 0 0px 0px 40px inset;
 }
@@ -53,7 +57,7 @@ a.button2:hover,.button:hover {
 <body>
 
     
-    <form method="POST" action="boardWrite">
+    <form id = "form" method="POST" action="boardWrite">
     	<input type="number" value="1" name="boardCtgIdx"/>
     	<input type="text" value="${sessionScope.loginId}" name="id"/>
         <div class="container" style="text-align: center; padding-top: 10px;">
@@ -65,6 +69,7 @@ a.button2:hover,.button:hover {
             <span><a href="" style="font-size:small; float: right; color: gray; font-weight: bold;">로그인</a></span>
         </div>
         <br/>
+        
         <div class="container" style="height:200px; background-color: rgb(163, 182, 248); text-align:center;">
 
         <h2 style="padding-top: 70px; font-weight: bold; ">자유게시판 글쓰기</h2>
@@ -75,7 +80,7 @@ a.button2:hover,.button:hover {
         <div class="container">
         <table class="table">
             <tr>
-                <td><input type="text" class="form-control" placeholder="제목을 100자 내로 입력해주세요" name="subject" maxlength="40"></td>
+                <td><input type="text" class="form-control" placeholder="제목을 100자 내로 입력해주세요" id="subject" name="subject" maxlength="40"></td>
             </tr>
             <tr>
                 <td><div contenteditable="true" id="editable" style="overflow:scroll; width: 100%; height: 400px; border: 2px solid black; border-radius: 10px;">
@@ -85,11 +90,11 @@ a.button2:hover,.button:hover {
       </div>
         <div class="container">
         <!-- <a href="#" class="button" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; onclick="fileUp()">첨부파일</a> -->
-          <input class="button" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; type="button" value="파일업로드" onclick="fileUp()" />
+          <input class="button" style="max-width: 100; margin: 10px ;  padding: 10px 10px; font-weight: bold;" type="button" value="파일업로드" onclick="fileUp()" />
             <div class="row" style="float: right;">
-           <input class="button2" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; " type="submit" value="저장">
+           <input class="button2" id="save" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; " type="button" onclick="location.href='Freelist'" value="저장"/>
             </div>
-            <a href="#" class="button" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; float: right;">취소</a>
+            <a href="Freelist" class="button" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; float: right;">취소</a>
             </div>
                
 
@@ -97,14 +102,34 @@ a.button2:hover,.button:hover {
 
 </body>
 <script>
+$("#save").on("click", function(){
+	var subject = $("#subject").val();
+	var editable = $("#editable").val();
+	
+	if(subject==''){
+		alert("제목을 입력해주세요");
+		$("#subject").focus();
+		
+	}else if(editable==''){
+		alert("내용을 입력해주세요.");
+		$("#editable").focus();
+	}
+
+	/*else{
+		$("#editable>a").find("b").remove(); //a태그안 b태그 삭제
+		$("#editable>a").removeAttr("onclick"); //del(this) 무효화
+		$("#content").val($("#editable").html());
+		$("form").submit();
+	}*/
+});
 //boarduploadForm에서 보내는 elem확인
-$("#save").click(function() {
+/*$("#save").click(function() {
 	console.log($("#editable").html());
 	$("#editable>a").find("b").remove(); //a태그안 b태그 삭제
 	$("#editable>a").removeAttr("onclick"); //del(this) 무효화
 	$("#content").val($("#editable").html());
 	$("form").submit();
-});
+});*/
 
 function fileUp(){
 	window.open("boardUploadForm","fileUpload","width=400, height=100");
