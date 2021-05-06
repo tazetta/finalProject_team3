@@ -145,6 +145,7 @@ margin:5px;
 		</c:if>
 	</table>
 	<button onclick="location.href='groupListPage'">목록</button>
+	<button onclick="reportBoard()" >신고</button>
 	<c:if test="${ dto.id == sessionScope.loginId }">
 	<button onclick="location.href='groupDel/${dto.gpIdx}'">삭제</button>
 	<button onclick="location.href='groupUpdateForm/${dto.gpIdx}'">수정</button>
@@ -178,6 +179,11 @@ margin:5px;
 	
 	groupCommentList(); //댓글리스트 호출
 
+	/*글 신고*/
+	function reportBoard(){
+		window.open("reportBoardPage","reportBoard","width=800, height=600");
+		//요청url,타이틀,옵션
+	}
 	/*신청-취소 toggle*/
 	$("#toggleApply").click(function() {
 			location.href = '/main/applyGroup/${dto.gpIdx}/${sessionScope.loginId}';
@@ -432,13 +438,30 @@ margin:5px;
 				success : function(data) {
 					console.log("recommWirteSuccess: ", data);
 					alert(data.msg);
-					$("#recommentBox").remove();
+					$("#recommentBox").remove(); //대댓글창 삭제
 				},
 				error : function(error) {
 					console.log("recommWirteError:", error);
 				}
 			});	
 		}
+	}
+	
+	/*대댓글 리스트 불러오기*/
+	function groupRecommList() {
+		$.ajax({
+			url : "groupRecommList",
+			type : "get",
+			data : {},
+			dataType : "JSON",
+			success : function(data) {
+				console.log("success: ", data);
+				
+			},
+			error : function(error) {
+				console.log("error:", error);
+			}
+		});
 	}
 	
 	

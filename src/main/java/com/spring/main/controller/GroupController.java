@@ -133,9 +133,9 @@ public class GroupController {
 	}
 	
 	@RequestMapping(value = "/groupCommentWrite", method = RequestMethod.GET)
-	@ResponseBody HashMap<String , Object> groupCommentWrite(@RequestParam HashMap<String, String> params,HttpSession session, RedirectAttributes rAttr) {
+	@ResponseBody HashMap<String , Object> groupCommentWrite(@RequestParam HashMap<String, String> params) {
 		logger.info("공동구매 댓글쓰기 요청 params: {}", params);
-		return groupService.groupCommentWrite(params,rAttr);
+		return groupService.groupCommentWrite(params);
 	}
 	
 	@RequestMapping(value = "/groupCommentList/{gpIdx}", method = RequestMethod.GET)
@@ -171,9 +171,15 @@ public class GroupController {
 	
 
 	@RequestMapping(value = "/groupRecommWrite", method = RequestMethod.GET)
-	@ResponseBody HashMap<String , Object> groupRecommWrite(@RequestParam HashMap<String, String> params,HttpSession session, RedirectAttributes rAttr) {
+	@ResponseBody HashMap<String , Object> groupRecommWrite(@RequestParam HashMap<String, String> params) {
 		logger.info("공동구매 대댓글쓰기 요청 params: {}", params);
-		return groupService.groupRecommWrite(params,session,rAttr);
+		return groupService.groupRecommWrite(params);
+	}
+	
+	@RequestMapping(value = "/reportBoardPage", method = RequestMethod.GET)
+	public String reportBoardPage(HttpSession session) {
+		logger.info("게시글 신고 팝업 요청");
+		return "reportBoard";
 	}
 	
 	

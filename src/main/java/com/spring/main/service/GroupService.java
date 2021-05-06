@@ -510,7 +510,7 @@ public class GroupService {
 		return map;
 	}
 
-	public HashMap<String, Object> groupCommentWrite(HashMap<String, String> params, RedirectAttributes rAttr) {
+	public HashMap<String, Object> groupCommentWrite(HashMap<String, String> params) {
 		logger.info("공동구매 댓글쓰기 서비스");
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		int result = groupdao.groupCommentWrite(params);
@@ -599,7 +599,7 @@ public class GroupService {
 		return map;
 	}
 
-	public HashMap<String, Object> groupRecommWrite(HashMap<String, String> params, HttpSession session, RedirectAttributes rAttr) {
+	public HashMap<String, Object> groupRecommWrite(HashMap<String, String> params) {
 		logger.info("공동구매 대댓글쓰기 서비스");
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		int result = groupdao.groupRecommWrite(params);
