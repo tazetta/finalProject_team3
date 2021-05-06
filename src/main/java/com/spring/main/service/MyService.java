@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.main.dao.BoardDAO;
 import com.spring.main.dao.MyDAO;
+import com.spring.main.dto.EstimateDTO;
 import com.spring.main.dto.MsgDTO;
 import com.spring.main.dto.MyDTO;
 import com.spring.main.dto.PhotoDTO;
@@ -173,6 +174,13 @@ public class MyService {
 		return mav; 
 	}
 
+	public ModelAndView estDetail(int estIdx) {
+		EstimateDTO dto = MyDAO.estDetail(estIdx);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("info", dto);
+		mav.setViewName("myestimatedetail");
+		return mav;
+	}
 	
 
 	
