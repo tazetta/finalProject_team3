@@ -123,6 +123,24 @@ public class MyService {
 		return map;
 	}
 	
+	/* 내가 신청한 공동구매 */
+	public HashMap<String, Object> mygroupbuyList(int pagePerCnt, int page, HttpSession session) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String sessionId = (String) session.getAttribute("loginId");
+		int allCount =  MyDAO.mygroupbuyAllCount(sessionId);
+		logger.info("총 갯수 : "  + allCount);
+		int range = allCount%pagePerCnt > 0 ? Math.round(allCount/pagePerCnt)+1 : Math.round(allCount/pagePerCnt);
+		logger.info("총 페이지(range): " + range);
+		int end = page * pagePerCnt;
+		int start = end - pagePerCnt + 1;
+		
+		map.put("list", MyDAO.mygroupbuyList(start,end,sessionId));
+
+		map.put("range", range);
+		map.put("currPage", page);
+		return map;
+	}
+	
 	
 	
 	
@@ -257,7 +275,7 @@ public class MyService {
 		return mav;
 	}
 
-	public ModelAndView msgDelete(int msgIdx, HttpSession session, RedirectAttributes rAttr) {
+	public HashMap<String, Object> msgDelete(int msgIdx, HttpSession session, RedirectAttributes rAttr) {
 		MsgDTO dto =  MyDAO.whoSR(msgIdx);
 		ModelAndView mav = new ModelAndView();
 		String loginId = (String) session.getAttribute("loginId");
@@ -268,15 +286,16 @@ public class MyService {
 		if(loginId.equals(sender)) {
 			MyDAO.deleteSender(msgIdx);
 			msg = "삭제 성공하였습니다.";
-			page = "redirect:/msgsenderpage";
+			
 		}else if(loginId.equals(receiver)) {
 			MyDAO.deleteReceiver(msgIdx);
 			msg = "삭제 성공하였습니다.";
-			page = "redirect:/msgreceivepage";
+			
 		}
-		rAttr.addFlashAttribute("msg", msg);
-		mav.setViewName(page);
-		return mav;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("msg", msg);
+		
+		return map;
 	}
 
 
@@ -299,6 +318,24 @@ public class MyService {
 
 
 
+	public HashMap<String, Object> sendMsg(HashMap<String, String> params) {
+		String receiver = params.get("receiver");
+		logger.info("받는 사람" + receiver);
+		int success  = MyDAO.receiverChk(receiver);
+		int sendMsgSuccess = 0;
+		String msg = "없는 유저입니다.";
+		if(success > 0) {
+			sendMsgSuccess = MyDAO.sendMsg(params);
+		}
+		if(sendMsgSuccess > 0) {
+			msg = "쪽지를 보냈습니다.";			
+		}
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("msg", msg);
+		map.put("success", success);
+		return map;
+	}
+
 	public ModelAndView myInteriorSlider(String id) {
 		ModelAndView mav = new ModelAndView();
 		ArrayList<PhotoDTO> slide = dao.myInteriorSlider(id);
@@ -308,20 +345,7 @@ public class MyService {
 	}
 	
 	
-	public ModelAndView sendMsg(HashMap<String, String> params) {
-		String receiver = params.get(receiver);
-		logger.info("받는 사람" + receiver);
-		
-		
-		return null;
+	
 
 	}
 
-
-
-
-	
-
-
-
-}

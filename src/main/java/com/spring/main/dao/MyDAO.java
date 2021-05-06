@@ -74,9 +74,9 @@ public interface MyDAO {
 
 	ArrayList<MyDTO> mygroupwriteList(int start, int end, String sessionId);
 
+	int receiverChk(String receiver);
 
-
-
+	int sendMsg(HashMap<String, String> params);
 
 
 }

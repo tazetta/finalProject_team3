@@ -84,7 +84,8 @@ var showPage = 1;
 			content +="<td><a href='msgDetail/"+list[i].msgIdx+"'>"+list[i].content+"</a></td>"
 			var date = new Date(list[i].reg_date);
 			content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"		
-			content +="<td><button onclick=\"location.href='msgDelete/"+list[i].msgIdx+"'\">삭제</button></td>"
+			content +="<td><button class=\"delBtn\"  onclick=\"deleteMsg("+list[i].msgIdx+")\""+">삭제</button></td>"
+			//content +="<td><button onclick=\"location.href='msgDelete/"+list[i].msgIdx+"'\">삭제</button></td>"
 			content +="</tr>"
 		}
 		$("#list").empty();
@@ -94,6 +95,12 @@ var showPage = 1;
 	 var msg = "${msg}";
 	 if(msg != ""){
 		 alert(msg);
+	 }
+	 function deleteMsg(msgIdx){
+		 if(confirm("정말 삭제하시겠습니까?")){
+			
+			 location.href="msgDelete/"+msgIdx;
+		 }
 	 }
 </script>
 </html>

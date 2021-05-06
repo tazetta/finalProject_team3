@@ -65,6 +65,12 @@ public class MyRestController {
 		return service.mygroupwriteList(pagePerCnt,page,session);	
 	}
 	
+	@RequestMapping(value = "/mygroupbuyList/{pagePerCnt}/{page}", method = RequestMethod.GET)
+	public HashMap<String, Object> mygroupbuyList(@PathVariable int page , @PathVariable int pagePerCnt ,HttpSession session) {
+		logger.info("신청한 공동구매");
+		return service.mygroupbuyList(pagePerCnt,page,session);	
+	}
+	
 	
 	
 	
@@ -88,7 +94,7 @@ public class MyRestController {
 		
 	}
 	@RequestMapping(value = "/msgDelete/{msgIdx}", method = RequestMethod.GET)
-	public ModelAndView msgDelete(@PathVariable int msgIdx ,HttpSession session , RedirectAttributes rAttr) {
+	public HashMap<String, Object> msgDelete(@PathVariable int msgIdx ,HttpSession session , RedirectAttributes rAttr) {
 		logger.info("쪽지 삭제하기");
 		return service.msgDelete(msgIdx , session ,rAttr);
 		
@@ -104,7 +110,7 @@ public class MyRestController {
 		
 	}
 	@RequestMapping(value = "/sendMsg", method = RequestMethod.GET)
-	public ModelAndView sendMsg(@RequestParam HashMap<String, String> params) {
+	public HashMap<String, Object> sendMsg(@RequestParam HashMap<String, String> params) {
 		logger.info("쪽지쓰기 요청");
 		logger.info("params {}" + params);
 		
