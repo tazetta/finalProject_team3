@@ -123,6 +123,24 @@ public class MyService {
 		return map;
 	}
 	
+	/* 내가 신청한 공동구매 */
+	public HashMap<String, Object> mygroupbuyList(int pagePerCnt, int page, HttpSession session) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String sessionId = (String) session.getAttribute("loginId");
+		int allCount =  MyDAO.mygroupbuyAllCount(sessionId);
+		logger.info("총 갯수 : "  + allCount);
+		int range = allCount%pagePerCnt > 0 ? Math.round(allCount/pagePerCnt)+1 : Math.round(allCount/pagePerCnt);
+		logger.info("총 페이지(range): " + range);
+		int end = page * pagePerCnt;
+		int start = end - pagePerCnt + 1;
+		
+		map.put("list", MyDAO.mygroupbuyList(start,end,sessionId));
+
+		map.put("range", range);
+		map.put("currPage", page);
+		return map;
+	}
+	
 	
 	
 	

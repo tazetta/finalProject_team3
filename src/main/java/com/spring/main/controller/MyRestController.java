@@ -65,6 +65,12 @@ public class MyRestController {
 		return service.mygroupwriteList(pagePerCnt,page,session);	
 	}
 	
+	@RequestMapping(value = "/mygroupbuyList/{pagePerCnt}/{page}", method = RequestMethod.GET)
+	public HashMap<String, Object> mygroupbuyList(@PathVariable int page , @PathVariable int pagePerCnt ,HttpSession session) {
+		logger.info("신청한 공동구매");
+		return service.mygroupbuyList(pagePerCnt,page,session);	
+	}
+	
 	
 	
 	

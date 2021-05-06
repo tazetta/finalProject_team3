@@ -65,10 +65,10 @@ select:hover {
     
     h2{
 			border: 1px solid black;
-			width: 140px;
+			width: 160px;
 			margin: 1px;
 			text-align: center;
-			font-size: 18px;
+			font-size: 16px;
 			background-color: cornflowerblue;
 		}
 
@@ -86,77 +86,53 @@ select:hover {
 			</div>
 			<div class="sideBar">
 				<form>
-					<table>
-						<h2>신청한 공동구매</h2>
-					<tr class="table"> 
-						<th style="width:70px">글 번호</th>
-						<th style="width:30px">현재 상태</th>
-						<th style="width:120px">제목</th>
-						<th style="width:60px">작성자</th>
-						<th style="width:100px">작성일</th>
-					</tr>
-						<c:forEach items="${list}" var="board">
+					 <table>
+						<h2>내가 작성한 공동구매</h2>
+					   <tr>
+                     	<th style="width:70px">글 번호</th>
+						<th style="width:70px">현재상태</th>
+						<th style="width:70px">작성자</th>
+						<th style="width:450px">제목</th>
+						<th style="width:50px">작성일</th>
+             		   </tr>
+      				 	<tbody id="list">
+             
+						</tbody>
 						<tr>
-							<td>${board.boardIdx}</td>
-                            <td>${board.situation}</td>
-							<td><a class="mouse_over" href="boardDetail?boardIdx=${bbs.boardIdx}&page=${currPage}">${board.subject}</a></td>
-							<td>${board.id}</td>
-							<td>${board.reg_date}</td>
-						</tr>
-                        <tr>
-							<td>1000</td>
-							<td>진행중</td>
-                            <td>잡화 판매 합니다.</td>
-							<td>USER3</td>
-							<td>21-04-27</td>
-						</tr>
-                        <tr>
-							<td>2000</td>
-							<td>진행중</td>
-                            <td>거꾸리 공동구매</td>
-							<td>USER2</td>
-							<td>21-04-25</td>
-						</tr>
-                     </c:forEach>
-					</table>
+			<td id="paging" colspan="6">
+				<!-- 플러그인 사용 -->
+				<div class="container">
+					<nav aria-label="page navigation" style="text-align: center">
+						<ul class="pagination" id="pagination"></ul>
+					</nav>
+				</div>
+				<!--// 플러그인 사용 -->
+				</td>
+				</table>
                     <br/>
-                    <table>
-					
-                        <h2>작성한 공동구매</h2>
-                        <a href="" value="전체보기">전체보기</a>
-                    <tr class="table"> 
-						<th style="width:70px">글 번호</th>
-						<th style="width:30px">현재 상태</th>
-						<th style="width:120px">제목</th>
-						<th style="width:60px">작성자</th>
-						<th style="width:100px">작성일</th>
-					</tr>
-						<c:forEach items="${list}" var="board">
+              	    <table>
+						<h2>내가 신청한 공동구매</h2>
+					   <tr>
+                     	<th style="width:70px">글 번호</th>
+						<th style="width:70px">현재상태</th>
+						<th style="width:70px">작성자</th>
+						<th style="width:450px">제목</th>
+						<th style="width:50px">작성일</th>
+             		   </tr>
+      				 	<tbody id="list2">
+             
+						</tbody>
 						<tr>
-							<td>${board.boardIdx}</td>
-                            <td>${board.situation}</td>
-							<td><a class="mouse_over" href="boardDetail?boardIdx=${bbs.boardIdx}&page=${currPage}">${board.subject}</a></td>
-							<td>${board.id}</td>
-							<td>${board.reg_date}</td>
-						</tr>
-                        <tr>
-							<td>7000</td>
-							<td>진행중</td>
-                            <td>스타벅스 기프티콘</td>
-							<td>USER</td>
-							<td>21-04-27</td>
-						</tr>
-                        <tr>
-							<td>4000</td>
-							<td>진행중</td>
-                            <td>의류 판매 합니다</td>
-							<td>USER</td>
-							<td>21-04-28</td>
-						</tr>
-                      
-					</c:forEach>
-					</table>
-                   
+			<td id="paging" colspan="6">
+				<!-- 플러그인 사용 -->
+				<div class="container">
+					<nav aria-label="page navigation" style="text-align: center">
+						<ul class="pagination" id="pagination"></ul>
+					</nav>
+				</div>
+				<!--// 플러그인 사용 -->
+				</td>
+				</table>
                 </form>
 			</div>
 			
@@ -164,6 +140,110 @@ select:hover {
 	</div>
 </body>
 <script>
+var showPage = 1;
+var pagePerNum = 5;
+listCall(showPage,pagePerNum);
+listCall2(showPage,pagePerNum);
+function listCall(reqPage,reqPagePerNum){
+	 
+	 var reqUrl ='./mygroupwriteList/' + reqPagePerNum + "/" + reqPage;
+	 $.ajax({
+		 url:reqUrl
+		 ,type:'GET'
+		 ,data:{}
+		 ,dataType:'JSON'
+		 ,success:function(data){
+			 console.log(data);
+			 showPage = data.currPage;
+			 console.log(showPage);
+			 console.log(data.list);
+			 listPrint(data.list);
+			 
+				$("#pagination").twbsPagination({
+					startPage:data.currPage,//시작 페이지
+					totalPages:data.range,//생성 가능 최대 페이지
+					visiblePages:5,//5개씩 보여 주겠다.(1~5)
+					onPageClick:function(evt,page){//각 페이지를 눌렀을 경우
+						console.log(evt);
+						console.log(page);
+						listCall(page,pagePerNum);
+					}
+				});
+		 },
+		 error:function(error){
+				console.log(error);
+		 }
+	 });
+}
+function listCall2(reqPage,reqPagePerNum){
+	 
+	 var reqUrl ='./mygroupbuyList/' + reqPagePerNum + "/" + reqPage;
+	 $.ajax({
+		 url:reqUrl
+		 ,type:'GET'
+		 ,data:{}
+		 ,dataType:'JSON'
+		 ,success:function(data){
+			 console.log(data);
+			 showPage = data.currPage;
+			 console.log(showPage);
+			 console.log(data.list);
+			 //listPrint(data.list);
+			 listPrint2(data.list);
+				$("#pagination2").twbsPagination({
+					startPage:data.currPage,//시작 페이지
+					totalPages:data.range,//생성 가능 최대 페이지
+					visiblePages:5,//5개씩 보여 주겠다.(1~5)
+					onPageClick:function(evt,page){//각 페이지를 눌렀을 경우
+						console.log(evt);
+						console.log(page);
+						listCall2(page,pagePerNum);
+					}
+				});
+		 },
+		 error:function(error){
+				console.log(error);
+		 }
+	 });
+}
+
+	 
+	 function listPrint(list){
+		 var content = "";
+		 for(var i = 0; i<list.length; i++){
+			content +="<tr>"
+				content +="<td>"+list[i].gpIdx+"</td>"
+				content +="<td>"+list[i].progIdx+"</td>"
+				content +="<td>"+list[i].id+"</td>"
+				content +="<td>"+list[i].subject+"</td>"
+			var date = new Date(list[i].reg_date);
+			content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"		
+			content +="</tr>"
+		}
+		$("#list").empty();
+		$("#list").append(content);
+	}
+	 function listPrint2(list){
+		 var content = "";
+		 for(var i = 0; i<list.length; i++){
+			content +="<tr>"
+				content +="<td>"+list[i].gpIdx+"</td>"
+				content +="<td>"+list[i].progIdx+"</td>"
+				content +="<td>"+list[i].id+"</td>"
+				content +="<td>"+list[i].subject+"</td>"
+				var date = new Date(list[i].reg_date);
+			content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"		
+			
+			content +="</tr>"
+		}
+		$("#list2").empty();
+		$("#list2").append(content);
+	}
+	 
+	 var msg = "${msg}";
+	 if(msg != ""){
+		 alert(msg);
+	 }
 
 </script>
 </html>

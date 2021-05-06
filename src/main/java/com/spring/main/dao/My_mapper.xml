@@ -97,7 +97,17 @@ SELECT gpIdx ,  subject , content , id , progIdx, reg_date, gHit rnum
     WHERE rnum BETWEEN #{param1} AND #{param2}
 </select>
 
+<!--내가 신청한 공동구매  -->
+<select id="mygroupbuyAllCount" resultType="int" parameterType="String">
+	SELECT COUNT(gpIdx) FROM GROUPPURCHASE WHERE id = #{param1}
+</select>
 
+<select id="mygroupbuyList" resultType="com.spring.main.dto.GroupDTO">
+SELECT gpIdx ,  subject , content , id , progIdx, reg_date, gHit rnum 
+    FROM (SELECT gpIdx , subject , content , id , progIdx, reg_date, gHit,
+    ROW_NUMBER() OVER(ORDER BY gpIdx DESC) AS rnum FROM GROUPPURCHASE  WHERE ID=#{param3})
+    WHERE rnum BETWEEN #{param1} AND #{param2}
+</select>
 
 
 
