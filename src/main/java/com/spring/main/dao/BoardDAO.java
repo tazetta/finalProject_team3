@@ -84,9 +84,9 @@ public interface BoardDAO {
 	ArrayList<BoardDTO> getHelpmainList(int startNum, int endNum, int brdCtgIdx, String opt, String keyword, String orderBy, char isWaitForAnswer);
 	
 	String boardCommRecChk(int commIdx, String loginId);
-	
+	//댓글 추천 취소
 	int boardCommDec(int commIdx, String loginId);
-	
+	//댓글 추천
 	int boardCommRec(int commIdx, String loginId);
 	
 	ArrayList<BoardDTO> myRecList(String loginId);
@@ -108,5 +108,7 @@ public interface BoardDAO {
 	CommentsDTO boardCommForm(int commIdx);
 	//대댓글폼요청
 	Comments2ndDTO boardRecommForm(int commIdx);
+	//게시글 신고하기
+	int boardRepBoard(HashMap<String, String> params);
 	
 }

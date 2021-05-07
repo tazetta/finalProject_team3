@@ -47,6 +47,12 @@ public interface MemberDAO {
 
 	int resetPw(String id, String encrypt);
 
+	MemberDTO isPenalty(String loginId);
+
+	int delPenalty(String loginId);
+
+	int updateState(String loginId);
+
 
 
 

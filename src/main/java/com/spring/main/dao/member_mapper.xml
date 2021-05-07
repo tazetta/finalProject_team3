@@ -92,4 +92,17 @@
 		SELECT grade FROM memberGrade WHERE gradeIdx=#{gradeIdx}
 	</select>
 
+	<!-- 패널티 확인 및 제거 -->
+	<select id="isPenalty" resultType="com.spring.main.dto.MemberDTO">
+		SELECT * FROM penaltyEndDay WHERE id=#{param1}
+	</select>
+	
+	<delete id="delPenalty">
+		DELETE penaltyEndDay WHERE id=#{param1}
+	</delete>
+	
+	<update id="updateState">
+		UPDATE generalMember SET stateIdx=0 WHERE id=#{param1}
+	</update>
+
 </mapper>

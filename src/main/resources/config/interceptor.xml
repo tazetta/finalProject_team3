@@ -38,7 +38,10 @@
 		
 		<!-- 일반회원 패널티 체크 -->
 		<mvc:interceptor>
-			<mvc:mapping path="/boardWriteForm"/>
+			<mvc:mapping path="/boardWriteForm*"/>
+			<mvc:mapping path="/groupWriteForm"/>
+			<mvc:mapping path="/reviewWriteForm"/>
+			<mvc:mapping path="/QWrite"/>
 			<bean class="com.spring.main.service.PenaltyInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>
