@@ -130,9 +130,7 @@ a:link {
 				<button id="button" style="margin-left: 50;"
 					onclick="location.href='../boardDel/${dto.boardIdx}'">삭제</button>
 				<button id="button" style="margin-left: 50;"
-					onclick="location.href='../boardCntUp/${dto.boardIdx}'">추천하기</button>
-				<button id="button" style="margin-left: 50;"
-					onclick="location.href='../boardCntDown/${dto.boardIdx}'">추천취소</button>
+					onclick="boardRec('${boardIdx}')">추천하기</button>
 				<button id="button" style="margin-left: 50;"
 					onclick="location.href='../boardScrap/${dto.boardIdx}/${dto.id}'">스크랩</button>
 					</c:if>
@@ -522,6 +520,34 @@ a:link {
 					}else{
 						console.log($("#"+commIdx+""));
 						$("#"+commIdx+"").attr('src','resources/images/decommend.png');
+						boardCommentList(); //댓글리스트 호출(댓글추천수 새로고침)
+					}
+					
+				},
+				error : function(error) {
+					console.log("error:", error);
+				}
+			});
+	}
+	/* 게시판추천하기*/
+	function boardRec(boardIdx){
+		console.log("boardIdx: "+boardIdx);
+		var reqUrl = "../boardRec/"+boardIdx;
+		$.ajax({
+				url : reqUrl,
+				type : "get",
+				data : {},
+				dataType : "JSON",
+				success : function(data) {
+					console.log("Success: ", data);
+					console.log("rescResult:"+data.recResult);
+					if(data.recResult =='true'){
+						console.log($("#"+boardIdx+""));
+						$("#"+boardIdx+"").attr('src','resources/images/recommend.png');
+						boardCommentList(); //댓글리스트 호출(댓글추천수 새로고침)
+					}else{
+						console.log($("#"+boardIdx+""));
+						$("#"+boardIdx+"").attr('src','resources/images/decommend.png');
 						boardCommentList(); //댓글리스트 호출(댓글추천수 새로고침)
 					}
 					

@@ -231,16 +231,6 @@ public class BoardController {
 		logger.info("댓글삭제 요청 : {}", commIdx);
 		return BoardService.boardCommDel(commIdx,rAttr);
 	}
-	@RequestMapping(value = "/boardCntUp/{boardIdx}", method = RequestMethod.GET)
-	public ModelAndView boardCntUp(@PathVariable String boardIdx,RedirectAttributes rAttr) {
-		logger.info("추천하기", boardIdx);
-		return BoardService.boardCntUp(boardIdx,rAttr);
-	}
-	@RequestMapping(value = "/boardCntDown/{boardIdx}", method = RequestMethod.GET)
-	public ModelAndView boardCntDown(@PathVariable String boardIdx,RedirectAttributes rAttr) {
-		logger.info("{}추천취소하기", boardIdx);
-		return BoardService.boardCntDown(boardIdx,rAttr);
-	}
 	@RequestMapping(value = "/boardScrap/{boardIdx}/{id}", method = RequestMethod.GET)
 	public ModelAndView boardScrap(@PathVariable int boardIdx,@PathVariable String id, RedirectAttributes rAttr) {
 		logger.info("ID : {} / boardIdx : {} ",id, boardIdx);
