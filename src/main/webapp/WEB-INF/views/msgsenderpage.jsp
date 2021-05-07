@@ -163,7 +163,7 @@ var showPage = 1;
 	 });
  }
 	 
- function listPrint(list){
+/*  function listPrint(list){
 	 var content = "";
 	 for(var i = 0; i<list.length; i++){
 		content +="<tr>"
@@ -177,7 +177,38 @@ var showPage = 1;
 	}
 	$("#list").empty();
 	$("#list").append(content);
+} */
+function listPrint(list){
+	 //var content = "";
+	 //for(var i = 0; i<list.length; i++){
+		var content = "";
+	 	for(var i = 0; i<list.length; i++){
+		console.log(list[i].content.length);
+		var contentMsg = list[i].content;
+		var str = "";
+		console.log(contentMsg)
+		if(contentMsg.length > 10){	
+			
+				console.log(contentMsg.substring(0,10));
+		 str=contentMsg.substring(0,10);
+		 str +='...';
+		}else{
+			str=contentMsg;
+		}
+		console.log(list[i].content.length);
+		content +="<tr>"
+		content +="<td>"+list[i].sender+"</td>"
+		content +="<td><a href='#' id="+list[i].msgIdx+" onclick='msgDetailPopUp("+list[i].msgIdx+")'>"+str+"</td>"
+		var date = new Date(list[i].reg_date);
+		content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"		
+		content +="<td><button class=\"delBtn\"  onclick=\"deleteMsg("+list[i].msgIdx+")\""+">삭제</button></td>"
+		//content +="<td><button onclick=\"location.href='msgDelete/"+list[i].msgIdx+"'\">삭제</button></td>"
+		content +="</tr>"
+	}
+	$("#list").empty();
+	$("#list").append(content);
 }
+
  var msg = "${msg}";
  if(msg != ""){
 	 alert(msg);
