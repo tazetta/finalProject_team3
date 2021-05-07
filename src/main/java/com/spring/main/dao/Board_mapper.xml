@@ -415,21 +415,6 @@
 	<delete id="boardScrapDel">
 			DELETE FROM scrap WHERE boardIdx=${param1} and id=#{param2}
 	</delete>
-	<!--게시물신고하기-->
-	<insert id="boardreport">
-		INSERT INTO reports (repIdx,id,boardIdx,repCtgIdx)
-		VALUES (reports_seq.NEXTVAL,#{id},#{boardIdx},#{repCtgIdx});
-	</insert>
-	<!--댓글신고하기-->
-	<insert id="comreport">
-	INSERT INTO reports (repIdx,id,commIdx,repCtgIdx)
-		VALUES (reports_seq.NEXTVAL,#{id},#{commIdx},#{repCtgIdx});
-	</insert>
-	<!--대댓글신고하기-->
-	<insert id="com2report">
-		 INSERT INTO reports (repIdx,id,com2ndidx,repCtgIdx)
-		VALUES (reports_seq.NEXTVAL,#{id},#{com2ndIdx},#{repCtgIdx});
-	</insert>
 	
 	<select id="fileList" resultType="com.spring.main.dto.PhotoDTO">
 		SELECT * FROM photos WHERE boardIdx=#{param1}
@@ -468,17 +453,23 @@
 	<update id="boardRecommDel">
 		 UPDATE comments_2nd SET blind='y' WHERE com2ndIdx=#{com2ndIdx}
 	</update>
-	<!-- 댓글신고 -->
+	<!-- 게시물 신고 -->
+	 <insert id="boardRepBoard">
+		INSERT INTO reports (repIdx,id,targetId,boardIdx,repCtgIdx) VALUES (reports_seq.NEXTVAL,#{id},#{targetId},#{boardIdx},#{repCtgIdx})
+	</insert> 
+	<!-- 댓글신고 이동 -->
 	<select id="boardCommForm" resultType="comments">
 		SELECT commIdx, comments, reg_date, blind, id, boardIdx FROM comments WHERE commIdx=#{commIdx}
 	</select>
+	<!--댓글 신고처리  -->
 	<insert id="boardRepComm">
 		INSERT INTO  reports (repIdx,id,targetId,commIdx,repCtgIdx) VALUES (reports_seq.NEXTVAL,#{id},#{targetId},#{commIdx},#{repCtgIdx})
 	</insert>
-	<!-- 대댓글 신고 -->
+	<!-- 대댓글 신고이동 -->
 	<select id="boardRecommForm" resultType="comments2nd">
 		SELECT com2ndIdx, comments, reg_date, blind, id FROM comments_2nd WHERE com2ndIdx=#{commIdx}
 	</select>
+	<!--대댓글 신고처리-->
 	<insert id="boardRepRecomm">
 		INSERT INTO  reports (repIdx,id,targetId,com2ndIdx,repCtgIdx) VALUES (reports_seq.NEXTVAL,#{id},#{targetId},#{com2ndIdx},#{repCtgIdx})
 	</insert>
