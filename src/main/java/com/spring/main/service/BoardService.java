@@ -683,9 +683,11 @@ public class BoardService {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		int result = 0;
 		String success= "fail";
-		if(params.get("branch").equals(1)) { //댓글신고
+		if(params.get("branch").equals("1")) { //댓글신고
+			logger.info("댓글신고 서비스 다우");
 			result = boarddao.boardRepComm(params); 
 		}else { //대댓글 신고
+			logger.info("대댓글신고 서비스 다우");
 			result = boarddao.boardRepRecomm(params);
 		}
 		logger.info("result:"+result);

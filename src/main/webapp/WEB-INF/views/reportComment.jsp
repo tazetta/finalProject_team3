@@ -103,19 +103,19 @@ select:hover {
 				<table>
 					<tr>
 						<th>댓글내용</th>
-						<td style="width: 350px;">comment</td>
+						<td style="width: 350px;">${dto.comments}</td>
 					</tr>
 					<tr>
 						<th>작성자</th>
-						<td style="width: 350px;">writer</td>
+						<td style="width: 350px;">${dto.id}</td>
 					</tr>
 					<tr>
 						<th>신고자</th>
-						<td>loginId</td>
+						<td>${loginId}</td>
 					</tr>
 					<tr>
 						<th>신고사유</th>
-						<td><select class="inputs" name="category" style="width: 180px;">
+						<td><select class="inputs" id="repCtgIdx" name="repCtgIdx" style="width: 180px;">
 								<option>신고사유</option>
 								<option value="11">욕설 및 무분별한 비방</option>
 								<option  value="12">과도한 광고</option>
@@ -129,8 +129,8 @@ select:hover {
 						<td colspan="2">
 						<hr/>
 							<div style="display: flex; justify-content: space-between;">
-								<input type="button" class="inputs" value="신고하기" style="width: 130px;" /> 
-								<input type="button" class="inputs" value="닫기" style="width: 130px;" />
+								<input type="button" class="inputs" value="신고하기" style="width: 130px;" onclick="report()"  /> 
+								<input type="button" class="inputs" value="닫기" style="width: 130px;"onclick="winClose()" />
 							</div>
 						</td>
 					</tr>
@@ -140,6 +140,52 @@ select:hover {
 	</div>
 </body>
 <script>
+function report(){
+	var selected = $("#repCtgIdx option:selected").val();
+	if(selected =='신고사유'){
+		console.log("selected:"+selected);
+		alert("신고사유를 선택해주세요");
 	
+	}
+	 else{
+
+		 <c:if test="${branch==1}"> //댓글신고
+		 	var data = {"branch":1,"id":"${loginId}", "targetId":"${dto.id}", "commIdx":"${dto.commIdx}", "repCtgIdx":selected};
+		 	console.log("data:",data);
+
+
+		</c:if>
+		<c:if test="${branch==2}"> //대댓글 신고
+		 	var data = {"branch":2,"id":"${loginId}", "targetId":"${dto.id}", "com2ndIdx":"${dto.com2ndIdx}", "repCtgIdx":selected};
+		 	console.log("data:",data);
+
+		</c:if>
+	 	
+		 $.ajax({
+				url : "/main/boardRepComm/",
+				type : "get",
+				data : data,
+				dataType : "JSON",
+				success : function(data) {
+					console.log("success:", data.success);
+					if(data.success=='success'){
+						alert("신고되었습니다"); 
+						window.open('','_self').close();
+					}else{
+						alert("신고에 실패했습니다");
+					}
+				},
+				error : function(error) {
+					console.log("error:", error);
+				}
+			}); 
+		} 	
+	}
+	
+
+		
+	function winClose(){
+		 window.open('','_self').close();
+	}
 </script>
 </html>

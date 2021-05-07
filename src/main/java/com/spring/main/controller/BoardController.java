@@ -286,4 +286,9 @@ public class BoardController {
 		logger.info("댓글/답글 신고 form 요청:"+branch+"/"+commIdx);
 		return BoardService.boardRepCommForm(branch,commIdx,session);
 	}
+	@RequestMapping(value = "/boardRepComm", method = RequestMethod.GET)
+	@ResponseBody HashMap<String , Object> groupRepComm(@RequestParam HashMap<String, String> params) {
+		logger.info("공동구매 댓글/답글 신고 요청 : params:{}",params);
+		return BoardService.boardRepComm(params);
+	}
 }
