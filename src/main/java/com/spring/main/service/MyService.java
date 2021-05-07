@@ -260,8 +260,10 @@ public class MyService {
 		int end = page * pagePerCnt;
 		int start = end - pagePerCnt + 1;
 		
+		 
+		
 		map.put("list", MyDAO.senderList(start,end,sessionId));
-
+		
 		map.put("range", range);
 		map.put("currPage", page);
 		return map;

@@ -55,7 +55,7 @@
 		var $content = $("#content");
 		
 		var params = {};
-		var reqUrl = './sendMsg';
+		var reqUrl = '../sendMsg';
 			params.sender = $sender.val();
 			params.receiver = $receiver.val();
 			params.content = $content.val();

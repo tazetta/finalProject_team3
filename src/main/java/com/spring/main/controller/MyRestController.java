@@ -109,23 +109,27 @@ public class MyRestController {
 		return mav;
 		
 	}
-	@RequestMapping(value = "/msgDetailPopUp/msgFormPopUp/{receiver}", method = RequestMethod.GET)
-	public ModelAndView msgFormPopUp(@PathVariable String receiver, HttpSession session) {
-		logger.info("쪽지쓰기 팝업창2");
-		ModelAndView mav = new ModelAndView();
-		String loginId = (String) session.getAttribute("loginId");
-		mav.addObject("loginId", loginId);
-		mav.addObject("receiver", receiver);
-		mav.setViewName("msgForm");
-		return mav;
-		
-	}
+	
 	@RequestMapping(value = "/sendMsg", method = RequestMethod.GET)
 	public HashMap<String, Object> sendMsg(@RequestParam HashMap<String, String> params) {
 		logger.info("쪽지쓰기 요청");
 		logger.info("params {}" + params);
 		
 		return service.sendMsg(params);
+		
+	}
+	@RequestMapping(value = "/reMsgFormPopUp/{receiver}", method = RequestMethod.GET)
+	public ModelAndView reMsgFormPopUp(@PathVariable HashMap<String, String> params) {
+		logger.info("쪽지쓰기 팝업창2 ");
+		logger.info("params {}" + params);
+		String receiver = params.get("receiver");
+		logger.info("받는사람 {} " , receiver);
+		ModelAndView mav = new ModelAndView();
+		boolean success = true;
+		mav.addObject("receiver", receiver);
+		mav.setViewName("msgReForm");
+		
+		return mav;
 		
 	}
 }

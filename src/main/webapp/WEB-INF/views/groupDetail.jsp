@@ -189,7 +189,7 @@ background-color: #F2F1F1;
 	
 	groupCommentList(); //댓글리스트 호출
 
-	/*글 신고*/
+	/*글 신고 새창*/
 	function reportBoard(){
 		window.open("groupRepBoardForm/${dto.gpIdx}","reportBoard","width=800, height=600");
 		//요청url,타이틀,옵션
@@ -333,7 +333,8 @@ background-color: #F2F1F1;
 		}else{
 		//대댓글작성
 		content += '<a href="javascript:void(0)"; onclick="recommForm('+list[i].commIdx+')">답글달기</a>&nbsp;&nbsp;';
-		content += '<a href="#">신고</a></td>' ;
+		//댓글 신고
+		content += '<a href="javascript:void(0)"; onclick="repCommForm('+list[i].commIdx+')">신고</a></td>' ;
 		}
 		content += '</tr>';
 		content += '</table>';
@@ -506,7 +507,7 @@ background-color: #F2F1F1;
 			content += '<button class="commDel" onclick="groupRecommentDel('+list.com2ndIdx+')">삭제</button>' ; 
 			
 		}else{
-		content += '<a href="#">신고</a></td>' ;
+		content += '<a href="javascript:void(0)"; onclick="repRecommForm('+list.com2ndIdx+')">신고</a></td>' ;
 		}
 		content += '</tr>';
 		content += '</table>';
@@ -539,6 +540,16 @@ background-color: #F2F1F1;
 			}else{
 				console.log("삭제취소");
 			}	
+	}
+	
+	/* 댓글 신고 새창 */
+	function repCommForm(commIdx){
+		window.open("groupRepCommForm/1/"+commIdx,"reportComment","width=800, height=600");
+	}
+	
+	/* 대댓글 신고 새창 */
+	function repRecommForm(com2ndIdx){
+		window.open("groupRepCommForm/2/"+com2ndIdx,"reportRecomment","width=800, height=600");
 	}
 	
 	
