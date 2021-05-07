@@ -103,6 +103,7 @@ background-color: #F2F1F1;
 			<th>제목</th>
 			<th>작성자</th>
 			<th>작성일</th>
+			<th>조회수</th>
 			<th>진행상황</th>
 		</tr>
 		<tr>
@@ -113,10 +114,11 @@ background-color: #F2F1F1;
 			<td>${dto.subject}</td>
 			<td><span class="grade">${writerGrade}</span>&nbsp;${dto.id}</td>
 			<td>${dto.reg_date}</td>
+			<td>${dto.gHit}</td>
 			<td>${dto.progress}</td>
 		</tr>
 		<tr>
-			<td colspan="5" style="padding: 20px">${dto.content}</td>
+			<td colspan="6" style="padding: 20px">${dto.content}</td>
 			<td style="width: 20%">현재인원/모집인원 : <span id="groupCnt">${dto.currUser }/${dto.maxUser}</span>
 				<br />마감날짜 : <b>${dto.deadline}</b> <br /> 
 				
@@ -137,7 +139,7 @@ background-color: #F2F1F1;
 		<c:if test="${state eq 'true'  || dto.id == sessionScope.loginId }">
 		<!-- 신청자와 작성자에게만 노출 -->
 			<tr>
-				<td colspan="6">
+				<td colspan="7">
 					<div id="kakaoLink">
 						오픈카카오톡 링크 : <a href="${dto.chatURL }" target="_blanck">${dto.chatURL }</a>
 					</div>
@@ -145,7 +147,7 @@ background-color: #F2F1F1;
 				</td>
 			</tr>
 			<tr>
-				<td colspan="6"><b>신청자</b>
+				<td colspan="7"><b>신청자</b>
 					<div id="applicant">
 						<!-- 신청자 명단 불러올 영역 -->
 					</div></td>
@@ -229,27 +231,6 @@ background-color: #F2F1F1;
 		});
 	}
 
-	/* 모집인원 달성시 마감으로 변경 */
-	if ("${dto.currUser}" == "${dto.maxUser}" && "${dto.progIdx}" !='3') { 
-		progUpdate();
-	}
-
-	function progUpdate() {
-		var reqUrl = './progUpdate/${dto.gpIdx}/${dto.progIdx}';
-		$.ajax({
-			url : reqUrl,
-			type : "get",
-			data : {},
-			dataType : "JSON",
-			success : function(data) {
-				console.log("success: ", data);
-
-			},
-			error : function(error) {
-				console.log("error:", error);
-			}
-		});
-	}
 	
 	/* 댓글 등록 */
 	$("#commentSave").click(function(){

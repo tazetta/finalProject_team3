@@ -426,7 +426,15 @@ public class GroupService {
 				logger.info("state:" + state);
 			}
 		}
-
+		groupdao.groupDownHit(gpIdx); // 조회수 감소
+		
+		GroupDTO dto = groupdao.groupDetail(gpIdx);
+		if(dto.getCurrUser() ==dto.getMaxUser()) { //ㄴ모집인원과 현재 신청인원이 일치하면		
+			int updateProg = 3;
+			int result = groupdao.progUpdate(gpIdx,updateProg);
+			logger.info("진행상황 마감 업데이트 result:" + result);
+		}
+		
 		page = "redirect:/groupDetail?gpIdx=" + gpIdx + "&loginId=" + applyId;
 
 		rAttr.addFlashAttribute("msg", msg);
@@ -501,16 +509,6 @@ public class GroupService {
 		return map;
 	}
 
-	public HashMap<String, Object> progUpdate(int gpIdx, int progIdx, RedirectAttributes rAttr, HttpSession session) {
-		logger.info("진행상황 실시간 마감 업데이트 서비스");
-
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		int updateProg = 3;
-		int result = groupdao.progUpdate(gpIdx, updateProg);
-		logger.info("진행상황 업데이트 result:" + result);
-		map.put("result", result);
-		return map;
-	}
 
 	public HashMap<String, Object> groupCommentWrite(HashMap<String, String> params) {
 		logger.info("공동구매 댓글쓰기 서비스");
@@ -708,6 +706,7 @@ public class GroupService {
 		return map;
 	}
 
+	
 	
 
 }
