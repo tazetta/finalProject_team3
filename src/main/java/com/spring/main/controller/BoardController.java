@@ -281,5 +281,9 @@ public class BoardController {
 		logger.info("게시글 신고 form 요청:"+boardIdx);
 		return BoardService.boardRepBoardForm(boardIdx,session);
 	}
-	
+	@RequestMapping(value = "/boardRepCommForm/{branch}/{commIdx}", method = RequestMethod.GET)
+	public ModelAndView groupRepCommForm(@PathVariable int branch, @PathVariable int commIdx,  HttpSession session) {
+		logger.info("댓글/답글 신고 form 요청:"+branch+"/"+commIdx);
+		return BoardService.boardRepCommForm(branch,commIdx,session);
+	}
 }

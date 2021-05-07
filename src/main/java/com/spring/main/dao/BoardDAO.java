@@ -100,5 +100,13 @@ public interface BoardDAO {
 	ArrayList<Comments2ndDTO> boardRecommList(int commIdx);
 	//대댓글삭제
 	int boardRecommDel(int com2ndIdx);
+	//댓글신고
+	int boardRepComm(HashMap<String, String> params);
+	//대댓글신고
+	int boardRepRecomm(HashMap<String, String> params);
+	//댓글폼요청
+	CommentsDTO boardCommForm(int commIdx);
+	//대댓글폼요청
+	Comments2ndDTO boardRecommForm(int commIdx);
 	
 }

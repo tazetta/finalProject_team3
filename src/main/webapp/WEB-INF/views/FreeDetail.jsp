@@ -282,9 +282,8 @@ a:link {
 				content += '<button class="commDel" id="+list[i].commIdx+" onclick="boardCommentDel('
 						+ list[i].commIdx + ')">삭제</button></td>'; //댓글삭제호출
 			} else if("${sessionScope.loginId}" != list[i].id){
-				content += '<a href="javascript:void(0)"; onclick="recommForm('
-						+ list[i].commIdx + ')">답글달기</a>&nbsp;&nbsp;';
-				content += '<a href="javascript:void(0)"; onclick="repCommForm('+list[i].commIdx+')">신고</a></td>'; 
+				content += '<a href="#"; onclick="recommForm('+ (list[i].commIdx) + ')">답글달기</a>&nbsp;&nbsp;';
+				content += '<a href="#"; onclick="repCommForm('+(list[i].commIdx)+')">신고</a></td>'; 
 			}
 			content += '</tr>';
 			content += '</table>';
@@ -345,19 +344,15 @@ a:link {
 	function recommForm(commIdx) {
 		console.log("대댓글달기: " + commIdx);
 		var content = "";
-		var capy=true;//답글 중복호출막기위한 조건
-		if(capy == true){
-			capy=false;
 		content += '<div id="recommentBox">';
 		content += '<span><b id="loginId">${sessionScope.loginId }</b></span>';
 		content += '<input type="text" name="recomment" id="recomment" placeholder="답글 작성해주세요."/>';
 		content += '<input type="button" value="등록" id="recommentSave" onclick="recommWirte('
 				+ commIdx + ')"/>';
 		content += '</div>';
+		$("#recommentBox").remove();
 		$("#commentDiv" + commIdx).after(content);
-		}else{
-			capy=true;
-		}
+
 	}
 	/*대댓글 작성*/
 	function recommWirte(commIdx) {
@@ -520,14 +515,15 @@ a:link {
 					}
 				});
 		/* 댓글 신고 새창 */
-		function repCommForm(commIdx){
-			window.open("boardRepCommForm/1/"+commIdx,"reportComment","width=800, height=600");
-		}
-		
-		/* 대댓글 신고 새창 */
-		function repRecommForm(com2ndIdx){
-			window.open("boardRepCommForm/2/"+com2ndIdx,"reportRecomment","width=800, height=600");
-		}
+	}
+	}
+	function repCommForm(commIdx){
+		window.open("../boardRepCommForm/1/"+commIdx,"reportComment","width=800, height=600");
+	}
+	
+	/* 대댓글 신고 새창 */
+	function repRecommForm(com2ndIdx){
+		window.open("../boardRepCommForm/2/"+com2ndIdx,"reportRecomment","width=800, height=600");
 	}
 </script>
 </html>
