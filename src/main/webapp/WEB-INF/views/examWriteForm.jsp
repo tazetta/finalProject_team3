@@ -12,10 +12,11 @@ table, td {
 	text-align: center;
 	border: 1px solid black;
 	border-collapse: collapse;
+	width: 90%;
 }
 
 #editable {
-	width: 600px;
+	width: 99%;
 	height: 400px;
 	border: 1px solid gray;
 	text-align: left;
@@ -26,10 +27,57 @@ table, td {
 input[type='text'] {
 	width: 100%;
 }
+
+#mainnavi {
+	position: absolute;
+	top: 5%;
+	left: 20%;
+}
+
+#box {
+	position: absolute;
+	top: 30%;
+	left: 20%;
+	width: 50%;
+}
+.btn{
+	position: absolute;
+	bottom : 10px;
+	left: 80%;
+}
+
+button,input[type='button'] {
+	height: 30px;
+	border: none;
+	background-color: #acd3fb;
+	cursor: pointer;
+	color: white;
+	font-weight: bold;
+}
+
+button:hover {
+	background-color: #acd3fb;
+	cursor: pointer;
+	box-shadow: 0 2px 4px rgba(0, 79, 255, 0.6);
+	border: 2px solid white;
+	color: white;
+}
+#table{
+	margin-left: 100px;
+}
 </style>
 </head>
 <body>
-	<h3>글쓰기</H3>
+	<div id="mainnavi" style="min-height: 210px;">
+	            <jsp:include page="mainnavi.jsp"></jsp:include> 
+    </div>
+    <div id="box">
+    <div style="background-color: #acd3fb; width: 100%; height: 100px; text-align: center;">
+    	<br>
+    	<h3>시공사례 작성하기</h3>
+    </div>
+    <br/>
+    <div id="table">
 	<form action="examWrite" method="post">
 		<table>
 			<tr><!-- 업체 세션값 받아와서 설정할예정 -->
@@ -49,9 +97,12 @@ input[type='text'] {
 		</table>
 	</form>
 	<input type="button" value="파일업로드" onclick="fileUp()" />
+	</div>
+	<div class="btn">
 	<button onclick="location.href='interiorexamList'">취소</button>
 	<button id="save">작성완료</button>
-
+	</div>
+	</div>
 </body>
 <script>
 
@@ -62,7 +113,11 @@ input[type='text'] {
 		$("#editable>a").removeAttr("onclick"); //del(this) 무효화
 		$("#content").val($("#editable").html());
 		//if(${sessionScope.fileList.size()>0}){
-			$("form").submit();			
+		if($("#content").val()==""||$("#subject").val()==""){
+    		alert("제목,내용을 모두 작성해주세요");
+    	}else{
+			$("form").submit();	
+    	}
 		//}else{
 		//	alert("사진을 한개 이상 등록해주세요");
 		//}

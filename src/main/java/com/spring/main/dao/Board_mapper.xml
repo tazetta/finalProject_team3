@@ -474,4 +474,35 @@
 		INSERT INTO  reports (repIdx,id,targetId,com2ndIdx,repCtgIdx) VALUES (reports_seq.NEXTVAL,#{id},#{targetId},#{com2ndIdx},#{repCtgIdx})
 	</insert>
 	
+	<!--대댓글 아이디체크-->
+	<select id="boardReCommRecChk" resultType="String">
+		SELECT id FROM recommend WHERE com2ndIdx=#{param1} AND id=#{param2}
+	<!--대댓글작성--></select>
+	<insert id="boardReCommRec">
+		INSERT INTO recommend (recIdx,com2ndIdx,id) VALUES (recomend_seq.NEXTVAL,#{param1},#{param2}) 
+	</insert>
+	<!--대댓글추천삭제-->
+	<delete id="boardReCommDec">
+		DELETE  FROM recommend WHERE com2ndIdx=#{param1} AND id=#{param2}
+	</delete>
+	<!--대댓글 cnt 증가 -->
+	<update id="boardReCommcntUp">
+		UPDATE comments_2nd SET cnt=cnt+1 WHERE
+		com2ndIdx=#{com2ndIdx}
+	</update>
+	<!-- 대댓글 cnt 감소 -->
+	<update id="boardReCommcntDown">
+		UPDATE comments_2nd SET cnt=cnt-1 WHERE
+		com2ndIdx=#{com2ndIdx}
+		</update>
+		<!--댓글 cnt 증가 -->
+	<update id="boardCommRecUp">
+		UPDATE comments SET cnt=cnt+1 WHERE
+		commIdx=#{commIdx}
+	</update>
+	<!-- 댓글 cnt 감소 -->
+	<update id="boardCommcntDown">
+		UPDATE comments SET cnt=cnt-1 WHERE
+		commIdx=#{commIdx}
+		</update>
 </mapper>

@@ -82,7 +82,7 @@ public interface BoardDAO {
 	
 	// 도와줘요 게시판 목록 조회
 	ArrayList<BoardDTO> getHelpmainList(int startNum, int endNum, int brdCtgIdx, String opt, String keyword, String orderBy, char isWaitForAnswer);
-	
+	//댓글 추천 체크
 	String boardCommRecChk(int commIdx, String loginId);
 	//댓글 추천 취소
 	int boardCommDec(int commIdx, String loginId);
@@ -110,5 +110,19 @@ public interface BoardDAO {
 	Comments2ndDTO boardRecommForm(int commIdx);
 	//게시글 신고하기
 	int boardRepBoard(HashMap<String, String> params);
+	//대댓글 추천체크
+	String boardReCommRecChk(int com2ndIdx, String loginId);
+	//대댓글 추천 취소
+	int boardReCommDec(int com2ndIdx, String loginId);
+	//대댓글 추천
+	int boardReCommRec(int com2ndIdx, String loginId);
+	//대댓글 cnt 감소
+	int boardReCommcntDown(int com2ndIdx);
+	//대댓글 cnt 증가
+	int boardReCommcntUp(int com2ndIdx);
+	//댓글 cnt 감소
+	int boardCommcntDown(int commIdx);
+	//댓글 cnt 증가
+	int boardCommRecUp(int commIdx);
 	
 }

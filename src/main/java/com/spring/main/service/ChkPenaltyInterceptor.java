@@ -16,8 +16,11 @@ import com.spring.main.dao.MemberDAO;
 import com.spring.main.dto.MemberDTO;
 
 public class ChkPenaltyInterceptor extends HandlerInterceptorAdapter {
-		
-	@Autowired MemberDAO dao;
+
+
+	@Autowired
+	MemberDAO dao;
+
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
 		HttpSession session = request.getSession();
@@ -44,5 +47,5 @@ public class ChkPenaltyInterceptor extends HandlerInterceptorAdapter {
 			}
 		}
 	}
-	
+
 }
