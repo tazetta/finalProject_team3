@@ -218,6 +218,14 @@
 	 <insert id="groupRepBoard">
 		INSERT INTO reports (repIdx,id,targetId,gpIdx,repCtgIdx) VALUES (reports_seq.NEXTVAL,#{id},#{targetId},#{gpIdx},#{repCtgIdx})
 	</insert> 
+	
+	<select id="groupCommForm" resultType="comments">
+		SELECT commIdx, comments, reg_date, blind, id, gpIdx FROM comments WHERE commIdx=#{commIdx}
+	</select>
+	
+	<insert id="groupRepComm">
+		INSERT INTO  reports (repIdx,id,targetId,commIdx,repCtgIdx) VALUES (reports_seq.NEXTVAL,#{id},#{targetId},#{commIdx},#{repCtgIdx})
+	</insert>
 
 	
 </mapper>

@@ -4,7 +4,7 @@
 <%@ page session="false"%>
 <html>
 <head>
-<title>게시글 신고</title>
+<title>댓글신고</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <style>
 table, td, th {
@@ -98,29 +98,28 @@ select:hover {
 <body>
 	<div class="flexBox">
 		<div>
-			<div class="headDESC">게시글 신고</div>
-			
+			<form action="#">
+				<div class="headDESC">댓글신고</div>
 				<table>
 					<tr>
-						<th>게시글 제목</th>
-						<td style="width: 350px;">${dto.subject }</td>
+						<th>댓글내용</th>
+						<td style="width: 350px;">${dto.comments }</td>
 					</tr>
 					<tr>
 						<th>작성자</th>
-						
 						<td style="width: 350px;">${dto.id }</td>
 					</tr>
 					<tr>
 						<th>신고자</th>
-						<td>${loginId}</td>
+						<td>${loginId }</td>
 					</tr>
 					<tr>
 						<th>신고사유</th>
 						<td><select class="inputs" id="repCtgIdx" name="repCtgIdx" style="width: 180px;">
-								<option >신고사유</option>
+								<option>신고사유</option>
 								<option value="11">욕설 및 무분별한 비방</option>
 								<option  value="12">과도한 광고</option>
-								<option  value="13">사행성 유도</option>							
+								<option  value="13">사행성 유도</option>								
 						</select>
 						</td>
 					</tr>
@@ -129,17 +128,18 @@ select:hover {
 						<td colspan="2">
 						<hr/>
 							<div style="display: flex; justify-content: space-between;">
-								<input type="button" class="inputs" value="신고하기" style="width: 130px;" onclick="report()"/> 
-								<input type="button" class="inputs" value="닫기" style="width: 130px;" onclick="winClose()"/>
+								<input type="button" class="inputs" value="신고하기" style="width: 130px;"  onclick="report()" /> 
+								<input type="button" class="inputs" value="닫기" style="width: 130px;" onclick="winClose()" />
 							</div>
 						</td>
 					</tr>
 				</table>
+			</form>
 		</div>
 	</div>
 </body>
 <script>
-	function report(){
+function report(){
 	var selected = $("#repCtgIdx option:selected").val();
 	if(selected =='신고사유'){
 		console.log("selected:"+selected);
@@ -148,10 +148,10 @@ select:hover {
 	 else{
 		
 		 $.ajax({
-				url : "/main/groupRepBoard",
+				url : "/main/groupRepComm",
 				type : "get",
 				
-				data : {"id":"${loginId}", "targetId":"${dto.id}", "gpIdx":"${dto.gpIdx}", "repCtgIdx":selected},
+				data : {"id":"${loginId}", "targetId":"${dto.id}", "commIdx":"${dto.commIdx}", "repCtgIdx":selected},
 				dataType : "JSON",
 				success : function(data) {
 					console.log("success:", data.success);

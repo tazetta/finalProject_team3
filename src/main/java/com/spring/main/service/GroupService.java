@@ -664,4 +664,30 @@ public class GroupService {
 		
 	}
 
+	public ModelAndView groupRepCommForm(int commIdx, HttpSession session) {
+		logger.info("공동구매 댓글신고 form 서비스");
+		String loginId = (String) session.getAttribute("loginId");
+		ModelAndView mav = new ModelAndView();
+		CommentsDTO dto = groupdao.groupCommForm(commIdx);
+		if(dto!=null) {
+			mav.addObject("dto",dto);
+			mav.addObject("loginId",loginId);
+		}
+		mav.setViewName("groupReportComm");
+		return mav;
+	}
+
+	public HashMap<String, Object> groupRepComm(HashMap<String, String> params) {
+		logger.info("공동구매 댓글 신고 서비스");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int result = groupdao.groupRepComm(params); 
+		logger.info("result:"+result);
+		String success="fail";
+		if(result>0) {
+			success="success";
+		}
+		map.put("success", success);
+		return map;
+	}
+
 }
