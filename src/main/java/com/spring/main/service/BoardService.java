@@ -464,7 +464,7 @@ public class BoardService {
 		return map;
 	}
 
-//우리집 자랑 세부검색
+	//우리집 자랑 검색
 	public Map<String, Object> homeMainList(int pageNum, String orderBy,String opt, String keyword, String formcategory, int budget,
 			int roomsize) {
 		Map<String, Object> map = new HashMap<>();

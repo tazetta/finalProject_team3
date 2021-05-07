@@ -5,10 +5,7 @@
 <meta charset="UTF-8">
 
 <style>
-.container{
-	position: relative;
-	width: 1000px;
-}
+
    .logo-area{
    height: 50px;
    }
@@ -57,7 +54,8 @@
                     <img src="resources/css/memberCSS/logo.png" style="height: 50px; width: 100px;">
                </a>
            </div>
-<div class="container" style="text-align: center; ">
+<div style="text-align: center; position: relative;
+	width: 1000px;">
         <input type="text" size="75" style="border-radius: 5px; border: 2px solid rgb(203, 228, 248);"
             placeholder="검색어를 입력해주세요.">
         <button id="btn"

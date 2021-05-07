@@ -59,12 +59,12 @@ span:hover {
    
    <br/>
     <div class="container" style="text-align: center;">
-        <select name="idx" id="miniopt" style="border-radius: 5px; border: 2px solid gray; ">
+        <select name="idx" id="orderBy" style="border-radius: 5px; border: 2px solid gray; ">
             <option value="all">전체</option>
             <option value="recent">최신순</option>
             <option value="cntreco">추천순</option>
         </select>
-        <select name="idx" id="miniopt" style="border-radius: 5px; border: 2px solid gray;">
+        <select name="idx" id="formcategory" style="border-radius: 5px; border: 2px solid gray;">
             <option value="0">주거형태</option>
             <option value="1">원룸&오피스텔</option>
             <option value="2">아파트</option>
@@ -72,7 +72,7 @@ span:hover {
             <option value="4">기타</option>
         </select>
       
-        <select name="idx" id="miniopt" style="border-radius: 5px; border: 2px solid gray;">
+        <select name="idx" id="budget" style="border-radius: 5px; border: 2px solid gray;">
             <option value="0">예산</option>
             <option value="1">1백만원미만</option>
             <option value="2">1백만원대</option>
@@ -84,7 +84,7 @@ span:hover {
             <option value="8">그 이상</option>
         </select>
         <label>평수</label>
-        <input type="range" id="range" min="10" max="100" step="1" value="0" oninput="document.getElementById('value').innerHTML=this.value;" onchange="console.log(this.value);">
+        <input type="range" id="roomsize" min="1" max="100" step="1" oninput="document.getElementById('value').innerHTML=this.value;" onchange="console.log(this.value);">
         <span id="value"></span>평
         
    
@@ -108,6 +108,7 @@ span:hover {
 
 			</div> 
 				</div>
+				<div class="box"></div>
                <!--  <div style="border-radius:20px; border: 5px solid white; margin-right: 90px; box-shadow:0 0 5px lightslategray;">
                     <img src="C:\Users\user\Desktop\BootStrap\interior1.jpg" width="250" height="250" style=" border-radius:20px;">
                     <table class="table">
@@ -130,73 +131,57 @@ span:hover {
     </div>  
 </body>
 <script>
-$(document).ready(function() {
-	// 목록을 조회하는 함수.
-	function getList(pageNum, opt, keyword) {
-		/*
-		 * pageNum, opt, keyword
-		 * 값이 없으면 초기값 사용.
-		 * 값이 있으면 입력받은 값 사용.
-		 */
-		var pageNum = !pageNum ? 1 : pageNum;
-		var opt = !opt ? 'all' : opt;
-		var keyword = !keyword ? '' : keyword;
-		var oData = {
-			pageNum : pageNum,
-			opt : opt,
-			keyword : keyword
-		};
-		console.log(oData);
+var pageNum = 1;
+var orderBy = 'recent';
+var formcategory = 0;
+var budget = 0;
+var roomsize = 0;
+var keyword = 'none';
+listCall(pageNum,opt, orderBy,formcategory,budget,roomsize);
 
-		$.ajax({
-			url : '/main/homemain',
-			type : 'GET',
-			data : oData,
-			dataType : 'JSON',
-			success : function(data) {
-				appendList(data.list);
-				
-			},
-			error : function(error) {
-				console.log('에러 났음...');
-			}
-		});
-	}
-
-	// 목록을 UI에 추가하는 함수.
-	function appendList(aList) {
-		// jquery의 반복문을 사용.
-		var sHtml = '';
-		$.each(aList,function(index, oInfo) {
-							/*
-							행 html 소스
-							<tr>
-								<td><a href="boarddetail/${board.boardIdx}">${board.subject}</a></td>
-								<td>${board.id}</td>
-								<td>${board.bhit}</td>
-								<td>${board.reg_date}</td>
-							</tr>
-							 */
-							sHtml += '<tr>';
-							sHtml += '	<td><a href="boarddetail/' + oInfo.boardIdx +'">'
-									+ oInfo.subject
-									+ '</a></td>';
-							sHtml += '	<td>' + oInfo.id
-									+ '</td>';
-							sHtml += '	<td>' + oInfo.bhit
-									+ '</td>';
-							sHtml += '	<td>'
-									+ new Date(
-											oInfo.reg_date)
-											.toLocaleDateString("ko-KR")
-									+ '</td>';
-							sHtml += '</tr>';
-						});
-
-		$("#list").empty();
-		$("#list").append(sHtml);
-	}
+$("#orderBy").change(()=>{
+	pageNum = 1;
+	orderBy = $("#orderBy").val();
+	$("#formcategory").val([0]);
+	$("#budget").val([0]);
+	$("#roomsize").val([0]);
+	listCall(pageNum, orderBy, formcategory,budget,roomsize);
 });
+function listCall(pageNum, orderBy, formcategory,budget,roomsize) {	
+	var reqUrl = 'homemain'+'/'+10+'/'+pageNum+'/'+orderBy +'/'+ formcategory +'/'+budget+'/'+roomsize;
+	$.ajax({
+		url:reqUrl
+		,data:{}
+		,type:'GET'
+		,dataType:'JSON'
+		,success:(data)=>{
+			if(pageNum > data.maxPage){listCall(data.maxPage, orderBy, formcategory,budget,roomsize);}
+			console.log(reqUrl);
+			console.log(data);
+			pageNum = data.currPage;
+			listPrint(data.list);
+			$("#pagination").twbsPagination({
+				startPage:data.currPage
+				,totalPages:data.maxPage
+				,visiblePages:5
+				,first : '<span aria-hidden="true"><<</span>'
+				,prev : "이전"
+				,next : "다음"
+				,last : '<span aria-hidden="true">>></span>'
+				,onPageClick:(evt, page)=>{
+					console.log(evt);
+					console.log(page);
+					listCall(page, gradeIdx, stateIdx,searchId);
+				}
+			});
+			console.log('최대 페이지 '+data.maxPage);
+		}
+		,error:(data)=>{
+			console.log(data);
+		}
+	});
+}
+	
 </script>
 </html>
 
