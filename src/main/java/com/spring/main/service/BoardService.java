@@ -712,4 +712,32 @@ public class BoardService {
 		return map;
 		
 	}
+
+	public HashMap<String, Object> boardReCommRec(int com2ndIdx, RedirectAttributes rAttr, HttpSession session) {
+		logger.info("대댓글추천 서비스");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String loginId = (String) session.getAttribute("loginId");
+
+		String commRecChk = boarddao.boardReCommRecChk(com2ndIdx, loginId);
+		logger.info("댓글 추천 여부:" + commRecChk);
+
+		String recResult = "";
+		if (commRecChk != null) {
+			logger.info("추천취소하기");
+			int result = boarddao.boardReCommDec(com2ndIdx, loginId);
+			logger.info("result:" + result);
+			recResult = "false";
+			msg = "추천취소되었습니다";
+		} else {
+			logger.info("추천하기");
+			int result = boarddao.boardReCommRec(com2ndIdx, loginId);
+			logger.info("result:" + result);
+			recResult = "true";
+			msg = "추천되었습니다";
+		}
+
+		map.put("recResult", recResult);
+		map.put("msg", msg);
+		return map;
+	}
 }

@@ -17,6 +17,7 @@ import com.spring.main.dto.MemberDTO;
 
 public class ChkPenaltyInterceptor extends HandlerInterceptorAdapter {
 
+
 	@Autowired
 	MemberDAO dao;
 

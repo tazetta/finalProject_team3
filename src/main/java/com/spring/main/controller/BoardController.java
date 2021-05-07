@@ -1,6 +1,5 @@
 package com.spring.main.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,7 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.spring.main.dto.BoardDTO;
 import com.spring.main.service.AdminService;
 import com.spring.main.service.BoardService;
 
@@ -249,7 +247,7 @@ public class BoardController {
 		return BoardService.boardScrap(boardIdx,id, rAttr);
 	}
 	@RequestMapping(value = "/boardCommRec/{commIdx}", method = RequestMethod.GET)
-	@ResponseBody HashMap<String , Object> groupCommRec(@PathVariable int  commIdx, HttpSession session,RedirectAttributes rAttr) {
+	@ResponseBody HashMap<String , Object> boardCommRec(@PathVariable int  commIdx, HttpSession session,RedirectAttributes rAttr) {
 		logger.info("댓글 추천 commIdx: {}", commIdx);
 		return BoardService.boardCommRec(commIdx,rAttr,session);
 	}
@@ -295,5 +293,10 @@ public class BoardController {
 	@ResponseBody HashMap<String , Object> groupRepComm(@RequestParam HashMap<String, String> params) {
 		logger.info("공동구매 댓글/답글 신고 요청 : params:{}",params);
 		return BoardService.boardRepComm(params);
+	}
+	@RequestMapping(value = "/boardReCommRec/{com2ndIdx}", method = RequestMethod.GET)
+	@ResponseBody HashMap<String , Object> boardReCommRec(@PathVariable int  com2ndIdx, HttpSession session,RedirectAttributes rAttr) {
+		logger.info("대댓글 추천 com2ndIdx: {}", com2ndIdx);
+		return BoardService.boardReCommRec(com2ndIdx,rAttr,session);
 	}
 }
