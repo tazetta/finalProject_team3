@@ -116,5 +116,9 @@ public interface BoardDAO {
 	int boardReCommDec(int com2ndIdx, String loginId);
 	//대댓글 추천
 	int boardReCommRec(int com2ndIdx, String loginId);
+	//대댓글 cnt 감소
+	int boardReCommcntDown(int com2ndIdx);
+	//대댓글 cnt 증가
+	int boardReCommcntUp(int com2ndIdx);
 	
 }

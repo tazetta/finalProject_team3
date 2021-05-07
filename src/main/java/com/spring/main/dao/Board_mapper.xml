@@ -485,4 +485,14 @@
 	<delete id="boardReCommDec">
 		DELETE  FROM recommend WHERE com2ndIdx=#{param1} AND id=#{param2}
 	</delete>
+	<!--대댓글 cnt 증가 -->
+	<update id="boardReCommcntUp">
+		UPDATE comments_2nd SET cnt=cnt+1 WHERE
+		com2ndIdx=#{com2ndIdx}
+	</update>
+	<!-- 대댓글 cnt 감소 -->
+	<update id="boardReCommcntDown">
+		UPDATE comments_2nd SET cnt=cnt-1 WHERE
+		com2ndIdx=#{com2ndIdx}
+		</update>
 </mapper>
