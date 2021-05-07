@@ -153,7 +153,7 @@ function maxUserChk(elem){
 					$("#maxUser").val(elem[0]);  //초기값으로 설정
 					alert("현재신청한 인원보다 작게 설정할 수 없습니다");
 					
-				}else if(data.currUser==elem[0]){ //변경한 최대참여자수가 현재신청인원수와 같다면
+				}else if(data.currUser==elem[1]){ //변경한 최대참여자수가 현재신청인원수와 같다면
 					 if(confirm("현재신청인원수와 일치합니다. 마감하시겠습니끼?")){
 						 //마감을 원한다면
 						 console.log("마감O");
@@ -200,7 +200,7 @@ String.prototype.zf = function (len) { return "0".string(len - this.length) + th
 Number.prototype.zf = function (len) { return this.toString().zf(len); };
 
 var today = new Date();
-today = today.format("yyyy-MM-dd");
+today = today.format("yyyy-MM-dd"); //오늘날짜
 
 
 /* 날짜 변경시  오늘 이전으로 설정하지 못하도록 강제*/

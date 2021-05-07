@@ -196,9 +196,21 @@ public class GroupController {
 	}
 	
 	@RequestMapping(value = "/groupRepBoard", method = RequestMethod.GET)
-	@ResponseBody HashMap<String , Object> groupRepBoard(@RequestParam HashMap<String, String> params,  HttpSession session) {
+	@ResponseBody HashMap<String , Object> groupRepBoard(@RequestParam HashMap<String, String> params) {
 		logger.info("공동구매 게시글 신고 요청 : params:{}",params);
 		return groupService.groupRepBoard(params);
+	}
+	
+	@RequestMapping(value = "/groupRepCommForm/{commIdx}", method = RequestMethod.GET)
+	public ModelAndView groupRepCommForm(@PathVariable int commIdx,  HttpSession session) {
+		logger.info("공동구매 댓글신고 form 요청:"+commIdx);
+		return groupService.groupRepCommForm(commIdx,session);
+	}
+	
+	@RequestMapping(value = "/groupRepComm", method = RequestMethod.GET)
+	@ResponseBody HashMap<String , Object> groupRepComm(@RequestParam HashMap<String, String> params) {
+		logger.info("공동구매 댓글 신고 요청 : params:{}",params);
+		return groupService.groupRepComm(params);
 	}
 	
 	

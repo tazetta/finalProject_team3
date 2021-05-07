@@ -84,6 +84,10 @@ public interface GroupDAO {
 
 	int groupRepBoard(HashMap<String, String> params);
 
+	CommentsDTO groupCommForm(int commIdx);
+
+	int groupRepComm(HashMap<String, String> params);
+
 
 
 
