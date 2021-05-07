@@ -16,7 +16,7 @@
             max-width: 600px;
          }
          table,td{
-            border: 1px solid gray;
+            border: 1px solid lightgray;
             border-collapse: collapse;
             padding: 5px 10px;
          }
@@ -29,47 +29,73 @@
             overflow: hidden;
             text-overflow: ellipsis;
          }
-         #examList{
-         	position: absolute;
-         	left:10%;
-         	top:10%;
-         }
-         #reviewList{
-         position: absolute;
-         	left:10%;
-         	top:35%;
-         }
-         #exam{
-         	position: absolute;
-         	top: 7%;
-         	left:18%;
-         }
-         #h3exam{
-         	position: absolute;
-         	top: 5%;
-         	left:13%;
-         }
-         #review{
-         	position: absolute;
-         	top: 32%;
-         	left:18%;
-         }
-         #h3review{
-         	position: absolute;
-         	top: 30%;
-         	left:13%;
-         }
+         
+         #mainnavi {
+			position: absolute;
+			top:5%;
+			left:20%;
+        }
+        #side{
+        	position: absolute;
+        	left:20%;
+        	top:50%;
+        }
+        #box{
+        	position: absolute;
+        	top:25%;
+        	left:35%;
+        }
+		.업체정보{
+            border:1px solid gainsboro;
+            border-collapse: collapse;
+            width: 200px;
+            height: 200px;
+            position: absolute;
+            top:250px;
+            left:17%;
+            margin-top: 30px;
+            margin-left: 4%;
+            text-align: center;
+        }
+        
 </style>
 </head>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <body>
-	<h3>${dto.comId}</h3>
-	<jsp:include page="companyDetailnavi.jsp" />
-	<h3 id="h3exam">시공사례</h3> 
-	<div id="exam">
-		<a href="companyDetailExam?comId=${dto.comId}">전체보기</a>
+	<div id="mainnavi" style="min-height: 210px;">
+	            <jsp:include page="mainnavi.jsp"></jsp:include> 
+    </div>
+    
+    <div id="total">
+		<table class="업체정보">
+			<tr>
+				<td style="font-size: 20px; padding-top: 20px;"><strong>${dto.comId}</strong>
+				</td>
+			</tr>
+			<tr>
+				<td style="color: gainsboro;">─────────</td>
+			</tr>
+			<tr>
+				<td style="color: gray;">종합리모델링 기타</td>
+			</tr>
+			<tr>
+				<td style="font-size: 25px;"><strong>★ ${rate}</strong></td>
+			</tr>
+		</table>
+	<div id="side">
+	<c:if test="${sessionScope.loginId ne null}"><!-- 업체회원은 안보이게 -->
+		<jsp:include page="companyDetailnavi.jsp" />
+	</c:if>
 	</div>
+	<div id="box">
+	<div id="exam">
+	<h3 id="h3exam">시공사례</h3>
+		<div>
+			<a href="companyDetailExam?comId=${dto.comId}">전체보기</a>
+		</div>
+	</div>
+	<div>
 	<table id="examList">
 		<thead>
 			<tr>
@@ -86,10 +112,14 @@
 				</tr>
 		</c:forEach>
 	</table>
-	<h3 id="h3review">시공리뷰</h3> 
-	<div id="review">
-		<a href="reviewList?comId=${dto.comId}">전체보기</a>
 	</div>
+	<div>
+		<h3 id="h3review">시공리뷰</h3> 
+			<div id="review">
+				<a href="reviewList?comId=${dto.comId}">전체보기</a>
+			</div>
+	</div>
+	<div>
 	<table id="reviewList">
 		<thead>
 			<tr>
@@ -108,6 +138,9 @@
 				</tr>
 		</c:forEach>
 	</table>
+	</div>
+	</div>
+	</div>
 </body>
 <script>
 var msg = "${msg}";

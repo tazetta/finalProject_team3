@@ -253,6 +253,8 @@ public class ExamService {
 		ExamDTO dto = examDAO.interiorCompanyDetail(comId);
 		ArrayList<ExamDTO> examList = examDAO.examSemiList(comId);
 		ArrayList<ReviewDTO> reviewList = examDAO.reviewSemiList(comId);
+		Float rate = examDAO.reviewrate(comId);
+		mav.addObject("rate",rate);
 		mav.addObject("examList",examList);
 		mav.addObject("reviewList", reviewList);
 		mav.addObject("dto",dto);
@@ -283,7 +285,7 @@ public class ExamService {
 	}
 
 	public HashMap<String, Object> examListScroll(int count) {
-		int cnt = count*6;
+		int cnt = count*8;
 		int allCnt = examDAO.allScrollCount();
 		logger.info("전체 게시물수:{},불러올 게시물수:{}",allCnt,cnt);
 		HashMap<String, Object> map = new HashMap<String, Object>();	

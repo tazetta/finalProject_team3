@@ -47,4 +47,6 @@ public interface ExamDAO {
 
 	int allScrollCount();
 
+	Float reviewrate(String comId);
+
 }
