@@ -100,7 +100,7 @@ a.page-link:hover {
 </body>
 
 <script type="text/javascript">
-	var msg = ${msg};
+	var msg = "${msg}";
 	if(msg != ""){
 		alert(msg);
 		msg = "";
