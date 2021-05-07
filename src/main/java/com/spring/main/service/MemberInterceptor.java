@@ -68,25 +68,7 @@ public class MemberInterceptor extends HandlerInterceptorAdapter {
 		
 	}
 
-	/*
-	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-			throws Exception {
-		System.out.println("패널티 확인중....");
-		boolean pass = false;
-		HttpSession session = request.getSession();
-		String loginId = (String) session.getAttribute("loginId");
-		System.out.println("loginId:"+loginId);
-			
-		MemberDTO dto = admindao.checkPenalty(loginId);	
-		int stateIdx = dto.getStateIdx();
-		if(stateIdx <= 0) {
-			pass = true;
-		}
-		
-		return pass;
-	}
-	*/
+	
 	
 	
 }

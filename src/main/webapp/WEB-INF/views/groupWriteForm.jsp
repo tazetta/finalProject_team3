@@ -57,9 +57,7 @@ input[type='text'] {
 			</tr>
 			<tr>
 				<td>마감날짜</td>
-				<td><!-- <input type="date" name="deadline" /> -->
-				
-				<input type="Date" name="deadline" id="deadline" /></td>
+				<td><input type="Date" name="deadline" id="deadline" /></td>
 			</tr>
 		</table>
 	</form>
@@ -125,6 +123,49 @@ input[type='text'] {
 			}
 		}); 	
 	}
+	
+
+	/* Date 타입 변환 함수*/
+	Date.prototype.format = function (f) {
+
+	    if (!this.valueOf()) return " ";
+	    var weekKorName = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
+	    var weekKorShortName = ["일", "월", "화", "수", "목", "금", "토"];
+	    var weekEngName = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+	    var weekEngShortName = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+	    var d = this;
+
+	    return f.replace(/(yyyy|yy|MM|dd|KS|KL|ES|EL|HH|hh|mm|ss|a\/p)/gi, function ($1) {
+	        switch ($1) {
+	            case "yyyy": return d.getFullYear(); // 년 (4자리)
+	            case "yy": return (d.getFullYear() % 1000).zf(2); // 년 (2자리)
+	            case "MM": return (d.getMonth() + 1).zf(2); // 월 (2자리)
+	            case "dd": return d.getDate().zf(2); // 일 (2자리)          
+	            default: return $1;
+	        }
+	    });
+	};
+
+	String.prototype.string = function (len) { var s = '', i = 0; while (i++ < len) { s += this; } return s; };
+	String.prototype.zf = function (len) { return "0".string(len - this.length) + this; };
+	Number.prototype.zf = function (len) { return this.toString().zf(len); };
+
+	var today = new Date();
+	today = today.format("yyyy-MM-dd"); //오늘날짜
+
+	
+	
+	/* 날짜 변경시  오늘 이전으로 설정하지 못하도록 강제*/
+	$("#deadline").change(function dateChk(e){
+	 		var deadline = $(this).val();
+	 		var defaultVal = $(this).prop("defaultValue");
+	 		console.log("deadline:"+deadline);
+	 		console.log("defaultVal:"+defaultVal);
+	 	if(deadline<today){
+	 		alert("마감일은 오늘날짜보다 이전으로 설정 할 수 없습니다.")
+	 		$(this).val(defaultVal); 
+	 	}
+	});
 	
 	
 </script>

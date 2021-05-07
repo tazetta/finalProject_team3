@@ -113,4 +113,22 @@ public class AdminRestController {
 		logger.info("repCtg : {}", repCtgIdx);
 		return service.adminReportedGroupList(pagePerCnt, page, repCtgIdx);
 	}
+	
+	@RequestMapping(value = "/adminGroupBlind/{gpIdx}", method = RequestMethod.GET)
+	public HashMap<String, Object> adminGroupBlind(@PathVariable int gpIdx) {
+		logger.info("gpIdx : {}", gpIdx);
+		return service.adminGroupBlind(gpIdx);
+	}
+	
+	@RequestMapping(value = "/adminCommBlind/{commIdx}", method = RequestMethod.GET)
+	public HashMap<String, Object> adminCommBlind(@PathVariable int commIdx) {
+		logger.info("commIdx : {}", commIdx);
+		return service.adminCommBlind(commIdx);
+	}
+	
+	@RequestMapping(value = "/adminBrdBlind/{boardIdx}", method = RequestMethod.GET)
+	public HashMap<String, Object> adminBrdBlind(@PathVariable int boardIdx) {
+		logger.info("boardIdx : {}", boardIdx);
+		return service.adminBrdBlind(boardIdx);
+	}
 }

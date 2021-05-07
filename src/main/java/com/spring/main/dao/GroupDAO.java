@@ -88,6 +88,12 @@ public interface GroupDAO {
 
 	int groupRepComm(HashMap<String, String> params);
 
+	Comments2ndDTO groupRecommForm(int commIdx);
+
+	int groupRepRecomm(HashMap<String, String> params);
+
+	void groupDownHit(int gpIdx);
+
 
 
 

@@ -23,7 +23,7 @@
 	        min-width: 1680px;
         }
         .mainnavi-area{
-            height: 200px;
+            
             
         }
         .sidenavi-area{
@@ -38,6 +38,9 @@
         .table-top {
            text-align: center;
        }
+       table th{
+       	width:300px;
+       }
     </style>
     
     </head>
@@ -45,11 +48,9 @@
     <div class="all-area">
         
         <div class="mainnavi-area">
-  		  <jsp:include page="./mainnavi.jsp"></jsp:include>
-                     
+                              <iframe  width="1500" height="280" align="middle" src="mainnavi" scrolling="no" frameborder="0" style="padding-left:100px;"></iframe>
         </div>
         <div class="sidenavi-area">
-   			 <jsp:include page="./mynavi.jsp"></jsp:include>
            
         </div>
         <div class="table-area">
@@ -57,14 +58,15 @@
                       <div class="table-top">
                             <span>받은쪽지함</span>
                             <a href="msgreceivepage">더보기</a>
+	                        <button onclick="msgFormPopUp()">쪽지 쓰기</button>
                         </div>
-                        <button onclick="msgFormPopUp()">쪽지 쓰기</button>
                 <table>
                 <thead>
                         <tr>
                             <th>작성자</th>
                             <th>내용</th>
                             <th>날짜</th>
+                            <th></th>
                         </tr>
                 </thead>
                 <tbody id="list"><tr><td>자취만렙</td><td><a href="msgDetail/84">테스트25</a></td><td>2021. 5. 5.</td><td><button class="delBtn" onclick="deleteMsg(84)">삭제</button></td></tr><tr><td>자취만렙</td><td><a href="msgDetail/83">테스트24</a></td><td>2021. 5. 5.</td><td><button class="delBtn" onclick="deleteMsg(83)">삭제</button></td></tr><tr><td>자취만렙</td><td><a href="msgDetail/82">테스트23</a></td><td>2021. 5. 5.</td><td><button class="delBtn" onclick="deleteMsg(82)">삭제</button></td></tr><tr><td>자취만렙</td><td><a href="msgDetail/81">테스트22</a></td><td>2021. 5. 5.</td><td><button class="delBtn" onclick="deleteMsg(81)">삭제</button></td></tr><tr><td>자취만렙</td><td><a href="msgDetail/80">테스트22</a></td><td>2021. 5. 5.</td><td><button class="delBtn" onclick="deleteMsg(80)">삭제</button></td></tr></tbody>
@@ -83,7 +85,7 @@
 
                   <div class="table-top">
                     <span>보낸 쪽지함</span>
-                    <a href="msgreceivepage">더보기</a>
+                    <a href="msgsenderpage">더보기</a>
                 </div>
                 <table>
                 <thead>
@@ -91,6 +93,8 @@
                             <th>작성자</th>
                             <th>내용</th>
                             <th>날짜</th>
+                            <th></th>
+                            
                         </tr>
                 </thead>
                 <tbody id="list2"><tr><td>kthwan</td><td><a href="msgDetail/107">하위</a></td><td>2021. 5. 6.</td><td><button class="delBtn" onclick="deleteMsg(107)">삭제</button></td></tr><tr><td>kthwan</td><td><a href="msgDetail/106">hihi</a></td><td>2021. 5. 6.</td><td><button class="delBtn" onclick="deleteMsg(106)">삭제</button></td></tr><tr><td>kthwan</td><td><a href="msgDetail/66">테스트9</a></td><td>2021. 5. 5.</td><td><button class="delBtn" onclick="deleteMsg(66)">삭제</button></td></tr><tr><td>kthwan</td><td><a href="msgDetail/65">테스트8</a></td><td>2021. 5. 5.</td><td><button class="delBtn" onclick="deleteMsg(65)">삭제</button></td></tr><tr><td>kthwan</td><td><a href="msgDetail/64">테스트7</a></td><td>2021. 5. 5.</td><td><button class="delBtn" onclick="deleteMsg(64)">삭제</button></td></tr></tbody>
@@ -117,11 +121,11 @@ function msgFormPopUp(){
 	window.open(url,"쪽지보내기폼","width=500, height=450");
 	
 }
-function msgDetailPopUp(idx){
+ function msgDetailPopUp(idx){
 	var url ="msgDetailPopUp/"+idx;
 	
 	window.open(url,"쪽지 상세보기","width=500, height=450");
-}
+} 
 
 var showPage = 1;
  var pagePerNum = 5;
@@ -192,11 +196,26 @@ function listCall(reqPage,reqPagePerNum){
  
 	 
 	 function listPrint(list){
-		 var content = "";
-		 for(var i = 0; i<list.length; i++){
+		 //var content = "";
+		 //for(var i = 0; i<list.length; i++){
+			var content = "";
+		 	for(var i = 0; i<list.length; i++){
+			console.log(list[i].content.length);
+			var contentMsg = list[i].content;
+			var str = "";
+			console.log(contentMsg)
+			if(contentMsg.length > 10){	
+				
+					console.log(contentMsg.substring(0,10));
+			 str=contentMsg.substring(0,10);
+			 str +='...';
+			}else{
+				str=contentMsg;
+			}
+			console.log(list[i].content.length);
 			content +="<tr>"
 			content +="<td>"+list[i].sender+"</td>"
-			content +="<td><a href='#' id="+list[i].msgIdx+" onclick='msgDetailPopUp("+list[i].msgIdx+")'>"+list[i].content+"</td>"
+			content +="<td><a href='#' id="+list[i].msgIdx+" onclick='msgDetailPopUp("+list[i].msgIdx+")'>"+str+"</td>"
 			var date = new Date(list[i].reg_date);
 			content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"		
 			content +="<td><button class=\"delBtn\"  onclick=\"deleteMsg("+list[i].msgIdx+")\""+">삭제</button></td>"
@@ -206,12 +225,27 @@ function listCall(reqPage,reqPagePerNum){
 		$("#list").empty();
 		$("#list").append(content);
 	}
+		 
+		 
+		 
 	 function listPrint2(list){
 		 var content = "";
 		 for(var i = 0; i<list.length; i++){
+			console.log(list[i].content.length);
+			var contentMsg = list[i].content;
+			var str = "";
+			console.log(contentMsg)
+			if(contentMsg.length > 10){	
+				
+					console.log(contentMsg.substring(0,10));
+			 str=contentMsg.substring(0,10);
+			 str +='...';
+			}else{
+				str=contentMsg;
+			}
 			content +="<tr>"
 			content +="<td>"+list[i].sender+"</td>"
-			content +="<td><a href='#' id="+list[i].msgIdx+" onclick='msgDetailPopUp("+list[i].msgIdx+")'>"+list[i].content+"</td>"
+			content +="<td><a href='#' id="+list[i].msgIdx+" onclick='msgDetailPopUp("+list[i].msgIdx+")'>"+str+"</td>"
 			var date = new Date(list[i].reg_date);
 			content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"		
 			content +="<td><button class=\"delBtn\"  onclick=\"deleteMsg("+list[i].msgIdx+")\""+">삭제</button></td>"

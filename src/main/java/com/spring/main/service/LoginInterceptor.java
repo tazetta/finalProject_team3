@@ -4,13 +4,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
+import com.spring.main.dao.MemberDAO;
 
 public class LoginInterceptor extends HandlerInterceptorAdapter {
 
 	// 이곳은 logger 적용이 안됨
 
 	// 컨트롤러 접근 전
+	@Autowired MemberDAO dao;
+	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
