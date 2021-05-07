@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-<title>내 작성글</title>
+<title>마이 페이지</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <style>
 table, td, th {
@@ -51,29 +51,24 @@ select:hover {
 	border: 1px white;
 }
 
-.sideBar {
+    .sideBar {
 	float: left;
-}
+    }
 
-th{
+    th{
       border:1px solid gray;
       border-collapse: collapse;
       text-align: center;
 	background-color: cornflowerblue;
             }
 
-			.이미지{
-            margin-top:2%;
-            width: 200px;
-            height: 150px;
-            float: right;
-        }
-		h2{
+    
+    h2{
 			border: 1px solid black;
-			width: 110px;
+			width: 160px;
 			margin: 1px;
 			text-align: center;
-			font-size: 18px;
+			font-size: 16px;
 			background-color: cornflowerblue;
 		}
 
@@ -91,109 +86,232 @@ th{
 			</div>
 			<div class="sideBar">
 				<form>
-					<table>
-					<h2>우리집 자랑 </h2>
-					<tr>
-						<td id="user" rowspan="2">
-							<div>
-							   <a href="./scrapDetail?contentId=${scrap.contentid}" target=window.open()><img src="${scrap.firstimage}" width="200px" height="200px">
-							   </a>
-							</div>
-						 </td>
-					</tr>
-						</table>
-					<table>
-						<h2>자유게시판</h2>
-					<tr class="table"> 
-						<th style="width:70px">글 번호</th>
-						<th>제목</th>
+					 <table>
+						<h2>나의 자유게시판</h2>
+					   <tr>
+                   	<th style="width:70px">글 번호</th>
+						<th style="width:300px">제목</th>
 						<th style="width:120px">작성자</th>
 						<th style="width:60px">조회수</th>
 						<th style="width:100px">작성일</th>
-					</tr>
-						<c:forEach items="${list}" var="board">
+             		   </tr>
+      				 	<tbody id="list">
+             
+						</tbody>
 						<tr>
-							<td>${board.boardIdx}</td>
-							<td><a class="mouse_over" href="boardDetail?boardIdx=${bbs.boardIdx}&page=${currPage}">${board.subject}</a></td>
-							<td>${board.id}</td>
-							<td>${board.bHit}</td>
-							<td>${board.reg_date}</td>
-						</tr>
-                        <tr>
-							<td>1000</td>
-							<td>제목 작성 합니다.</td>
-							<td>아이디 입니다</td>
-							<td>1000</td>
-							<td>21-04-27</td>
-						</tr>
-                        <tr>
-							<td>1000</td>
-							<td>제목 작성 합니다.</td>
-							<td>아이디 입니다</td>
-							<td>1000</td>
-							<td>21-04-27</td>
-						</tr>
-					</c:forEach>
-					</table>
-                    <table>
-						<h2>꿀팁</h2>
-					<tr class="table"> 
-						<th style="width:70px">글 번호</th>
-						<th>제목</th>
+			<td id="paging" colspan="6">
+				<!-- 플러그인 사용 -->
+				<div class="container">
+					<nav aria-label="page navigation" style="text-align: center">
+						<ul class="pagination" id="pagination"></ul>
+					</nav>
+				</div>
+				<!--// 플러그인 사용 -->
+				</td>
+				</table>
+                   <table>
+						<h2>나의 꿀팁</h2>
+					   <tr>
+                   	<th style="width:70px">글 번호</th>
+						<th style="width:300px">제목</th>
 						<th style="width:120px">작성자</th>
 						<th style="width:60px">조회수</th>
 						<th style="width:100px">작성일</th>
-					</tr>
-						<c:forEach items="${list}" var="board">
+             		   </tr>
+      				 	<tbody id="list2">
+             			</tbody>
 						<tr>
-							<td>${board.boardIdx}</td>
-							<td><a class="mouse_over" href="boardDetail?boardIdx=${bbs.boardIdx}&page=${currPage}">${board.subject}</a></td>
-							<td>${board.id}</td>
-							<td>${board.bHit}</td>
-							<td>${board.reg_date}</td>
-						</tr>
-                        <tr>
-							<td>1000</td>
-							<td>제목 작성 합니다.</td>
-							<td>아이디 입니다</td>
-							<td>1000</td>
-							<td>21-04-27</td>
-						</tr>
-					</c:forEach>
-                    </table>
-                    <table>
-						<h2>질문 및 답변</h2>
-					<tr class="table"> 
-						<th style="width:70px">글 번호</th>
-						<th>제목</th>
+			<td id="paging" colspan="6">
+				<!-- 플러그인 사용 -->
+				<div class="container">
+					<nav aria-label="page navigation" style="text-align: center">
+						<ul class="pagination" id="pagination"></ul>
+					</nav>
+				</div>
+				<!--// 플러그인 사용 -->
+				</td>
+				</table>
+				<table>
+					<h2>나의 질문 및 답변</h2>
+					   <tr>
+                   	<th style="width:70px">글 번호</th>
+						<th style="width:300px">제목</th>
 						<th style="width:120px">작성자</th>
 						<th style="width:60px">조회수</th>
 						<th style="width:100px">작성일</th>
-					</tr>
-						<c:forEach items="${list}" var="board">
+             		   </tr>
+      				 	<tbody id="list3">
+             
+						</tbody>
 						<tr>
-							<td>${board.boardIdx}</td>
-							<td><a class="mouse_over" href="boardDetail?boardIdx=${bbs.boardIdx}&page=${currPage}">${board.subject}</a></td>
-							<td>${board.id}</td>
-							<td>${board.bHit}</td>
-							<td>${board.reg_date}</td>
-						</tr>
-                        <tr>
-							<td>1000</td>
-							<td>제목 작성 합니다.</td>
-							<td>아이디 입니다</td>
-							<td>1000</td>
-							<td>21-04-27</td>
-						</tr>
-					</c:forEach>
-                    </table>
-            	</form>
+			<td id="paging" colspan="6">
+				<!-- 플러그인 사용 -->
+				<div class="container">
+					<nav aria-label="page navigation" style="text-align: center">
+						<ul class="pagination" id="pagination"></ul>
+					</nav>
+				</div>
+				<!--// 플러그인 사용 -->
+				</td>
+				</table>
+                </form>
 			</div>
 			
 		</div>
 	</div>
 </body>
 <script>
+var showPage = 1;
+var pagePerNum = 3;
+listCall(showPage,pagePerNum);
+listCall2(showPage,pagePerNum);
+listCall3(showPage,pagePerNum);
+function listCall(reqPage,reqPagePerNum){
+	 
+	 var reqUrl ='./mywriteboardList/' + reqPagePerNum + "/" + reqPage;
+	 $.ajax({
+		 url:reqUrl
+		 ,type:'GET'
+		 ,data:{}
+		 ,dataType:'JSON'
+		 ,success:function(data){
+			 console.log(data);
+			 showPage = data.currPage;
+			 console.log(showPage);
+			 console.log(data.list);
+			 listPrint(data.list);
+			 
+				$("#pagination").twbsPagination({
+					startPage:data.currPage,//시작 페이지
+					totalPages:data.range,//생성 가능 최대 페이지
+					visiblePages:3,//5개씩 보여 주겠다.(1~5)
+					onPageClick:function(evt,page){//각 페이지를 눌렀을 경우
+						console.log(evt);
+						console.log(page);
+						listCall(page,pagePerNum);
+					}
+				});
+		 },
+		 error:function(error){
+				console.log(error);
+		 }
+	 });
+}
+function listCall2(reqPage,reqPagePerNum){
+	 
+	 var reqUrl ='./mywritetipList/' + reqPagePerNum + "/" + reqPage;
+	 $.ajax({
+		 url:reqUrl
+		 ,type:'GET'
+		 ,data:{}
+		 ,dataType:'JSON'
+		 ,success:function(data){
+			 console.log(data);
+			 showPage = data.currPage;
+			 console.log(showPage);
+			 console.log(data.list);
+			 //listPrint(data.list);
+			 listPrint2(data.list);
+				$("#pagination2").twbsPagination({
+					startPage:data.currPage,//시작 페이지
+					totalPages:data.range,//생성 가능 최대 페이지
+					visiblePages:3,//5개씩 보여 주겠다.(1~5)
+					onPageClick:function(evt,page){//각 페이지를 눌렀을 경우
+						console.log(evt);
+						console.log(page);
+						listCall2(page,pagePerNum);
+					}
+				});
+		 },
+		 error:function(error){
+				console.log(error);
+		 }
+	 });
+}
+function listCall3(reqPage,reqPagePerNum){
+	 
+	 var reqUrl ='./mywriteqnaList/' + reqPagePerNum + "/" + reqPage;
+	 $.ajax({
+		 url:reqUrl
+		 ,type:'GET'
+		 ,data:{}
+		 ,dataType:'JSON'
+		 ,success:function(data){
+			 console.log(data);
+			 showPage = data.currPage;
+			 console.log(showPage);
+			 console.log(data.list);
+			 //listPrint(data.list);
+			 listPrint3(data.list);
+				$("#pagination3").twbsPagination({
+					startPage:data.currPage,//시작 페이지
+					totalPages:data.range,//생성 가능 최대 페이지
+					visiblePages:3,//5개씩 보여 주겠다.(1~5)
+					onPageClick:function(evt,page){//각 페이지를 눌렀을 경우
+						console.log(evt);
+						console.log(page);
+						listCall3(page,pagePerNum);
+					}
+				});
+		 },
+		 error:function(error){
+				console.log(error);
+		 }
+	 });
+}
+	 
+	 function listPrint(list){
+		 var content = "";
+		 for(var i = 0; i<list.length; i++){
+			content +="<tr>"
+				content +="<td>"+list[i].boardidx+"</td>"
+				content +="<td>"+list[i].subject+"</td>"
+				content +="<td>"+list[i].id+"</td>"
+				content +="<td>"+list[i].bhit+"</td>"
+			var date = new Date(list[i].reg_date);
+			content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"		
+			content +="</tr>"
+		}
+		$("#list").empty();
+		$("#list").append(content);
+	}
+	 function listPrint2(list){
+		 var content = "";
+		 for(var i = 0; i<list.length; i++){
+			content +="<tr>"
+				content +="<td>"+list[i].boardidx+"</td>"
+				content +="<td>"+list[i].subject+"</td>"
+				content +="<td>"+list[i].id+"</td>"
+				content +="<td>"+list[i].bhit+"</td>"
+				var date = new Date(list[i].reg_date);
+			content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"		
+			
+			content +="</tr>"
+		}
+		$("#list2").empty();
+		$("#list2").append(content);
+	}
+	 function listPrint3(list){
+		 var content = "";
+		 for(var i = 0; i<list.length; i++){
+			content +="<tr>"
+				content +="<td>"+list[i].boardidx+"</td>"
+				content +="<td>"+list[i].subject+"</td>"
+				content +="<td>"+list[i].id+"</td>"
+				content +="<td>"+list[i].bhit+"</td>"
+				var date = new Date(list[i].reg_date);
+			content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"		
+			
+			content +="</tr>"
+		}
+		$("#list3").empty();
+		$("#list3").append(content);
+	}
+	 
+	 var msg = "${msg}";
+	 if(msg != ""){
+		 alert(msg);
+	 }
 
 </script>
 </html>
