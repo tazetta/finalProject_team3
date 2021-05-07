@@ -77,6 +77,10 @@ public interface MyDAO {
 	int receiverChk(String receiver);
 
 	int sendMsg(HashMap<String, String> params);
+	
+	int mygroupbuyAllCount(String sessionId);
+
+	ArrayList<MyDTO> mygroupbuyList(int start, int end, String sessionId);
 
 
 }
