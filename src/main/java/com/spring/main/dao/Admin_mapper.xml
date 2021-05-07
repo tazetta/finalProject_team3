@@ -146,7 +146,7 @@
 	</select>
 	
 	<select id="adminReportedCommList" resultType="com.spring.main.dto.ReportDTO"> 
-		SELECT c.comments, r.repctgidx, r.targetid, r.reg_date, c.blind 
+		SELECT c.commIdx, c.comments, r.repctgidx, r.targetid, r.reg_date, c.blind 
     		FROM (SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, repctgidx, targetid, reg_date, commIdx FROM reports) r
         , comments c WHERE r.commIdx = c.commIdx AND r.rnum BETWEEN ${param1} AND ${param2}
 		<if test = "param3 != 0">
@@ -166,4 +166,18 @@
 	<select id="reportedGroupMaxCnt" resultType="int">
 		SELECT COUNT(gpIdx) FROM reports
 	</select>
+	
+	<update id="adminGroupBlind">
+		UPDATE  groupPurchase SET blind='y'
+		WHERE gpIdx=#{param1}
+	</update>
+	
+	<update id="adminCommBlind">
+		UPDATE  comments SET blind='y'
+		WHERE commIdx=#{param1}
+	</update>
+	<update id="adminBrdBlind">
+		UPDATE  board SET blind='y'
+		WHERE boardIdx=#{param1}
+	</update>
 </mapper>
