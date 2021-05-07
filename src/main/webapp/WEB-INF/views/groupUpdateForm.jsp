@@ -28,6 +28,8 @@ input[type='text'] {
 </style>
 </head>
 <body>
+ <jsp:include page="mainnavi.jsp"></jsp:include> 
+
 	<h3>수정하기</h3>
 	<form action="/main/groupUpdate" method="post">
 		<table>
