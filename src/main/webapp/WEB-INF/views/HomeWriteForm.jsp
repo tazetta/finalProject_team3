@@ -11,7 +11,7 @@
 <meta  charset= "UTF-8">
 <title>우리 집 자랑 글쓰기</title>
 
-    
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <!-- 부트스트랩 사용 -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -68,6 +68,19 @@ a.button2:hover {
 	color: rgba(255, 255, 255, 0.85);
 	box-shadow: rgb(194, 191, 243) 0 0px 0px 40px inset;
 }
+input.button{
+	border : 1px rgba(30, 22, 54, 0.6);
+ 	border-radius: 10px;
+	color: rgba(30, 22, 54, 0.6);
+    background-color: rgb(230, 226, 224);
+	box-shadow: rgb(230, 226, 224) 0 0px 0px 2px inset;
+	
+}
+input.button:hover{
+	color: rgba(255, 255, 255, 0.85);
+	box-shadow: rgb(230, 226, 224) 0 0px 0px 40px inset;
+
+}
 </style>
 </head>
 
@@ -93,10 +106,10 @@ a.button2:hover {
                             <li>
                                 <select name="idx" id="idx"style="border-radius: 5px; margin: 5px; ">
                                 <option>주거형태</option>
-                                <option value="">원룸&오피스텔</option>
-                                <option value="1">아파트</option>
-                                <option value="2">단독주택</option>
-                                <option value="3">기타</option>
+                                <option value="1">원룸&오피스텔</option>
+                                <option value="2">아파트</option>
+                                <option value="3">단독주택</option>
+                                <option value="4">기타</option>
                                 </select>
                             </li>
                             <br/>
@@ -133,11 +146,12 @@ a.button2:hover {
         </table>
        
         <div class="container">
-            <a href="#" class="button" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; ">첨부파일</a>
+           <!--   <a href="#" class="button" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; " onclick="fileUp()">첨부파일</a>-->
+             <input id="button" class="button" style="max-width: 100; margin: 10px ;  padding: 10px 10px; font-weight: bold;" type="button" value="파일업로드" onclick="fileUp()" />
             <div class="row" style="float: right;">
-                <a href="#" class="button2" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; ">저장</a>
+                <a href="homemain" class="button2" style="max-width: 75; margin: 10px ; padding: 10px 10px; font-weight: bold; text-align:center; ">저장</a>
             </div>
-            <a href="#" class="button" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; float: right;">취소</a>
+            <a href="homemain" class="button" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; float: right;">취소</a>
         </div>
         </div>
        

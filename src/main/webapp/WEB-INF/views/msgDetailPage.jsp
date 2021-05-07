@@ -13,17 +13,26 @@
 	<table>
 		<tr>
 			<th>보낸사람</th>
-			<td>${info.sender}</td>
+			<td><input id="sender" type="text" value="${info.sender}" readonly/></td>
 		</tr>
 		<tr>
-			<th>보낸사람</th>
-			<td>${info.reg_date}</td>
+			<th>받는 사람</th>
+			<td><input id="receiver"type="text" value="${info.receiver}" readonly/></td>
 		</tr>
 		<tr>
-			<th>보낸사람</th>
+			<th>내용</th>
 			<td>${info.content}</td>
 		</tr>
 	</table>
+		<button onclick="msgFormPopUp()">답장</button>
 	</body>
-	<script></script>
+	<script>
+	function msgFormPopUp(){
+		var receiver = $("#sender").val();
+		var url = "msgFormPopUp/"+receiver;
+		console.log(receiver);
+		window.open(url,"쪽지보내기폼","width=500, height=450");
+		self.close();
+	}
+	</script>
 </html>

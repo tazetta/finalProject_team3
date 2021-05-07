@@ -56,6 +56,10 @@ public interface AdminDAO {
 
 	int reportedCommMaxCnt(int repCtgIdx);
 
-	ArrayList<ReportDTO> adminReportedCommList(int start, int end, int repCtgIdx);	
+	ArrayList<ReportDTO> adminReportedCommList(int start, int end, int repCtgIdx);
+
+	ArrayList<ReportDTO> adminReportedGroupList(int start, int end, int repCtgIdx);
+
+	int reportedGroupMaxCnt(int repCtgIdx);	
 
 }

@@ -128,6 +128,13 @@ public class MyController {
 		return "mygroupwrite";
 	}
 
+	/* 신청한 공동구매 */
+	@RequestMapping(value = "/mygroupbuy", method = RequestMethod.GET)
+	public String mygroupbuy() {
+		logger.info("신청한 공동구매 페이지");
+		return "mygroupbuy";
+	}
+
 	
 	
 	
@@ -163,11 +170,7 @@ public class MyController {
 		return "mygrouppage";
 	}
 
-	@RequestMapping(value = "/mygroupbuy", method = RequestMethod.GET)
-	public String mygroupbuy() {
-		logger.info("신청한 공동구매 페이지");
-		return "mygroupbuy";
-	}
+
 
 
 

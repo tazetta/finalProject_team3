@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -66,6 +65,12 @@ public class MyRestController {
 		return service.mygroupwriteList(pagePerCnt,page,session);	
 	}
 	
+	@RequestMapping(value = "/mygroupbuyList/{pagePerCnt}/{page}", method = RequestMethod.GET)
+	public HashMap<String, Object> mygroupbuyList(@PathVariable int page , @PathVariable int pagePerCnt ,HttpSession session) {
+		logger.info("신청한 공동구매");
+		return service.mygroupbuyList(pagePerCnt,page,session);	
+	}
+	
 	
 	
 	
@@ -82,14 +87,14 @@ public class MyRestController {
 		
 	}
 	
-	@RequestMapping(value = "/msgDetail/{msgIdx}", method = RequestMethod.GET)
+	@RequestMapping(value = "/msgDetailPopUp/{msgIdx}", method = RequestMethod.GET)
 	public ModelAndView msgDetail(@PathVariable int msgIdx) {
 		logger.info("쪽지 상세보기");
 		return service.msgDetail(msgIdx);
 		
 	}
 	@RequestMapping(value = "/msgDelete/{msgIdx}", method = RequestMethod.GET)
-	public ModelAndView msgDelete(@PathVariable int msgIdx ,HttpSession session , RedirectAttributes rAttr) {
+	public HashMap<String, Object> msgDelete(@PathVariable int msgIdx ,HttpSession session , RedirectAttributes rAttr) {
 		logger.info("쪽지 삭제하기");
 		return service.msgDelete(msgIdx , session ,rAttr);
 		
@@ -104,8 +109,19 @@ public class MyRestController {
 		return mav;
 		
 	}
+	@RequestMapping(value = "/msgDetailPopUp/msgFormPopUp/{receiver}", method = RequestMethod.GET)
+	public ModelAndView msgFormPopUp(@PathVariable String receiver, HttpSession session) {
+		logger.info("쪽지쓰기 팝업창2");
+		ModelAndView mav = new ModelAndView();
+		String loginId = (String) session.getAttribute("loginId");
+		mav.addObject("loginId", loginId);
+		mav.addObject("receiver", receiver);
+		mav.setViewName("msgForm");
+		return mav;
+		
+	}
 	@RequestMapping(value = "/sendMsg", method = RequestMethod.GET)
-	public ModelAndView sendMsg(@RequestParam HashMap<String, String> params) {
+	public HashMap<String, Object> sendMsg(@RequestParam HashMap<String, String> params) {
 		logger.info("쪽지쓰기 요청");
 		logger.info("params {}" + params);
 		

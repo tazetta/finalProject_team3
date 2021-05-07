@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.spring.main.dto.BoardDTO;
+import com.spring.main.dto.Comments2ndDTO;
 import com.spring.main.dto.CommentsDTO;
 import com.spring.main.dto.MyDTO;
 import com.spring.main.dto.PhotoDTO;
@@ -93,5 +94,9 @@ public interface BoardDAO {
 	int boardRecommWrite(HashMap<String, String> params);
 	int getPhotoMax(String id);
 	ArrayList<PhotoDTO> myInteriorSlider(String id);
+	//우리집 자랑 목록 조회
+	ArrayList<BoardDTO> homeMainList(int startNum, int endNum, String keyword,String orderBy, String formcategory,int budget, int roomsize);
+	//대댓글리스트
+	ArrayList<Comments2ndDTO> boardRecommList(int commIdx);
 	
 }

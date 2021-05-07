@@ -136,14 +136,19 @@ public class BoardRestController {
 	 * @param pageNum 이동하려는 페이지 번호
 	 * @param orderBy 정렬 (최신순/추천순)
 	 * @return
-	
+	*/
 	@RequestMapping(value = "/api/homemain", method = RequestMethod.GET)
-	public Map<String, Object> getApiHomemainRecent(
+	public Map<String, Object> getApiHomemainList(
 			@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum,
-			@RequestParam(value="orderBy", required=false, defaultValue="recent") String orderBy
+			@RequestParam(value="opt", required=false, defaultValue="all") String opt,
+			@RequestParam(value="keyword", required=false, defaultValue="") String keyword,
+			@RequestParam(value="orderBy", required=false, defaultValue="recent") String orderBy,
+			@RequestParam(value="formcategory", required=false, defaultValue="")String formcategory,
+			@RequestParam(value="budget", required=false, defaultValue="")int budget,
+			@RequestParam(value="roomsize", required=false, defaultValue="") int roomsize
 			){
-		logger.info("cntBoardList");
+		logger.info("homemainlist");
 		
-		return BoardService.getTipmain(pageNum, orderBy);
-	}*/
+		return BoardService.homeMainList(pageNum, opt, keyword,orderBy, formcategory, budget, roomsize);
+	}
 }

@@ -17,7 +17,13 @@
         </tr>
         <tr>
             <th>받는 사람</th>
-            <td><input id="receiver" type="text" name="receiver"></td>
+            <td>
+            	<c:set var="rcver" value="${receiver}"></c:set>
+            	<c:if test="${rcver == null}">
+            	<input id="receiver" type="text" name="receiver"></c:if>
+            	<c:if test="${rcver != null}">
+            	<input id="receiver" type="text" name="receiver" value="${receiver}" readonly/></c:if>
+            </td>
         </tr>
         <tr>
             <th>내용</th>
@@ -64,8 +70,9 @@
 			success:function(data){
 				console.log(data);
 				alert(data.msg);
-				if(data.success){
+				if(data.success > 0){
 					self.close();
+					opener.parent.location.reload();
 				}
 			},error:function(error){
 				console.log(error);

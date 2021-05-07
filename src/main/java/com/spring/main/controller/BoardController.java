@@ -50,7 +50,9 @@ public class BoardController {
 		return "QWrite";
 	}
 	@RequestMapping(value = "/homemain", method = RequestMethod.GET)
-	public ModelAndView homemain(@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum) {
+	public ModelAndView homemain(@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum,
+			@RequestParam(value="opt", required=false, defaultValue="all") String opt,
+			@RequestParam(value="keyword", required=false, defaultValue="") String keyword) {
 		logger.info("우리집 자랑 목록 조회하기");
 		System.out.println("pageNum : "+ pageNum);
 
@@ -252,9 +254,9 @@ public class BoardController {
 		return BoardService.boardCommRec(commIdx,rAttr,session);
 	}
 	
-	@RequestMapping(value = "/boardrecCommList", method = RequestMethod.GET)
+	@RequestMapping(value = "/brdrecCommList", method = RequestMethod.GET)
 	@ResponseBody HashMap<String , Object> recCommList( HttpSession session,RedirectAttributes rAttr) {
-		logger.info("내가 추천한 댓글 리스트: {}");
+		logger.info("내가 추천한 댓글 리스트: {}",session);
 		return BoardService.boardrecCommList(rAttr,session);
 	}
 	
@@ -264,5 +266,9 @@ public class BoardController {
 		logger.info("대댓글쓰기 요청 params: {}", params);
 		return BoardService.boardRecommWrite(params,session,rAttr);
 	}
-	
+	@RequestMapping(value = "/boardRecommList/{commIdx}", method = RequestMethod.GET)
+	@ResponseBody HashMap<String , Object> groupRecommList(@PathVariable int commIdx) {
+		logger.info("대댓글 리스트 요청 commIdx: {}", commIdx);
+		return BoardService.boardRecommList(commIdx);
+	}
 }
