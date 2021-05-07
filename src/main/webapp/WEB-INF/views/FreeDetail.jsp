@@ -475,8 +475,8 @@ a:link {
 			console.log("삭제취소");
 		}
 	}
-	/* 댓글 추천-취소 */
-	function boardCommRec(com2ndIdx){
+	/* 대댓글 추천-취소 */
+	function boardReCommRec(com2ndIdx){
 		console.log("com2ndIdx: "+com2ndIdx);
 		var reqUrl = "../boardReCommRec/"+com2ndIdx;
 		$.ajax({
@@ -503,10 +503,10 @@ a:link {
 				}
 			});
 	}
-	/* 대댓글 추천-취소 */
-	function boardReCommRec(commIdx){
+	/* 댓글 추천-취소 */
+	function boardCommRec(commIdx){
 		console.log("commIdx: "+commIdx);
-		var reqUrl = "../boardReCommRec/"+commIdx;
+		var reqUrl = "../boardCommRec/"+commIdx;
 		$.ajax({
 				url : reqUrl,
 				type : "get",

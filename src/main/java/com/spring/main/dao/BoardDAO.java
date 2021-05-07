@@ -120,5 +120,9 @@ public interface BoardDAO {
 	int boardReCommcntDown(int com2ndIdx);
 	//대댓글 cnt 증가
 	int boardReCommcntUp(int com2ndIdx);
+	//댓글 cnt 감소
+	int boardCommcntDown(int commIdx);
+	//댓글 cnt 증가
+	int boardCommRecUp(int commIdx);
 	
 }

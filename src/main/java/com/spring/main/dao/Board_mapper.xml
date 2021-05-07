@@ -495,4 +495,14 @@
 		UPDATE comments_2nd SET cnt=cnt-1 WHERE
 		com2ndIdx=#{com2ndIdx}
 		</update>
+		<!--댓글 cnt 증가 -->
+	<update id="boardCommRecUp">
+		UPDATE comments SET cnt=cnt+1 WHERE
+		commIdx=#{commIdx}
+	</update>
+	<!-- 댓글 cnt 감소 -->
+	<update id="boardCommcntDown">
+		UPDATE comments SET cnt=cnt-1 WHERE
+		commIdx=#{commIdx}
+		</update>
 </mapper>

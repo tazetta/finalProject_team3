@@ -578,12 +578,14 @@ public class BoardService {
 		if (commRecChk != null) {
 			logger.info("추천취소하기");
 			int result = boarddao.boardCommDec(commIdx, loginId);
+			int cnt = boarddao.boardCommcntDown(commIdx);
 			logger.info("result:" + result);
 			recResult = "false";
 			msg = "추천취소되었습니다";
 		} else {
 			logger.info("추천하기");
 			int result = boarddao.boardCommRec(commIdx, loginId);
+			int cnt = boarddao.boardCommRecUp(commIdx);
 			logger.info("result:" + result);
 			recResult = "true";
 			msg = "추천되었습니다";
