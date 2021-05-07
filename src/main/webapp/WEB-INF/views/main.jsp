@@ -53,18 +53,20 @@
                 style="padding-left: 5px;">회원가입</span></a>
         <a href="" style="font-size:small; float: right; color: gray; "><span>로그인</span></a>
     </div>-->
-    <div class="flexBox" style="padding-bottom: 300px;">
+    <div class="flexBox">
     
        
         <div>
            
-            <%-- <jsp:include page"mainnavi.jsp"></jsp:include>  --%>
+         
             <div class="container">
-         <iframe  width="1500" height="280" align="middle" src="mainnavi" scrolling="no" frameborder="0" style="padding-left:100px;"></iframe>
+            <div style="min-height: 210px;">
+	            <jsp:include page="mainnavi.jsp"></jsp:include> 
+            </div>
               
-                <h4 style="padding-top:3%;">오늘의 땃쥐 룸</h4>
                 <br/>
                 <div class="container">
+                <h4 style="margin-top:3%;">오늘의 땃쥐 룸</h4>
                     <div style="display: flex;  justify-content: center; border: 1px solid rgb(255, 255, 255); height: 100%;">
                         <div style="border: 5px solid white; margin-right: 90px; box-shadow:0 0 5px lightslategray;" >
                             <img src="C:\Users\user\Desktop\BootStrap\interior1.jpg" width="250" height="250">
