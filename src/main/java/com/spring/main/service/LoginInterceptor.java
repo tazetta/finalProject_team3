@@ -30,8 +30,10 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			System.out.println("로그인 처리 되어있음(login상태)");
 			pass=true;
 		}
+		
+		
 		return pass;
 	}
-
-
+	
+	
 }

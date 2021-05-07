@@ -115,15 +115,6 @@ public class GroupController {
 		logger.info("공동구매 신청자 리스트 요청: " + gpIdx );
 		return groupService.applyList(gpIdx,  rAttr,session);
 	}
-
-	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public ModelAndView logout(HttpSession session) {
-		logger.info("로그아웃 요청");
-		ModelAndView mav = new ModelAndView();
-		session.removeAttribute("loginId");
-		mav.setViewName("main");
-		return mav;
-	}
 	
 	
 	@RequestMapping(value = "/groupCommentWrite", method = RequestMethod.GET)

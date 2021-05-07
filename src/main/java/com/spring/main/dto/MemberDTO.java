@@ -15,6 +15,26 @@ public class MemberDTO {
 	int stateIdx;
 	int cntBoard;
 	int cntComm;
+	String adminId;
+	Date endDay;
+	
+
+	public String getAdminId() {
+		return adminId;
+	}
+
+	public void setAdminId(String adminId) {
+		this.adminId = adminId;
+	}
+
+
+	public Date getEndDay() {
+		return endDay;
+	}
+
+	public void setEndDay(Date endDay) {
+		this.endDay = endDay;
+	}
 
 	public String getGrade() {
 		return grade;

@@ -9,7 +9,7 @@
 <title>상세보기</title>
 <style>
 
-table, td, th {
+#groupTable table,#groupTable td,#groupTable th {
 	width: 1100px;
 	padding: 5px 10px;
 	text-align: center;
@@ -94,8 +94,9 @@ background-color: #F2F1F1;
 </style>
 </head>
 <body>
-	<a href="/main/logout">로그아웃</a>
-	<table>
+ <jsp:include page="mainnavi.jsp"></jsp:include> 
+
+	<table id="groupTable">
 		<tr>
 			<th>idx</th>
 			<th>카테고리</th>

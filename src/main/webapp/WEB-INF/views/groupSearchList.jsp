@@ -40,6 +40,8 @@ head td, #paging {
 </style>
 </head>
 <body>
+ <jsp:include page="mainnavi.jsp"></jsp:include> 
+
 	<a href="groupListPage" id="groupMain">공동구매 게시판</a>
 	<form action="groupSearch">
 

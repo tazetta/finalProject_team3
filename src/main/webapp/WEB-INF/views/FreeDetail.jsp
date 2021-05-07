@@ -159,7 +159,7 @@ a:link {
 				<div id="content">
 				 <c:set var="loginId" value="${sessionScope.loginId}" />
 			 			<c:if  test="${!empty loginId}">
-					<button id="contentbtn" style="margin-left: 300;">신고</button>
+					<button id="contentbtn" style="margin-left: 300;" onclick="reportBoard()">신고</button>
 					</c:if>
 					<button onclick="location.href='../Freelist'" id="contentbtn"
 						style="margin-left: 50;">목록</button>
@@ -172,9 +172,16 @@ a:link {
 			<b>댓글 <span id="listSize"></span>개
 			</b>
 			<div id="commentBox" class="container" style="text-align: center;">
+			<c:set var="loginId" value="${sessionScope.loginId}" />
+			 	<c:if  test="${!empty loginId}">
 				<span><b id="loginId">${sessionScope.loginId }</b></span> <input
 					type="text" name="comment" id="comment" placeholder="댓글을 입력해주세요" />
 				<input type="button" value="등록" id="commentSave" />
+				</c:if>
+				<c:if  test="${empty loginId}">
+				<span><b id="loginId">${sessionScope.loginId }</b></span> <input
+					type="text" name="comment" id="comment" placeholder="로그인이 필요한 서비스입니다." />
+				</c:if>
 			</div>
 		</div>
 		<div>
@@ -188,7 +195,11 @@ a:link {
 		alert(msg);
 	}
 	boardCommentList(); //댓글리스트
-
+	/*글 신고 새창*/
+	function reportBoard(){
+		window.open("../boardRepBoardForm/${dto.boardIdx}","reportBoard","width=800, height=600");
+		//요청url,타이틀,옵션
+	}
 	/* 댓글 등록 */
 	$("#commentSave").click(function() {
 		var comment = $("#comment").val();
@@ -275,7 +286,6 @@ a:link {
 						+ '</span></td>';
 			}
 			content += '<td style="text-align:left">';
-
 			if ("${sessionScope.loginId}" == list[i].id) {
 				content += '<a href="javascript:void(0)"; onclick="recommForm('
 						+ list[i].commIdx + ')">답글달기</a>&nbsp;&nbsp;';
@@ -289,7 +299,7 @@ a:link {
 			content += '</table>';
 			content += "</div>";
 			content += "<div id='recommentListDiv"+list[i].commIdx+"'></div>"; //대댓글 리스트 가져올 영역
-			boardRecommList(list[i].commIdx); //대댓글 리스트 호출
+			boardRecommList(list[i].commIdx); //대댓글 리스트 호출 
 		}
 		$("#commentListDiv").empty(); //#list안의 내용을 버려라
 		$("#commentListDiv").append(content);
@@ -408,6 +418,7 @@ a:link {
 	/*대댓글 리스트 뿌리기*/
 	function boardRecommPrint(list) {
 		var content = "";
+		var loginId = "${sessionScope.loginId}";
 		content += "<div id='recommentDiv"+list.commIdx+"'>";
 		content += "<table class='recommentTable'>";
 		content += "<tr>";
@@ -421,14 +432,18 @@ a:link {
 		var reg_date = new Date(list.reg_date);
 		content += reg_date.toLocaleDateString("ko-KR");
 		content += '</td>';
-		content += ' <td  style="text-align:left">';
 		//대댓글삭제
-		if ("${sessionScope.loginId}" == list.id) {
+		if (loginId == list.id) {
+			content += ' <td  style="text-align:left">';
 			content += '<button class="commDel" onclick="boardRecommentDel('
-					+ list.com2ndIdx + ')">삭제</button>';
+					+ list.com2ndIdx + ')">삭제</button></td>';
+					
 
-		} if("${sessionScope.loginId}" != list.id) {
-			content += '<a href="javascript:void(0)" ; onclick="repRecommForm('+list.com2ndIdx+')">신고</a></td>';
+		} if(loginId != list.id) {
+			content += '<td><a href="javascript:void(0)" ; onclick="repRecommForm('+list.com2ndIdx+')">신고</a></td>';
+			content += '<td><a href="javascript:void(0)"; onclick="boardReCommRec(';
+			content += list.com2ndIdx;
+			content +=  ')"><img alt="decommend" src="resources/images/decommend.png" width="15px" height="15px" id="'+list.com2ndIdx+'"> </a></td>';
 		}
 		content += '</tr>';
 		content += '</table>';
@@ -461,9 +476,37 @@ a:link {
 		}
 	}
 	/* 댓글 추천-취소 */
-	function commRec(commIdx){
+	function boardCommRec(com2ndIdx){
+		console.log("com2ndIdx: "+com2ndIdx);
+		var reqUrl = "../boardReCommRec/"+com2ndIdx;
+		$.ajax({
+				url : reqUrl,
+				type : "get",
+				data : {},
+				dataType : "JSON",
+				success : function(data) {
+					console.log("commRecSuccess: ", data);
+					console.log("rescResult:"+data.recResult);
+					if(data.recResult =='true'){
+						console.log($("#"+com2ndIdx+""));
+						$("#"+com2ndIdx+"").attr('src','resources/images/recommend.png');
+						boardCommentList(); //댓글리스트 호출(댓글추천수 새로고침)
+					}else{
+						console.log($("#"+com2ndIdx+""));
+						$("#"+com2ndIdx+"").attr('src','resources/images/decommend.png');
+						boardRecommList(); //댓글리스트 호출(댓글추천수 새로고침)
+					}
+					
+				},
+				error : function(error) {
+					console.log("error:", error);
+				}
+			});
+	}
+	/* 대댓글 추천-취소 */
+	function boardReCommRec(commIdx){
 		console.log("commIdx: "+commIdx);
-		var reqUrl = "../boardCommRec/"+commIdx;
+		var reqUrl = "../boardReCommRec/"+commIdx;
 		$.ajax({
 				url : reqUrl,
 				type : "get",
@@ -487,36 +530,8 @@ a:link {
 					console.log("error:", error);
 				}
 			});
-		//대댓글 추천-취소
-		function commRec(commIdx){
-			console.log("commIdx: "+commIdx);
-			var reqUrl = "../boardCommRec/"+commIdx;
-			$.ajax({
-					url : reqUrl,
-					type : "get",
-					data : {},
-					dataType : "JSON",
-					success : function(data) {
-						console.log("commRecSuccess: ", data);
-						console.log("rescResult:"+data.recResult);
-						if(data.recResult =='true'){
-							console.log($("#"+commIdx+""));
-							$("#"+commIdx+"").attr('src','resources/images/recommend.png');
-							boardCommentList(); //댓글리스트 호출(댓글추천수 새로고침)
-						}else{
-							console.log($("#"+commIdx+""));
-							$("#"+commIdx+"").attr('src','resources/images/decommend.png');
-							boardCommentList(); //댓글리스트 호출(댓글추천수 새로고침)
-						}
-						
-					},
-					error : function(error) {
-						console.log("error:", error);
-					}
-				});
+	}
 		/* 댓글 신고 새창 */
-	}
-	}
 	function repCommForm(commIdx){
 		window.open("../boardRepCommForm/1/"+commIdx,"reportComment","width=800, height=600");
 	}
