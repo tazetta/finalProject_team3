@@ -9,7 +9,7 @@
    .logo-area{
    height: 50px;
    }
-   	li{
+   	.네비li{
         line-height: 4;
         border-top: 2px solid dodgerblue;
         border-bottom: 2px solid dodgerblue;
@@ -24,18 +24,18 @@
         height: 100px;
         list-style: none;
          }
-        a:link{
+        .네비a:link{
             color: black;
             text-decoration: none;
         }
-        a:visited{
+        .네비a:visited{
             color: pink;
         }
-        li:hover{
+        .네비li:hover{
             color: white;
             background-color: deepskyblue;
         }
-        div.bar{
+        div.네비bar{
             background-color: white;
             min-width: 300px;
         }
@@ -65,34 +65,34 @@
             <c:set var="loginId" value="${sessionScope.loginId}" />
              <c:set var="comloginId" value="${sessionScope.cLoginId}" />
             <c:if  test="${empty loginId and empty comloginId}">
-        <a href="FAQ" style="font-weight: bold; font-size:small; float: right; color: gray; padding-left: 5px;">|<span
+        <a class="네비a" href="FAQ" style="font-weight: bold; font-size:small; float: right; color: gray; padding-left: 5px;">|<span class="네비span"
                 style="padding-left: 5px;">고객센터</span></a>
-        <a href="registForm" style="font-weight: bold; font-size:small; float: right; color: gray; padding-left: 5px;">|<span
+        <a class="네비a" href="registForm" style="font-weight: bold; font-size:small; float: right; color: gray; padding-left: 5px;">|<span class="네비span"
                 style="padding-left: 5px;">회원가입</span></a>
-        <a href="membership" style="font-weight: bold; font-size:small; float: right; color: gray; "><span>로그인</span></a>
+        <a class="네비a" href="membership" style="font-weight: bold; font-size:small; float: right; color: gray; "><span class="네비span">로그인</span></a>
         </c:if>
           <c:if  test="${!empty loginId}">
-        <a href="FAQ" style="font-weight: bold; font-size:small; float: right; color: gray; padding-left: 5px;">|<span
+        <a class="네비a" href="FAQ" style="font-weight: bold; font-size:small; float: right; color: gray; padding-left: 5px;">|<span class="네비span"
                 style="font-weight: bold; padding-left: 5px;">고객센터</span></a>
-        <a href="mywrite" style="font-weight: bold; font-size:small; float: right; color: gray; padding-left: 5px;">|<span
+        <a class="네비a" href="mywrite" style="font-weight: bold; font-size:small; float: right; color: gray; padding-left: 5px;">|<span class="네비span"
                 style="font-weight: bold; padding-left: 5px;">마이페이지</span></a>
-        <a href="membership" style="font-weight: bold; font-size:small; float: right; color: gray; "><span>로그아웃</span></a>
+        <a class="네비a" href="membership" style="font-weight: bold; font-size:small; float: right; color: gray; "><span class="네비span">로그아웃</span></a>
         </c:if>
          <c:if  test="${!empty comloginId}">
-        <a href="FAQ" style="font-weight: bold; font-size:small; float: right; color: gray; padding-left: 5px;">|<span
+        <a class="네비a" href="FAQ" style="font-weight: bold; font-size:small; float: right; color: gray; padding-left: 5px;">|<span class="네비span"
                 style="font-weight: bold; padding-left: 5px;">고객센터</span></a>
-        <a href="companydetail" style="font-weight: bold; font-size:small; float: right; color: gray; padding-left: 5px;">|<span
+        <a class="네비a" href="companydetail" style="font-weight: bold; font-size:small; float: right; color: gray; padding-left: 5px;">|<span class="네비span"
                 style="font-weight: bold; padding-left: 5px;">업체페이지</span></a>
-        <a href="membership" style="font-weight: bold; font-size:small; float: right; color: gray; "><span>로그아웃</span></a>
+        <a class="네비a" href="membership" style="font-weight: bold; font-size:small; float: right; color: gray; "><span class="네비span">로그아웃</span></a>
         </c:if>
     </div>
-<div class="bar">
+<div class="네비bar">
     <ul>
-        <li><a href="Freelist" target="_parent">자유게시판</a></li>   
-        <li><a href="homemain" target="_parent">우리집 자랑</a></li>
-        <li><a href="groupListPage" target="_parent">공동 구매</a></li>
-        <li><a href="helpMain" target="_parent">도와줘요 자취만렙</a></li> 
-        <li><a href="interiorexamList" target="_parent">전문가 인테리어</a></li>
+        <li class="네비li"><a class="네비a" href="Freelist" target="_parent">자유게시판</a></li>   
+        <li class="네비li"><a class="네비a" href="homemain" target="_parent">우리집 자랑</a></li>
+        <li class="네비li"><a class="네비a" href="groupListPage" target="_parent">공동 구매</a></li>
+        <li class="네비li"><a class="네비a" href="helpMain" target="_parent">도와줘요 자취만렙</a></li> 
+        <li class="네비li"><a class="네비a" href="interiorexamList" target="_parent">전문가 인테리어</a></li>
     </ul>
 
 </div>

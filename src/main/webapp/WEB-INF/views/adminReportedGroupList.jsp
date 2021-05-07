@@ -229,11 +229,11 @@ function listPrint(list){
 				var date = new Date(list[i].reg_date);
 				content += "<td>"+date.toLocaleDateString("ko-KR")+"</td>"
 				if(list[i].blind == 'n'){
-					content += "<td><input type='checkbox' id="+(list[i].boardIdx)+" value='블라인드' />블라인드</td>"
+					content += "<td><input type='checkbox' id="+(i)+" value="+(list[i].gpIdx)+" />블라인드</td>"
 				} else {
 					content += "<td style='color: red;'>블라인드 중</td>"
 				}
-				content += "<td><input type='button' value='확인' style='width: 50px;' class='inputs' id="+(list[i].boardIdx+'Btn')+" /></td>"
+				content += "<td><input type='button' value='확인' style='width: 50px;' class='inputs' onclick='blind("+(i)+")' /></td>"
 			content += "</tr>"
 		}
 	}
@@ -241,5 +241,22 @@ function listPrint(list){
 	$("#list").append(content);
 }
 
+function blind(i){	
+	if($("#"+i).prop("checked")){
+		var gpIdx = $("#"+i).val();
+		$.ajax({
+			url: "adminGroupBlind/"+gpIdx
+			,data: {}
+			,type: "get"
+			,dataType: "JSON"
+			,success:(data)=>{
+				listCall(1, 0);
+			}
+			,error:(error)=>{
+				console.log(error);
+			}
+		});
+	}
+}
 </script>
 </html>

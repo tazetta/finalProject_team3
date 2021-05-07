@@ -98,5 +98,7 @@ public interface BoardDAO {
 	ArrayList<BoardDTO> homeMainList(int startNum, int endNum, String keyword,String orderBy, String formcategory,int budget, int roomsize);
 	//대댓글리스트
 	ArrayList<Comments2ndDTO> boardRecommList(int commIdx);
+	//대댓글삭제
+	int boardRecommDel(int com2ndIdx);
 	
 }
