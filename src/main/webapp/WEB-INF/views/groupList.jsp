@@ -18,12 +18,12 @@
 
 <title>공동구매 메인 리스트</title>
 <style>
-table {
+#groupList table {
 	width: 70%;
 	margin-top: 10px;
 }
 
-table, td, th {
+#groupList table, #groupList td, #groupList th {
 	border: 1px solid;
 	border-collapse: collapse;
 	padding: 5px 10px;
@@ -35,7 +35,7 @@ head td, #paging {
 </style>
 </head>
 <body>
-
+ <jsp:include page="mainnavi.jsp"></jsp:include> 
 <form action="groupSearch">
 	<select id="searchOpt" name="opt">
 		<option value="all">전체</option>
@@ -55,7 +55,7 @@ head td, #paging {
 		<option value="2">무료나눔</option>
 	</select>
 	<button onclick="location.href='groupWriteForm'">글쓰기</button>
-	<table>
+	<table id="groupList">
 		<thead>
 			<tr>
 				<th>글번호</th>

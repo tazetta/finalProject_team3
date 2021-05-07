@@ -84,9 +84,9 @@ public interface BoardDAO {
 	ArrayList<BoardDTO> getHelpmainList(int startNum, int endNum, int brdCtgIdx, String opt, String keyword, String orderBy, char isWaitForAnswer);
 	
 	String boardCommRecChk(int commIdx, String loginId);
-	
+	//댓글 추천 취소
 	int boardCommDec(int commIdx, String loginId);
-	
+	//댓글 추천
 	int boardCommRec(int commIdx, String loginId);
 	
 	ArrayList<BoardDTO> myRecList(String loginId);
