@@ -655,7 +655,7 @@ public class BoardService {
 		return mav;
 	}
 	public ModelAndView boardRepCommForm(int branch, int commIdx, HttpSession session) {
-		logger.info("공동구매 댓글/답글신고 form 서비스");
+		logger.info(" 댓글/답글신고 form 서비스");
 		String loginId = (String) session.getAttribute("loginId");
 		ModelAndView mav = new ModelAndView();
 		if(branch==1) { //댓글신고 form요청
@@ -700,7 +700,7 @@ public class BoardService {
 	}
 
 	public HashMap<String, Object> boardRepBoard(HashMap<String, String> params) {
-		logger.info("공동구매 게시글 신고 서비스");
+		logger.info("게시글 신고 서비스");
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		int result = boarddao.boardRepBoard(params); 
 		logger.info("result:"+result);
