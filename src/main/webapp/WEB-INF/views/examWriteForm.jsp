@@ -54,12 +54,18 @@ input[type='text'] {
 
 </body>
 <script>
+
 	$("#save").click(function() {
+		console.log(${sessionScope.fileList.size()});
 		console.log($("#editable").html());
 		$("#editable>a").find("b").remove(); //a태그안 b태그 삭제
 		$("#editable>a").removeAttr("onclick"); //del(this) 무효화
 		$("#content").val($("#editable").html());
-		$("form").submit();
+		//if(${sessionScope.fileList.size()>0}){
+			$("form").submit();			
+		//}else{
+		//	alert("사진을 한개 이상 등록해주세요");
+		//}
 	});
 	
 	/* 파일업로드 새창*/
