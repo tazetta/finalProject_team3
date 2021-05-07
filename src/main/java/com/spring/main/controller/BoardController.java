@@ -48,19 +48,12 @@ public class BoardController {
 		return "QWrite";
 	}
 	@RequestMapping(value = "/homemain", method = RequestMethod.GET)
-	public ModelAndView homemain(@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum,
-			@RequestParam(value="opt", required=false, defaultValue="all") String opt,
-			@RequestParam(value="keyword", required=false, defaultValue="") String keyword) {
-		logger.info("우리집 자랑 목록 조회하기");
-		System.out.println("pageNum : "+ pageNum);
-
-		ModelAndView mav = new ModelAndView();
-	    Map<String, Object> map = BoardService.getBoardList(pageNum, 2, "all", "");
-	  
-	    mav.addObject("boardList", map.get("list"));
-	    mav.setViewName("homemain");
+	public ModelAndView homemain() {
+	ModelAndView mav = new ModelAndView();
+	logger.info("페이지이동이당");
+		mav.setViewName("homemain");
 		
-		return mav;
+  return mav;
 	   }
 	@RequestMapping(value = "/Freeview", method = RequestMethod.GET)
 	public String Freeview() {
@@ -70,27 +63,13 @@ public class BoardController {
 	}
 	@RequestMapping(value = "/Freelist", method = RequestMethod.GET)
 	
-	/*public String Freelist() {
-		  logger.info("자유게시판 조회하기");
-		  System.out.println("자유게시판 ~~ ");
-		  return "Freelist";
-		}
-	*/
-	public ModelAndView Freelist(
-			@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum,
-			@RequestParam(value="opt", required=false, defaultValue="all") String opt,
-			@RequestParam(value="keyword", required=false, defaultValue="") String keyword,
-			HttpSession session) {
-	  logger.info("자유게시판 조회하기");
-	  System.out.print(session); 
-	  System.out.println("pageNum : " + pageNum);
-	  
-	  ModelAndView mav = new ModelAndView();
-	  Map<String, Object> map = BoardService.getBoardList(pageNum, 1, "all", "");
-	  
-	  mav.addObject("boardList", map.get("list"));
-	  mav.setViewName("Freelist");
-	  
+	
+	
+	public ModelAndView Freelist() {
+		ModelAndView mav = new ModelAndView();
+		logger.info("페이지이동이당");
+			mav.setViewName("Freelist");
+			
 	  return mav;
 	}
 		@RequestMapping(value = "/tip", method = RequestMethod.GET)
@@ -259,6 +238,7 @@ public class BoardController {
 		logger.info("대댓글 리스트 요청 commIdx: {}", commIdx);
 		return BoardService.boardRecommList(commIdx);
 	}
+
 	@RequestMapping(value = "/boardRecommentDel/{com2ndIdx}", method = RequestMethod.GET)
 	@ResponseBody HashMap<String , Object> groupRecommDel(@PathVariable int  com2ndIdx) {
 		logger.info("대댓글삭제 요청 Idx: {}", com2ndIdx);
@@ -289,4 +269,5 @@ public class BoardController {
 		logger.info("대댓글 추천 com2ndIdx: {}", com2ndIdx);
 		return BoardService.boardReCommRec(com2ndIdx,rAttr,session);
 	}
+
 }

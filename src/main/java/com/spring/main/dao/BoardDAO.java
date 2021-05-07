@@ -94,12 +94,18 @@ public interface BoardDAO {
 	int boardRecommWrite(HashMap<String, String> params);
 	int getPhotoMax(String id);
 	ArrayList<PhotoDTO> myInteriorSlider(String id);
+	
+	//우리집 자랑 목록 전체 개수 조회
+	int gethomeMainCount(int brdCtgIdx, String keyword, String orderBy, String formcategory,int budget, int roomsize);
 	//우리집 자랑 목록 조회
-	ArrayList<BoardDTO> homeMainList(int startNum, int endNum, String keyword,String orderBy, String formcategory,int budget, int roomsize);
+	//ArrayList<BoardDTO> homeMainList(int startNum, int endNum, String keyword,String orderBy, String formcategory,int budget, int roomsize);
+	
+	ArrayList<BoardDTO> gethomeMainList(int startNum, int endNum, String keyword,String orderBy, String formcategory,int budget, int roomsize);
 	//대댓글리스트
 	ArrayList<Comments2ndDTO> boardRecommList(int commIdx);
 	//대댓글삭제
 	int boardRecommDel(int com2ndIdx);
+
 	//댓글신고
 	int boardRepComm(HashMap<String, String> params);
 	//대댓글신고
@@ -124,5 +130,6 @@ public interface BoardDAO {
 	int boardCommcntDown(int commIdx);
 	//댓글 cnt 증가
 	int boardCommRecUp(int commIdx);
+
 	
 }

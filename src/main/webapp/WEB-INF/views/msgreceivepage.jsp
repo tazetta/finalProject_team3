@@ -12,8 +12,12 @@
 </head>
 <body>
     <div>
-                                  <iframe  width="1500" height="280" align="middle" src="mainnavi" scrolling="no" frameborder="0" style="padding-left:100px;"></iframe>
-    
+        <div class="mainnavi-area">
+			<jsp:include page="mainnavi.jsp"></jsp:include>
+		</div>
+		<div class="sidenavi-area">
+			<jsp:include page="sidemenu.jsp"></jsp:include>
+		</div>
         <table>
         <thead>
                 <tr>
