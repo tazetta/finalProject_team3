@@ -15,11 +15,15 @@
 	</insert>
 	
 	<select id="groupDetail" resultType="group">
-	 SELECT GPIDX,SUBJECT,CONTENT,CHATURL,PROGIDX,ID,MAXUSER,CURRUSER,DEADLINE,GPCTGIDX,reg_date FROM groupPurchase WHERE GPIDX=#{gpIdx}
+	 SELECT GPIDX,SUBJECT,CONTENT,CHATURL,PROGIDX,ID,MAXUSER,CURRUSER,DEADLINE,GPCTGIDX,reg_date,gHit FROM groupPurchase WHERE GPIDX=#{gpIdx}
 	</select>
 	
 	<update id="groupUpHit" >
 		UPDATE groupPurchase SET gHit=gHit+1 WHERE gpIdx=#{gpIdx}
+	</update>
+	
+	<update id="groupDownHit" >
+		UPDATE groupPurchase SET gHit=gHit-1 WHERE gpIdx=#{gpIdx}
 	</update>
 	
 	<!-- 카테고리  -->

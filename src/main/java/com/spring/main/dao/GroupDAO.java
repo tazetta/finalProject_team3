@@ -92,6 +92,8 @@ public interface GroupDAO {
 
 	int groupRepRecomm(HashMap<String, String> params);
 
+	void groupDownHit(int gpIdx);
+
 
 
 

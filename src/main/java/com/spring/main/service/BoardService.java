@@ -25,6 +25,7 @@ import com.spring.main.dao.BoardDAO;
 import com.spring.main.dto.BoardDTO;
 import com.spring.main.dto.Comments2ndDTO;
 import com.spring.main.dto.CommentsDTO;
+import com.spring.main.dto.GroupDTO;
 
 @Service
 public class BoardService {
@@ -462,7 +463,7 @@ public class BoardService {
 		return map;
 	}
 
-	//우리집 자랑 검색
+//우리집 자랑 세부검색
 	public Map<String, Object> homeMainList(int pageNum, String orderBy,String opt, String keyword, String formcategory, int budget,
 			int roomsize) {
 		Map<String, Object> map = new HashMap<>();
@@ -640,4 +641,60 @@ public class BoardService {
 		map.put("msg", msg);
 		return map;
 	}
+
+	public ModelAndView boardRepBoardForm(String boardIdx, HttpSession session) {
+		logger.info("신고 form 서비스");
+		String loginId = (String) session.getAttribute("loginId");
+		ModelAndView mav = new ModelAndView();
+		BoardDTO dto = boarddao.Boarddetail(boardIdx);
+		if(dto!=null) {
+			mav.addObject("dto",dto);
+			mav.addObject("loginId",loginId);
+		}
+		mav.setViewName("reportBoard");
+		return mav;
+	}
+	public ModelAndView boardRepCommForm(int branch, int commIdx, HttpSession session) {
+		logger.info("공동구매 댓글/답글신고 form 서비스");
+		String loginId = (String) session.getAttribute("loginId");
+		ModelAndView mav = new ModelAndView();
+		if(branch==1) { //댓글신고 form요청
+			logger.info("댓글신고 form 요청");
+			CommentsDTO dto = boarddao.boardCommForm(commIdx);
+			if(dto!=null) {
+				mav.addObject("dto",dto);
+				mav.addObject("loginId",loginId);
+				mav.addObject("branch", 1);
+			}
+		}else if(branch==2) { //대댓글 신고 form 요청
+			logger.info("대댓글신고 form 요청");
+			Comments2ndDTO dto = boarddao.boardRecommForm(commIdx);
+			if(dto!=null) {
+				mav.addObject("dto",dto);
+				mav.addObject("loginId",loginId);
+				mav.addObject("branch", 2);
+			}
+		}
+		mav.setViewName("reportComment");
+		return mav;
+	}
+	public HashMap<String, Object> boardRepComm(HashMap<String, String> params) {
+		logger.info("댓글/답글 신고 서비스");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int result = 0;
+		String success= "fail";
+		if(params.get("branch").equals(1)) { //댓글신고
+			result = boarddao.boardRepComm(params); 
+		}else { //대댓글 신고
+			result = boarddao.boardRepRecomm(params);
+		}
+		logger.info("result:"+result);
+
+		if(result>0) {
+			success ="success";
+		}
+		map.put("success", success);
+		return map;
+	}
+
 }
