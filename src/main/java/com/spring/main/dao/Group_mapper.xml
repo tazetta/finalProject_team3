@@ -219,12 +219,22 @@
 		INSERT INTO reports (repIdx,id,targetId,gpIdx,repCtgIdx) VALUES (reports_seq.NEXTVAL,#{id},#{targetId},#{gpIdx},#{repCtgIdx})
 	</insert> 
 	
+	<!-- 댓글신고 -->
 	<select id="groupCommForm" resultType="comments">
 		SELECT commIdx, comments, reg_date, blind, id, gpIdx FROM comments WHERE commIdx=#{commIdx}
 	</select>
 	
 	<insert id="groupRepComm">
 		INSERT INTO  reports (repIdx,id,targetId,commIdx,repCtgIdx) VALUES (reports_seq.NEXTVAL,#{id},#{targetId},#{commIdx},#{repCtgIdx})
+	</insert>
+	
+	<!-- 대댓글 신고 -->
+	<select id="groupRecommForm" resultType="comments2nd">
+		SELECT com2ndIdx, comments, reg_date, blind, id FROM comments_2nd WHERE com2ndIdx=#{commIdx}
+	</select>
+	
+	<insert id="groupRepRecomm">
+		INSERT INTO  reports (repIdx,id,targetId,com2ndIdx,repCtgIdx) VALUES (reports_seq.NEXTVAL,#{id},#{targetId},#{com2ndIdx},#{repCtgIdx})
 	</insert>
 
 	

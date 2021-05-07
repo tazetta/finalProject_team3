@@ -507,7 +507,7 @@ background-color: #F2F1F1;
 			content += '<button class="commDel" onclick="groupRecommentDel('+list.com2ndIdx+')">삭제</button>' ; 
 			
 		}else{
-		content += '<a href="#">신고</a></td>' ;
+		content += '<a href="javascript:void(0)"; onclick="repRecommForm('+list.com2ndIdx+')">신고</a></td>' ;
 		}
 		content += '</tr>';
 		content += '</table>';
@@ -542,10 +542,14 @@ background-color: #F2F1F1;
 			}	
 	}
 	
-	/* 대댓글 신고 새창 */
+	/* 댓글 신고 새창 */
 	function repCommForm(commIdx){
-		window.open("groupRepCommForm/"+commIdx,"reportComment","width=800, height=600");
-		//요청url,타이틀,옵션
+		window.open("groupRepCommForm/1/"+commIdx,"reportComment","width=800, height=600");
+	}
+	
+	/* 대댓글 신고 새창 */
+	function repRecommForm(com2ndIdx){
+		window.open("groupRepCommForm/2/"+com2ndIdx,"reportRecomment","width=800, height=600");
 	}
 	
 	
