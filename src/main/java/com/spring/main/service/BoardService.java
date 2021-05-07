@@ -25,6 +25,7 @@ import com.spring.main.dao.BoardDAO;
 import com.spring.main.dto.BoardDTO;
 import com.spring.main.dto.Comments2ndDTO;
 import com.spring.main.dto.CommentsDTO;
+import com.spring.main.dto.GroupDTO;
 
 @Service
 public class BoardService {
@@ -462,8 +463,13 @@ public class BoardService {
 		return map;
 	}
 
+
 	//우리집 자랑 검색
 	public Map<String, Object> homeMainList(int pageNum, String orderBy,String keyword, String formcategory, int budget,
+
+//우리집 자랑 세부검색
+	public Map<String, Object> homeMainList(int pageNum, String orderBy,String opt, String keyword, String formcategory, int budget,
+
 			int roomsize) {
 		Map<String, Object> map = new HashMap<>();
 		// startNum, endNum 생성
@@ -577,12 +583,14 @@ public class BoardService {
 		if (commRecChk != null) {
 			logger.info("추천취소하기");
 			int result = boarddao.boardCommDec(commIdx, loginId);
+			int cnt = boarddao.boardCommcntDown(commIdx);
 			logger.info("result:" + result);
 			recResult = "false";
 			msg = "추천취소되었습니다";
 		} else {
 			logger.info("추천하기");
 			int result = boarddao.boardCommRec(commIdx, loginId);
+			int cnt = boarddao.boardCommRecUp(commIdx);
 			logger.info("result:" + result);
 			recResult = "true";
 			msg = "추천되었습니다";
@@ -637,6 +645,107 @@ public class BoardService {
 		if (result > 0) {
 			msg = "답글이 삭제 되었습니다";
 		}
+		map.put("msg", msg);
+		return map;
+	}
+
+	public ModelAndView boardRepBoardForm(String boardIdx, HttpSession session) {
+		logger.info("신고 form 서비스");
+		String loginId = (String) session.getAttribute("loginId");
+		ModelAndView mav = new ModelAndView();
+		BoardDTO dto = boarddao.Boarddetail(boardIdx);
+		if(dto!=null) {
+			mav.addObject("dto",dto);
+			mav.addObject("loginId",loginId);
+		}
+		mav.setViewName("reportBoard");
+		return mav;
+	}
+	public ModelAndView boardRepCommForm(int branch, int commIdx, HttpSession session) {
+		logger.info(" 댓글/답글신고 form 서비스");
+		String loginId = (String) session.getAttribute("loginId");
+		ModelAndView mav = new ModelAndView();
+		if(branch==1) { //댓글신고 form요청
+			logger.info("댓글신고 form 요청");
+			CommentsDTO dto = boarddao.boardCommForm(commIdx);
+			if(dto!=null) {
+				mav.addObject("dto",dto);
+				mav.addObject("loginId",loginId);
+				mav.addObject("branch", 1);
+			}
+		}else if(branch==2) { //대댓글 신고 form 요청
+			logger.info("대댓글신고 form 요청");
+			Comments2ndDTO dto = boarddao.boardRecommForm(commIdx);
+			if(dto!=null) {
+				mav.addObject("dto",dto);
+				mav.addObject("loginId",loginId);
+				mav.addObject("branch", 2);
+			}
+		}
+		mav.setViewName("reportComment");
+		return mav;
+	}
+	public HashMap<String, Object> boardRepComm(HashMap<String, String> params) {
+		logger.info("댓글/답글 신고 서비스");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int result = 0;
+		String success= "fail";
+		if(params.get("branch").equals("1")) { //댓글신고
+			logger.info("댓글신고 서비스 다우");
+			result = boarddao.boardRepComm(params); 
+		}else { //대댓글 신고
+			logger.info("대댓글신고 서비스 다우");
+			result = boarddao.boardRepRecomm(params);
+		}
+		logger.info("result:"+result);
+
+		if(result>0) {
+			success ="success";
+		}
+		map.put("success", success);
+		return map;
+	}
+
+	public HashMap<String, Object> boardRepBoard(HashMap<String, String> params) {
+		logger.info("게시글 신고 서비스");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int result = boarddao.boardRepBoard(params); 
+		logger.info("result:"+result);
+		String success="fail";
+		if(result>0) {
+			success="success";
+		}
+		map.put("success", success);
+		return map;
+		
+	}
+
+	public HashMap<String, Object> boardReCommRec(int com2ndIdx, RedirectAttributes rAttr, HttpSession session) {
+		logger.info("대댓글추천 서비스");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String loginId = (String) session.getAttribute("loginId");
+
+		String commRecChk = boarddao.boardReCommRecChk(com2ndIdx, loginId);
+		logger.info("댓글 추천 여부:" + commRecChk);
+
+		String recResult = "";
+		if (commRecChk != null) {
+			logger.info("추천취소하기");
+			int result = boarddao.boardReCommDec(com2ndIdx, loginId);
+			int cnt = boarddao.boardReCommcntDown(com2ndIdx);
+			logger.info("result:" + result);
+			recResult = "false";
+			msg = "추천취소되었습니다";
+		} else {
+			logger.info("추천하기");
+			int result = boarddao.boardReCommRec(com2ndIdx, loginId);
+			int cnt = boarddao.boardReCommcntUp(com2ndIdx);
+			logger.info("result:" + result);
+			recResult = "true";
+			msg = "추천되었습니다";
+		}
+
+		map.put("recResult", recResult);
 		map.put("msg", msg);
 		return map;
 	}

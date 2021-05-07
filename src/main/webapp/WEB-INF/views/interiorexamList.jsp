@@ -18,41 +18,53 @@ integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroa
 #totaldiv {
 	position: absolute;
 	left: 10%;
-	top: 40%;
+	top: 30%;
 }
 
-button {
+#시공사례쓰기 {
 	position: absolute;
-	right: 5%;
-	top: 22%;
+	right: 32%;
+	top: 25%;
 	height: 40px;
-	background-color: white;
-	color: blue;
-	border-color: lightgray;
+	border: none;
+	background-color: #acd3fb;
+	cursor: pointer;
+	color: white;
+	font-weight: bold;
 }
 
-button:hover {
-	background-color: rgb(144, 209, 240);
+#시공사례쓰기:hover {
+	background-color: #acd3fb;
+	cursor: pointer;
+	box-shadow: 0 2px 4px rgba(0, 79, 255, 0.6);
+	border: 2px solid white;
 	color: white;
 }
 table{
 	text-align: center;
 }
+ #mainnavi {
+	position: absolute;
+	top:5%;
+	left:20%;
+        }
 </style>
 </head>
 <body>
-	
+	<div id="mainnavi" style="min-height: 210px;">
+	            <jsp:include page="mainnavi.jsp"></jsp:include> 
+    </div>
 	
 	<!-- 업체세션있는 사람만 글쓰기 보이게 -->
 	<c:if test="${sessionScope.cLoginId ne null}">
-		<button onclick="location.href='./examWriteForm'">시공사례쓰기</button>
+		<button id="시공사례쓰기" onclick="location.href='./examWriteForm'">시공사례쓰기</button>		
 	</c:if>
 		<div id="totaldiv" class="container" style="font-size: large; font-weight: bold; padding-left: 40px;">
 			<div id="list" style="display: flex; flex-flow: wrap;  justify-content: center; border: 1px solid rgb(255, 255, 255);">
 
 			</div> 
 		</div>
-		
+
 </body>
 <script>
 var msg = "${msg}";

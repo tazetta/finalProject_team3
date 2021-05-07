@@ -28,15 +28,15 @@ input[type='text'] {
 </style>
 </head>
 <body>
+ <jsp:include page="mainnavi.jsp"></jsp:include> 
+
 	<h3>수정하기</h3>
 	<form action="/main/groupUpdate" method="post">
 		<table>
 			<tr>
 				<td><select name="gpCtgIdx">
 					
-					<%-- <c:if test="${dto.gpCtgIdx =='1'}"></c:if> --%>
-						<option value="1">공동구매</option>
-						
+						<option value="1">공동구매</option>					
 						<option value="2">무료나눔</option>
 				</select></td>
 				<td><input type="text" name="subject" value="${dto.subject }"/>
@@ -247,6 +247,28 @@ if(selected==2){ //인원부족마감에서
 		}
 	}
 });
+	/* 인원부족마감인 상태에서 날짜변경시 진행중으로 변경묻기*/
+	$("#deadline").on("change", function dateChk(e){
+ 		var deadline = $(this).val();
+ 		var defaultVal = $(this).prop("defaultValue");
+ 		console.log("deadline:"+deadline);
+ 		console.log("defaultVal:"+defaultVal);
+ 	if(deadline>=today){
+ 		if(confirm("진행중으로 변경하시겠습니까?")){
+ 			$("#progIdx").val(1); //진행중으로 변경
+ 		}else{
+ 			$("#deadline").val(defaultVal);  //원래값으로 강제
+ 		}
+ 	}
+});
+	/*인원부족마감인 상태에서 마감으로 변경시 인원부족마감으로 강제*/
+	$("#progIdx").change(function(){ 
+		if($("#progIdx").val() ==3){ //마감으로 변경시
+			alert("현재 모집인원이 부족하여 인원부족마감으로 변경합니다.");
+			$("#progIdx").val(2); //인원부족마감으로 변경
+		}
+	
+});
 }
 
 /*마감인 상태에서 진행중으로 변경시 최대참여자 수를 초기값보다 크게 설정하도록 강제*/
@@ -287,7 +309,26 @@ if(selected==3){ //마감상태에서
 			 }
 		}
 	});
+	
+	/*마감인 상태에서 최대인원 수정시 진행중으로 변경묻기*/
+	$("#maxUser").change(function(e){
+		var defaultVal = $(this).prop("defaultValue");
+		var currVal = $(this).val();
+		
+		if(currVal > defaultVal){
+			if(confirm("진행중으로 변경하시겠습니까?")){
+	 			$("#progIdx").val(1); //진행중으로 변경
+	 		}else{
+	 			$(this).val(defaultVal); //원래값으로 강제
+	 		}
+		}
+	});
 }
+
+
+
+
+	
 
  
 

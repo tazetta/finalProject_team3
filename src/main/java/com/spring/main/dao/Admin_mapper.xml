@@ -81,6 +81,14 @@
 		UPDATE generalmember SET stateIdx = #{param2} WHERE id = #{param1}
 	</update>
 	
+	<insert id="penaltyEndDay">
+		insert into penaltyEndDay(id, stateIdx, endDay, adminId) VALUES (#{param1}, #{param2}, #{param3}, #{param4})
+	</insert>
+	
+	<delete id="delEndDay">
+		DELETE penaltyEndDay WHERE id=#{param1}
+	</delete>
+	
 	<select id="adminCompanyList" resultType="com.spring.main.dto.CompanyMemberDTO"> 
 		SELECT * FROM 
 		(SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, comid,comname, license, phone, reg_date FROM companymember) 
@@ -124,8 +132,8 @@
 		SELECT sgtctg, id, email, subject, content FROM board WHERE boardIdx=#{param1}
 	</select>
 	
-	<select id="checkPenalty" resultType="com.spring.main.dto.BoardDTO">
-		
+	<select id="checkPenalty" resultType="com.spring.main.dto.MemberDTO">
+		SELECT stateIdx, id FROM generalMember WHERE id=#{param1}
 	</select>
 	
 	<select id="reportedBrdMaxCnt" resultType="int">

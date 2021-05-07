@@ -192,6 +192,7 @@
     	if($("#email").val()==""||$("#subject").val()==""){
     		alert("이메일,제목,내용을 모두 작성해주세요");
     	}else{
+   			console.log(${sessionScope.fileList.size()});
     		console.log($("#editable").html());
     		$("#editable>a").find("b").remove(); //a태그안 b태그 삭제
     		$("#editable>a").removeAttr("onclick"); //del(this) 무효화
