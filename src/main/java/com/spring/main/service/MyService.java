@@ -171,13 +171,13 @@ public class MyService {
 
 		ModelAndView mav = new ModelAndView();
 		int success = MyDAO.myupdate(dto);
-		page = "redirect:/myprofile";
+		page = "redirect:/mywrite";
 		msg = "회원정보 수정에 실패하였습니다.";
 		
 		if(success>0) {
 			dto.getId();
 			msg = "회원정보를 수정하였습니다.";
-			page = "myupdate";
+			page = "mywrite";
 		}
 		logger.info("수정성공여부:"+success);
 		mav.addObject("msg", msg);
@@ -208,7 +208,7 @@ public class MyService {
         	String encrypt = encoder.encode(newPw);
 			dto.setPw(encrypt); //새로운 비밀번호를 dto에 담는다(암호화된)
 			MyDAO.newPw(dto); //담은 비밀번호를 dao에 다시 담는다
-			page = "myprofile";
+			page = "mywrite";
 			msg= "비밀번호가 변경되었습니다.";
         }
 		logger.info("변경 후 비밀번호:"+dto.getPw());

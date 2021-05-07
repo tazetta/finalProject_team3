@@ -124,8 +124,8 @@
 		SELECT sgtctg, id, email, subject, content FROM board WHERE boardIdx=#{param1}
 	</select>
 	
-	<select id="checkPenalty" resultType="com.spring.main.dto.BoardDTO">
-		
+	<select id="checkPenalty" resultType="com.spring.main.dto.MemberDTO">
+		SELECT stateIdx, id FROM generalMember WHERE id=#{param1}
 	</select>
 	
 	<select id="reportedBrdMaxCnt" resultType="int">
