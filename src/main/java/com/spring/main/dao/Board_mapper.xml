@@ -530,4 +530,16 @@
 		UPDATE comments SET cnt=cnt-1 WHERE
 		commIdx=#{commIdx}
 		</update>
+	<!--게시글추천 아이디체크-->
+	<select id="boardRecChk" resultType="String">
+		SELECT id FROM recommend WHERE boardIdx=#{param1} AND id=#{param2}
+	</select>
+	<!--게시글추천하기-->
+	<insert id="boardRec">
+		INSERT INTO recommend (recIdx,boardIdx,id) VALUES (recomend_seq.NEXTVAL,#{param1},#{param2}) 
+	</insert>
+	<!--게시글추천삭제-->
+	<delete id="boardDec">
+		DELETE  FROM recommend WHERE boardIdx=#{param1} AND id=#{param2}
+	</delete>
 </mapper>

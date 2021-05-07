@@ -61,12 +61,10 @@ public interface BoardDAO {
 	Object homeMain(int start, int end, String order, String formcategory, int budget, int roomsize);
 	//추천수
 	Object CNTRECO(int start, int end, int CNTRECO);
-	//게시판 cnt 업
-	int boardCntUp(String boardIdx);
+
 	//추천/취소 시 조회수도 올라가는거방지용
 	int boardbhitDown(String boardIdx);
-	//게시판 cnt 다운
-	int boardCntDown(String boardIdx);
+
 	//스크랩하기
 	int boardScrap(int boardIdx, String id);
 	//스크랩 삭제하기
@@ -130,6 +128,16 @@ public interface BoardDAO {
 	int boardCommcntDown(int commIdx);
 	//댓글 cnt 증가
 	int boardCommRecUp(int commIdx);
+	//게시판 추천 아이디 중복체크
+	String boardRecChk(int boardIdx, String loginId);
+	//게시판 추천취소하기
+	int boardDec(int boardIdx, String loginId);
+	//게시판 추천하기
+	int boardRec(int boardIdx, String loginId);
+	//게시글 cnt 감소
+	int boardCntDown(int boardIdx);
+	//게시글 cnt 증가
+	int boardCntUp(int boardIdx);
 
 	
 }

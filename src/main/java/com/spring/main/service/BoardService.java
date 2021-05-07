@@ -25,7 +25,6 @@ import com.spring.main.dao.BoardDAO;
 import com.spring.main.dto.BoardDTO;
 import com.spring.main.dto.Comments2ndDTO;
 import com.spring.main.dto.CommentsDTO;
-import com.spring.main.dto.GroupDTO;
 
 @Service
 public class BoardService {
@@ -464,13 +463,9 @@ public class BoardService {
 	}
 
 
-	//우리집 자랑 검색
-	public Map<String, Object> homeMainList(int pageNum, String orderBy,String keyword, String formcategory, int budget,
 
 //우리집 자랑 세부검색
-	public Map<String, Object> homeMainList(int pageNum, String orderBy,String opt, String keyword, String formcategory, int budget,
-
-			int roomsize) {
+	public Map<String, Object> homeMainList(int pageNum, String orderBy,String opt, String keyword, String formcategory, int budget,int roomsize) {
 		Map<String, Object> map = new HashMap<>();
 		// startNum, endNum 생성
 		int limit = 10; // 최대 10개 게시물 목록 보여줄거
@@ -708,6 +703,36 @@ public class BoardService {
 			logger.info("추천하기");
 			int result = boarddao.boardReCommRec(com2ndIdx, loginId);
 			int cnt = boarddao.boardReCommcntUp(com2ndIdx);
+			logger.info("result:" + result);
+			recResult = "true";
+			msg = "추천되었습니다";
+		}
+
+		map.put("recResult", recResult);
+		map.put("msg", msg);
+		return map;
+	}
+
+	public HashMap<String, Object> boardRec(int boardIdx, RedirectAttributes rAttr, HttpSession session) {
+		logger.info("대댓글추천 서비스");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String loginId = (String) session.getAttribute("loginId");
+
+		String RecChk = boarddao.boardRecChk(boardIdx, loginId);
+		logger.info("게시글 추천 여부:" + RecChk);
+
+		String recResult = "";
+		if (RecChk != null) {
+			logger.info("추천취소하기");
+			int result = boarddao.boardDec(boardIdx, loginId);
+			int cnt = boarddao.boardCntDown(boardIdx);
+			logger.info("result:" + result);
+			recResult = "false";
+			msg = "추천취소되었습니다";
+		} else {
+			logger.info("추천하기");
+			int result = boarddao.boardRec(boardIdx, loginId);
+			int cnt = boarddao.boardCntUp(boardIdx);
 			logger.info("result:" + result);
 			recResult = "true";
 			msg = "추천되었습니다";

@@ -269,5 +269,9 @@ public class BoardController {
 		logger.info("대댓글 추천 com2ndIdx: {}", com2ndIdx);
 		return BoardService.boardReCommRec(com2ndIdx,rAttr,session);
 	}
-
+	@RequestMapping(value = "/boardRec/{boardIdx}", method = RequestMethod.GET)
+	@ResponseBody HashMap<String , Object> boardRec(@PathVariable int  boardIdx, HttpSession session,RedirectAttributes rAttr) {
+		logger.info("게시글 추천 boardIdx: {}", boardIdx);
+		return BoardService.boardRec(boardIdx,rAttr,session);
+	}
 }
