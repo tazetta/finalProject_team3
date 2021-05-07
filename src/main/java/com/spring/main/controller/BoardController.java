@@ -271,4 +271,10 @@ public class BoardController {
 		logger.info("대댓글 리스트 요청 commIdx: {}", commIdx);
 		return BoardService.boardRecommList(commIdx);
 	}
+	@RequestMapping(value = "/boardRecommentDel/{com2ndIdx}", method = RequestMethod.GET)
+	@ResponseBody HashMap<String , Object> groupRecommDel(@PathVariable int  com2ndIdx) {
+		logger.info("대댓글삭제 요청 Idx: {}", com2ndIdx);
+		return BoardService.boardRecommDel(com2ndIdx);
+	}
+	
 }

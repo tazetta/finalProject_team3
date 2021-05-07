@@ -261,7 +261,8 @@ function commentListPrint(list){
 		content += '<td style="text-align:left">';
 	
 	if("${sessionScope.loginId}"==list[i].id){
-		 content += '<button class="commDel" id="+list[i].commIdx+" onclick="boardCommentDel('+list[i].commIdx+')">삭제</button></td>' ; //댓글삭제호출 
+		 content += '<button class="commDel" id="+list[i].commIdx+" onclick="boardCommentDel('+list[i].commIdx+')">삭제</button></td>' ; //댓글삭제호출
+		 content +='<a href="javascript:void(0)"; onclick="recommForm('+list[i].commIdx+')">답글달기</a>&nbsp;&nbsp;';
 	}else{
 		//대댓글작성
 	content += '<button class="commDel" id="+list[i].commIdx+" onclick="boardCommentDel('+list[i].commIdx+')">삭제</button></td>' ; //댓글삭제호출 
@@ -414,7 +415,7 @@ function boardRecommList(commIdx) {
 		//삭제 confirm	
 		 if(confirm("정말로 삭제하시겠습니까?")){
 			 
-			var reqUrl = "./boardRecommentDel/"+com2ndIdx;
+			var reqUrl = "../boardRecommentDel/"+com2ndIdx;
 			$.ajax({
 				url : reqUrl,
 				type : "get",
