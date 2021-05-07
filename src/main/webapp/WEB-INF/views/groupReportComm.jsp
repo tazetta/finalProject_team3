@@ -138,20 +138,32 @@ select:hover {
 		</div>
 	</div>
 </body>
-<script>
+<script type="text/javascript">
 function report(){
 	var selected = $("#repCtgIdx option:selected").val();
 	if(selected =='신고사유'){
 		console.log("selected:"+selected);
 		alert("신고사유를 선택해주세요");
+	
 	}
 	 else{
-		
+
+		 <c:if test="${branch==1}"> //댓글신고
+		 	var data = {"branch":1,"id":"${loginId}", "targetId":"${dto.id}", "commIdx":"${dto.commIdx}", "repCtgIdx":selected};
+		 	console.log("data:",data);
+
+
+		</c:if>
+		<c:if test="${branch==2}"> //대댓글 신고
+		 	var data = {"branch":2,"id":"${loginId}", "targetId":"${dto.id}", "com2ndIdx":"${dto.com2ndIdx}", "repCtgIdx":selected};
+		 	console.log("data:",data);
+
+		</c:if>
+	 	
 		 $.ajax({
-				url : "/main/groupRepComm",
+				url : "/main/groupRepComm/",
 				type : "get",
-				
-				data : {"id":"${loginId}", "targetId":"${dto.id}", "commIdx":"${dto.commIdx}", "repCtgIdx":selected},
+				data : data,
 				dataType : "JSON",
 				success : function(data) {
 					console.log("success:", data.success);
@@ -165,7 +177,7 @@ function report(){
 				error : function(error) {
 					console.log("error:", error);
 				}
-			});
+			}); 
 		} 	
 	}
 	
