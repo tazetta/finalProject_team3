@@ -100,6 +100,12 @@ a.page-link:hover {
 </body>
 
 <script type="text/javascript">
+	var msg = ${msg};
+	if(msg != ""){
+		alert(msg);
+		msg = "";
+	}
+
 	// 페이지 로딩이 끝난 후 동작.
 	/*
 	$('button').click(function() {
