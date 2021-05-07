@@ -140,15 +140,15 @@ public class BoardRestController {
 	@RequestMapping(value = "/api/homemain", method = RequestMethod.GET)
 	public Map<String, Object> getApiHomemainList(
 			@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum,
-			@RequestParam(value="opt", required=false, defaultValue="all") String opt,
+			
 			@RequestParam(value="keyword", required=false, defaultValue="") String keyword,
 			@RequestParam(value="orderBy", required=false, defaultValue="recent") String orderBy,
-			@RequestParam(value="formcategory", required=false, defaultValue="1")String formcategory,
-			@RequestParam(value="budget", required=false, defaultValue="1")int budget,
-			@RequestParam(value="roomsize", required=false, defaultValue="1") int roomsize
+			@RequestParam(value="formcategory", required=false, defaultValue="")String formcategory,
+			@RequestParam(value="budget", required=false, defaultValue="0")int budget,
+			@RequestParam(value="roomsize", required=false, defaultValue="0") int roomsize
 			){
 		logger.info("homemainlist");
-		
-		return BoardService.homeMainList(pageNum, opt, keyword,orderBy, formcategory, budget, roomsize);
+		logger.info("파람들 : " + pageNum+ ",orderBy:" +orderBy+ ",formcategory"+ formcategory+",budget"+budget+",roomsize"+roomsize);
+		return BoardService.homeMainList(pageNum, keyword,orderBy, formcategory, budget, roomsize);
 	}
 }

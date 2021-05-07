@@ -463,7 +463,7 @@ public class BoardService {
 	}
 
 	//우리집 자랑 검색
-	public Map<String, Object> homeMainList(int pageNum, String orderBy,String opt, String keyword, String formcategory, int budget,
+	public Map<String, Object> homeMainList(int pageNum, String orderBy,String keyword, String formcategory, int budget,
 			int roomsize) {
 		Map<String, Object> map = new HashMap<>();
 		// startNum, endNum 생성
@@ -471,10 +471,10 @@ public class BoardService {
 		int startNum = (pageNum - 1) * limit + 1; // 시작페이지
 		int endNum = pageNum * limit; // 마지막 페이지
 		
-		int totalListCount = boarddao.getBoardListCount(2, opt, keyword);
+		int totalListCount = boarddao.gethomeMainCount(2, orderBy, keyword,  formcategory, budget,  roomsize);
 		map.put("total_page", totalListCount / 10 + 1);
 		
-		ArrayList<BoardDTO> list = boarddao.homeMainList(startNum, endNum, orderBy, keyword, formcategory, budget, roomsize);
+		ArrayList<BoardDTO> list = boarddao.gethomeMainList(startNum, endNum, orderBy, keyword, formcategory, budget, roomsize);
 		map.put("list", list);
 		
 		return map;

@@ -182,6 +182,7 @@ $('button#btnForTotalSearch').click(function() {
 $(document).ready(function() {
 			// 목록을 조회하는 함수.
 			function getList(pageNum, opt, keyword, orderBy, isWaitForAnswer) {
+			
 				/*
 				 * pageNum, opt, keyword
 				 * 값이 없으면 초기값 사용.
