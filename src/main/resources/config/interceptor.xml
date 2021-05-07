@@ -35,6 +35,12 @@
 			<!--  아래 클래스로 이동시켜라 -->
 			<bean class="com.spring.main.service.DateInterceptor" />
 		</mvc:interceptor>
+		
+		<!-- 일반회원 패널티 체크 -->
+		<mvc:interceptor>
+			<mvc:mapping path="/boardWriteForm"/>
+			<bean class="com.spring.main.service.PenaltyInterceptor"></bean>
+		</mvc:interceptor>
 	</mvc:interceptors>
 
 

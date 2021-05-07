@@ -27,7 +27,7 @@ public class PenaltyInterceptor extends HandlerInterceptorAdapter {
 			
 		MemberDTO dto = admindao.checkPenalty(loginId);	
 		int stateIdx = dto.getStateIdx();
-		if(stateIdx <= 0) {
+		if(stateIdx == 0) {
 			pass = true;
 		}
 		
