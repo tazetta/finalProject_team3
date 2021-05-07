@@ -66,6 +66,10 @@ public interface AdminDAO {
 
 	int adminCommBlind(int commIdx);
 
-	int adminBrdBlind(int boardIdx);	
+	int adminBrdBlind(int boardIdx);
+
+	int penaltyEndDay(String id, String stateIdx, String sqlDate, String adminId);
+
+	int delEndDay(String id);	
 
 }
