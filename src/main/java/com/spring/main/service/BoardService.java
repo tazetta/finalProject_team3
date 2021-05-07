@@ -25,6 +25,7 @@ import com.spring.main.dao.BoardDAO;
 import com.spring.main.dto.BoardDTO;
 import com.spring.main.dto.Comments2ndDTO;
 import com.spring.main.dto.CommentsDTO;
+import com.spring.main.dto.GroupDTO;
 
 @Service
 public class BoardService {
@@ -639,5 +640,18 @@ public class BoardService {
 		}
 		map.put("msg", msg);
 		return map;
+	}
+
+	public ModelAndView boardRepBoardForm(String boardIdx, HttpSession session) {
+		logger.info("신고 form 서비스");
+		String loginId = (String) session.getAttribute("loginId");
+		ModelAndView mav = new ModelAndView();
+		BoardDTO dto = boarddao.Boarddetail(boardIdx);
+		if(dto!=null) {
+			mav.addObject("dto",dto);
+			mav.addObject("loginId",loginId);
+		}
+		mav.setViewName("reportBoard");
+		return mav;
 	}
 }

@@ -276,5 +276,10 @@ public class BoardController {
 		logger.info("대댓글삭제 요청 Idx: {}", com2ndIdx);
 		return BoardService.boardRecommDel(com2ndIdx);
 	}
+	@RequestMapping(value = "/boardRepBoardForm/{boardIdx}", method = RequestMethod.GET)
+	public ModelAndView reportBoardPage(@PathVariable String boardIdx,  HttpSession session) {
+		logger.info("게시글 신고 form 요청:"+boardIdx);
+		return BoardService.boardRepBoardForm(boardIdx,session);
+	}
 	
 }
