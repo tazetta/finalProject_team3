@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,7 +25,6 @@ import com.spring.main.dao.BoardDAO;
 import com.spring.main.dto.BoardDTO;
 import com.spring.main.dto.Comments2ndDTO;
 import com.spring.main.dto.CommentsDTO;
-import com.spring.main.dto.GroupDTO;
 
 @Service
 public class BoardService {
@@ -631,4 +629,15 @@ public class BoardService {
 		return map;
 	}
 
+	public HashMap<String, Object> boardRecommDel(int com2ndIdx) {
+		logger.info(" 대댓글 삭제 서비스");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int result = boarddao.boardRecommDel(com2ndIdx);
+		msg = "답글 삭제에 실패했습니다";
+		if (result > 0) {
+			msg = "답글이 삭제 되었습니다";
+		}
+		map.put("msg", msg);
+		return map;
+	}
 }
