@@ -426,10 +426,10 @@
 	<insert id="boardCommRec">
 		INSERT INTO recommend (recIdx,commIdx,id) VALUES (recomend_seq.NEXTVAL,#{param1},#{param2}) 
 	</insert>
-	<!--대댓글삭제-->
-	<update id="boardCommDec">
-		 UPDATE recommend SET blind='y' WHERE commIdx=#{commIdx}
-	</update>
+	<!--댓글추천삭제-->
+	<delete id="boardCommDec">
+		DELETE  FROM recommend WHERE commIdx=#{param1} AND id=#{param2}
+	</delete>
 	<!--내가추천한댓글 -->
 	<select id="myRecList" resultType="board">
 		 SELECT commIdx FROM recommend WHERE id=#{param1}

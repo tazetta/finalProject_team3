@@ -465,7 +465,7 @@ a:link {
 		}
 	}
 	/* 댓글 추천-취소 */
-	function commRec(commIdx){
+	function boardCommRec(commIdx){
 		console.log("commIdx: "+commIdx);
 		var reqUrl = "../boardCommRec/"+commIdx;
 		$.ajax({
@@ -491,36 +491,8 @@ a:link {
 					console.log("error:", error);
 				}
 			});
-		//대댓글 추천-취소
-		function commRec(commIdx){
-			console.log("commIdx: "+commIdx);
-			var reqUrl = "../boardCommRec/"+commIdx;
-			$.ajax({
-					url : reqUrl,
-					type : "get",
-					data : {},
-					dataType : "JSON",
-					success : function(data) {
-						console.log("commRecSuccess: ", data);
-						console.log("rescResult:"+data.recResult);
-						if(data.recResult =='true'){
-							console.log($("#"+commIdx+""));
-							$("#"+commIdx+"").attr('src','resources/images/recommend.png');
-							boardCommentList(); //댓글리스트 호출(댓글추천수 새로고침)
-						}else{
-							console.log($("#"+commIdx+""));
-							$("#"+commIdx+"").attr('src','resources/images/decommend.png');
-							boardCommentList(); //댓글리스트 호출(댓글추천수 새로고침)
-						}
-						
-					},
-					error : function(error) {
-						console.log("error:", error);
-					}
-				});
+	}
 		/* 댓글 신고 새창 */
-	}
-	}
 	function repCommForm(commIdx){
 		window.open("../boardRepCommForm/1/"+commIdx,"reportComment","width=800, height=600");
 	}
