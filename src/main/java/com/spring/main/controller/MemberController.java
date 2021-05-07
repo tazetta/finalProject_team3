@@ -280,7 +280,7 @@ public class MemberController {
 			String adminLoginId = service.adLogin(id,pw);
 			if(adminLoginId != null) {
 				msg ="로그인에 성공 하였습니다.";
-				page="adminMain";
+				page="redirect:/adminMain";
 				session.setAttribute("adminLoginId", adminLoginId);
 			}
 			logger.info("세션 아이디 : " + adminLoginId);
