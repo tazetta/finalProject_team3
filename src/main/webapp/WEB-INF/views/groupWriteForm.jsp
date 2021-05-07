@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<title>Insert title here</title>
+<title>공동구매 글쓰기</title>
 <style>
 table, td {
 	padding: 5px 10px;
@@ -23,13 +23,14 @@ table, td {
 	padding: 5px;
 }
 
-input[type='text'] {
+.text{
 	width: 100%;
 }
 </style>
 </head>
 <body>
-	<h3>글쓰기</H3>
+ <jsp:include page="mainnavi.jsp"></jsp:include> 
+
 	<form action="groupWrite" method="post">
 		<table>
 			<tr>
@@ -37,7 +38,7 @@ input[type='text'] {
 						<option value="1">공동구매</option>
 						<option value="2">무료나눔</option>
 				</select></td>
-				<td><input type="text" name="subject"  id="subject" required="required" />
+				<td><input type="text" name="subject"  id="subject" required="required" class="text"/>
 				<input type="hidden" name="id" value="${sessionScope.loginId }"/> 
 				</td>
 			</tr>
@@ -49,11 +50,11 @@ input[type='text'] {
 			</tr>
 			<tr>
 				<td>오픈카카오톡 URL</td>
-				<td><input type="text" name="chatUrl" id="chatUrl"/></td>
+				<td><input type="text" name="chatUrl" id="chatUrl" class="text"/></td>
 			</tr>
 			<tr>
 				<td>최대참여자</td>
-				<td><input type="number" name="maxUser"  id="maxUser"></td>
+				<td><input type="number" name="maxUser"  id="maxUser"  /></td>
 			</tr>
 			<tr>
 				<td>마감날짜</td>
