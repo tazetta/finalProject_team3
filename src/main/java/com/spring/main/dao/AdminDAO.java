@@ -60,6 +60,12 @@ public interface AdminDAO {
 
 	ArrayList<ReportDTO> adminReportedGroupList(int start, int end, int repCtgIdx);
 
-	int reportedGroupMaxCnt(int repCtgIdx);	
+	int reportedGroupMaxCnt(int repCtgIdx);
+
+	int adminGroupBlind(int gpIdx);
+
+	int adminCommBlind(int commIdx);
+
+	int adminBrdBlind(int boardIdx);	
 
 }

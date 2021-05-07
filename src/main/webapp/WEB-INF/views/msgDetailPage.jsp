@@ -6,10 +6,15 @@
 		<title>Insert title here</title>
 		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 		
-		<style></style>
+		<style>
+			input {
+				border:none;
+			}
+		</style>
 	</head>
 	<body>
 	<h3>쪽지 상세보기</h3>
+	<form name="msgDetailPage" method="GET">
 	<table>
 		<tr>
 			<th>보낸사람</th>
@@ -23,16 +28,55 @@
 			<th>내용</th>
 			<td>${info.content}</td>
 		</tr>
+		<c:set var="sender" value="${info.sender}"></c:set>
+		<c:set var="loingId" value="${sessionScope.loginId}"></c:set>
+		<c:if test="${sender == loingId}"></c:if>
+		<c:if test="${sender != loingId}">
+		<tr>
+			<th>
+				<input type="button" onclick="reMsgFormPopUp('${info.sender}')" value="답장"/>
+			</th>
+		</tr>
+		</c:if>
 	</table>
-		<button onclick="msgFormPopUp()">답장</button>
+	</form>
 	</body>
 	<script>
-	function msgFormPopUp(){
-		var receiver = $("#sender").val();
-		var url = "msgFormPopUp/"+receiver;
+		//+$sender.val()+'/'+$receiver.val();
+	/* function reMsgFormPopUp(){
+		var $sender  = $("#receiver");
+		var $receiver = $("#sender");
+		var reqUrl = './reMsgFormPopUp';
+		var params = {};
+		console.log($receiver.val());
+		params.sender = $sender.val();
+		params.receiver = $receiver.val();
+		$.ajax({
+			url:reqUrl
+			,type:'GET'
+			,data:params
+			,dataType:'JSON'
+			,success:function(data){
+				console.log(data);
+				if(data.success){
+					
+					
+					window.open(data.url,"쪽지보내기폼","width=500, height=450");
+				}
+			},error:function(error){
+				console.log(error);
+			}
+		})
+	} */
+	
+	
+	
+	 function reMsgFormPopUp(receiver){
+		//var receiver = $("#sender").val();
+		var url = "../reMsgFormPopUp/"+receiver;
 		console.log(receiver);
-		window.open(url,"쪽지보내기폼","width=500, height=450");
+		window.open(url,"답장하기폼","width=500, height=450");
 		self.close();
-	}
+	} 
 	</script>
 </html>

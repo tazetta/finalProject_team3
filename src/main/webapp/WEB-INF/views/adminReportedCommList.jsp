@@ -6,6 +6,13 @@
 <head>
 <title>Home</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<link
+	href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	rel="stylesheet">
+<script
+	src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script src="resources/js/jquery.twbsPagination.js"
+	type="text/javascript"></script>
 <style>
 table, td, th {
 	border-collapse: collapse;
@@ -208,7 +215,7 @@ function listPrint(list){
 		} else {
 			for(var i=0;i<list.length;i++){
 			content += "<tr>"
-				content += "<td style='text-align: left;' onclick='detailPopUp("+(list[i].boardIdx)+")'>"+list[i].subject+"</td>"
+				content += "<td style='text-align: left;' onclick='detailPopUp("+(list[i].boardIdx)+")'>"+list[i].comments+"</td>"
 				if(list[i].repCtgIdx == 11) {
 					content += "<td>무분별한 욕설 및 비방</td>"
 				} else if (list[i].repCtgIdx == 12) {
@@ -221,17 +228,35 @@ function listPrint(list){
 				content += "<td>"+list[i].targetId+"</td>"
 				var date = new Date(list[i].reg_date);
 				content += "<td>"+date.toLocaleDateString("ko-KR")+"</td>"
-				if(list[i].blind.equals('n')){
-					content += "<td><input type='checkbox' id="+(list[i].boardIdx)+" value='블라인드' />블라인드</td>"
+				if(list[i].blind =='n'){
+					content += "<td><input type='checkbox' id="+(i)+" value='"+(list[i].commIdx)+"' />블라인드</td>"
 				} else {
 					content += "<td style='color: red;'>블라인드 중</td>"
 				}
-				content += "<td><input type='button' value='확인' style='width: 50px;' class='inputs' id="+(list[i].boardIdx+'Btn')+" /></td>"
+				content += "<td><input type='button' value='확인' style='width: 50px;' class='inputs' onclick='blind("+(i)+")' /></td>"
 			content += "</tr>"
 		}
 	}
 	$("#list").empty();
 	$("#list").append(content);
+}
+
+function blind(i){	
+	if($("#"+i).prop("checked")){
+		var commIdx = $("#"+i).val();
+		$.ajax({
+			url: "adminCommBlind/"+commIdx
+			,data: {}
+			,type: "get"
+			,dataType: "JSON"
+			,success:(data)=>{
+				listCall(1, 0);
+			}
+			,error:(error)=>{
+				console.log(error);
+			}
+		});
+	}
 }
 
 </script>

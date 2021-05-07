@@ -63,8 +63,8 @@ public class BoardRestController {
 		logger.info("pagePerCnt : {} / page :{}", pagePerCnt, page);
 		logger.info("cntreco : {} ", CNTRECO);
 		return BoardService.cntboardList(pagePerCnt,page,CNTRECO);
-	}*/
-	
+	}
+	*/
 	
 	/**
 	 * 꿀팁 목록 조회
@@ -143,9 +143,9 @@ public class BoardRestController {
 			@RequestParam(value="opt", required=false, defaultValue="all") String opt,
 			@RequestParam(value="keyword", required=false, defaultValue="") String keyword,
 			@RequestParam(value="orderBy", required=false, defaultValue="recent") String orderBy,
-			@RequestParam(value="formcategory", required=false, defaultValue="")String formcategory,
-			@RequestParam(value="budget", required=false, defaultValue="")int budget,
-			@RequestParam(value="roomsize", required=false, defaultValue="") int roomsize
+			@RequestParam(value="formcategory", required=false, defaultValue="1")String formcategory,
+			@RequestParam(value="budget", required=false, defaultValue="1")int budget,
+			@RequestParam(value="roomsize", required=false, defaultValue="1") int roomsize
 			){
 		logger.info("homemainlist");
 		

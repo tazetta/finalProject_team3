@@ -45,20 +45,19 @@
     <div class="all-area">
         
         <div class="mainnavi-area">
-  		  <jsp:include page="./mainnavi.jsp"></jsp:include>
                      
         </div>
         <div class="sidenavi-area">
-   			 <jsp:include page="./mynavi.jsp"></jsp:include>
            
         </div>
         <div class="table-area">
                 <h3>전체 쪽지함</h3>
                       <div class="table-top">
-                            <span>받은쪽지함</span>
+                            <span>받은쪽지함
                             <a href="msgreceivepage">더보기</a>
+	                        <button onclick="msgFormPopUp()">쪽지 쓰기</button>
+                            </span>
                         </div>
-                        <button onclick="msgFormPopUp()">쪽지 쓰기</button>
                 <table>
                 <thead>
                         <tr>
@@ -117,11 +116,11 @@ function msgFormPopUp(){
 	window.open(url,"쪽지보내기폼","width=500, height=450");
 	
 }
-function msgDetailPopUp(idx){
+ function msgDetailPopUp(idx){
 	var url ="msgDetailPopUp/"+idx;
 	
 	window.open(url,"쪽지 상세보기","width=500, height=450");
-}
+} 
 
 var showPage = 1;
  var pagePerNum = 5;

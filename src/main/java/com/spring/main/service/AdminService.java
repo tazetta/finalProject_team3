@@ -270,6 +270,36 @@ public class AdminService {
 		return map;
 	}
 
+	public HashMap<String, Object> adminGroupBlind(int gpIdx) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String msg = "";
+		if(dao.adminGroupBlind(gpIdx)>0) {
+			msg="블라인드 처리 되었습니다.";
+		}
+		map.put("msg", msg);
+		return map;
+	}
+
+	public HashMap<String, Object> adminCommBlind(int commIdx) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String msg = "";
+		if(dao.adminCommBlind(commIdx)>0) {
+			msg="블라인드 처리 되었습니다.";
+		}
+		map.put("msg", msg);
+		return map;
+	}
+
+	public HashMap<String, Object> adminBrdBlind(int boardIdx) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String msg = "";
+		if(dao.adminBrdBlind(boardIdx)>0) {
+			msg="블라인드 처리 되었습니다.";
+		}
+		map.put("msg", msg);
+		return map;
+	}
+
 
 	
 }
