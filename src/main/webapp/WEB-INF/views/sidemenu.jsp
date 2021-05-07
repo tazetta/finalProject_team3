@@ -13,6 +13,8 @@
 </style>
 </head>
 <body>
+<div class="snavi">
+
     <nav class="sidebar">
         <div class="text">Side Menu</div>
         <ul>
@@ -60,6 +62,7 @@
             <li><a href="#">내 인테리어 변천사</a></li>
         </ul>
     </nav>
+    </div>
 </body>
 
 <script>

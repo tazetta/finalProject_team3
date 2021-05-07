@@ -15,80 +15,13 @@
 <script src="resources/js/jquery.twbsPagination.js"
 	type="text/javascript"></script>
 </head>
-<style>
-.title-area {
-	text-align: center;
-	margin-bottom: 20px;
-}
 
-.title-area h3 {
-	
-}
-
-.title-area button {
-	margin-left: 200px;
-	position: absolute;
-	background-color: #166cea;
-	color: white;
-	border: none;
-	padding: 8px 8px;
-	cursor: pointer;
-	opacity: 0.9;
-}
-
-.delBtn {
-	background-color: #166cea;
-	color: white;
-	border: none;
-	padding: 8px 8px;
-	cursor: pointer;
-	opacity: 0.9;
-}
-
-#title {
-	display: inline;
-}
-
-.table-area {
-	text-align: center;
-}
-
-.table-area th {
-	padding: 10px 0px;
-	text-align: center;
-}
-
-.table-area tr td {
-	padding: 1px;
-	text-align: center;
-}
-
-.table-area th {
-	background-color: #166cea;
-	color: white;
-	opacity: 0.9;
-}
-
-#writeButton:hover, .delBtn:hover {
-	cursor: pointer;
-	opacity: 1;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0
-		rgba(0, 0, 0, 0.19);
-}
-
-a {
-	color: black;
-	text-decoration: none;
-}
-
-a:hover {
-	color: #166cea;
-	border-bottom: 1px #166cea solid;
-}
 </style>
 <body>
 	<div class="all-area">
-
+	<div class="sidenavi-area">
+			<jsp:include page="sidemenu.jsp"></jsp:include>
+		</div>
 		<div class="title-area">
 			<h3 id="title">보낸 편지함</h3>
 			<button id="writeButton">쪽지쓰기</button>

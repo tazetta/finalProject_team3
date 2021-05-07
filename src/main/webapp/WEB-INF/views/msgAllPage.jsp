@@ -55,12 +55,9 @@ table th {
 	<div class="all-area">
 
 		<div class="mainnavi-area">
-			<iframe width="1500" height="280" align="middle" src="mainnavi"
-				scrolling="no" frameborder="0" style="padding-left: 100px;"></iframe>
+			<jsp:include page="mainnavi.jsp"></jsp:include>
 		</div>
-		<div class="sidenavi-area">
-			
-		</div>
+		
 		<div class="table-area">
 			<h3>전체 쪽지함</h3>
 			<div class="table-top">
