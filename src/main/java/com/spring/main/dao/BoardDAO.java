@@ -108,5 +108,7 @@ public interface BoardDAO {
 	CommentsDTO boardCommForm(int commIdx);
 	//대댓글폼요청
 	Comments2ndDTO boardRecommForm(int commIdx);
+	//게시글 신고하기
+	int boardRepBoard(HashMap<String, String> params);
 	
 }

@@ -281,6 +281,11 @@ public class BoardController {
 		logger.info("게시글 신고 form 요청:"+boardIdx);
 		return BoardService.boardRepBoardForm(boardIdx,session);
 	}
+	@RequestMapping(value = "/boardRepBoard", method = RequestMethod.GET)
+	@ResponseBody HashMap<String , Object> boardRepBoard(@RequestParam HashMap<String, String> params) {
+		logger.info("게시글 신고 요청 : params:{}",params);
+		return BoardService.boardRepBoard(params);
+	}
 	@RequestMapping(value = "/boardRepCommForm/{branch}/{commIdx}", method = RequestMethod.GET)
 	public ModelAndView groupRepCommForm(@PathVariable int branch, @PathVariable int commIdx,  HttpSession session) {
 		logger.info("댓글/답글 신고 form 요청:"+branch+"/"+commIdx);

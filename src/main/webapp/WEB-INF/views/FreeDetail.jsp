@@ -159,7 +159,7 @@ a:link {
 				<div id="content">
 				 <c:set var="loginId" value="${sessionScope.loginId}" />
 			 			<c:if  test="${!empty loginId}">
-					<button id="contentbtn" style="margin-left: 300;">신고</button>
+					<button id="contentbtn" style="margin-left: 300;" onclick="reportBoard()">신고</button>
 					</c:if>
 					<button onclick="location.href='../Freelist'" id="contentbtn"
 						style="margin-left: 50;">목록</button>
@@ -188,7 +188,11 @@ a:link {
 		alert(msg);
 	}
 	boardCommentList(); //댓글리스트
-
+	/*글 신고 새창*/
+	function reportBoard(){
+		window.open("../boardRepBoardForm/${dto.boardIdx}","reportBoard","width=800, height=600");
+		//요청url,타이틀,옵션
+	}
 	/* 댓글 등록 */
 	$("#commentSave").click(function() {
 		var comment = $("#comment").val();
