@@ -133,21 +133,24 @@ a:link {
 	
 	
 <body>
- 
+ <div style="min-height: 210px; padding-top:50px;">
+	            <jsp:include page="mainnavi.jsp"></jsp:include> 
+	           
+            </div>
     
-    <div class="container" style="text-align: center; padding-top: 10px;">
+   <!--   <div class="container" style="text-align: center; padding-top: 10px;">
         <input type="text" size="75" style="border-radius: 5px; border: 2px solid rgb(203, 228, 248); " placeholder="검색어를 입력해주세요.">
         &nbsp;
         <button id="btn" style="border-radius: 5px; background-color: rgb(203, 228, 248); border: 2px solid rgb(203, 228, 248); font-weight: bold; color: white;">검색</button>
         <span><a href="" style="font-size:small; float: right; color: gray; font-weight: bold;">|고객센터</a></span>
         <span><a href="" style="font-size:small; float: right; color: gray; font-weight: bold;" >|회원가입</a></span>
         <span><a href="" style="font-size:small; float: right; color: gray; font-weight: bold;">로그인</a></span>
-    </div>
+    </div>-->
    <br/>
 
     <div class="container"  style="height:200px; background-color: rgb(184, 185, 190); text-align:center;">
   
-        <h1 style="padding-top: 50px; font-weight: bold;">질문 및 답변${dto.subject}</h1>
+        <h1 style="padding-top: 50px; font-weight: bold;">${dto.subject}</h1>
         <br/>
        <span class="grade">${writerGrade}</span>&nbsp;&nbsp;${dto.id}&nbsp;&nbsp;날짜${dto.reg_date}&nbsp;&nbsp;조회수${dto.bhit}&nbsp;&nbsp;답변${dto.commIdx}
         <div>
@@ -173,7 +176,7 @@ a:link {
                    
         </table>
         <div class="container">
-            <button class="btn" id="button" onclick="location.href='helpMain'" style="border-radius: 10px; max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; float: right;">목록</button>
+            <button class="btn" id="button" onclick="location.href='../helpMain'" style="border-radius: 10px; max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; float: right;">목록</button>
         </div>
         <br/>
         <br/> 

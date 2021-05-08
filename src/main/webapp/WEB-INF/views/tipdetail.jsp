@@ -135,6 +135,7 @@ a:link {
  
   <div style="min-height: 210px; padding-top:50px;">
 	            <jsp:include page="mainnavi.jsp"></jsp:include> 
+	           
             </div>
    <!--   <div class="container" style="text-align: center; padding-top: 10px;">
         <input type="text" size="75" style="border-radius: 5px; border: 2px solid rgb(203, 228, 248); " placeholder="검색어를 입력해주세요.">

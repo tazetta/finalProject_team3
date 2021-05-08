@@ -37,14 +37,14 @@
 
     }
 
-    #btn {
+    #btn2 {
      	 border: 1px solid rgb(255, 210, 180);
         color: rgba(30, 22, 54, 0.6);
         background-color: rgb(255, 210, 180);
         box-shadow: rgb(255, 210, 180) 0 0px 0px 2px inset;
     }
 
-    #btn:hover {
+    #btn2:hover {
         color: rgba(255, 255, 255, 0.85);
         box-shadow: rgb(255, 210, 180) 0 0px 0px 40px inset;
     }
@@ -77,8 +77,12 @@ a.page-link:hover {
 
 
 <body>
+<div style="min-height: 210px; padding-top:50px;">
+	            <jsp:include page="helpNavi.jsp"></jsp:include> 
+	           
+            </div>
 
-    <div class="container" style="text-align: center; padding-top: 10px;">
+   <!--   <div class="container" style="text-align: center; padding-top: 10px;">
         <input type="text" size="75" style="border-radius: 5px; border: 2px solid rgb(203, 228, 248); "
             id="keywordForTotalSearch" name="keyword" placeholder="검색어를 입력해주세요.">
         &nbsp;
@@ -90,7 +94,7 @@ a.page-link:hover {
                 style="padding-left: 5px;  font-weight: bold;">회원가입</span></a>
         <a href="" style="font-size:small; float: right; color: gray;  font-weight: bold; "><span>로그인</span></a>
         <br />
-    </div>
+    </div>-->
     <br />
     <div class="container" style="height:200px; background-color: rgb(184, 185, 190); text-align:center;">
         <h2 style="padding-top: 50px; font-weight: bold;">꿀팁 게시판</h2>
@@ -166,9 +170,8 @@ a.page-link:hover {
         <div class="container" style="display: flex; justify-content: space-between;">
             <!--  <a href="#" class="button2"
                 style="max-width: 90; margin: 10px ; padding: 10px 20px; font-weight: bold; " >글쓰기</a>-->
-             <button id="btn" style="border-radius: 5px; font-weight: bold; " onclick="location.href='boardWriteForm?boardCtgIdx=3'">글쓰기</button>
-            <select name="opt" id="miniopt"
-                style="border-radius: 5px; margin: 10px ; height: 35; border: 2px solid gray; float: right; background-color: rgb(226, 220, 220);">
+             <button id="btn2" style="border-radius: 5px; font-weight: bold; " onclick="location.href='boardWriteForm?boardCtgIdx=3'">글쓰기</button>
+            <select name="opt" id="miniopt" style="border-radius: 5px; margin: 10px ; height: 35; border: 2px solid gray; float: right; background-color: rgb(226, 220, 220);">
                 <option value="recent">최신순</option>
                 <option value="recommend">추천순</option>
             </select>
