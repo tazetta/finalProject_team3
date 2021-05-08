@@ -177,6 +177,10 @@ a:link {
         </table>
         <div class="container">
             <button class="btn" id="button" onclick="location.href='../helpMain'" style="border-radius: 10px; max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; float: right;">목록</button>
+             <c:set var="loginId" value="${sessionScope.loginId}" />
+			 <c:if  test="${!empty loginId}">
+            <button id="button" class="btn" onclick="reportBoard()" style="border-radius: 10px; max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; float: right;">신고</button>
+        	</c:if>
         </div>
         <br/>
         <br/> 
