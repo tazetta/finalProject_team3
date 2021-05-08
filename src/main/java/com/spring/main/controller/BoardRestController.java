@@ -118,7 +118,7 @@ public class BoardRestController {
 	 * @param keyword 입력한 검색어 값
 	 * @return
 	 */
-	@RequestMapping(value = "/api/helpmain", method = RequestMethod.GET)
+	@RequestMapping(value = "/api/helpmain",method = {RequestMethod.GET,RequestMethod.POST})
 	public Map<String, Object> getApiHelpmain(
 			@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum,
 			@RequestParam(value="opt", required=false, defaultValue="all") String opt,

@@ -1,4 +1,3 @@
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -6,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Q&A게시물</title>
+<title>꿀팁게시물</title>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" 
 integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
@@ -134,8 +133,10 @@ a:link {
 	
 <body>
  
-    
-    <div class="container" style="text-align: center; padding-top: 10px;">
+  <div style="min-height: 210px; padding-top:50px;">
+	            <jsp:include page="mainnavi.jsp"></jsp:include> 
+            </div>
+   <!--   <div class="container" style="text-align: center; padding-top: 10px;">
         <input type="text" size="75" style="border-radius: 5px; border: 2px solid rgb(203, 228, 248); " placeholder="검색어를 입력해주세요.">
         &nbsp;
         <button id="btn" style="border-radius: 5px; background-color: rgb(203, 228, 248); border: 2px solid rgb(203, 228, 248); font-weight: bold; color: white;">검색</button>
@@ -143,15 +144,15 @@ a:link {
         <span><a href="" style="font-size:small; float: right; color: gray; font-weight: bold;" >|회원가입</a></span>
         <span><a href="" style="font-size:small; float: right; color: gray; font-weight: bold;">로그인</a></span>
     </div>
-   <br/>
+   <br/>-->
 
     <div class="container"  style="height:200px; background-color: rgb(184, 185, 190); text-align:center;">
   
-        <h1 style="padding-top: 50px; font-weight: bold;">질문 및 답변${dto.subject}</h1>
+        <h1 style="padding-top: 50px; font-weight: bold;">${dto.subject}</h1>
         <br/>
-       <span class="grade">${writerGrade}</span>&nbsp;&nbsp;${dto.id}&nbsp;&nbsp;날짜${dto.reg_date}&nbsp;&nbsp;조회수${dto.bhit}&nbsp;&nbsp;답변${dto.commIdx}
+       <span class="grade">${writerGrade}</span>&nbsp;&nbsp;${dto.id}&nbsp;&nbsp;날짜${dto.reg_date}&nbsp;&nbsp;조회수${dto.bhit}&nbsp;&nbsp;댓글${dto.commIdx}
         <div>
-           <c:if test="${ dto.id == sessionScope.loginId }">
+           <c:if test="${dto.id == sessionScope.loginId}">
             <button class="btn" id="button" onclick="location.href='/boardDel/${dto.boardIdx}'"style=" border-radius: 10px; max-width: 75; margin-right: 10px; margin-left: 20px; padding: 10px 20px; font-weight: bold; float: right;">수정</button>
             <button class="btn" id="button" onclick="location.href='/boardUpdateForm/${dto.boardIdx}'" style=" border-radius: 10px; max-width: 75; padding: 10px 20px; font-weight: bold; float: right;">삭제</button>
             </c:if>
@@ -164,7 +165,7 @@ a:link {
         <table class="table">
            
             <tbody>
-                <span style="font-size: x-large; font-weight: bold; color:rgb(131, 130, 130) ;"><span style="color: rgb(235, 179, 76);">Q.</span>질문</span>
+                <span style="font-size: x-large; font-weight: bold; color:rgb(131, 130, 130) ;"><span style="color: rgb(235, 179, 76);">T.</span>꿀팁</span>
                
                 <tr>
                     <td>${dto.content}</td>
@@ -173,12 +174,12 @@ a:link {
                    
         </table>
         <div class="container">
-            <button class="btn" id="button" onclick="location.href='helpMain'" style="border-radius: 10px; max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; float: right;">목록</button>
+            <button class="btn" id="button" onclick="location.href='tip'" style="border-radius: 10px; max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; float: right;">목록</button>
         </div>
         <br/>
         <br/> 
         <br/>
-        <span style="font-size: x-large; font-weight: bold; color:rgb(131, 130, 130) ;"><span style="color: rgb(235, 179, 76);">A.</span>답변</span>
+        <span style="font-size: x-large; font-weight: bold; color:rgb(131, 130, 130) ;"><span style="color: rgb(235, 179, 76);">Q.</span>질문</span>
         <br/>
         <br/>
         <b>댓글<span id="listSize"></span>개</b>

@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>우리집 자랑 게시물</title>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" 
 integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 <!-- JavaScript Bundle with Popper -->
@@ -52,7 +53,89 @@ a {
 #btn:hover{
 	background-color:white;
 }
+/* 생성된 댓글 테이블 설정*/
+.commentTable {
+	margin: 10px;
+	
+}
+/* 댓글작성란 스타일 */
+#comment {
+	background-color: rgb(241, 160, 122);
+	color: rgb(8, 8, 8);
+	font-weight: bold;
+	padding: 7px;
+	margin: 8px 0;
+	border: none;
+	cursor: pointer;
+	width: 800px;
+	height: 40px;
+	border-radius: 5px;
+}
 
+.commDel {
+	border: none;
+	
+}
+
+.commentDiv {
+	border: 2px solid red;
+}
+
+.commentTable {
+ min-width:900px;
+	margin: 10px;
+}
+
+.commDel {
+	border: none;
+}
+
+.grade {
+	color: orange;
+	font-weight: 600;
+	font-size: 90%;
+}
+
+a:link {
+	text-decoration: none;
+}
+/*대댓글창 영역*/
+#recommentBox {
+	margin-left: 50px;
+}
+
+.recommentTable {
+	background-color: #F2F1F1;
+}
+
+#recomment {
+	height: 30px;
+	width: 800px;
+}
+
+#recommentSave {
+	margin: 7px;
+	background-color: rgb(172, 172, 172);
+	color: rgb(8, 8, 8);
+	font-weight: bold;
+	cursor: pointer;
+	border-radius: 5px;
+	border: none;
+	padding: 7px;
+}
+#recommentSave:hover{
+
+	color: rgba(255, 255, 255, 0.85);
+	box-shadow: rgb(230, 226, 224) 0 0px 0px 40px inset;
+}
+
+#loginId {
+	margin: 20px;
+}
+
+.commDel {
+	color: red;
+}
 
 
 </style>

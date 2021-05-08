@@ -110,7 +110,7 @@ input.button:hover{
         <span><a href="" style="font-size:small; float: right; color: gray; font-weight: bold;">로그인</a></span>
     </div>
    <br/>
-	<form action="boardWrite" method="post">
+	<form action="boardWrite" method="POST">
     <div class="container">
         <table class="table table-bordered">
             <thead>
@@ -167,7 +167,7 @@ input.button:hover{
             <div class="row" style="float: right;">
                 <button id="button2" class="button2" style="max-width: 75; margin: 10px ; padding: 10px 10px; font-weight: bold; text-align:center;">저장</button>
             </div>
-            <button id="button" class="button" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; float: right;">취소</button>
+            <button id="button" class="button"  onclick="location.href='homemain'"style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; float: right;">취소</button>
         </div>
         </div>
        
@@ -183,9 +183,12 @@ input.button:hover{
     $("#button2").click(function(){
     	if($("#formcategory").val()=="0"||$("#roomsize").val()==""||$("#budget").val()==""){
     		alert("주거형태,평수,예산을 작성해주세요");
+    		return false;
     	}else if($("#subject").val()==""||$("#content").val()==""||$("#iteme").val()==""){
     		alert("제목,내용, 아이템을 작성해주세요");
+    		return false;
     	}else{
+    		alert("저장되었쥐");
     		$("form").submit();
     	}
     	

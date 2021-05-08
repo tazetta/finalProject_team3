@@ -42,7 +42,7 @@ public class BoardController {
 		logger.info("main");
 		return "main";
 	}
-	@RequestMapping(value = "/QWrite", method = RequestMethod.GET)
+	@RequestMapping(value = "/QWrite",method = {RequestMethod.GET,RequestMethod.POST})
 	public String QWrite() {
 		logger.info("질문하기 페이지 입니다.");
 		return "QWrite";
@@ -52,14 +52,16 @@ public class BoardController {
 		logger.info("상세보기 페이지 입니다.");
 		return "qnadetail";
 	}
-	@RequestMapping(value = "/homemain", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/homemain", method = {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView homemain() {
 	ModelAndView mav = new ModelAndView();
 	logger.info("페이지이동이당");
 		mav.setViewName("homemain");
 		
   return mav;
-	   }
+	   }*/
+	
+	
 	@RequestMapping(value = "/Freeview", method = RequestMethod.GET)
 	public String Freeview() {
 		logger.info("프리뷰.");
@@ -92,7 +94,7 @@ public class BoardController {
 			return mav;
 		}
 	 */
-	@RequestMapping(value = "/tip", method = RequestMethod.GET)
+	@RequestMapping(value = "/tip",method = {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView tipmain() {
 		ModelAndView mav = new ModelAndView();
 		logger.info("팁메인이동");
@@ -101,7 +103,7 @@ public class BoardController {
 	}
 
 	
-	/*
+	
 	@RequestMapping(value = "/helpMain", method = RequestMethod.GET)
 	public ModelAndView helpmain(@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum,
 			@RequestParam(value="opt", required=false, defaultValue="all" )String opt,
@@ -117,14 +119,15 @@ public class BoardController {
 		  
 		  return mav;
 		}	
-	*/
-	@RequestMapping(value = "/helpMain", method = RequestMethod.GET)
+	/*
+	@RequestMapping(value = "/helpMain", method = {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView helpMain() {
 		ModelAndView mav = new ModelAndView();
 		logger.info("도와조");
 		mav.setViewName("helpMain");
 		return mav;
 	}
+	*/
 	@RequestMapping(value = "/FAQsend", method = RequestMethod.GET)
 	public String FAQsend() {
 		return "FAQsend";
