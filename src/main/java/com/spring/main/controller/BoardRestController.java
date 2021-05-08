@@ -95,7 +95,7 @@ public class BoardRestController {
 	 * @param opt 선택한 select 값
 	 * @param keyword 입력한 검색어 값
 	 * @return
-	 */
+	 * */
 	@RequestMapping(value = "/api/freelist", method = RequestMethod.GET)
 	public Map<String, Object> getApiFreelist(
 			@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum,
@@ -108,6 +108,8 @@ public class BoardRestController {
 		
 		return map;
 	}
+	
+
 	
 	/**
 	 * 도와줘요 게시판 목록 조회

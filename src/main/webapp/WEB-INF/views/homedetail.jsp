@@ -1,243 +1,175 @@
 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
+    
 <head>
 <meta charset="UTF-8">
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<title>자유게시판 상세보기</title>
+<title>우리집 자랑 게시물</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" 
+integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" 
+integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+</head>
 <style>
+
+a {
+	text-decoration: none;
+    border-radius: 10px;
+}
 #button {
-	background-color: rgb(172, 172, 172);
-	color: rgb(8, 8, 8);
-	font-weight: bold;
-	padding: 7px;
-	margin: 8px 0;
-	border: none;
-	cursor: pointer;
-	width: 7%;
-	border-radius: 5px;
-}
-
-#button:hover{
-
-	color: rgba(255, 255, 255, 0.85);
-	box-shadow: rgb(230, 226, 224) 0 0px 0px 40px inset;
-}
-
-#button2{
 	color: rgba(30, 22, 54, 0.6);
     background-color: rgb(230, 226, 224);
 	box-shadow: rgb(230, 226, 224) 0 0px 0px 2px inset;
 	border-radius: 5px;
 	border: none;
-	font-weight: bold;
-	padding: 7px;
-	width: 7%;
-	cursor: pointer;
 }
 
-#button2:hover{
-	color: rgba(255, 255, 255, 0.85);
-	box-shadow: rgb(172, 172, 172) 0 0px 0px 40px inset;
-
-}
-
-#content {
-	margin-top: 50px;
-	margin-left: 300;
-}
-
-#contentbtn {
-	background-color: rgb(172, 172, 172);
-	color: rgb(8, 8, 8);
-	font-weight: bold;
-	padding: 7px;
-	margin: 8px 0;
-	border: none;
-	cursor: pointer;
-	width: 7%;
-	border-radius: 5px;
-}
-#contentbtn:hover{
-color: rgba(255, 255, 255, 0.85);
-	box-shadow: rgb(230, 226, 224) 0 0px 0px 40px inset;
-
-}
-/* 생성된 댓글 테이블 설정*/
-.commentTable {
-	margin: 10px;
-	
-}
-/* 댓글작성란 스타일 */
-#comment {
-	background-color: rgb(241, 160, 122);
-	color: rgb(8, 8, 8);
-	font-weight: bold;
-	padding: 7px;
-	margin: 8px 0;
-	border: none;
-	cursor: pointer;
-	width: 800px;
-	height: 40px;
-	border-radius: 5px;
-}
-
-.commDel {
-	border: none;
-	
-}
-
-.commentDiv {
-	border: 2px solid red;
-}
-
-.commentTable {
- min-width:900px;
-	margin: 10px;
-}
-
-.commDel {
-	border: none;
-}
-
-.grade {
-	color: orange;
-	font-weight: 600;
-	font-size: 90%;
-}
-
-a:link {
-	text-decoration: none;
-}
-/*대댓글창 영역*/
-#recommentBox {
-	margin-left: 50px;
-}
-
-.recommentTable {
-	background-color: #F2F1F1;
-}
-
-#recomment {
-	height: 30px;
-	width: 800px;
-}
-
-#recommentSave {
-	margin: 7px;
-	background-color: rgb(172, 172, 172);
-	color: rgb(8, 8, 8);
-	font-weight: bold;
-	cursor: pointer;
-	border-radius: 5px;
-	border: none;
-	padding: 7px;
-}
-#recommentSave:hover{
-
+#button:hover {
 	color: rgba(255, 255, 255, 0.85);
 	box-shadow: rgb(230, 226, 224) 0 0px 0px 40px inset;
 }
 
-#loginId {
-	margin: 20px;
+#contentbtn{
+	color: rgba(30, 22, 54, 0.6);
+    background-color: rgb(255, 210, 180);
+	box-shadow: rgb(255, 210, 180) 0 0px 0px 2px inset;
+	border-radius: 5px;
+	border: none;
 }
 
-.commDel {
-	color: red;
+#contentbtn:hover {
+	color: rgba(255, 255, 255, 0.85);
+	box-shadow: rgb(255, 210, 180) 0 0px 0px 40px inset;
+}
+#btn{
+	 background-color: white;
+	 border:none;
+}
+#btn:hover{
+	background-color:white;
 }
 
-.flexBox {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-wrap: wrap;
-}
+
+
 </style>
 </head>
-<body>
-	<div class="flexBox">
-	<div>
-	<div class="container">
-	<div style = "min-height:150px;">
 	
-		<jsp:include page="./mainnavi.jsp" />
-	</div>
-	</div>
+	
+<body>
+  <div style="min-height: 210px; padding-top:30px;">
+	            <jsp:include page="mainnavi.jsp"></jsp:include> 
+            </div>
+    
+   <!--   <div class="container" style="text-align: center; padding-top: 10px;">
+        <input type="text" size="75" style="border-radius: 5px; border: 2px solid rgb(203, 228, 248); " placeholder="검색어를 입력해주세요.">
+        &nbsp;
+        <button id="btn" style="border-radius: 5px; background-color: rgb(203, 228, 248); border: 2px solid rgb(203, 228, 248); font-weight: bold; color: white;">검색</button>
+        <span><a href="" style="font-size:small; float: right; color: gray; font-weight: bold;">|고객센터</a></span>
+        <span><a href="" style="font-size:small; float: right; color: gray; font-weight: bold;" >|회원가입</a></span>
+        <span><a href="" style="font-size:small; float: right; color: gray; font-weight: bold;">로그인</a></span>
+    </div>-->
+   <br/>
 
-		
-		<div class="container"style="height:310px; background-color: rgb(163, 182, 248);">
-			<h2 style="padding-top:8%; text-align:center">${dto.subject}</h2>
-			
-			<div style="margin-top: 10%; margin-left: 300;">
-			 <c:set var="loginId" value="${sessionScope.loginId}" />
+    <div class="container"  style="height:280px; background-color:rgb(170, 187, 247); text-align:center;">
+  
+        <h1 style="padding-top: 8%; font-weight: bold; ">${dto.subject}</h1>
+    
+        <div  style="padding-top: 4%;">
+         <c:set var="loginId" value="${sessionScope.loginId}" />
+          <c:if  test="${!empty loginId}">
+            <button id="button"  class="button" style="max-width: 75; margin-right: 10px; margin-left: 20px; padding: 10px 20px; font-weight: bold; float: right;">수정</button>
+           
+           <button id="button"  class="button" style="max-width: 75; padding: 10px 20px; font-weight: bold; float: right;">삭제</button>
+        	</c:if>
+        </div>
+    </div>
+    <br/>
+    <div class="container" style="float:right; padding-left:15%;">
+        <span class="grade">${writerGrade}</span>&nbsp;&nbsp;${dto.id}&nbsp;&nbsp;${dto.reg_date}&nbsp;&nbsp;조회수${dto.bhit}
+    </div>
+    <br/>
+       
+    <div class="container">
+        <table class="table">
+            <div class="container" >
+                <table class="table" style="width: 300px;" >
+                    <thead>
+                    <tr>
+                        <th style="border:none;">주거형태</th>
+                        <th style="border:none;">평수</th>
+                        <th style="border:none;">예산</th>
+                     </tr>
+                    </thead>
+                    <thead>
+                    <tr>
+                        <td style="border:none;">${dto.formcategory}</td>
+                        <td style="border:none;">${dto.roomsize}</td>
+                        <td style="border:none;">${dto.budget}</td>
+                        </tr>
+                    </thead>
+                </table>
+                <table>
+                    		${dto.content}
+                </table>
+                <br/>
+                <table class="table" >
+                    <thead>
+                    <tr>
+                        <th style="border:none;padding-top: 10%;">아이템:</th>
+                        <th style="border:none;"></th>
+                     </tr>
+                    </thead>
+                    
+                </table>
+            </div>
+        </table>
+         </div>       
+        <div class="container">
+            <button id="contentbtn" class="contentbtn" onclick="location.href='../homemain'" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; float: right;">목록</button>
+             <c:set var="loginId" value="${sessionScope.loginId}" />
 			 <c:if  test="${!empty loginId}">
-				<button id="button" style="margin-left: 300;" onclick="location.href='../boardUpdateForm/${dto.boardIdx}'">수정</button>
-				<button id="button" style="margin-left: 50;" onclick="location.href='../boardDel/${dto.boardIdx}'">삭제</button>
-				
-				<button id="button2" style="margin-left: 70; width: 100px;" onclick="boardRec('${boardIdx}')">추천하기</button>
-				<button id="button2" style="margin-left: 50;" onclick="location.href='../boardScrap/${dto.boardIdx}/${dto.id}'">스크랩</button>
-					</c:if>
-			</div>
-			<!--style="
-                    background-color: rgb(172, 172, 172);
-                    color: rgb(8, 8, 8);
-                    font-weight: bold;
-                    padding: 7px;
-                    margin: 8px 0;
-                    border: none;
-                    cursor: pointer;
-                    width: 7%;
-                    border-radius: 5px;"-->
-
-
+            <button id="contentbtn" class="contentbtn" onclick="reportBoard()" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; float: right;">신고</button>
+        	</c:if>
+        </div>
+        <br/>
+        <br/> 
+        <br/>
+        <br/>
+        <div class="container">
+            
+            
+           <div>
+               <table class="table">
+               <tr>
+                <td>
+             	  댓글<span id ="listSize" style="font-size: medium; font-weight: bold; ">개</span>
+            	</td>
+               </tr>
+                </table>
+            </div>
+      <div id="commentBox" class="container">
+      <c:set var="loginId" value="${sessionScope.loginId}" />
+      <c:if  test="${!empty loginId}">
+           <sapn><b id="loginId">${sessionScope.loginId}</b></sapn> : <input type="text" name="comment" id="comment" size="75" placeholder="댓글을 입력해주세요."/> 
+            <button id="contentbtn" class="contentbtn" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold;">저장</button>
+       </c:if>
+        <c:if  test="${empty loginId}">
+         <sapn><b id="loginId">${sessionScope.loginId}</b></sapn> : <input type="text" name="comment" id="comment" size="75" placeholder="로그인이 필요한 서비스입니다."/> 
+            <button id="contentbtn" class="contentbtn" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold;">저장</button>
+        </c:if>
+        <div>
+			<div id="commentListDiv"></div>
 		</div>
-			<div class="container"style=" float:right; padding-top: 10px;">
-				${dto.id} &nbsp;&nbsp;  글번호${dto.boardIdx} &nbsp;&nbsp; 조회수 ${dto.bhit} &nbsp;&nbsp;카테고리:${dto.brdctgidx} &nbsp;&nbsp; 추천수 ${dto.CNTRECO}
-				</div>
-			
-		<div>
-			<div class="container" style="text-align: center; padding-top: 100px;">
-				${dto.content}
-				<div id="content" style="padding-top :10%;">
-				 <c:set var="loginId" value="${sessionScope.loginId}" />
-			 			<c:if  test="${!empty loginId}">
-					<button id="contentbtn" style="margin-left: 500;" onclick="reportBoard()">신고</button>
-					</c:if>
-					<button onclick="location.href='../Freelist'" id="contentbtn" style="float:right;margin-left: 50;">목록</button>
-				</div>
-			</div>
-		</div>
-
-		<div style="padding-top:100px;">
-
-			<b>댓글 <span id="listSize"></span>개</b>
-			<br/>
-			<br/>
-			<div id="commentBox" class="container">
-			<c:set var="loginId" value="${sessionScope.loginId}" />
-			 	<c:if  test="${!empty loginId}">
-				<span><b id="loginId">${sessionScope.loginId }</b></span> 
-				<input type="text" name="comment" id="comment" placeholder="댓글을 입력해주세요" />
-				<input type="button" id="button" value="등록" id="commentSave" />
-				</c:if>
-				<c:if  test="${empty loginId}">
-				<span><b id="loginId">${sessionScope.loginId }</b></span> <input
-					type="text" name="comment" id="comment" placeholder="로그인이 필요한 서비스입니다." />
-					<input type="button" id="button" value="등록" id="commentSave" />
-				</c:if>
-			</div>
-		</div>
-			<div>
-				<div id="commentListDiv" style="padding-bottom:10%;"></div>
-			</div>
-	</div>
-</div>
-</body>
-<script>
-	var msg = "${msg}";
+      </div>
+        </div>
+        
+   </body>
+   <script>
+   var msg = "${msg}";
 	if (msg != "") {
 		alert(msg);
 	}
@@ -248,7 +180,7 @@ a:link {
 		//요청url,타이틀,옵션
 	}
 	/* 댓글 등록 */
-	$("#commentSave").click(function() {
+	$("#contentbtn").click(function() {
 		var comment = $("#comment").val();
 		var loginId = "${sessionScope.loginId}";
 		var boardIdx = "${dto.boardIdx}";
@@ -278,7 +210,6 @@ a:link {
 			});
 		}
 	})
-
 	/* 댓글 목록 불러오기 */
 	function boardCommentList() {
 		var reqUrl = '../boardCommentList/' + ${dto.boardIdx};
@@ -303,7 +234,6 @@ a:link {
 			}
 		});
 	}
-
 	/* 댓글 리스트 뿌리기 */
 	function commentListPrint(list) {
 		var content = "";
@@ -411,6 +341,7 @@ a:link {
 		$("#commentDiv" + commIdx).after(content);
 
 	}
+	
 	/*대댓글 작성*/
 	function recommWirte(commIdx) {
 		var recomment = $("#recomment").val();
@@ -441,6 +372,7 @@ a:link {
 			});
 		}
 	}
+	
 	/*대댓글 리스트 불러오기*/
 	function boardRecommList(commIdx) {
 		$.ajax({
@@ -461,7 +393,6 @@ a:link {
 			}
 		});
 	}
-
 	/*대댓글 리스트 뿌리기*/
 	function boardRecommPrint(list) {
 		var content = "";
@@ -578,42 +509,8 @@ a:link {
 				}
 			});
 	}
-	/* 게시판추천하기*/
-	function boardRec(boardIdx){
-		console.log("boardIdx: "+boardIdx);
-		var reqUrl = "../boardRec/"+boardIdx;
-		$.ajax({
-				url : reqUrl,
-				type : "get",
-				data : {},
-				dataType : "JSON",
-				success : function(data) {
-					console.log("Success: ", data);
-					console.log("rescResult:"+data.recResult);
-					if(data.recResult =='true'){
-						console.log($("#"+boardIdx+""));
-						$("#"+boardIdx+"").attr('src','resources/images/recommend.png');
-						boardCommentList(); //댓글리스트 호출(댓글추천수 새로고침)
-					}else{
-						console.log($("#"+boardIdx+""));
-						$("#"+boardIdx+"").attr('src','resources/images/decommend.png');
-						boardCommentList(); //댓글리스트 호출(댓글추천수 새로고침)
-					}
-					
-				},
-				error : function(error) {
-					console.log("error:", error);
-				}
-			});
-	}
-		/* 댓글 신고 새창 */
-	function repCommForm(commIdx){
-		window.open("../boardRepCommForm/1/"+commIdx,"reportComment","width=800, height=600");
-	}
-	
-	/* 대댓글 신고 새창 */
-	function repRecommForm(com2ndIdx){
-		window.open("../boardRepCommForm/2/"+com2ndIdx,"reportRecomment","width=800, height=600");
-	}
-</script>
+   
+   </script>
 </html>
+          
+   

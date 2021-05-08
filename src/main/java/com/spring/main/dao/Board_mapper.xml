@@ -251,7 +251,7 @@
 	<!-- 우리집 자랑 세부검색 -->
 	<select id="gethomeMainList" resultType="com.spring.main.dto.BoardDTO">
 		SELECT 
-			BOARDIDX,SUBJECT, CONTENT, ID, REG_DATE, ROOMESIZE,BUDGET, BHIT,BLIND,BRDCTGIDX, FORMIDX, CNTRECO
+			*
 		FROM 
 			(SELECT CNTRECO, ROW_NUMBER() OVER (ORDER BY 
 			 <if test="!param3.equals('')">

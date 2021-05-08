@@ -47,6 +47,11 @@ public class BoardController {
 		logger.info("질문하기 페이지 입니다.");
 		return "QWrite";
 	}
+	@RequestMapping(value = "/qnadetail", method = RequestMethod.GET)
+	public String qnadetail() {
+		logger.info("상세보기 페이지 입니다.");
+		return "qnadetail";
+	}
 	@RequestMapping(value = "/homemain", method = RequestMethod.GET)
 	public ModelAndView homemain() {
 	ModelAndView mav = new ModelAndView();
@@ -72,6 +77,7 @@ public class BoardController {
 			
 	  return mav;
 	}
+	/*
 		@RequestMapping(value = "/tip", method = RequestMethod.GET)
 		public ModelAndView tipmain(@RequestParam(value="pageNum",required=false,defaultValue="1")int pageNum,
 				@RequestParam(value="opt",required=false, defaultValue="all")String opt,
@@ -85,10 +91,17 @@ public class BoardController {
 			mav.setViewName("tipMain");
 			return mav;
 		}
-	 
+	 */
+	@RequestMapping(value = "/tip", method = RequestMethod.GET)
+	public ModelAndView tipmain() {
+		ModelAndView mav = new ModelAndView();
+		logger.info("팁메인이동");
+		mav.setViewName("tipMain");
+		return mav;
+	}
 
 	
-	
+	/*
 	@RequestMapping(value = "/helpMain", method = RequestMethod.GET)
 	public ModelAndView helpmain(@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum,
 			@RequestParam(value="opt", required=false, defaultValue="all" )String opt,
@@ -104,7 +117,14 @@ public class BoardController {
 		  
 		  return mav;
 		}	
-	
+	*/
+	@RequestMapping(value = "/helpMain", method = RequestMethod.GET)
+	public ModelAndView helpMain() {
+		ModelAndView mav = new ModelAndView();
+		logger.info("도와조");
+		mav.setViewName("helpMain");
+		return mav;
+	}
 	@RequestMapping(value = "/FAQsend", method = RequestMethod.GET)
 	public String FAQsend() {
 		return "FAQsend";
