@@ -58,16 +58,32 @@ a.button:hover {
 	box-shadow: rgb(230, 226, 224) 0 0px 0px 40px inset;
 }
 
-a.button2 {
+#button{
+color: rgba(30, 22, 54, 0.6);
+    background-color: rgb(230, 226, 224);
+	box-shadow: rgb(230, 226, 224) 0 0px 0px 2px inset;
+	border:none;
+	border-radius: 10px;
+}
+#button:hover{
+color: rgba(255, 255, 255, 0.85);
+	box-shadow: rgb(230, 226, 224) 0 0px 0px 40px inset;
+
+}
+
+#button2 {
 	color: rgba(30, 22, 54, 0.6);
     background-color: rgb(194, 191, 243);
 	box-shadow: rgb(194, 191, 243) 0 0px 0px 2px inset;
+	border:none;
+	border-radius: 10px;
 }
 
-a.button2:hover {
+#button2:hover {
 	color: rgba(255, 255, 255, 0.85);
 	box-shadow: rgb(194, 191, 243) 0 0px 0px 40px inset;
 }
+
 input.button{
 	border : 1px rgba(30, 22, 54, 0.6);
  	border-radius: 10px;
@@ -94,7 +110,7 @@ input.button:hover{
         <span><a href="" style="font-size:small; float: right; color: gray; font-weight: bold;">로그인</a></span>
     </div>
    <br/>
-<form method="post" action="">
+	<form action="boardWrite" method="post">
     <div class="container">
         <table class="table table-bordered">
             <thead>
@@ -104,8 +120,8 @@ input.button:hover{
                     <td>
                         <ul>
                             <li>
-                                <select name="idx" id="idx"style="border-radius: 5px; margin: 5px; ">
-                                <option>주거형태</option>
+                                <select name="formcategory" id="formcategory"style="border-radius: 5px; margin: 5px; ">
+                                <option value="0">주거형태</option>
                                 <option value="1">원룸&오피스텔</option>
                                 <option value="2">아파트</option>
                                 <option value="3">단독주택</option>
@@ -115,14 +131,14 @@ input.button:hover{
                             <br/>
                          
                                 <li>
-                                    평수<input type="text" style="border-radius: 5px; border-color:  rgb(162, 163, 163); width: 50px;">평
+                                    평수<input type="text" id="roomsize" style="border-radius: 5px; border-color:  rgb(162, 163, 163); width: 50px;">평
     
                                 </li>
                                 <br/>
                            
                             <li>
 
-                                예산<input type="text" style="border-radius: 5px;border-color:  rgb(162, 163, 163);  width: 50px;">만원
+                                예산<input type="text" id="budget" style="border-radius: 5px;border-color:  rgb(162, 163, 163);  width: 50px;">만원
                             </li>
 
                         </ul>
@@ -132,15 +148,15 @@ input.button:hover{
             <tbody>
                 <tr>
                     <th  style=" border: 3px solid rgb(204, 203, 203);">제목</th>
-                    <td  style=" border: 3px solid rgb(204, 203, 203);"><input type="text" style="width: 100%; " placeholder="제목을 입력해주세요."></td>
+                    <td  style=" border: 3px solid rgb(204, 203, 203);"><input id="subject"type="text" style="width: 100%; " placeholder="제목을 입력해주세요."></td>
                 </tr>
                 <tr>
                     <th  style=" border: 3px solid rgb(204, 203, 203);">내용</th>
-                    <td  style=" border: 3px solid rgb(204, 203, 203);"><textarea style="width: 100%;"cols="30" rows="10" placeholder="내용을 입력해주세요."></textarea></td>
+                    <td  style=" border: 3px solid rgb(204, 203, 203);"><textarea id="content"style="width: 100%;"cols="30" rows="10" placeholder="내용을 입력해주세요."></textarea></td>
                 </tr>
                 <tr>
                     <th  style=" border: 3px solid rgb(204, 203, 203);">아이템</th>
-                    <td style=" border: 3px solid rgb(204, 203, 203);"><textarea style="width: 100%;" cols="30" rows="5" placeholder="ex)1.이케아 가구"></textarea></td>
+                    <td style=" border: 3px solid rgb(204, 203, 203);"><textarea id="iteme" style="width: 100%;" cols="30" rows="5" placeholder="ex)1.이케아 가구"></textarea></td>
                 </tr>
             </tbody>
         </table>
@@ -149,13 +165,30 @@ input.button:hover{
            <!--   <a href="#" class="button" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; " onclick="fileUp()">첨부파일</a>-->
              <input id="button" class="button" style="max-width: 100; margin: 10px ;  padding: 10px 10px; font-weight: bold;" type="button" value="파일업로드" onclick="fileUp()" />
             <div class="row" style="float: right;">
-                <a href="homemain" class="button2" style="max-width: 75; margin: 10px ; padding: 10px 10px; font-weight: bold; text-align:center; ">저장</a>
+                <button id="button2" class="button2" style="max-width: 75; margin: 10px ; padding: 10px 10px; font-weight: bold; text-align:center;">저장</button>
             </div>
-            <a href="homemain" class="button" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; float: right;">취소</a>
+            <button id="button" class="button" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; float: right;">취소</button>
         </div>
         </div>
        
 
-    </form>
+ </form>
     </body>
+    <script>
+    var msg = "${msg}";
+    if(msg != ""){
+    	alert(msg);
+    }
+   
+    $("#button2").click(function(){
+    	if($("#formcategory").val()=="0"||$("#roomsize").val()==""||$("#budget").val()==""){
+    		alert("주거형태,평수,예산을 작성해주세요");
+    	}else if($("#subject").val()==""||$("#content").val()==""||$("#iteme").val()==""){
+    		alert("제목,내용, 아이템을 작성해주세요");
+    	}else{
+    		$("form").submit();
+    	}
+    	
+    });
+    </script>
     </html>
