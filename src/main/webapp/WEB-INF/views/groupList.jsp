@@ -25,10 +25,14 @@ font-weight:600;
 font-size:150%;
 margin:20px;
 margin-top:30px;
-color:#424242;
+color:#337ab7;
 /* 중앙정렬 */
 display: flex; 
 justify-content: center;
+}
+
+#groupTitle>a:hover{
+text-decoration:none;
 }
 
 /*공동구매검색바*/
@@ -107,7 +111,7 @@ border-radius:5px;
 </head>
 <body>
  <jsp:include page="mainnavi.jsp"></jsp:include> 
- 	<span id="groupTitle">공동구매&무료나눔</span>
+ 	<span id="groupTitle"><a href="groupListPage">공동구매&무료나눔</a></span>
 	<form action="groupSearch" id="groupSearch">
 	<select id="searchOpt" name="opt" style="margin-right:10px;">
 		<option value="all">전체</option>
@@ -260,14 +264,13 @@ function listPrint(list) {
 		}
 		content += "<td>"+category+"</td>" //글종류
 		
-		if(list[i].progIdx == 1){
-			content += "<td style='color:red'>진행중</td>" //현재상태
+		if(list[i].progIdx == 1){//현재상태
+			content += "<td style='color:red'>진행중</td>" 
 		}else if(list[i].progIdx == 2){
-			content += "<td >인원부족마감</td>" //현재상태
+			content += "<td >인원부족마감</td>"
 		}else{
 			content += "<td>마감</td>" 
 		}
-		//content += "<td>"+진행중+"</td>" //현재상태
 		
 		//JAVA에서 가끔 날짜가 milliseconds로 나올 경우..
 		 var deadline = new Date(list[i].deadline); 
