@@ -138,7 +138,7 @@ public class BoardRestController {
 	 * @param pageNum 이동하려는 페이지 번호
 	 * @param orderBy 정렬 (최신순/추천순)
 	 * @return
-	*/
+	
 	@RequestMapping(value = "/api/homemain", method = RequestMethod.GET)
 	public Map<String, Object> getApiHomemainList(
 			@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum,
@@ -152,5 +152,13 @@ public class BoardRestController {
 		logger.info("homemainlist");
 		logger.info("파람들 : " + pageNum+ ",orderBy:" +orderBy+ ",formcategory"+ formcategory+",budget"+budget+",roomsize"+roomsize);
 		return BoardService.homeMainList(pageNum, keyword,orderBy, formcategory, budget, roomsize);
+	}*/
+	@RequestMapping(value = "/homeListScroll/{page}", method= RequestMethod.GET)
+	public HashMap<String, Object>homeListScroll(@PathVariable int count){
+		logger.info("스크롤 됨");
+		logger.info("count:{}",count);
+		return BoardService.homeListScroll(count);
 	}
+	
+	
 }

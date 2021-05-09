@@ -94,7 +94,12 @@ public interface BoardDAO {
 	ArrayList<PhotoDTO> myInteriorSlider(String id);
 	
 	//우리집 자랑 목록 전체 개수 조회
-	int gethomeMainCount(int brdCtgIdx, String keyword, String orderBy, String formcategory,int budget, int roomsize);
+	//int gethomeMainCount(int brdCtgIdx, String keyword, String orderBy, String formcategory,int budget, int roomsize);
+	
+	int allScrollCount();
+	
+	Object homeListScroll(int cnt);
+	
 	//우리집 자랑 목록 조회
 	//ArrayList<BoardDTO> homeMainList(int startNum, int endNum, String keyword,String orderBy, String formcategory,int budget, int roomsize);
 	
@@ -138,6 +143,10 @@ public interface BoardDAO {
 	int boardCntDown(int boardIdx);
 	//게시글 cnt 증가
 	int boardCntUp(int boardIdx);
+	ArrayList<BoardDTO> list();
+
+		
+	
 
 	
 }
