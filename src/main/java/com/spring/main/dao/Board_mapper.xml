@@ -221,13 +221,28 @@
 
 	</select>
 	<!-- 우리집 자랑 전체 목록 조회 -->
-	<select id="homeListScroll" resultType="com.spring.main.dto.BoardDTO">
-		SELECT * FROM (SELECT BOARDIDX,SUBJECT,ID,REG_DATE,ROOMSIZE,BUDGET,BHIT,BLIND,BRDCTGIDX,FORMIDX
-		,ROW_NUMBER() OVER(ORDER BY BOARDIDX DESC) AS rnum FROM BOARD WHERE (blind='N' or blind is null))
-		WHERE rnum 1 AND #{param1}
-		
-		 
-	</select>
+	<select id="gethomeMainCount" resultType="int">
+	SELECT
+	 COUNT(BOARDIDX) AS CNT FROM BOARD WHERE BRDCTGIDX == #{param1} and blind'n'
+	 <if test = "!param2.equals('')">
+	 <choose>
+	 <when test ="param3 == 0">
+	 	AND orederBy LIKE '%'||#{param2}||'%'
+	 </when>
+	 <when test ="param4 == 0">
+	  AND FORMIDX LIKE '%'||#{param2}||'%'
+	 </when>
+	 <when test="param5 == 0">
+	  AND budget LIKE '%'||#{param2}||'%'
+	 </when>
+	 <when test="param6 == 0">
+	 AND ROOMSIZE LIKE '%'||#{param2}||'%'
+	 </when>
+	 <otherwise>
+	 AND (orderBy LIKE '%'||#{param2)||'%' OR FORMIDX LIKE '%'||#{param2}||'%' budget LIKE '%'||#{param2}||'%' ROOMSIZE '%'||{#param2}||'%')
+	 </otherwise>
+	 </choose>
+	 </if>
 	
 	<!-- 우리집 자랑 세부검색 -->
 	<select id="gethomeMainList" resultType="com.spring.main.dto.BoardDTO">

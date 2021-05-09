@@ -386,26 +386,7 @@ public class BoardService {
 		return map;
 	}
 	
-	public ModelAndView list() {
-		ModelAndView mav = new ModelAndView();
-	ArrayList<BoardDTO> list = boarddao.list();
-	mav.addObject("list",list);
-	mav.setViewName("homemain");
-	return mav;
-	}
-	 public HashMap<String, Object>homeListScroll(int count){
-		 int cnt = count *8;
-		 int allCnt = boarddao.allScrollCount();
-		 logger.info("전체 게시물 수: {} ,불러올 게시물 수: {}", allCnt, cnt);
-		 HashMap<String, Object>map = new HashMap<String, Object>();
-		 if(allCnt>=cnt) {
-			 map.put("list",boarddao.homeListScroll(cnt));
-		 }else {
-			 map.put("list",boarddao.homeListScroll(allCnt));
-		 }
-		 return map;
-	 }
-	
+
 		
 
 	public HashMap<String, Object> BoardSearchList(int pagePerCnt, int page, String opt, String keyword) {
@@ -486,7 +467,7 @@ public class BoardService {
 	}
 
 
-/*
+
 //우리집 자랑 세부검색
 	public Map<String, Object> homeMainList(int pageNum, String orderBy,String keyword, String formcategory, int budget,int roomsize) {
 		Map<String, Object> map = new HashMap<>();
@@ -504,8 +485,7 @@ public class BoardService {
 		return map;
 	}
 
-*/
-	
+
 
 
 	public Map<String, Object> getTipmain (int pageNum, String orderBy, String opt, String keyword) { //메서드 선언

@@ -48,6 +48,7 @@ public class BoardController {
 		logger.info("상세보기 페이지 입니다.");
 		return "qnadetail";
 	}
+	
 	@RequestMapping(value = "/homemain", method = {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView homemain() {
 	ModelAndView mav = new ModelAndView();

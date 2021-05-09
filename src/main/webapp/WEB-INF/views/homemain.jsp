@@ -2,17 +2,20 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>우리 집 자랑</title>
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" 
 integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" 
 integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-</head>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <style>
  #comment{
     border-radius: 5px; 
@@ -38,10 +41,16 @@ span:hover {
         color: rgb(143, 201, 248);
         box-shadow: rgb(143, 201, 248) 0 0px 0px 40px inset;
     }
+#totaldiv {
+	position: absolute;
+	left: 10%;
+	top: 30%;
+}
 
 	
 </style>
 </head>
+
 <body>
     <div class="container" style="text-align: center; padding-top: 10px;">
         <input type="text" size="75" style="border-radius: 5px; border: 2px solid rgb(203, 228, 248); "
@@ -108,9 +117,7 @@ span:hover {
 
 			</div> 
 				</div>
-				<div id="list" style="display: flex; flex-flow: wrap;  justify-content: center; border: 1px solid rgb(255, 255, 255);">
-
-			</div> 
+				
                <!--  <div style="border-radius:20px; border: 5px solid white; margin-right: 90px; box-shadow:0 0 5px lightslategray;">
                     <img src="C:\Users\user\Desktop\BootStrap\interior1.jpg" width="250" height="250" style=" border-radius:20px;">
                     <table class="table">
@@ -133,66 +140,20 @@ span:hover {
     </div>  
 </body>
 <script>
-$(document).ready(function(){
-	function getList(pageNum,keyword,orderBy,formcategory,budget,roomsize){
-		var pageNum =  1 
-		var keyword = '' 
-		var orderBy = !orderBy ? 'recent' : orderBy;
-		var formcategory = !formcategory ? '0' :formcategory;
-		var budget =  ! budget ? '' : budget;
-		var roomsize = ! roomsize ? '0' : roomsize; 
-		var hdata = {
-				pageNum : pageNum,
-				keyword : keyword,
-				orderBy : orderBy,
-				formcategory : formcategory,
-				budget : budget,
-				roomsize : roomsize
-	};
-console.log(hdata);
-	$.ajax({
-		url: '/main/api/homemain',
-		type : 'GET',
-		data : hdata,
-		dataType : 'JSON',
-		success : function(data){
-			appendList(data.list);
-			
-		},
-		error : function(error){
-			console.log('에러');
-		}
-		
-	});
-				}
 
 
-	function appendList(list) {
-		console.log("appendList실행");
-		
-		var content = "";
-		$.each(list,function(index, info) {
+var msg = "${msg}";
+if(msg != ""){
+	alert(msg);
+}
+	
 
-			content += "<div style='border-radius:20px; border: 5px solid white; margin: 20px; box-shadow:0 0 5px lightslategray;'>"
-			content += "<img src='resources/images/interior1.jpg' width='250' height='250' style=' border-radius:20px;'>"
-			content += "<table class='table'>"
-			content += "<tr>"
-			content += "<th style='border-color: white;'><a href='homeDetail?BOARDIDX="
-					+ info.BOARDIdX + "'>" + info.subject + "</a></th>"
-			content += "</tr>"
-			content += "<tr>"
-			content += "<td><a href='homeDetail?ID=" + info.ID + "'>"
-					+ info.ID + "</a></td>"
-			content += "</tr>"
-			content += "</table>"
-			content += "</div>"
-		
-	});
-		
-		$('#list').empty();
-		$('#list').append(content);
-	}
 
+
+
+
+
+	
 	$('button#btnForSearch').click(function() {
 		if ($('#keywordForSearch').val() == '') {
 			alert("검색어를 입력해주세요2.");
