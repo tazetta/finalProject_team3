@@ -8,7 +8,7 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <title>자유게시판 상세보기</title>
 <style>
-.댓글등록버튼 {
+#button,.댓글등록버튼 {
 	background-color: rgb(172, 172, 172);
 	color: rgb(8, 8, 8);
 	font-weight: bold;
@@ -20,7 +20,7 @@
 	border-radius: 5px;
 }
 
-.댓글등록버튼:hover{
+#button:hover,.댓글등록버튼:hover{
 
 	color: rgba(255, 255, 255, 0.85);
 	box-shadow: rgb(230, 226, 224) 0 0px 0px 40px inset;
@@ -196,10 +196,11 @@ a:link {
 			
 			<div style="margin-top: 10%; margin-left: 300;">
 			 <c:set var="loginId" value="${sessionScope.loginId}" />
-			 <c:if  test="${!empty loginId}">
+			 <c:if test="${ dto.id == loginId }">
 				<button id="button" style="margin-left: 300;" onclick="location.href='../boardUpdateForm/${dto.boardIdx}'">수정</button>
 				<button id="button" style="margin-left: 50;" onclick="location.href='../boardDel/${dto.boardIdx}'">삭제</button>
-				
+				</c:if>
+			 <c:if  test="${ dto.id != loginId}">
 				<button id="button2" style="margin-left: 70; width: 100px;" onclick="boardRec('${boardIdx}')">추천하기</button>
 				<button id="button2" style="margin-left: 50;" onclick="location.href='../boardScrap/${dto.boardIdx}/${dto.id}'">스크랩</button>
 					</c:if>

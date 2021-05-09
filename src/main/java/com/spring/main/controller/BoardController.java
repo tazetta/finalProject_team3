@@ -146,25 +146,29 @@ public class BoardController {
 		// 업로드할 파일이름을 저장한 HashMap생성해서 session에 저장(upload메서드에서 여러파일을 관리하기위해)
 		HashMap<String, String> fileList = new HashMap<String, String>();
 		session.setAttribute("fileList", fileList);
-		
-		
+		String loginId = (String) session.getAttribute("loginId");
+		logger.info("현재로그인아이디:{}",loginId);
 		String page = "";
-		if (boardCtgIdx.equals("1")) {
-			page = "freeWriteForm";
-			logger.info("1 카테고리글쓰기 페이지로 이동");
-		} else if (boardCtgIdx.equals("2")) {
-			page = "HomeWriteForm";
-			logger.info("2 카테고리글쓰기 페이지로 이동");
-		} else if (boardCtgIdx.equals("3")) {
-			page = "TipWriteForm";
-			logger.info("3 카테고리글쓰기 페이지로 이동");
-		} else if (boardCtgIdx.equals("4")) {
-			page = "QWrite";
-			logger.info("4 카테고리글쓰기 페이지로 이동");
-		} else if (boardCtgIdx.equals("5")) {
-			page = "FAQsend";
-			logger.info("5 카테고리글쓰기 페이지로 이동");
-		}
+			if(loginId!=null) {
+				page = "membership";
+				logger.info("로그인창 이동");
+			}
+			if (boardCtgIdx.equals("1")) {
+				page = "freeWriteForm";
+				logger.info("1 카테고리글쓰기 페이지로 이동");
+			} else if (boardCtgIdx.equals("2")) {
+				page = "HomeWriteForm";
+				logger.info("2 카테고리글쓰기 페이지로 이동");
+			} else if (boardCtgIdx.equals("3")) {
+				page = "TipWriteForm";
+				logger.info("3 카테고리글쓰기 페이지로 이동");
+			} else if (boardCtgIdx.equals("4")) {
+				page = "QWrite";
+				logger.info("4 카테고리글쓰기 페이지로 이동");
+			} else if (boardCtgIdx.equals("5")) {
+				page = "FAQsend";
+				logger.info("5 카테고리글쓰기 페이지로 이동");
+			}
 		return page;
 	}
 	@RequestMapping(value = "/boardUploadForm", method = RequestMethod.GET)
@@ -232,9 +236,9 @@ public class BoardController {
 		return BoardService.boardCommDel(commIdx,rAttr);
 	}
 	@RequestMapping(value = "/boardScrap/{boardIdx}/{id}", method = RequestMethod.GET)
-	public ModelAndView boardScrap(@PathVariable int boardIdx,@PathVariable String id, RedirectAttributes rAttr) {
+	public ModelAndView boardScrap(@PathVariable int boardIdx,@PathVariable String id, RedirectAttributes rAttr,HttpSession session) {
 		logger.info("ID : {} / boardIdx : {} ",id, boardIdx);
-		return BoardService.boardScrap(boardIdx,id, rAttr);
+		return BoardService.boardScrap(boardIdx,id, rAttr,session);
 	}
 	@RequestMapping(value = "/boardCommRec/{commIdx}", method = RequestMethod.GET)
 	@ResponseBody HashMap<String , Object> boardCommRec(@PathVariable int  commIdx, HttpSession session,RedirectAttributes rAttr) {

@@ -542,9 +542,11 @@ public class BoardService {
 		return map;
 	}
 
-	public ModelAndView boardScrap(int boardIdx, String id, RedirectAttributes rAttr) {
+	public ModelAndView boardScrap(int boardIdx, String id, RedirectAttributes rAttr, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		int Scrap = boarddao.boardScrap(boardIdx, id);
+		String loginId = (String) session.getAttribute("loginId");
+		if(loginId!=null) {
 		logger.info("스크랩 쿼리문작동완료");
 		if (Scrap > 0) {
 			msg = "스크랩하였습니다.";
@@ -553,6 +555,10 @@ public class BoardService {
 			boarddao.boardScrapDel(boardIdx, id);
 			msg = "스크랩취소 했습니다.";
 			page = "redirect:/boarddetail/" + boardIdx;
+		}
+		}else {
+			page = "redirect:/boarddetail/" + boardIdx;
+			msg="로그인이후 스크랩이용부탁드립니다.";
 		}
 		rAttr.addFlashAttribute("msg", msg);
 		mav.setViewName(page);
