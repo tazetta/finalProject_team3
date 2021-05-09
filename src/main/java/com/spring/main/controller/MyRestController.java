@@ -71,6 +71,22 @@ public class MyRestController {
 		return service.mygroupbuyList(pagePerCnt,page,session);	
 	}
 	
+	@RequestMapping(value = "/myscrapList/{pagePerCnt}/{page}", method = RequestMethod.GET)
+	public HashMap<String, Object> myscrapList(@PathVariable int page , @PathVariable int pagePerCnt ,HttpSession session) {
+		logger.info("스크랩");
+		return service.myscrapList(pagePerCnt,page,session);	
+	}
+	
+	
+	@RequestMapping(value = "/mywritehomeList/{pagePerCnt}/{page}", method = RequestMethod.GET)
+	public HashMap<String, Object> mywritehomeList(@PathVariable int page , @PathVariable int pagePerCnt ,HttpSession session) {
+		logger.info("우리집 자랑");
+		return service.mywritehomeList(pagePerCnt,page,session);	
+	}
+	
+	
+	
+	
 	
 	
 	
