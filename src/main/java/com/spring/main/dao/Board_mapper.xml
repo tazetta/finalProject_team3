@@ -243,7 +243,7 @@
 	 </otherwise>
 	 </choose>
 	 </if>
-	
+	</select>
 	<!-- 우리집 자랑 세부검색 -->
 	<select id="gethomeMainList" resultType="com.spring.main.dto.BoardDTO">
 		SELECT 
