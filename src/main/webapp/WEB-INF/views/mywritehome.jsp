@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-<title>내 작성글-자유게시판</title>
+<title>내 작성글-꿀팁</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <!-- 반응형 디자인을 위한 css/js 라이브러리 -->
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -84,6 +84,18 @@ th{
 	.sideBar {
 	float: left;
 }
+
+#list{
+	      border:1px solid red;
+      border-collapse: collapse;
+      width: 150px;
+	height: 150px;
+}
+
+
+
+
+
 </style>
 </head>
 <body>
@@ -97,17 +109,10 @@ th{
 			<div class="sideBar">
 				<form>
 					<table>
-						<h2>스크랩 게시판</h2>
-					   <tr>
-                   	<th style="width:70px">글 번호</th>
-						<th style="width:300px">제목</th>
-						<th style="width:120px">작성자</th>
-						<th style="width:60px">조회수</th>
-						<th style="width:100px">작성일</th>
-                </tr>
-        </thead>
-        </div>
-		<tbody id="list">
+						<h2>우리집 자랑</h2>
+			
+       
+		<tbody id="list" style="width: 150px; height: 150px;">
              
 		</tbody>
 			<tr>
@@ -136,7 +141,7 @@ listCall(showPage,pagePerNum);
 
 function listCall(reqPage,reqPagePerNum){
 	 
-	 var reqUrl ='./myscrapList/' + reqPagePerNum + "/" + reqPage;
+	 var reqUrl ='./mywritehomeList/' + reqPagePerNum + "/" + reqPage;
 	 $.ajax({
 		 url:reqUrl
 		 ,type:'GET'
@@ -170,9 +175,7 @@ function listPrint(list){
 	 var content = "";
 	 for(var i = 0; i<list.length; i++){
 		content +="<tr>"
-		content +="<td>"+list[i].scrapIdx+"</td>"
-		content +="<td>"+list[i].id+"</td>"
-		content +="<td>"+list[i].boardIdx+"</td>"
+		content +="<td><img src='list[i].newFileName'></td>"
 		content +="</tr>"
 	}
 	

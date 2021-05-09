@@ -51,7 +51,6 @@ public class MyController {
 	@RequestMapping(value = "/checkPw") 
 	public ModelAndView  checkPw( HttpSession session, @RequestParam String pw) {
 		String str ="";
-		logger.info("ㅋㅋㅋ");
 		boolean success = myService.checkPw(pw,session);
 		if(success==true) {
 			str = "redirect:/myprofile";
@@ -134,13 +133,13 @@ public class MyController {
 		logger.info("신청한 공동구매 페이지");
 		return "mygroupbuy";
 	}
-
 	
-	
-	
-	
-	
-	
+	/* 우리집 자랑 */
+	@RequestMapping(value = "/mywritehome", method = RequestMethod.GET)
+	public String mywritehome() {
+		logger.info("우리집 자랑 페이지");
+		return "mywritehome";
+	}
 
 	
 

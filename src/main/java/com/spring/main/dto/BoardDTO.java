@@ -27,7 +27,18 @@ public class BoardDTO {
 	private int CNTRECO;
 	private String sgtctg;
 	private int commIdx;
+	private int scrapIdx;
 	
+	public int getScrapIdx() {
+		return scrapIdx;
+	}
+
+
+	public void setScrapIdx(int scrapIdx) {
+		this.scrapIdx = scrapIdx;
+	}
+
+
 	public int getCommIdx() {
 		return commIdx;
 	}
