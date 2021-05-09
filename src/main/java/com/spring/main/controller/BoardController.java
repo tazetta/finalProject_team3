@@ -146,6 +146,8 @@ public class BoardController {
 		// 업로드할 파일이름을 저장한 HashMap생성해서 session에 저장(upload메서드에서 여러파일을 관리하기위해)
 		HashMap<String, String> fileList = new HashMap<String, String>();
 		session.setAttribute("fileList", fileList);
+		
+		
 		String page = "";
 		if (boardCtgIdx.equals("1")) {
 			page = "freeWriteForm";

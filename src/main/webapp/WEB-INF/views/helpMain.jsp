@@ -318,5 +318,6 @@ $(document).ready(function() {
 			// 페이지 진입시 초기에 목록 조회.
 			getList();
 		});
+		
 </script>
 </html>

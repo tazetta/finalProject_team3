@@ -8,7 +8,7 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <title>자유게시판 상세보기</title>
 <style>
-#button {
+.댓글등록버튼 {
 	background-color: rgb(172, 172, 172);
 	color: rgb(8, 8, 8);
 	font-weight: bold;
@@ -20,7 +20,7 @@
 	border-radius: 5px;
 }
 
-#button:hover{
+.댓글등록버튼:hover{
 
 	color: rgba(255, 255, 255, 0.85);
 	box-shadow: rgb(230, 226, 224) 0 0px 0px 40px inset;
@@ -221,12 +221,7 @@ a:link {
 			 	<c:if  test="${!empty loginId}">
 				<span><b id="loginId">${sessionScope.loginId }</b></span> 
 				<input type="text" name="comment" id="comment" placeholder="댓글을 입력해주세요" />
-				<input type="button" id="button" value="등록" id="commentSave" />
-				</c:if>
-				<c:if  test="${empty loginId}">
-				<span><b id="loginId">${sessionScope.loginId }</b></span> <input
-					type="text" name="comment" id="comment" placeholder="로그인이 필요한 서비스입니다." />
-					<input type="button" id="button" value="등록" id="commentSave" />
+				<input type="button" class="댓글등록버튼" value="등록" id="commentSave" />
 				</c:if>
 			</div>
 		</div>

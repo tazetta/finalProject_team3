@@ -61,6 +61,8 @@ span:hover {
     
 	<form action="boardWrite" method="POST">
     <div class="container" style="text-align: center; padding-top: 10px;">
+    <input type="hidden" value="4" name="boardCtgIdx"/>
+    	<input type="hidden" value="${sessionScope.loginId}" name="id"/>
         <input type="text" size="75" style="border-radius: 5px; border: 2px solid rgb(203, 228, 248); "
             placeholder="검색어를 입력해주세요.">
         &nbsp;
@@ -87,18 +89,17 @@ span:hover {
                 <td><input id="subject" type="text" class="form-control" placeholder="제목을 입력해주세요" name="subject" maxlength="40"></td>
             </tr>
             <tr>
-                <td><textarea id="content" type="text" class="form-control" placeholder="내용을 10000자 이내로 입력해주세요" name="contentDetail" maxlength="1024" style="height: 400px;"></textarea></td>
+                <td><div contenteditable="true" id="editable" style="overflow:scroll; width: 100%; height: 400px; border: 2px solid black; border-radius: 10px;">
+                <input type="text" class="form-control" placeholder="내용을 입력하세요" name="content" maxlength="1024" style="height: 400px;"  hidden="hidden"/></div></td>
             </tr>
         </table>
         <div class="container">
-            <button id="button" class="button" style="max-width: 110; margin: 10px ; padding: 10px 20px; font-weight: bold; " onclick="fileUp()">첨부파일</button>
+         <input class="button" style="max-width: 100; margin: 10px ;  padding: 10px 10px; font-weight: bold;" type="button" value="파일업로드" onclick="fileUp()" />
             <div class="row" style="float: right;">
-               <button id="button2" class="button2" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold;">저장</button>
+           <input class="button2" id="save" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; " type="button" onclick="location.href='helpMain'" value="저장"/>
             </div>
-           
-            <button id="button" class="button" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; float: right;">취소</button>
-           </div>
-      </div>    
+            <a href="helpMain" class="button" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; float: right;">취소</a>
+            </div>
       </form>     
     </body>
     <script>
@@ -106,18 +107,44 @@ span:hover {
     if(msg != ""){
     	alert(msg);
     }
-    
-    $("#button2").click(function(){
-    	if($("#subject").val()==""||$("#content").val()==""){
-    		alert("제목, 내용을 입력해주세요.");
-    		return false;
-    	}else{
-    		alert("저장되었쥐");
-    		$("form").submit();
-    	}
-    	
-    });
-   
 
+    //boarduploadForm에서 보내는 elem확인
+    $("#save").click(function() {
+    	console.log($("#editable").html());
+    	$("#editable>a").find("b").remove(); //a태그안 b태그 삭제
+    	$("#editable>a").removeAttr("onclick"); //del(this) 무효화
+    	$("#content").val($("#editable").html());
+    	$("form").submit();
+    });
+
+    function fileUp(){
+    	window.open("boardUploadForm","fileUpload","width=400, height=100");
+    	//요청url,타이틀,옵션
+    }
+    function del(elem){
+    	console.log(elem); //<a>
+    	var newFileName = elem.id.substring(elem.id.lastIndexOf("/")+1); //파일명만 뽑아내기
+    	console.log(newFileName);
+
+
+    //1. 실제 파일 삭제 요청
+    $.ajax({
+    	url:"boardFileDelete",
+    	type:"get",
+    	data:{"fileName":newFileName},
+    	dataType:"json",
+    	success:function(d){
+    		console.log("success:"+d.success);
+    // 2. 파일 삭제 요청이 완료되면 화면에 나타난 사진 삭제
+    		if(d.success ==1){ //실제 파일 삭제 성공시
+    			$(elem).find('img').remove(); //이미지 삭제
+    			/* $(elem).next().remove(); */ //<br> 삭제
+    			$(elem).remove(); // <a>삭제
+    		}
+    	},error:function(e){
+    		console.log(e);
+    	}
+    }); 	
+    }
     </script>
 </html>

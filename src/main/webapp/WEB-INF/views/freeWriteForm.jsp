@@ -100,6 +100,11 @@ a.button2:hover,.button2:hover {
 
 </body>
 <script>
+var msg = "${msg}";
+if(msg != ""){
+	alert(msg);
+	msg = "";
+}
 
 //boarduploadForm에서 보내는 elem확인
 $("#save").click(function() {
