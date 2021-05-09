@@ -74,11 +74,11 @@ span:hover {
             <option value="cntreco">추천순</option>
         </select>
         <select name="idx" id="formcategory" style="border-radius: 5px; border: 2px solid gray;">
-            <option value="0">주거형태</option>
-            <option value="1">원룸&오피스텔</option>
-            <option value="2">아파트</option>
-            <option value="3">단독주택</option>
-            <option value="4">기타</option>
+            <option value="form">주거형태</option>
+            <option value="room">원룸&오피스텔</option>
+            <option value="apt">아파트</option>
+            <option value="solo">단독주택</option>
+            <option value="other">기타</option>
         </select>
       
         <select name="idx" id="budget" style="border-radius: 5px; border: 2px solid gray;">
@@ -147,14 +147,89 @@ if(msg != ""){
 	alert(msg);
 }
 	
+$(document).ready(function() {
+	// 목록을 조회하는 함수.
+	function getList(pageNum, keyword, orderBy,formcategory,budget,roomsize) {
+		/*
+		 * pageNum, opt, keyword
+		 * 값이 없으면 초기값 사용.
+		 * 값이 있으면 입력받은 값 사용.
+		 */
+		var pageNum = !pageNum ? 1 : pageNum;
+		var keyword = !keyword ? '' : keyword;
+		var orderBy = !orderBy ? 'recent' : orderBy 
+		var formcategory = !formcategory ? 'form': formcategory
+		var budget = ! budget ? '' : budget
+		var roomsize = ! roomsize ? '' : budget
+		var oData = {
+			pageNum : pageNum,
+			keyword : keyword,
+			orderBy : orderBy,
+			formcategory :formcategory,
+			budget : budget,
+			roomsize : roomsize
+		};
+			
+
+		$.ajax({
+			url : '/main/api/homemain',
+			type : 'GET',
+			data : oData,
+			dataType : 'JSON',
+			success : function(data) {
+				appendList(data.list); //화면에 뿌려주기 위함
+				createPagination(data.total_page, pageNum); //페이징 처리
+			},
+			error : function(error) {
+				console.log('에러 났음...');
+			}
+		});
+	}
+
+	// 목록을 UI에 추가하는 함수.
+	function appendList(aList) {
+		// jquery의 반복문을 사용.
+		var sHtml = '';
+		$.each(aList,function(index, oInfo) {
+							/*
+							행 html 소스
+							<tr>
+								<td><a href="boarddetail/${board.boardIdx}">${board.subject}</a></td>
+								<td>${board.id}</td>
+								<td>${board.bhit}</td>
+								<td>${board.reg_date}</td>
+							</tr>
+							 */
+							sHtml += '<tr>';
+							sHtml += '	<td><a href="boarddetail/' + oInfo.boardIdx +'">'
+									+ oInfo.subject
+									+ '</a></td>';
+							sHtml += '	<td>' + oInfo.id
+									+ '</td>';
+							sHtml += '	<td>' + oInfo.cntreco
+									+ '</td>';
+							sHtml += '	<td>'
+									+ new Date(
+											oInfo.reg_date)
+											.toLocaleDateString("ko-KR")
+									+ '</td>';
+							sHtml += '</tr>';
+						});
+	
+		
+
+		$("#list").empty();
+		$("#list").append(sHtml);
+	}
 
 
-
+	getList();
+});
 
 
 
 	
-	$('button#btnForSearch').click(function() {
+	/*$('button#btnForSearch').click(function() {
 		if ($('#keywordForSearch').val() == '') {
 			alert("검색어를 입력해주세요2.");
 			$('#keywordForSearch').focus();
@@ -181,10 +256,10 @@ if(msg != ""){
 		getList(2, roomsize);
 	});
 			
-			
+	*/		
 	
 			
-	});
+
 </script>
 </html>
 

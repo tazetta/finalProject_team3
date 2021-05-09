@@ -469,17 +469,17 @@ public class BoardService {
 
 
 //우리집 자랑 세부검색
-	public Map<String, Object> homeMainList(int pageNum, String orderBy,String keyword, String formcategory, int budget,int roomsize) {
+	public Map<String, Object> homeMainList(int pageNum, String keyword,String orderBy, String formcategory, int budget,int roomsize) {
 		Map<String, Object> map = new HashMap<>();
 		// startNum, endNum 생성
 		int limit = 10; // 최대 10개 게시물 목록 보여줄거
 		int startNum = (pageNum - 1) * limit + 1; // 시작페이지
 		int endNum = pageNum * limit; // 마지막 페이지
 		
-		int totalListCount = boarddao.gethomeMainCount(2, orderBy, keyword,  formcategory, budget,  roomsize);
+		int totalListCount = boarddao.gethomeMainCount(2, keyword, orderBy,  formcategory, budget,  roomsize);
 		map.put("total_page", totalListCount / 10 + 1);
 		
-		ArrayList<BoardDTO> list = boarddao.gethomeMainList(startNum, endNum, orderBy, keyword, formcategory, budget, roomsize);
+		ArrayList<BoardDTO> list = boarddao.gethomeMainList(startNum, endNum, keyword, orderBy, formcategory, budget, roomsize);
 		map.put("list", list);
 		
 		return map;

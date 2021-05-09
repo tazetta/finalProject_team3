@@ -222,28 +222,35 @@
 	</select>
 	<!-- 우리집 자랑 전체 목록 조회 -->
 	<select id="gethomeMainCount" resultType="int">
-	SELECT
-	 COUNT(BOARDIDX) AS CNT FROM BOARD WHERE BRDCTGIDX == #{param1} and blind'n'
+	  
+        SELECT
+		  BOARDIDX, SUBJECT, CONTENT, ID, REG_DATE, ROOMSIZE, BUDGET, KEYITEMS, BHIT, BLIND, BRDCTGIDX, FORMIDX,CNTRECO
+		FROM (
+		  SELECT ROW_NUMBER() OVER (ORDER BY  reg_date DESC) AS RNUM,
+		    BOARDIDX,SUBJECT,CONTENT,ID,REG_DATE,ROOMSIZE,BUDGET,KEYITEMS,BHIT,BLIND,BRDCTGIDX,FORMIDX,CNTRECO
+		
 	 <if test = "!param2.equals('')">
 	 <choose>
-	 <when test ="param3 == 0">
+	 <when test ="param3 == 'recent'">
 	 	AND orederBy LIKE '%'||#{param2}||'%'
 	 </when>
-	 <when test ="param4 == 0">
+	 <when test ="param4 == 'form'">
 	  AND FORMIDX LIKE '%'||#{param2}||'%'
 	 </when>
 	 <when test="param5 == 0">
-	  AND budget LIKE '%'||#{param2}||'%'
+	  AND budget LIKE '%'||#{param5}||'%'
 	 </when>
 	 <when test="param6 == 0">
-	 AND ROOMSIZE LIKE '%'||#{param2}||'%'
+	 AND ROOMSIZE LIKE '%'||#{param6}||'%'
 	 </when>
 	 <otherwise>
-	 AND (orderBy LIKE '%'||#{param2)||'%' OR FORMIDX LIKE '%'||#{param2}||'%' budget LIKE '%'||#{param2}||'%' ROOMSIZE '%'||{#param2}||'%')
+	 AND (orderBy LIKE '%'||#{param2)||'%' OR FORMIDX LIKE '%'||#{param2}||'%' budget LIKE '%'||#{param5}||'%' ROOMSIZE '%'||#{param6}||'%')
 	 </otherwise>
 	 </choose>
 	 </if>
+	 FROM BOARD )WHERE BRDCTGIDX=#{param1} and blind='n'
 	</select>
+	
 	<!-- 우리집 자랑 세부검색 -->
 	<select id="gethomeMainList" resultType="com.spring.main.dto.BoardDTO">
 		SELECT 
@@ -264,10 +271,10 @@
 		BOARDIDX,SUBJECT,ID,REG_DATE,ROOMSIZE,BUDGET,BHIT,BLIND,BRDCTGIDX,FORMIDX
 		FROM BOARD 
 		<if
-			test="param5 == 0 and param6 == 0 and param7 == 0 ">
+			test="param5 == 'from' and param6 == 0 and param7 == 0 ">
 			
 		</if>
-		<if test="param5 == 1 || param5 == 2 || param5 == 3|| param5 == 4">
+		<if test="param5 == 'form' || param5 == 'room' || param5 == 'apt'|| param5 == 'other'">
 			)WHERE FORMIDX=#{param5} AND RNUM BETWEEN #{param1} AND #{param2} order by
 			FORMIDX DESC
 		</if>
