@@ -66,8 +66,13 @@ a.page-link:hover {
 
 
 <body>
+ <div style="min-height: 210px; padding-top:50px;">
+	            <jsp:include page="helpNavi.jsp"></jsp:include> 
+	           
+            </div>
+        
 
-	<div class="container" style="text-align: center; padding-top: 10px;">
+	<!--  <div class="container" style="text-align: center; padding-top: 10px;">
 		<input type="text" size="75" id="keywordForTotalSearch" name="keyword"
 			style="border-radius: 5px; border: 2px solid rgb(203, 228, 248);"
 			placeholder="검색어를 입력해주세요."> &nbsp;
@@ -79,7 +84,7 @@ a.page-link:hover {
 			style="font-size: small; float: right; color: gray; font-weight: bold;">|회원가입</a></span>
 		<span><a href=""
 			style="font-size: small; float: right; color: gray; font-weight: bold;">로그인</a></span>
-	</div>
+	</div>-->
 	<br />
 	<div class="container"
 		style="height: 200px; background-color: rgb(184, 185, 190); text-align: center;">
@@ -182,6 +187,7 @@ $('button#btnForTotalSearch').click(function() {
 $(document).ready(function() {
 			// 목록을 조회하는 함수.
 			function getList(pageNum, opt, keyword, orderBy, isWaitForAnswer) {
+			
 				/*
 				 * pageNum, opt, keyword
 				 * 값이 없으면 초기값 사용.

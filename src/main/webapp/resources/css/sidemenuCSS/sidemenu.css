@@ -1,0 +1,82 @@
+    *{
+        margin: 0;
+        padding: 0;
+      
+        box-sizing: border-box;
+    }
+    .sidebar{
+        color: white;
+        position: fixed;
+        width: 250px;
+        height: 100%;
+        left: 0;
+        background-color: #1b1b1b;
+    }
+    .sidebar .text{
+        font-size: 25px;
+        font-weight: 600;
+        line-height: 65px;
+        background-color: #1e1e1e;
+    }
+    .sidebar nav ul{
+        background-color: #1b1b1b;
+        height: 100%;
+        width: 100%;
+        list-style: none;
+    }
+    .snavi nav ul li{
+        line-height: 60px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .snavi nav ul li a{
+        position: relative;
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+        padding-left: 40px;
+        font-weight: 500;
+        display: block;
+        width: 100%; 
+        border-left: 3px solid transparent;
+    }
+    .snavi nav ul li a:hover{
+        color: cyan;
+        background-color: #1e1e1e;
+        border-left-color: cyan;
+    }
+    .snavi nav ul ul{
+        position: static;
+        display: none;
+    }
+    .snavi nav ul .write-show.show{
+        display: block;
+    }
+    .snavi nav ul .scrap-show.show{
+        display: block;
+    }
+    .snavi nav ul .msg-show.show{
+        display: block;
+    }
+    .snavi nav ul .bying-show.show{
+        display: block;
+    }
+    .snavi nav ul ul li{
+        line-height: 42px;
+        border-bottom: none;
+    }
+    .snavi nav ul ul li a{
+        font-size: 12px;
+        color: #e6e6e6;
+        padding-left: 80px;
+    }
+    .snavi nav ul li a span{
+        position: absolute;
+        top:50%;
+        right: 20px;
+        transform: translateY(-50%);
+        font-size: 22px;
+        transition: transform 0.4s;
+    }
+    .snavi nav ul li a:hover span{
+        transform: translateY(-50%) rotate(-180deg);
+    }

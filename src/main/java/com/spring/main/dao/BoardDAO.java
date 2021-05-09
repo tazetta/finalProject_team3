@@ -61,12 +61,10 @@ public interface BoardDAO {
 	Object homeMain(int start, int end, String order, String formcategory, int budget, int roomsize);
 	//추천수
 	Object CNTRECO(int start, int end, int CNTRECO);
-	//게시판 cnt 업
-	int boardCntUp(String boardIdx);
+
 	//추천/취소 시 조회수도 올라가는거방지용
 	int boardbhitDown(String boardIdx);
-	//게시판 cnt 다운
-	int boardCntDown(String boardIdx);
+
 	//스크랩하기
 	int boardScrap(int boardIdx, String id);
 	//스크랩 삭제하기
@@ -94,12 +92,18 @@ public interface BoardDAO {
 	int boardRecommWrite(HashMap<String, String> params);
 	int getPhotoMax(String id);
 	ArrayList<PhotoDTO> myInteriorSlider(String id);
+	
+	//우리집 자랑 목록 전체 개수 조회
+	int gethomeMainCount(int brdCtgIdx, String keyword, String orderBy, String formcategory,int budget, int roomsize);
 	//우리집 자랑 목록 조회
-	ArrayList<BoardDTO> homeMainList(int startNum, int endNum, String keyword,String orderBy, String formcategory,int budget, int roomsize);
+	//ArrayList<BoardDTO> homeMainList(int startNum, int endNum, String keyword,String orderBy, String formcategory,int budget, int roomsize);
+	
+	ArrayList<BoardDTO> gethomeMainList(int startNum, int endNum, String keyword,String orderBy, String formcategory,int budget, int roomsize);
 	//대댓글리스트
 	ArrayList<Comments2ndDTO> boardRecommList(int commIdx);
 	//대댓글삭제
 	int boardRecommDel(int com2ndIdx);
+
 	//댓글신고
 	int boardRepComm(HashMap<String, String> params);
 	//대댓글신고
@@ -116,5 +120,24 @@ public interface BoardDAO {
 	int boardReCommDec(int com2ndIdx, String loginId);
 	//대댓글 추천
 	int boardReCommRec(int com2ndIdx, String loginId);
+	//대댓글 cnt 감소
+	int boardReCommcntDown(int com2ndIdx);
+	//대댓글 cnt 증가
+	int boardReCommcntUp(int com2ndIdx);
+	//댓글 cnt 감소
+	int boardCommcntDown(int commIdx);
+	//댓글 cnt 증가
+	int boardCommRecUp(int commIdx);
+	//게시판 추천 아이디 중복체크
+	String boardRecChk(int boardIdx, String loginId);
+	//게시판 추천취소하기
+	int boardDec(int boardIdx, String loginId);
+	//게시판 추천하기
+	int boardRec(int boardIdx, String loginId);
+	//게시글 cnt 감소
+	int boardCntDown(int boardIdx);
+	//게시글 cnt 증가
+	int boardCntUp(int boardIdx);
+
 	
 }

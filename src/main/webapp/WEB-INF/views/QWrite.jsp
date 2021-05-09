@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>질문하기</title>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" 
 integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 <!-- JavaScript Bundle with Popper -->
@@ -17,24 +18,28 @@ a {
 	text-decoration: none;
     border-radius: 10px;
 }
-a.button {
+#button {
 	color: rgba(30, 22, 54, 0.6);
     background-color: rgb(230, 226, 224);
 	box-shadow: rgb(230, 226, 224) 0 0px 0px 2px inset;
+	border:none;
+	border-radius: 10px;
 }
 
-a.button:hover {
+#button:hover {
 	color: rgba(255, 255, 255, 0.85);
 	box-shadow: rgb(230, 226, 224) 0 0px 0px 40px inset;
 }
 
-a.button2 {
+#button2 {
 	color: rgba(30, 22, 54, 0.6);
     background-color: rgb(255, 210, 180);
 	box-shadow: rgb(255, 210, 180) 0 0px 0px 2px inset;
+	border:none;
+	border-radius: 10px;
 }
 
-a.button2:hover {
+#button2:hover {
 	color: rgba(255, 255, 255, 0.85);
 	box-shadow: rgb(255, 210, 180) 0 0px 0px 40px inset;
 }
@@ -54,6 +59,7 @@ span:hover {
 <body>
  
     
+	<form action="boardWrite" method="POST">
     <div class="container" style="text-align: center; padding-top: 10px;">
         <input type="text" size="75" style="border-radius: 5px; border: 2px solid rgb(203, 228, 248); "
             placeholder="검색어를 입력해주세요.">
@@ -68,7 +74,6 @@ span:hover {
         <br />
     </div>
     <br />
-
     <div class="container"  style="height:200px; background-color: rgb(184, 185, 190); text-align:center;">
   
         <h1 style="padding-top: 50px; font-weight: bold;">질문하기</h1>
@@ -79,20 +84,40 @@ span:hover {
     <div class="container">
         <table class="table">
             <tr>
-                <td><input type="text" class="form-control" placeholder="제목을 입력해주세요" name="content" maxlength="40"></td>
+                <td><input id="subject" type="text" class="form-control" placeholder="제목을 입력해주세요" name="subject" maxlength="40"></td>
             </tr>
             <tr>
-                <td><textarea type="text" class="form-control" placeholder="내용을 10000자 이내로 입력해주세요" name="contentDetail" maxlength="1024" style="height: 400px;"></textarea></td>
+                <td><textarea id="content" type="text" class="form-control" placeholder="내용을 10000자 이내로 입력해주세요" name="contentDetail" maxlength="1024" style="height: 400px;"></textarea></td>
             </tr>
         </table>
         <div class="container">
-            <a href="#" class="button" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; ">첨부파일</a>
+            <button id="button" class="button" style="max-width: 110; margin: 10px ; padding: 10px 20px; font-weight: bold; " onclick="fileUp()">첨부파일</button>
             <div class="row" style="float: right;">
-                <a href="#" class="button2" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; ">저장</a>
+               <button id="button2" class="button2" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold;">저장</button>
             </div>
            
-            <a href="#" class="button" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; float: right;">취소</a>
+            <button id="button" class="button" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; float: right;">취소</button>
            </div>
-      </div>         
+      </div>    
+      </form>     
     </body>
+    <script>
+    var msg = "${msg}";
+    if(msg != ""){
+    	alert(msg);
+    }
+    
+    $("#button2").click(function(){
+    	if($("#subject").val()==""||$("#content").val()==""){
+    		alert("제목, 내용을 입력해주세요.");
+    		return false;
+    	}else{
+    		alert("저장되었쥐");
+    		$("form").submit();
+    	}
+    	
+    });
+   
+
+    </script>
 </html>

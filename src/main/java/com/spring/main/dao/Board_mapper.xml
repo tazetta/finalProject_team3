@@ -217,19 +217,47 @@
 		<if test="param3.equals('id') and !param4.equals('')">AND id LIKE '%'||#{param4}||'%' </if>
 		)
 
-		WHERE rnum BETWEEN #{param1} AND #{param2}
+		WHERE RNUM BETWEEN #{param1} AND #{param2}
 
+	</select>
+	<!-- 우리집 자랑 전체 목록 조회 -->
+	<select id="gethomeMainCount" resultType="int">
+		SELECT
+  		  COUNT(BOARDIDX) AS CNT
+		FROM BOARD
+		WHERE BRDCTGIDX = #{param1} and blind='n'
+   	    <if test="!param2.equals('')">
+		   <choose>
+		     <when test="param3 == '0'">
+		       AND orderBy LIKE '%'||#{param2}||'%'
+		     </when>
+		     <when test="param4 == '0'">
+  		       AND FORMIDX LIKE '%'||#{param2}||'%'
+		     </when>
+		     <when test="param5 == 0">
+  		       AND budget LIKE '%'||#{param2}||'%'
+		     </when>
+		     <when test="param6 == 0">
+  		       AND ROOMSIZE LIKE '%'||#{param2}||'%'
+		     </when>
+		     <otherwise>
+		       AND (orderBy LIKE '%'||#{param2}||'%' OR FORMIDX LIKE '%'||#{param3}||'%' OR budget LIKE '%'||#{param3}||'%'  OR ROOMSIZE LIKE '%'||#{param3}||'%')
+		     </otherwise>
+		   </choose>
+        </if>
+	
 	</select>
 	
 	<!-- 우리집 자랑 세부검색 -->
-	<select resultType="com.spring.main.dto.BoardDTO"
-		id="homeMainList">
+	<select id="gethomeMainList" resultType="com.spring.main.dto.BoardDTO">
 		SELECT 
-			BOARDIDX,SUBJECT, CONTENT, ID, REG_DATE, ROOMESIZE,BUDGET,KEYITEMS, BHIT,BLIND,BRDRGIDX, FORMIDX, CNTRECO
+			*
 		FROM 
 			(SELECT CNTRECO, ROW_NUMBER() OVER (ORDER BY 
+			 <if test="!param3.equals('')">
+			 </if>
 			<choose>
-			<when test="param3.equals('recent')">
+			<when test="param4.equals('recent')">
 				REG_DATE
 			</when>	
 			<otherwise>
@@ -237,30 +265,27 @@
 			</otherwise>
 			</choose>
 			DESC) AS RNUM,
-		BOARDIDX,SUBJECT,CONTENT,ID,REG_DATE,ROOMSIZE,BUDGET,KEYITEMS,BHIT,BLIND,BRDCTGIDX,FORMIDX,EMAIL,
+		BOARDIDX,SUBJECT,ID,REG_DATE,ROOMSIZE,BUDGET,BHIT,BLIND,BRDCTGIDX,FORMIDX
 		FROM BOARD 
 		<if
-			test="param3 == 0 param4 == 0 and param5 == 0 and param6 == 0 and param7 == 0">
-			)WHERE rnum BETWEEN #{param1} AND #{param2} order by rnum desc
+			test="param5 == 0 and param6 == 0 and param7 == 0 ">
+			
 		</if>
 		<if test="param5 == 1 || param5 == 2 || param5 == 3|| param5 == 4">
-			)WHERE FORMIDX=#{param5} AND rnum BETWEEN #{param1} AND #{param2} order by
-			FORMIDX desc
+			)WHERE FORMIDX=#{param5} AND RNUM BETWEEN #{param1} AND #{param2} order by
+			FORMIDX DESC
 		</if>
 
-		<if test="param6 == 1 || param6 == 2 || param6 == 3 || param6 == 4 || param6 ==5 || param6 == 6 || param6 == 7 || param == 8">
-			)WHERE BUDGET=#{param6} AND rnum BETWEEN #{param1} AND #{param2} order by
-			BUDEGET desc
+		<if test="param6 == 1 || param6 == 2 || param6 == 3 || param6 == 4 || param6 ==5 || param6 == 6 || param6 == 7 || param6 == 8">
+			)WHERE BUDGET=#{param6} AND RNUM BETWEEN #{param1} AND #{param2} order by
+			BUDGET DESC
 		</if>
-		<if
-			test="param5 == 1 || param5 == 2 || param5 == 3 || param5 == 4 || param5 == 5 || param5 == 6 || param5 == 7 || param5 == 8">
-			)WHERE BUDGET= #{param5} AND rnum BETWEEN #{param1} AND #{param2}
-			order by BUDGET desc
-		</if>
+		
 		<if test="param7 == 0">
-			WHERE ROOMSIZE= #{param7}) WHERE rnum BETWEEN #{param1} AND #{param2} order
-			by ROOMSIZE desc
+			WHERE ROOMSIZE= #{param7}) WHERE RNUM BETWEEN #{param1} AND #{param2} order
+			by ROOMSIZE DESC
 		</if>
+		
 	</select>
 
 
@@ -484,5 +509,37 @@
 	<!--대댓글추천삭제-->
 	<delete id="boardReCommDec">
 		DELETE  FROM recommend WHERE com2ndIdx=#{param1} AND id=#{param2}
+	</delete>
+	<!--대댓글 cnt 증가 -->
+	<update id="boardReCommcntUp">
+		UPDATE comments_2nd SET cnt=cnt+1 WHERE
+		com2ndIdx=#{com2ndIdx}
+	</update>
+	<!-- 대댓글 cnt 감소 -->
+	<update id="boardReCommcntDown">
+		UPDATE comments_2nd SET cnt=cnt-1 WHERE
+		com2ndIdx=#{com2ndIdx}
+		</update>
+		<!--댓글 cnt 증가 -->
+	<update id="boardCommRecUp">
+		UPDATE comments SET cnt=cnt+1 WHERE
+		commIdx=#{commIdx}
+	</update>
+	<!-- 댓글 cnt 감소 -->
+	<update id="boardCommcntDown">
+		UPDATE comments SET cnt=cnt-1 WHERE
+		commIdx=#{commIdx}
+		</update>
+	<!--게시글추천 아이디체크-->
+	<select id="boardRecChk" resultType="String">
+		SELECT id FROM recommend WHERE boardIdx=#{param1} AND id=#{param2}
+	</select>
+	<!--게시글추천하기-->
+	<insert id="boardRec">
+		INSERT INTO recommend (recIdx,boardIdx,id) VALUES (recomend_seq.NEXTVAL,#{param1},#{param2}) 
+	</insert>
+	<!--게시글추천삭제-->
+	<delete id="boardDec">
+		DELETE  FROM recommend WHERE boardIdx=#{param1} AND id=#{param2}
 	</delete>
 </mapper>

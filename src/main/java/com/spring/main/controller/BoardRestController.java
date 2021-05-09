@@ -95,7 +95,7 @@ public class BoardRestController {
 	 * @param opt 선택한 select 값
 	 * @param keyword 입력한 검색어 값
 	 * @return
-	 */
+	 * */
 	@RequestMapping(value = "/api/freelist", method = RequestMethod.GET)
 	public Map<String, Object> getApiFreelist(
 			@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum,
@@ -109,6 +109,8 @@ public class BoardRestController {
 		return map;
 	}
 	
+
+	
 	/**
 	 * 도와줘요 게시판 목록 조회
 	 * @param pageNum 이동하려는 페이지번호
@@ -116,7 +118,7 @@ public class BoardRestController {
 	 * @param keyword 입력한 검색어 값
 	 * @return
 	 */
-	@RequestMapping(value = "/api/helpmain", method = RequestMethod.GET)
+	@RequestMapping(value = "/api/helpmain",method = {RequestMethod.GET,RequestMethod.POST})
 	public Map<String, Object> getApiHelpmain(
 			@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum,
 			@RequestParam(value="opt", required=false, defaultValue="all") String opt,
@@ -140,15 +142,15 @@ public class BoardRestController {
 	@RequestMapping(value = "/api/homemain", method = RequestMethod.GET)
 	public Map<String, Object> getApiHomemainList(
 			@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum,
-			@RequestParam(value="opt", required=false, defaultValue="all") String opt,
+			
 			@RequestParam(value="keyword", required=false, defaultValue="") String keyword,
 			@RequestParam(value="orderBy", required=false, defaultValue="recent") String orderBy,
-			@RequestParam(value="formcategory", required=false, defaultValue="1")String formcategory,
-			@RequestParam(value="budget", required=false, defaultValue="1")int budget,
-			@RequestParam(value="roomsize", required=false, defaultValue="1") int roomsize
+			@RequestParam(value="formcategory", required=false, defaultValue="")String formcategory,
+			@RequestParam(value="budget", required=false, defaultValue="0")int budget,
+			@RequestParam(value="roomsize", required=false, defaultValue="0") int roomsize
 			){
 		logger.info("homemainlist");
-		
-		return BoardService.homeMainList(pageNum, opt, keyword,orderBy, formcategory, budget, roomsize);
+		logger.info("파람들 : " + pageNum+ ",orderBy:" +orderBy+ ",formcategory"+ formcategory+",budget"+budget+",roomsize"+roomsize);
+		return BoardService.homeMainList(pageNum, keyword,orderBy, formcategory, budget, roomsize);
 	}
 }

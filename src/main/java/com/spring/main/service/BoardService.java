@@ -25,7 +25,6 @@ import com.spring.main.dao.BoardDAO;
 import com.spring.main.dto.BoardDTO;
 import com.spring.main.dto.Comments2ndDTO;
 import com.spring.main.dto.CommentsDTO;
-import com.spring.main.dto.GroupDTO;
 
 @Service
 public class BoardService {
@@ -463,19 +462,20 @@ public class BoardService {
 		return map;
 	}
 
+
+
 //우리집 자랑 세부검색
-	public Map<String, Object> homeMainList(int pageNum, String orderBy,String opt, String keyword, String formcategory, int budget,
-			int roomsize) {
+	public Map<String, Object> homeMainList(int pageNum, String orderBy,String keyword, String formcategory, int budget,int roomsize) {
 		Map<String, Object> map = new HashMap<>();
 		// startNum, endNum 생성
 		int limit = 10; // 최대 10개 게시물 목록 보여줄거
 		int startNum = (pageNum - 1) * limit + 1; // 시작페이지
 		int endNum = pageNum * limit; // 마지막 페이지
 		
-		int totalListCount = boarddao.getBoardListCount(2, opt, keyword);
+		int totalListCount = boarddao.gethomeMainCount(2, orderBy, keyword,  formcategory, budget,  roomsize);
 		map.put("total_page", totalListCount / 10 + 1);
 		
-		ArrayList<BoardDTO> list = boarddao.homeMainList(startNum, endNum, orderBy, keyword, formcategory, budget, roomsize);
+		ArrayList<BoardDTO> list = boarddao.gethomeMainList(startNum, endNum, orderBy, keyword, formcategory, budget, roomsize);
 		map.put("list", list);
 		
 		return map;
@@ -517,38 +517,6 @@ public class BoardService {
 		return map;
 	}
 
-	public ModelAndView boardCntUp(String boardIdx, RedirectAttributes rAttr) {
-		ModelAndView mav = new ModelAndView();
-		int CntUP = boarddao.boardCntUp(boardIdx);
-		boarddao.boardbhitDown(boardIdx);
-		if (CntUP > 0) {
-			msg = "추천성공하였습니다.";
-			page = "redirect:/boarddetail/" + boardIdx;
-		} else {
-			msg = "추천실패했습니다.";
-			page = "redirect:/boarddetail/" + boardIdx;
-		}
-		rAttr.addFlashAttribute("msg", msg);
-		mav.setViewName(page);
-		return mav;
-	}
-
-	public ModelAndView boardCntDown(String boardIdx, RedirectAttributes rAttr) {
-		ModelAndView mav = new ModelAndView();
-		int CntDown = boarddao.boardCntDown(boardIdx);
-		boarddao.boardbhitDown(boardIdx);
-		if (CntDown > 0) {
-			msg = "추천취소하였습니다.";
-			page = "redirect:/boarddetail/" + boardIdx;
-		} else {
-			msg = "추천취소실패했습니다.";
-			page = "redirect:/boarddetail/" + boardIdx;
-		}
-		rAttr.addFlashAttribute("msg", msg);
-		mav.setViewName(page);
-		return mav;
-	}
-
 	public ModelAndView boardScrap(int boardIdx, String id, RedirectAttributes rAttr) {
 		ModelAndView mav = new ModelAndView();
 		int Scrap = boarddao.boardScrap(boardIdx, id);
@@ -578,12 +546,14 @@ public class BoardService {
 		if (commRecChk != null) {
 			logger.info("추천취소하기");
 			int result = boarddao.boardCommDec(commIdx, loginId);
+			int cnt = boarddao.boardCommcntDown(commIdx);
 			logger.info("result:" + result);
 			recResult = "false";
 			msg = "추천취소되었습니다";
 		} else {
 			logger.info("추천하기");
 			int result = boarddao.boardCommRec(commIdx, loginId);
+			int cnt = boarddao.boardCommRecUp(commIdx);
 			logger.info("result:" + result);
 			recResult = "true";
 			msg = "추천되었습니다";
@@ -725,12 +695,44 @@ public class BoardService {
 		if (commRecChk != null) {
 			logger.info("추천취소하기");
 			int result = boarddao.boardReCommDec(com2ndIdx, loginId);
+			int cnt = boarddao.boardReCommcntDown(com2ndIdx);
 			logger.info("result:" + result);
 			recResult = "false";
 			msg = "추천취소되었습니다";
 		} else {
 			logger.info("추천하기");
 			int result = boarddao.boardReCommRec(com2ndIdx, loginId);
+			int cnt = boarddao.boardReCommcntUp(com2ndIdx);
+			logger.info("result:" + result);
+			recResult = "true";
+			msg = "추천되었습니다";
+		}
+
+		map.put("recResult", recResult);
+		map.put("msg", msg);
+		return map;
+	}
+
+	public HashMap<String, Object> boardRec(int boardIdx, RedirectAttributes rAttr, HttpSession session) {
+		logger.info("대댓글추천 서비스");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String loginId = (String) session.getAttribute("loginId");
+
+		String RecChk = boarddao.boardRecChk(boardIdx, loginId);
+		logger.info("게시글 추천 여부:" + RecChk);
+
+		String recResult = "";
+		if (RecChk != null) {
+			logger.info("추천취소하기");
+			int result = boarddao.boardDec(boardIdx, loginId);
+			int cnt = boarddao.boardCntDown(boardIdx);
+			logger.info("result:" + result);
+			recResult = "false";
+			msg = "추천취소되었습니다";
+		} else {
+			logger.info("추천하기");
+			int result = boarddao.boardRec(boardIdx, loginId);
+			int cnt = boarddao.boardCntUp(boardIdx);
 			logger.info("result:" + result);
 			recResult = "true";
 			msg = "추천되었습니다";

@@ -53,7 +53,7 @@
                 style="padding-left: 5px;">회원가입</span></a>
         <a href="" style="font-size:small; float: right; color: gray; "><span>로그인</span></a>
     </div>-->
-    <div class="flexBox">
+    <div class="flexBox" style="padding-bottom : 300px;">
     
        
         <div>
@@ -66,7 +66,7 @@
               
                 <br/>
                 <div class="container">
-                <h4 style="margin-top:3%;">오늘의 땃쥐 룸</h4>
+                <h3 style="font-weight:bold;padding-bottom:50px;">오늘의 땃쥐 룸</h3>
                     <div style="display: flex;  justify-content: center; border: 1px solid rgb(255, 255, 255); height: 100%;">
                         <div style="border: 5px solid white; margin-right: 90px; box-shadow:0 0 5px lightslategray;" >
                             <img src="C:\Users\user\Desktop\BootStrap\interior1.jpg" width="250" height="250">
@@ -85,9 +85,10 @@
             <br />
             <br />
             <div style="display: flex; max-width: 1300; justify-content: center;">
-                <div class="container">
-                    <h4>자유게시판</h4>
-                    <table class="table table-hover" style="min-width: 500;">
+                <div class="container" style="padding-top:20px;">
+                    <h4 style="font-weight:bold;">자유게시판</h4>
+                    <br/>
+                    <table class="table table-hover" style="min-width: 500; ">
                         <thead style="background-color: rgb(170, 187, 247); color: white;">
                             <tr>
                                 <th>제목</th>
@@ -112,8 +113,9 @@
                         </tr>
                     </table>
                 </div>
-                <div class="container">
-                    <h4>꿀팁</h4>
+                <div class="container" style="padding-top:20px;">
+                    <h4 style="font-weight:bold;">꿀팁</h4>
+                    <br/>
                     <table class="table table-hover" style="min-width: 500;">
                         <thead style="background-color: rgb(170, 187, 247); color: white;">
                             <tr>

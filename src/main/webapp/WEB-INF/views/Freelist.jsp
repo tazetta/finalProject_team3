@@ -40,8 +40,11 @@ a.page-link:hover {
 </style>
 <body>
   
-	<form action="Freelist">
-		<div class="container" style="text-align: center; padding-top: 10px;">
+
+	 <div style="min-height: 210px; padding-top:50px;">
+	            <jsp:include page="mainnavi.jsp"></jsp:include> 
+            </div>
+		<!--  <div class="container" style="text-align: center; padding-top: 10px;">
 			<select name="opt" id="searchOpt" style="border-radius: 5px;">
 				<option value="all" selected>전체</option>
 				<option value="subject">제목</option>
@@ -58,8 +61,8 @@ a.page-link:hover {
 				style="font-size: small; float: right; color: gray; font-weight: bold;">|회원가입</a></span>
 			<span><a href=""
 				style="font-size: small; float: right; color: gray; font-weight: bold;">로그인</a></span>
-		</div>
-	</form>
+		</div>-->
+	
 	<hr />
 	
 	<div class="container">
@@ -90,7 +93,7 @@ a.page-link:hover {
 		<hr />
 		<button class="btn" id="btn2"
 			style="border-radius: 5px; float:right; background-color: rgb(170, 187, 247); font-weight: bold; color: white;"
-			onclick="location.href='boardWriteForm?boardCtgIdx=1'">글쓰기</button>
+			onclick="location.href='boardWriteForm'">글쓰기</button>
 	</div>
 		
 				<div id="pagination-div"  style="padding-left:43%; margin-top:25px;"></div>
