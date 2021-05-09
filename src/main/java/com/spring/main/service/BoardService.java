@@ -111,7 +111,7 @@ public class BoardService {
 		} else if (boardctgidx == 3) {
 			page = "redirect:/tipWriteForm";
 		} else if (boardctgidx == 4) {
-			page = "redirect:/qnaWriteForm";
+			page = "redirect:/QWrite";
 		} else if (boardctgidx == 5) {
 			page = "redirect:/sgtWriteForm";
 		}

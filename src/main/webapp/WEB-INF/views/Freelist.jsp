@@ -93,7 +93,7 @@ a.page-link:hover {
 		<hr />
 		<button class="btn" id="btn2"
 			style="border-radius: 5px; float:right; background-color: rgb(170, 187, 247); font-weight: bold; color: white;"
-			onclick="location.href='boardWriteForm'">글쓰기</button>
+			onclick="location.href='boardWriteForm?boardCtgIdx=1'">글쓰기</button>
 	</div>
 		
 				<div id="pagination-div"  style="padding-left:43%; margin-top:25px;"></div>

@@ -113,7 +113,7 @@ a.page-link:hover {
 	<br />
 	<div class="container">
 		<div class="row">
-			<a href="QWrite" class="button"
+			<a href="boardWriteForm?boardCtgIdx=4" class="button"
 				style="max-width: 70; margin: 10px; padding: 10px 20px; font-weight: bold;">질문하기</a>
 		
 			<a href="#" class="button2" id="isWaitForAnswerBtn"

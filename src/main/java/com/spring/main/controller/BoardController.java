@@ -42,11 +42,7 @@ public class BoardController {
 		logger.info("main");
 		return "main";
 	}
-	@RequestMapping(value = "/QWrite",method = {RequestMethod.GET,RequestMethod.POST})
-	public String QWrite() {
-		logger.info("질문하기 페이지 입니다.");
-		return "QWrite";
-	}
+
 	@RequestMapping(value = "/qnadetail", method = RequestMethod.GET)
 	public String qnadetail() {
 		logger.info("상세보기 페이지 입니다.");
@@ -161,7 +157,7 @@ public class BoardController {
 			page = "TipWriteForm";
 			logger.info("3 카테고리글쓰기 페이지로 이동");
 		} else if (boardCtgIdx.equals("4")) {
-			page = "QnaWriteForm";
+			page = "QWrite";
 			logger.info("4 카테고리글쓰기 페이지로 이동");
 		} else if (boardCtgIdx.equals("5")) {
 			page = "FAQsend";
