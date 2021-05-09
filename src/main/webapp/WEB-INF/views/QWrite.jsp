@@ -31,7 +31,7 @@ a {
 	box-shadow: rgb(230, 226, 224) 0 0px 0px 40px inset;
 }
 
-#button2 {
+#save {
 	color: rgba(30, 22, 54, 0.6);
     background-color: rgb(255, 210, 180);
 	box-shadow: rgb(255, 210, 180) 0 0px 0px 2px inset;
@@ -39,7 +39,7 @@ a {
 	border-radius: 10px;
 }
 
-#button2:hover {
+#save:hover {
 	color: rgba(255, 255, 255, 0.85);
 	box-shadow: rgb(255, 210, 180) 0 0px 0px 40px inset;
 }
@@ -94,11 +94,11 @@ span:hover {
             </tr>
         </table>
         <div class="container">
-         <input class="button" style="max-width: 100; margin: 10px ;  padding: 10px 10px; font-weight: bold;" type="button" value="파일업로드" onclick="fileUp()" />
+         <input id="button" class="button" style="max-width: 100; margin: 10px ;  padding: 10px 10px; font-weight: bold;" type="button" value="파일업로드" onclick="fileUp()" />
             <div class="row" style="float: right;">
            <input class="button2" id="save" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; " type="button" onclick="location.href='helpMain'" value="저장"/>
             </div>
-            <a href="helpMain" class="button" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; float: right;">취소</a>
+            <a href="helpMain" id="button" class="button" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; float: right;">취소</a>
             </div>
       </form>     
     </body>

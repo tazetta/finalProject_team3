@@ -25,6 +25,23 @@
 	color: rgba(255, 255, 255, 0.85);
 	box-shadow: rgb(230, 226, 224) 0 0px 0px 40px inset;
 }
+#button{
+	background-color: rgb(172, 172, 172);
+	color: rgb(8, 8, 8);
+	font-weight: bold;
+	padding: 7px;
+	margin: 8px 0;
+	border: none;
+	cursor: pointer;
+	width: 7%;
+	border-radius: 5px;
+
+}
+#button:hover{
+color: rgba(255, 255, 255, 0.85);
+	box-shadow: rgb(230, 226, 224) 0 0px 0px 40px inset;
+
+}
 
 #button2{
 	color: rgba(30, 22, 54, 0.6);
@@ -143,10 +160,16 @@ a:link {
 
 #loginId {
 	margin: 20px;
+	
 }
 
 .commDel {
 	color: red;
+	border-radius: 5px;
+	border: none;
+	padding: 7px;
+	cursor: pointer;
+	background-color:white;
 }
 
 .flexBox {
