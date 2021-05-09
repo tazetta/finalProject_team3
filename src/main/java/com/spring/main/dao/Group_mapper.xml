@@ -37,8 +37,8 @@
 	</select>
 	
 	<insert id="groupWriteFile">
-		INSERT INTO photos (PHOTOIDX, NEWFILENAME, ORIFILENAME, GPIDX) 
-		VALUES (photos_seq.NEXTVAL, #{param1}, #{param2}, #{param3})
+		INSERT INTO photos (PHOTOIDX, NEWFILENAME, ORIFILENAME, GPIDX, id) 
+		VALUES (photos_seq.NEXTVAL, #{param1}, #{param2}, #{param3},#{param4})
 	</insert>
 	
 	<select id="groupList"  parameterType="int" resultType="group">

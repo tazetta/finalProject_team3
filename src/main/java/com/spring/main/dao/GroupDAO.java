@@ -14,7 +14,7 @@ public interface GroupDAO {
 
 	GroupDTO groupDetail(int gpIdx);
 
-	void groupWriteFile(String key, String string, int gpIdx);
+	void groupWriteFile(String key, String string, int gpIdx, String string2);
 
 	String groupCtg(int gpCtgIdx);
 	

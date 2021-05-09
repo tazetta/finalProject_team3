@@ -24,7 +24,7 @@
 }
 
 #groupList table, #groupList td, #groupList th {
-	border: 1px solid;
+	/* border: 1px solid; */
 	border-collapse: collapse;
 	padding: 5px 10px;
 }
@@ -76,12 +76,12 @@ head td, #paging {
 		<tr>
 			<td id="paging" colspan="8">
 				<!-- 플러그인 사용 -->
-				<div class="container">
+				 <div class="container">
 					<nav aria-label="pagenavigation" style="text-aglin: center">
 						<ul class="pagination" id="pagination"></ul>
 					</nav>
-				</div>
-
+				</div> 
+				<!-- <div id="pagination-div"  style="padding-left:43%; margin-top:25px;"></div> -->
 			</td>
 		</tr>
 	</table>
@@ -136,6 +136,11 @@ function optSelect(e) {
 					startPage:data.currPage, //시작 페이지
 					totalPages:data.range, //생성가능 최대 페이지
 					visiblePages:5, //5개씩 보여주겠다(1~5)
+					initiateStartPageClick : false, // 플러그인이 시작시 페이지 버튼 클릭 여부 (default : true)
+					first : '<span aria-hidden="true"><<</span>', // 페이지네이션 버튼중 처음으로 돌아가는 버튼에 쓰여 있는 텍스트
+					prev : "이전", // 이전 페이지 버튼에 쓰여있는 텍스트
+					next : "다음", // 다음 페이지 버튼에 쓰여있는 텍스트
+					last : '<span aria-hidden="true">>></span>', // 페이지네이션 버튼중 마지막으로 가는 버튼에 쓰여있는 텍스트
 					onPageClick:function(event,page){ //각 페이지를 클릭한 경우
 						console.log("event: "+event);
 						console.log("page: "+page);

@@ -92,10 +92,10 @@ public class GroupService {
 			// 2. fileList에 저장된 파일이 있는지 확인한다.
 			if (fileList.size() > 0) {
 				// 3. 업로드한 파일이 있을 경우 저장한 파일내용을 DB에 기록
-				// newFileName, originFileName, idx
+				// newFileName, originFileName, idx, id
 				// 맵에 있는 모든 값을 빼서 DB에 넣는다
 				for (String key : fileList.keySet()) { // 여러개의 파일이 있을 수 있으므로 for문 사용
-					groupdao.groupWriteFile(key, fileList.get(key), groupDTO.getGpIdx());
+					groupdao.groupWriteFile(key, fileList.get(key), groupDTO.getGpIdx(), groupDTO.getId());
 				}
 			}
 
