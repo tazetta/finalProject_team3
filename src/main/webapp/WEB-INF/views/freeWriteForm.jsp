@@ -56,8 +56,8 @@ a.button2:hover,.button2:hover {
 
     
     <form name = "form" method="POST" action="boardWrite">
-    	<input type="number" value="1" name="boardCtgIdx"/>
-    	<input type="text" value="${sessionScope.loginId}" name="id"/>
+    	<input type="hidden" value="1" name="boardCtgIdx"/>
+    	<input type="hidden" value="${sessionScope.loginId}" name="id"/>
         <div class="container" style="text-align: center; padding-top: 10px;">
             <input type="text" size="75" style="border-radius: 5px; border: 2px solid rgb(203, 228, 248); " placeholder="검색어를 입력해주세요.">
             &nbsp;
