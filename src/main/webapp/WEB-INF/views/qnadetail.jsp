@@ -32,14 +32,14 @@ a {
 	box-shadow: rgb(230, 226, 224) 0 0px 0px 40px inset;
 }
 
-.button2 {
+#commentSave{
 	border: 1px rgba(30, 22, 54, 0.6);
 	color: rgba(30, 22, 54, 0.6);
     background-color: rgb(255, 210, 180);
 	box-shadow: rgb(255, 210, 180) 0 0px 0px 2px inset;
 }
 
-.button2:hover {
+#commentSave:hover {
 	color: rgba(255, 255, 255, 0.85);
 	box-shadow: rgb(255, 210, 180) 0 0px 0px 40px inset;
 }
@@ -176,7 +176,7 @@ a:link {
                    
         </table>
         <div class="container">
-            <button class="btn" id="button" onclick="location.href='../helpMain'" style="border-radius: 10px; max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; float: right;">목록</button>
+            <button class="btn" id="button" onclick="location.href='./helpMain'" style="border-radius: 10px; max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; float: right;">목록</button>
              <c:set var="loginId" value="${sessionScope.loginId}" />
 			 <c:if  test="${!empty loginId}">
             <button id="button" class="btn" onclick="reportBoard()" style="border-radius: 10px; max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; float: right;">신고</button>
