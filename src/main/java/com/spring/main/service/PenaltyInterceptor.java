@@ -43,7 +43,7 @@ public class PenaltyInterceptor extends HandlerInterceptorAdapter {
 				response.sendRedirect(referer);
 			}
 		} else {
-			response.sendRedirect("main");
+			response.sendRedirect("./membership");
 		}
 		return pass;
 	}

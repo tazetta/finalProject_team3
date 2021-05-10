@@ -50,6 +50,8 @@ public class ChkPenaltyInterceptor extends HandlerInterceptorAdapter {
 			  }
 			 
 		}
+		} else {
+			response.sendRedirect("./membership");
 		}
 	}
 
