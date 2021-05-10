@@ -72,25 +72,13 @@ input.button:hover{
 	
 	
 <body>
- 	 <div style="min-height: 210px; padding-top:50px;">
+    <div style="min-height: 210px; padding-top:50px;">
 	            <jsp:include page="mainnavi.jsp"></jsp:include> 
-            </div>
-    
-    <div class="container" style="text-align: center; padding-top: 10px;">
-        <input type="text" size="75" style="border-radius: 5px; border: 2px solid rgb(203, 228, 248); "
-            placeholder="검색어를 입력해주세요.">
-        &nbsp;
-        <button id="btn"
-            style="border-radius: 5px; background-color: rgb(203, 228, 248); border: 2px solid rgb(203, 228, 248); font-weight: bold; color: white;">검색</button>
-        <a href="" style="font-size:small; float: right; color: gray; padding-left: 5px;  font-weight: bold;">|<span
-                style="padding-left: 5px; font-weight: bold; ">고객센터</span></a>
-        <a href="" style="font-size:small; float: right; color: gray; padding-left: 5px; font-weight: bold;">|<span
-                style="padding-left: 5px;  font-weight: bold;">회원가입</span></a>
-        <a href="" style="font-size:small; float: right; color: gray;  font-weight: bold; "><span>로그인</span></a>
-        <br />
-    </div>
+     </div>
     <br />
 	<form action="boardWrite" method="POST">
+	<input type="hidden" value="3" name="boardCtgIdx"/>
+    	<input type="hidden" value="${sessionScope.loginId}" name="id"/>
     <div class="container"  style="height:200px; background-color: rgb(184, 185, 190); text-align:center;">
   
         <h1 style="padding-top: 50px; font-weight: bold;">꿀팁 게시판</h1>
@@ -103,15 +91,16 @@ input.button:hover{
             <tr>
                 <td><input type="text" class="form-control" placeholder="제목을 입력해주세요"id="subject" name="subject" maxlength="40"></td>
             </tr>
-            <tr>
-                <td><textarea id="content" name="content" type="text" class="form-control" placeholder="내용을 10000자 이내로 입력해주세요" name="contentDetail" maxlength="1024" style="height: 400px;"></textarea></td>
+              <tr>
+                <td><div contenteditable="true" id="editable" style="overflow:scroll; width: 100%; height: 400px; border: 2px solid black; border-radius: 10px;">
+                <input id="content" type="text" class="form-control" placeholder="내용을 입력하세요" name="content" maxlength="1024" style="height: 400px;"  hidden="hidden"/></div></td>
             </tr>
         </table>
         <div class="container">
             <!--  a href="#" class="button" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; ">첨부파일</a>-->
             <input id="button" class="button" style="max-width: 100; margin: 10px ;  padding: 10px 10px; font-weight: bold;" type="button" value="파일업로드" onclick="fileUp()" />
             <div class="row" style="float: right;">
-                <button id="button2" value="내맘쏙에저장"name="button2"class="button2" style="max-width: 75; margin: 10px ; padding: 10px 10px; font-weight: bold; text-align:center;">저장</button>
+                <button id="button2" value="내맘쏙에저장" class="button2" style="max-width: 75; margin: 10px ; padding: 10px 10px; font-weight: bold; text-align:center;">저장</button>
             </div>
            
             <button id="button"  class="button"  style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; float: right;" onclick="location.href='tipMain'" >취소</button>
@@ -127,16 +116,49 @@ input.button:hover{
     }
     
     $("#button2").click(function(){
-    	if($("#subject").val()==""||$("#content").val()==""){
-    		alert("제목, 내용을 입력해주세요.");
-    		return false;
+    	var subject = $("#subject").val();
+    	var editable = $("#editable").html();
+    	if(subject==''|| content==''){
+    		console.log("subject:"+subject);
+    		console.log("content:"+content);
+    		alert("모든 양식을 작성해주세요");
     	}else{
-    		alert("저장되었쥐");
-    		$("form").submit();
-    	}
-    	
+    		$("#editable>a").find("b").remove(); //a태그안 b태그 삭제
+    	 	$("#editable>a").removeAttr("onclick"); //del(this) 무효화
+    	 	$("#content").val($("#editable").html()); //입력한 값 content에 넣기
+    	 	alert("작성완료되었습니다.");
+    		$("form").submit(); 
+    	}		
     });
-   
+    function fileUp(){
+    	window.open("boardUploadForm","fileUpload","width=400, height=100");
+    	//요청url,타이틀,옵션
+    }
+    function del(elem){
+    	console.log(elem); //<a>
+    	var newFileName = elem.id.substring(elem.id.lastIndexOf("/")+1); //파일명만 뽑아내기
+    	console.log(newFileName);
+
+
+    //1. 실제 파일 삭제 요청
+    $.ajax({
+    	url:"boardFileDelete",
+    	type:"get",
+    	data:{"fileName":newFileName},
+    	dataType:"json",
+    	success:function(d){
+    		console.log("success:"+d.success);
+    // 2. 파일 삭제 요청이 완료되면 화면에 나타난 사진 삭제
+    		if(d.success ==1){ //실제 파일 삭제 성공시
+    			$(elem).find('img').remove(); //이미지 삭제
+    			/* $(elem).next().remove(); */ //<br> 삭제
+    			$(elem).remove(); // <a>삭제
+    		}
+    	},error:function(e){
+    		console.log(e);
+    	}
+    }); 	
+    }
     
     </script>
 </html>

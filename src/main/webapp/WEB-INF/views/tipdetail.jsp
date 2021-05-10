@@ -154,8 +154,8 @@ a:link {
        <span class="grade">${writerGrade}</span>&nbsp;&nbsp;${dto.id}&nbsp;&nbsp;날짜${dto.reg_date}&nbsp;&nbsp;조회수${dto.bhit}&nbsp;&nbsp;댓글${dto.commIdx}
         <div>
            <c:if test="${dto.id == sessionScope.loginId}">
-            <button class="btn" id="button" onclick="location.href='/boardDel/${dto.boardIdx}'"style=" border-radius: 10px; max-width: 75; margin-right: 10px; margin-left: 20px; padding: 10px 20px; font-weight: bold; float: right;">수정</button>
-            <button class="btn" id="button" onclick="location.href='/boardUpdateForm/${dto.boardIdx}'" style=" border-radius: 10px; max-width: 75; padding: 10px 20px; font-weight: bold; float: right;">삭제</button>
+            <button class="btn" id="button" onclick="location.href='./boardUpdateForm/${dto.boardIdx}'"style=" border-radius: 10px; max-width: 75; margin-right: 10px; margin-left: 20px; padding: 10px 20px; font-weight: bold; float: right;">수정</button>
+            <button class="btn" id="button" onclick="location.href='./boardDel/${dto.boardIdx}'" style=" border-radius: 10px; max-width: 75; padding: 10px 20px; font-weight: bold; float: right;">삭제</button>
             </c:if>
         </div>
        
