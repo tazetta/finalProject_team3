@@ -7,7 +7,37 @@
 <title>Insert title here</title>
 <style></style>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-
+<style>
+table tr td{
+	
+	padding :10px 3px;
+}
+#content{
+	width:370px;
+	heigth:500px;
+	resize:none;
+	font-size:14px;
+}
+   #btn{
+      color: white;
+    background-color: #166cea;
+    border:none;
+    border-radius: 2px;
+    font-weight: bold;
+     padding: 8px;
+     width:200px;
+     height:40px;
+     border-radius: 4px;
+    }
+    #btn:hover{
+       background-color: white;
+    color: #166cea;
+    border: 1px solid #166cea;
+    cursor: pointer;
+    box-shadow: 0px 5px 5px rgb(235, 232, 232);
+     transition: all .4s ease;
+    }
+</style>
 </head>
 <body>
 	<form name="msgForm" method="GET">
@@ -15,7 +45,7 @@
 			<tr>
 				<th>보내는 사람</th>
 				<td><input id="sender" type="text" name="sender"
-					value="${loginId}"></td>
+					value="${loginId}" readonly></td>
 			</tr>
 			<tr>
 				<th>받는 사람</th>
@@ -33,7 +63,7 @@
 						rows="10"></textarea></td>
 			</tr>
 			<tr>
-				<th><input type="button" onclick="goSubmit()"  value="보내기" /></th>
+				<th colspan="2"><input id="btn" type="button" onclick="goSubmit()"  value="보내기" /></th>
 			</tr>
 		</table>
 	</form>

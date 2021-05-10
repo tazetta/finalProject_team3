@@ -143,6 +143,7 @@ public interface BoardDAO {
 	int boardCntUp(int boardIdx);
 	ArrayList<BoardDTO> list();
 
+
 		
 	
 

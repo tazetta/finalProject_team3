@@ -324,5 +324,27 @@ public class MemberController {
 			mav.setViewName(page);
 			return mav;
 		}
+		
+		@RequestMapping(value = "/logOut", method = RequestMethod.GET)
+		public ModelAndView logOut(HttpSession session , RedirectAttributes rAttr) {
+			logger.info("로그아웃 요청");
+			String loginId = (String) session.getAttribute("loginId");
+			String cLoginId = (String) session.getAttribute("cLoginId");
+			String msg = "로그아웃 실패";
+			ModelAndView mav = new ModelAndView();
+			if(loginId != null) {
+				session.removeAttribute("loginId");
+				logger.info("로그아웃 아이디 {} " , loginId);
+				msg = "로그아웃 되었습니다.";
+			}else if(cLoginId != null){
+				session.removeAttribute("cLoginId");
+				logger.info("로그아웃 업체회원 아이디 {} " , cLoginId);
+				msg = "업체회원 로그아웃 되었습니다.";
+			}
+			rAttr.addFlashAttribute("msg", msg);
+			mav.setViewName("redirect:/membership");
+			return mav;
+			
+		}
 }
 

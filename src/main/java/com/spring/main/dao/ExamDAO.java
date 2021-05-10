@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.spring.main.dto.BoardDTO;
 import com.spring.main.dto.EstimateDTO;
 import com.spring.main.dto.ExamDTO;
+import com.spring.main.dto.PhotoDTO;
 import com.spring.main.dto.ReviewDTO;
 
 public interface ExamDAO {
@@ -48,5 +49,9 @@ public interface ExamDAO {
 	int allScrollCount();
 
 	Float reviewrate(String comId);
+
+	int getExamPhotoMax();
+
+	ArrayList<ExamDTO> getExamPhotos(int start, int end);
 
 }

@@ -36,7 +36,7 @@ button:hover {
 	border: 2px solid white;
 	color: white;
 }
-table, td {
+.maintable {
 	padding: 5px 10px;
 	text-align: center;
 	border: 1px solid lightgray;
@@ -54,9 +54,7 @@ table, td {
 </style>
 </head>
 <body>
-	<div id="mainnavi" style="min-height: 210px;">
-	            <jsp:include page="mainnavi.jsp"></jsp:include> 
-    </div>
+	<jsp:include page="mainnavi.jsp"></jsp:include> 
     <div id="box">
     <div style="background-color: #acd3fb; width: 100%; height: 100px; text-align: center;">
     	<br>
@@ -64,18 +62,18 @@ table, td {
     </div>
     <br/>
     <div id="table">
-		<table>
+		<table class="maintable">
 			<tr>
 				<th>업체명</th>
-				<td>${dto.comId}</td>
+				<td class="maintable">${dto.comId}</td>
 			</tr>
 			<tr>
 				<th>제목</th>
-				<td>${dto.subject}</td>
+				<td class="maintable">${dto.subject}</td>
 			</tr>
 			<tr>
 				<th>내용</th>
-				<td style="height: 500px; width: 300px;">${dto.content}</td>
+				<td class="maintable"  style="height: 500px; width: 300px;">${dto.content}</td>
 			</tr>
 		</table>
 		<div class="btn">
@@ -84,7 +82,6 @@ table, td {
 				<button onclick="location.href='examUpdateForm/${dto.combrdIdx}'">수정</button>
 				<button onclick="location.href='examDel?combrdIdx=${dto.combrdIdx}'">삭제</button>
 			</c:if>
-			<button onclick="location.href='interiorexamList'">목록</button>
 		</div>
 		</div>
 	</div>

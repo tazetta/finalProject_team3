@@ -14,6 +14,15 @@ public class ExamDTO {
 	private int bHit;
 	private String blind;
 	private String comId;
+	private String newFileName;
+	
+	
+	public String getNewFileName() {
+		return newFileName;
+	}
+	public void setNewFileName(String newFileName) {
+		this.newFileName = newFileName;
+	}
 	public int getCombrdIdx() {
 		return combrdIdx;
 	}

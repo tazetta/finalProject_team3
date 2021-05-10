@@ -30,20 +30,15 @@
             text-overflow: ellipsis;
          }
          
-         #mainnavi {
-			position: absolute;
-			top:5%;
-			left:20%;
-        }
+         
         #side{
-        	position: absolute;
-        	left:20%;
-        	top:50%;
+        	margin-left: 4%;
+        	margin-top: 300px;
         }
         #box{
-        	position: absolute;
-        	top:25%;
-        	left:35%;
+        	position:absolute;
+        	top: 40%;
+        	margin-left: 300px;
         }
 		.업체정보{
             border:1px solid gainsboro;
@@ -52,7 +47,6 @@
             height: 200px;
             position: absolute;
             top:250px;
-            left:17%;
             margin-top: 30px;
             margin-left: 4%;
             text-align: center;
@@ -63,9 +57,7 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <body>
-	<div id="mainnavi" style="min-height: 210px;">
-	            <jsp:include page="mainnavi.jsp"></jsp:include> 
-    </div>
+	<jsp:include page="mainnavi.jsp"></jsp:include> 
     
     <div id="total">
 		<table class="업체정보">
@@ -92,7 +84,7 @@
 	<div id="exam">
 	<h3 id="h3exam">시공사례</h3>
 		<div>
-			<a href="companyDetailExam?comId=${dto.comId}">전체보기</a>
+			<a href="companyDetailExam?comId=${dto.comId}&rate=${rate}">전체보기</a>
 		</div>
 	</div>
 	<div>
@@ -116,7 +108,7 @@
 	<div>
 		<h3 id="h3review">시공리뷰</h3> 
 			<div id="review">
-				<a href="reviewList?comId=${dto.comId}">전체보기</a>
+				<a href="reviewList?comId=${dto.comId}&rate=${rate}">전체보기</a>
 			</div>
 	</div>
 	<div>

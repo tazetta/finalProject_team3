@@ -34,7 +34,7 @@ public class ChkPenaltyInterceptor extends HandlerInterceptorAdapter {
 		System.out.println("toDay : " + toDay);
 		java.util.Date toDayTime = df.parse(toDay);
 		System.out.println("toDay Time : " + toDayTime.getTime());
-		
+		if(loginId != null) {
 		if (dao.isPenalty(loginId) != null) {
 			MemberDTO dto = dao.isPenalty(loginId);
 			long endDay = dto.getEndDay().getTime();
@@ -49,6 +49,7 @@ public class ChkPenaltyInterceptor extends HandlerInterceptorAdapter {
 				  System.out.println("패널티 제거 : " + delPenalty + " / 상태업데이트 : " + stateUpdate); 
 			  }
 			 
+		}
 		}
 	}
 
