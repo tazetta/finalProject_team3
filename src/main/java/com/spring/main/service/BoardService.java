@@ -98,6 +98,7 @@ public class BoardService {
 			boarddto.setRoomsize(Integer.parseInt(params.get("roomsize")));// 평수
 			boarddto.setBudget(Integer.parseInt(params.get("budget")));// 예산
 			boarddto.setFormidx(Integer.parseInt(params.get("formidx")));// 주거형태
+			boarddto.setKeyitems(params.get("keyitems"));
 		}
 		if (boardctgidx == 5) {
 			boarddto.setEmail(params.get("email"));
@@ -137,7 +138,7 @@ public class BoardService {
 				page = "redirect:/Freelist";
 				msg = "글쓰기 성공했습니다.";
 			} else if (boardctgidx == 2) {
-				page = "redirect:/homelist";
+				page = "redirect:/api/homemainPage";
 			} else if (boardctgidx == 3) {
 				page = "redirect:/tiplist";
 			} else if (boardctgidx == 4) {

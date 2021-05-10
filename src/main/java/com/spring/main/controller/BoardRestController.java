@@ -118,6 +118,14 @@ public class BoardRestController {
 	 * @param keyword 입력한 검색어 값
 	 * @return
 	 */
+	@RequestMapping(value = "/api/homemainPage",method = {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView homeMainPage() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("homemain");
+		return mav;
+	}
+
+	
 	@RequestMapping(value = "/api/helpmain",method = {RequestMethod.GET,RequestMethod.POST})
 	public Map<String, Object> getApiHelpmain(
 			@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum,

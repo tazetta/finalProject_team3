@@ -390,7 +390,7 @@
 			ID,BRDCTGIDX,FORMIDX,ROOMSIZE,BUDGET,KEYITEMS)
 			VALUES
 			(board_seq.NEXTVAL, #{subject}, #{content},
-			#{id},#{brdctgidx},#{formIdx},#{roomSize},#{budget},#{keyItems})
+			#{id},#{brdctgidx},#{formidx},#{roomsize},#{budget},#{keyitems})
 		</if>
 		<if test="brdctgidx==3">
 			INSERT INTO board(BOARDIDX, SUBJECT, CONTENT, ID,BRDCTGIDX)

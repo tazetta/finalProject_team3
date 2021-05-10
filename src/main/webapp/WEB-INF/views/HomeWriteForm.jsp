@@ -111,6 +111,8 @@ input.button:hover{
     </div>
    <br/>
 	<form action="boardWrite" method="POST">
+	<input type="hidden" value="2" name="boardCtgIdx"/> 
+	<input type="hidden" value="${sessionScope.loginId}" name="id"/>
     <div class="container">
         <table class="table table-bordered">
             <thead>
@@ -120,7 +122,7 @@ input.button:hover{
                     <td>
                         <ul>
                             <li>
-                                <select name="formcategory" id="formcategory"style="border-radius: 5px; margin: 5px; ">
+                                <select name="formidx" id="formcategory"style="border-radius: 5px; margin: 5px; ">
                                 <option value="0">주거형태</option>
                                 <option value="1">원룸&오피스텔</option>
                                 <option value="2">아파트</option>
@@ -131,14 +133,14 @@ input.button:hover{
                             <br/>
                          
                                 <li>
-                                    평수<input type="text" id="roomsize" style="border-radius: 5px; border-color:  rgb(162, 163, 163); width: 50px;">평
+                                    평수<input type="text" id="roomsize" name="roomsize" style="border-radius: 5px; border-color:  rgb(162, 163, 163); width: 50px;">평
     
                                 </li>
                                 <br/>
                            
                             <li>
 
-                                예산<input type="text" id="budget" style="border-radius: 5px;border-color:  rgb(162, 163, 163);  width: 50px;">만원
+                                예산<input type="text" id="budget" name="budget" style="border-radius: 5px;border-color:  rgb(162, 163, 163);  width: 50px;">만원
                             </li>
 
                         </ul>
@@ -148,15 +150,15 @@ input.button:hover{
             <tbody>
                 <tr>
                     <th  style=" border: 3px solid rgb(204, 203, 203);">제목</th>
-                    <td  style=" border: 3px solid rgb(204, 203, 203);"><input id="subject"type="text" style="width: 100%; " placeholder="제목을 입력해주세요."></td>
+                    <td  style=" border: 3px solid rgb(204, 203, 203);"><input id="subject" name="subject" type="text" style="width: 100%; " placeholder="제목을 입력해주세요."></td>
                 </tr>
                 <tr>
                     <th  style=" border: 3px solid rgb(204, 203, 203);">내용</th>
-                    <td  style=" border: 3px solid rgb(204, 203, 203);"><textarea id="content"style="width: 100%;"cols="30" rows="10" placeholder="내용을 입력해주세요."></textarea></td>
+                    <td  style=" border: 3px solid rgb(204, 203, 203);"><textarea id="content" name="content" style="width: 100%;"cols="30" rows="10" placeholder="내용을 입력해주세요."></textarea></td>
                 </tr>
                 <tr>
                     <th  style=" border: 3px solid rgb(204, 203, 203);">아이템</th>
-                    <td style=" border: 3px solid rgb(204, 203, 203);"><textarea id="iteme" style="width: 100%;" cols="30" rows="5" placeholder="ex)1.이케아 가구"></textarea></td>
+                    <td style=" border: 3px solid rgb(204, 203, 203);"><textarea id="iteme" name="keyitems" style="width: 100%;" cols="30" rows="5" placeholder="ex)1.이케아 가구"></textarea></td>
                 </tr>
             </tbody>
         </table>

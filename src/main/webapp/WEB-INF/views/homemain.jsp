@@ -202,7 +202,7 @@ $(document).ready(function() {
 							</tr>
 							 */
 							sHtml += "<div style='border-radius:20px; border: 5px solid white; margin: 20px; box-shadow:0 0 5px lightslategray;'>"
-							sHtml += "<img src='resources/images/interior1.jpg' width='250' height='250' style=' border-radius:20px;'>"
+							sHtml += "<img src='${pageContext.request.contextPath}/resources/images/interior1.jpg' width='250' height='250' style=' border-radius:20px;'>"
 							sHtml += "<table class='table'>"
 							sHtml += '<tr>';
 							sHtml += '	<td><a href="boarddetail?boardIdx=' + oInfo.boardIdx +'">'
