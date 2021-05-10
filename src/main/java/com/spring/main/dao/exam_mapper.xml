@@ -117,7 +117,9 @@
 	</select>
 	
 	<select id="getExamPhotoMax" resultType="int">
-		SELECT COUNT(COMBRDIDX) FROM COMPANYBOARD WHERE blind = 'n'
+		SELECT COUNT(combrdidx) FROM (SELECT ROW_NUMBER() OVER(ORDER BY c.combrdidx DESC) AS rnum, c.combrdidx, c.subject, c.comid, p.newfilename 
+		FROM (SELECT newfilename, combrdidx FROM (SELECT newfilename, combrdidx FROM photos) WHERE ROWID IN (SELECT MAX(ROWID) FROM photos GROUP BY combrdidx)) p
+		, companyboard c WHERE c.combrdidx = p.combrdidx)
 	</select> 
 	
 	<select id="getExamPhotos" resultType="exam">
