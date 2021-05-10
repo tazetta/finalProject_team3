@@ -205,7 +205,7 @@ $(document).ready(function() {
 							sHtml += "<img src='resources/images/interior1.jpg' width='250' height='250' style=' border-radius:20px;'>"
 							sHtml += "<table class='table'>"
 							sHtml += '<tr>';
-							sHtml += '	<td><a href="boarddetail/boardIdx?=' + oInfo.boardIdx +'">'
+							sHtml += '	<td><a href="boarddetail?boardIdx=' + oInfo.boardIdx +'">'
 									+ oInfo.subject
 									+ '</a></td>';
 							sHtml += '	<td>' + oInfo.id

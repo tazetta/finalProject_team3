@@ -41,18 +41,18 @@ public class HomeController {
 
 
 	
-	  @RequestMapping(value = "/", method = RequestMethod.GET)
-	 
-	  public ModelAndView home() {
-		  logger.info("main"); 
-
-	  ModelAndView mav = new ModelAndView();
-	  
-	  // 사진 있는 3개 데이터 mav.addObject("list", BoardService.getMainhomeListLimit3());
-	  mav.setViewName("main");
-	  
-	  return mav;
-	  }
+	/*
+	 * @RequestMapping(value = "/", method = RequestMethod.GET)
+	 * 
+	 * public ModelAndView home() { logger.info("main");
+	 * 
+	 * ModelAndView mav = new ModelAndView();
+	 * 
+	 * // 사진 있는 3개 데이터 mav.addObject("list", BoardService.getMainhomeListLimit3());
+	 * mav.setViewName("main");
+	 * 
+	 * return mav; }
+	 */
 
 	public String home(HttpSession session, HttpServletRequest request) {
 		String msg =(String) session.getAttribute("msg");
