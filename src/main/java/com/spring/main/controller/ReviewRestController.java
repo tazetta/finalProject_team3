@@ -24,10 +24,11 @@ public class ReviewRestController {
 	@Autowired ReviewService service;
 	
 	@RequestMapping(value = "/reviewList", method = RequestMethod.GET)
-	public ModelAndView index(@RequestParam String comId) {
+	public ModelAndView index(@RequestParam String comId,@RequestParam float rate) {
 		logger.info("리뷰 페이지 이동");
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("comId", comId);
+		mav.addObject("rate", rate);
 		mav.setViewName("reviewList");
 		return mav;
 	}

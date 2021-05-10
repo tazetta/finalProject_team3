@@ -7,10 +7,10 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <title>Insert title here</title>
 <style>
-table, td {
+.maintable {
 	padding: 5px 10px;
 	text-align: center;
-	border: 1px solid black;
+	border: 1px solid lightgray;
 	border-collapse: collapse;
 	width: 90%;
 }
@@ -28,11 +28,7 @@ input[type='text'] {
 	width: 100%;
 }
 
-#mainnavi {
-	position: absolute;
-	top: 5%;
-	left: 20%;
-}
+
 
 #box {
 	position: absolute;
@@ -68,9 +64,7 @@ button:hover {
 </style>
 </head>
 <body>
-	<div id="mainnavi" style="min-height: 210px;">
-	            <jsp:include page="mainnavi.jsp"></jsp:include> 
-    </div>
+	<jsp:include page="mainnavi.jsp"></jsp:include> 
     <div id="box">
     <div style="background-color: #acd3fb; width: 100%; height: 100px; text-align: center;">
     	<br>
@@ -79,17 +73,17 @@ button:hover {
     <br/>
     <div id="table">
 	<form action="examWrite" method="post">
-		<table>
+		<table class="maintable">
 			<tr><!-- 업체 세션값 받아와서 설정할예정 -->
 				<th>업체명</th>
-				<td><input type="text" name="comId" value="${sessionScope.cLoginId}" readonly></td>
+				<td class="maintable"><input type="text" name="comId" value="${sessionScope.cLoginId}" readonly></td>
 			</tr>
 			<tr>
 				<th>제목</th>
-				<td><input type="text" name="subject"/></td>
+				<td class="maintable"><input type="text" name="subject"/></td>
 			</tr>
 			<tr>
-				<td colspan="2">
+				<td colspan="2" class="maintable">
 					<div contenteditable="true" id="editable"></div> 
 					<input name="content" type="hidden" id="content" />
 				</td>

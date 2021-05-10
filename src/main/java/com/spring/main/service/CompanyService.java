@@ -13,12 +13,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.main.dao.CompanyDAO;
+import com.spring.main.dao.ExamDAO;
 import com.spring.main.dto.CompanyMemberDTO;
 
 @Service
 public class CompanyService {
 	
 	@Autowired CompanyDAO dao;
+	@Autowired ExamDAO examDAO;
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
@@ -30,7 +32,9 @@ public class CompanyService {
 		String msg="업체회원만 접근이 가능합니다.";
 		String page="home";
 		if(comId!=null) {
-			CompanyMemberDTO dto = dao.companydetail(comId);			
+			CompanyMemberDTO dto = dao.companydetail(comId);
+			Float rate = examDAO.reviewrate(comId);
+			mav.addObject("rate",rate);
 			mav.addObject("company", dto);
 			page="companydetail";
 			msg="";
