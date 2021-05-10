@@ -186,7 +186,7 @@ a:link {
 	<div class="container">
 	<div style = "min-height:150px;">
 	
-		<jsp:include page="./mainnavi.jsp" />
+		<jsp:include page="mainnavi.jsp" />
 	</div>
 	</div>
 
