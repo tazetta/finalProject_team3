@@ -150,7 +150,7 @@ input.button:hover{
                 </tr>
                 <tr>
                     <th  style=" border: 3px solid rgb(204, 203, 203);">내용</th>
-                    <td  style=" border: 3px solid rgb(204, 203, 203);"><textarea id="content" name="content" style="width: 100%;"cols="30" rows="10" placeholder="내용을 입력해주세요."></textarea></td>
+                    <td  id="editable" style=" border: 3px solid rgb(204, 203, 203);"><textarea id="content" name="content" style="width: 100%;"cols="30" rows="10" placeholder="내용을 입력해주세요."></textarea></td>
                 </tr>
                 <tr>
                     <th  style=" border: 3px solid rgb(204, 203, 203);">아이템</th>
@@ -165,7 +165,7 @@ input.button:hover{
             <div class="row" style="float: right;">
                 <button id="button2" class="button2" style="max-width: 75; margin: 10px ; padding: 10px 10px; font-weight: bold; text-align:center;">저장</button>
             </div>
-            <button id="button" class="button"  onclick="location.href='homemain'"style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; float: right;">취소</button>
+            <a id="button" class="button"  onclick="location.href='homemain'"style=" max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; float: right;">취소</a>
         </div>
         </div>
        
@@ -179,6 +179,8 @@ input.button:hover{
     }
    
     $("#button2").click(function(){
+    	var subject = $("#subject").val();
+    	var editable = $("#editable").html();
     	if($("#formcategory").val()=="0"||$("#roomsize").val()==""||$("#budget").val()==""){
     		alert("주거형태,평수,예산을 작성해주세요");
     		return false;
@@ -186,7 +188,10 @@ input.button:hover{
     		alert("제목,내용, 아이템을 작성해주세요");
     		return false;
     	}else{
-    		alert("저장되었쥐");
+    		$("#editable>a").find("b").remove(); //a태그안 b태그 삭제
+    	 	$("#editable>a").removeAttr("onclick"); //del(this) 무효화
+    	 	$("#content").val($("#editable").html()); //입력한 값 content에 넣기
+    	 	alert("작성완료되었습니다.");
     		$("form").submit();
     	}
     	
