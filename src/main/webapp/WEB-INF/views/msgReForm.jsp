@@ -45,7 +45,7 @@ table tr td{
 			<tr>
 				<th>보내는 사람</th>
 				<td><input id="sender" type="text" name="sender"
-					value="${loginId}"></td>
+					value="${loginId}" readonly></td>
 			</tr>
 			<tr>
 				<th>받는 사람</th>

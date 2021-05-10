@@ -326,7 +326,7 @@ public class MemberController {
 		}
 		
 		@RequestMapping(value = "/logOut", method = RequestMethod.GET)
-		public ModelAndView logOut(HttpSession session) {
+		public ModelAndView logOut(HttpSession session , RedirectAttributes rAttr) {
 			logger.info("로그아웃 요청");
 			String loginId = (String) session.getAttribute("loginId");
 			String cLoginId = (String) session.getAttribute("cLoginId");
@@ -341,8 +341,8 @@ public class MemberController {
 				logger.info("로그아웃 업체회원 아이디 {} " , cLoginId);
 				msg = "업체회원 로그아웃 되었습니다.";
 			}
-			mav.addObject("msg", msg);
-			mav.setViewName("login");
+			rAttr.addFlashAttribute("msg", msg);
+			mav.setViewName("redirect:/membership");
 			return mav;
 			
 		}
