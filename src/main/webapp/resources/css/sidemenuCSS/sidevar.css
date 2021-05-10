@@ -1,22 +1,25 @@
-    *{
+         *{
         margin: 0;
         padding: 0;
       
         box-sizing: border-box;
     }
+    .snavi{
+   		
+    }
     .sidebar{
         color: white;
-        position: fixed;
-        width: 250px;
-        height: 100%;
+        width: 190px;
+        height: 100%   ;
         left: 0;
-        background-color: #1b1b1b;
+        background-color:  #1b1b1b;
+        
     }
     .sidebar .text{
         font-size: 25px;
         font-weight: 600;
         line-height: 65px;
-        background-color: #1e1e1e;
+        background-color:  #1b1b1b;
     }
     .sidebar nav ul{
         background-color: #1b1b1b;
@@ -26,23 +29,24 @@
     }
     .snavi nav ul li{
         line-height: 60px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        border-bottom: 1px solid #a9a9ac;
     }
     .snavi nav ul li a{
         position: relative;
-        color: white;
+        color: rgb(122, 120, 120);
         text-decoration: none;
-        font-size: 18px;
-        padding-left: 40px;
+        font-size: 16px;
+        padding-left: ;
         font-weight: 500;
         display: block;
         width: 100%; 
-        border-left: 3px solid transparent;
+        border-left: 5px solid transparent;
     }
     .snavi nav ul li a:hover{
-        color: cyan;
-        background-color: #1e1e1e;
-        border-left-color: cyan;
+        color:rgb(85, 212, 255);
+        background-color:  #131313;
+        border-left-color: rgb(85, 212, 255);
+        font-weight: bold;
     }
     .snavi nav ul ul{
         position: static;
@@ -65,12 +69,13 @@
         border-bottom: none;
     }
     .snavi nav ul ul li a{
-        font-size: 12px;
-        color: #e6e6e6;
-        padding-left: 80px;
+        font-size: 14px;
+        color: rgb(122, 120, 120);
+        padding-left: 50px;
+        
     }
     .snavi nav ul li a span{
-        position: absolute;
+      
         top:50%;
         right: 20px;
         transform: translateY(-50%);

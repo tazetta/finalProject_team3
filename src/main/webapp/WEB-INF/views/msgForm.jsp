@@ -33,7 +33,7 @@
 						rows="10"></textarea></td>
 			</tr>
 			<tr>
-				<th><input type="button" onclick="goSubmit()" /></th>
+				<th><input type="button" onclick="goSubmit()" value="보내기" /></th>
 			</tr>
 		</table>
 	</form>
