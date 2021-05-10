@@ -85,15 +85,6 @@ th{
 	float: left;
 }
 
-#list{
-	      border:1px solid red;
-      border-collapse: collapse;
-      width: 150px;
-	height: 150px;
-}
-
-
-
 
 
 </style>
@@ -112,9 +103,9 @@ th{
 						<h2>우리집 자랑</h2>
 			
        
-		<tbody id="list" style="width: 150px; height: 150px;">
-             
-		</tbody>
+			<div id="list" style="display: flex; flex-flow: wrap;  justify-content: left; border: 1px solid rgb(250px, 250px, 250px);">
+
+			</div> 
 			<tr>
 			<td id="paging" colspan="6">
 				<!-- 플러그인 사용 -->
@@ -174,9 +165,9 @@ function listCall(reqPage,reqPagePerNum){
 function listPrint(list){
 	 var content = "";
 	 for(var i = 0; i<list.length; i++){
-		content +="<tr>"
-		content +="<td><img src='list[i].newFileName'></td>"
-		content +="</tr>"
+			content += "<div style='border-radius:20px; border: 5px solid white; margin: 20px; box-shadow:0 0 5px lightslategray;'>"
+			content += "<img src='resources/images/interior4.jpg' width='200' height='200' style=' border-radius:20px;'>"
+			content += "</div>"
 	}
 	
 	
