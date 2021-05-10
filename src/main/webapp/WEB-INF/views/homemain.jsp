@@ -54,17 +54,8 @@ span:hover {
 
 <body>
     <div class="container" style="text-align: center; padding-top: 10px;">
-        <input type="text" size="75" style="border-radius: 5px; border: 2px solid rgb(203, 228, 248); "
-           id="keywordForTotalSearch" name="keyword" placeholder="검색어를 입력해주세요.">
-        &nbsp;
-        <button id="btnForTotalSearch"
-            style="border-radius: 5px; background-color: rgb(203, 228, 248); border: 2px solid rgb(203, 228, 248); font-weight: bold; color: white;">검색</button>
-        <a href="" style="font-size:small; float: right; color: gray; padding-left: 5px;  font-weight: bold;">|<span
-                style="padding-left: 5px; font-weight: bold; ">고객센터</span></a>
-        <a href="" style="font-size:small; float: right; color: gray; padding-left: 5px; font-weight: bold;">|<span
-                style="padding-left: 5px;  font-weight: bold;">회원가입</span></a>
-        <a href="" style="font-size:small; float: right; color: gray;  font-weight: bold; "><span>로그인</span></a>
-       </div>
+        <jsp:include page="mainnavi.jsp" />
+    </div>
    <br/>
    
    <br/>
@@ -117,7 +108,7 @@ span:hover {
 			</div> 
 		</div>
            
-           
+           	<div id="pagination-div" style="padding-left:40%; margin-top:15px;"></div>
            
             <!--<div style="display: flex;  justify-content: center; border: 1px solid rgb(255, 255, 255);">
                <div id="totaldiv" class="container" style="font-size: large; font-weight: bold; padding-left: 40px;">
@@ -167,9 +158,9 @@ $(document).ready(function() {
 		var pageNum = !pageNum ? 1 : pageNum;
 		
 		var orderBy = !orderBy ? 'reg_date' : orderBy 
-		var formcategory = !formcategory ? 0: formcategory
-		var budget = ! budget ? 0 : budget
-		var roomsize = ! roomsize ? 0 : budget
+		var formcategory = !formcategory ? '0': formcategory
+		var budget = ! budget ? '0' : budget
+		var roomsize = ! roomsize ? '0' : roomsize
 		var oData = {
 			pageNum : pageNum,
 			orderBy : orderBy,
@@ -178,7 +169,7 @@ $(document).ready(function() {
 			roomsize : roomsize
 		};
 			
-			
+			console.log(oData);
 
 		$.ajax({
 			url : '/main/api/homemain',
@@ -199,6 +190,7 @@ $(document).ready(function() {
 	function appendList(aList) {
 		// jquery의 반복문을 사용.
 		var sHtml = '';
+		if(aList.length > 0){
 		$.each(aList,function(index, oInfo) {
 							/*
 							행 html 소스
@@ -213,7 +205,7 @@ $(document).ready(function() {
 							sHtml += "<img src='resources/images/interior1.jpg' width='250' height='250' style=' border-radius:20px;'>"
 							sHtml += "<table class='table'>"
 							sHtml += '<tr>';
-							sHtml += '	<td><a href="boarddetail/' + oInfo.boardIdx +'">'
+							sHtml += '	<td><a href="boarddetail?boardIdx=' + oInfo.boardIdx +'">'
 									+ oInfo.subject
 									+ '</a></td>';
 							sHtml += '	<td>' + oInfo.id
@@ -225,9 +217,13 @@ $(document).ready(function() {
 							sHtml += "</div>"
 						
 						});
+		} else {
+			sHtml += "<div style='border-radius:20px; border: 5px solid white; margin: 20px; box-shadow:0 0 5px lightslategray;'>"
+			sHtml += "해당하는 게시물이 없습니다.</div>"
+		}
 	
 		
-
+	
 		$("#list").empty();
 		$("#list").append(sHtml);
 	}
@@ -270,21 +266,22 @@ $(document).ready(function() {
 	
 	$('#orderBy').on('change', function(){
 		orderBy =$(this).val();
+		$('#formcategory').off('change');
 		getList(1,orderBy);
 	});
 	
 	$('#formcategory').on('change', function(){
 		formcategory = $(this).val();
-		getList(1,formcategory);
+		getList(1,orderBy,formcategory);
 	});
 	
 	$('#budget').on('change', function(){
 		budget = $(this).val();
-		getList(1, budget);
+		getList(1,orderBy,formcategory, budget);
 	});
 	$('#roomsize').on('change', function(){
 		roomsize = $(this).val();
-		getList(1, roomsize);
+		getList(1,orderBy,formcategory, budget,roomsize);
 	});
 	
 	

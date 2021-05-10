@@ -18,7 +18,7 @@ integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroa
 #totaldiv {
 	position: absolute;
 	left: 10%;
-	top: 30%;
+	top: 20%;
 }
 
 #시공사례쓰기 {
@@ -110,7 +110,7 @@ if(msg != ""){
 		for (var i = 0; i < list.length; i++) {
 			src += "C:/upload/"+list[i].newFileList;
 			content += "<div style='border-radius:20px; border: 5px solid white; margin: 20px; box-shadow:0 0 5px lightslategray;'>"
-			content += "<img src="+src+" width='250' height='250' style=' border-radius:20px;'>"
+			content += "<img src="+src+" width='350' height='250' style=' border-radius:20px;'>"
 			content += "<table class='table'>"
 			content += "<tr>"
 			content += "<th style='border-color: white;'><a href='examDetail?combrdIdx="+list[i].combrdIdx+"'>" + list[i].subject + "</a></th>"

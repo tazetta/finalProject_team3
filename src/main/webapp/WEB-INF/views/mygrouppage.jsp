@@ -2,148 +2,164 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-<title>공동구매 페이지</title>
+<title>나의 공동구매 전체</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- 반응형 디자인을 위한 css/js 라이브러리 -->
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>   
+
 <style>
-table, td, th {
-	border-collapse: collapse;
-	padding: 10px 15px;
-	margin: 15px;
-	line-height: 100%;
-	text-align: center;
-	font-family: Arial, Helvetica, sans-serif;
-}
-
-
-td {
-	height: 55px;
-}
-
-.flexBox {
+body {
 	display: flex;
 	justify-content: center;
-	align-items: center;
-	min-height: 100vh;
+	
 }
-
-.inputs {
-	width: 130px;
-	height: 35px;
-	border: 2px solid lightslategrey;
-	line-height: 100%;
-	font-size: 16px;
+.sender{
+	width:200px;
 }
-
-
-
-select:hover {
-	cursor: pointer;
+reg_date{
+	width:100px;
 }
-
-.pagingBtn {
-	text-decoration: none;
-	color: black;
-	font-weight: 600;
-	background-color: lightgray;
-	margin: 1px 2px;
-	margin-top: 0px;
-	padding: 3px;
-	border: 1px white;
+.delete{
+	width:40px;
 }
+.content{
+	width:300px;
+}
+.center-area{
+	display:flex;
+	text-align:center;
+	padding :50px;
 
-    .sideBar {
-	float: left;
-    }
+}
+.sidenavi-area{
+	width:190px;
+}
+table{
+	 text-align: center;
+	margin-left:50px;
+	width:300px;
+	table-layout: fixed;
 
-    th{
+}
+table th{
+	width:200px;
+
+	margin: 20px
+		
+	
+}
+	 h2{
+			border: 1px solid black;
+			width: 178px;
+			margin: 10px;
+			text-align: center;
+			font-size: 18px;
+			background-color: cornflowerblue;
+			margin-left:50px;
+			
+		}
+	
+	 th{
       border:1px solid gray;
       border-collapse: collapse;
       text-align: center;
-	background-color: cornflowerblue;
-            }
-
-    
-    h2{
-			border: 1px solid black;
-			width: 160px;
-			margin: 1px;
-			text-align: center;
-			font-size: 16px;
-			background-color: cornflowerblue;
-		}
-
-
-
+      background-color: cornflowerblue;
+      
+		
+.table-content tr:hover {
+	  background-color:rgb(235, 232, 232);
+	 
+}
+.name{
+	font-size:20px;
+}
+.list-area{
+margin-top:50px;
+}
+   button{
+      color: white;
+    background-color: #166cea;
+    border:none;
+    border-radius: 2px;
+    font-weight: bold;
+     padding: 2px 2px;
+    }
+    button:hover{
+       background-color: white;
+    color: #166cea;
+    border: 1px solid #166cea;
+    cursor: pointer;
+    box-shadow: 0px 5px 5px rgb(235, 232, 232);
+     transition: all .3s ease;
+    }
+    .ctn:hover{
+		text-decoration: none;
+		color:black;
+	}
+	
+}
 </style>
-</head>
+
 <body>
-	<iframe src="mainnavi.html" scrolling="no" frameborder="0" style="width: 100%; "></iframe>
-	<div class="flexBox" >
-		<div style="border-bottom: 2px solid #f2f2f2; border-top: 2px solid #f2f2f2;">
-			<div class="sideBar" style="margin-right: 15px;">
-				<iframe  src="mynavi.html" scrolling="no" frameborder="0"
-				style="height: 650px; float: left; width:250px;" ></iframe>
-			</div>
-			<div class="sideBar">
-				<form>
-					 <table>
-						<h2>내가 작성한 공동구매</h2>
-					   <tr>
-                     	<th style="width:70px">글 번호</th>
-						<th style="width:70px">현재상태</th>
-						<th style="width:70px">작성자</th>
-						<th style="width:450px">제목</th>
-						<th style="width:50px">작성일</th>
-             		   </tr>
-      				 	<tbody id="list">
-             
-						</tbody>
-						<tr>
-			<td id="paging" colspan="6">
-				<!-- 플러그인 사용 -->
-				<div class="container">
-					<nav aria-label="page navigation" style="text-align: center">
-						<ul class="pagination" id="pagination"></ul>
-					</nav>
-				</div>
-				<!--// 플러그인 사용 -->
-				</td>
-				</table>
-                    <br/>
-              	    <table>
-						<h2>내가 신청한 공동구매</h2>
-					   <tr>
-                     	<th style="width:70px">글 번호</th>
-						<th style="width:70px">현재상태</th>
-						<th style="width:70px">작성자</th>
-						<th style="width:450px">제목</th>
-						<th style="width:50px">작성일</th>
-             		   </tr>
-      				 	<tbody id="list2">
-             
-						</tbody>
-						<tr>
-			<td id="paging" colspan="6">
-				<!-- 플러그인 사용 -->
-				<div class="container">
-					<nav aria-label="page navigation" style="text-align: center">
-						<ul class="pagination" id="pagination"></ul>
-					</nav>
-				</div>
-				<!--// 플러그인 사용 -->
-				</td>
-				</table>
-                </form>
-			</div>
-			
+	<div class="all-area">
+		<div class="mainnavi-area">
+			<jsp:include page="mainnavi.jsp"></jsp:include>
 		</div>
-	</div>
+		<div class="center-area">
+		<div class="sidenavi-area">
+			<jsp:include page="sidemenu.jsp"></jsp:include>
+		</div>
+
+		<div class="list-area">
+			<div class="title-area">
+				<h2>내가 작성한 공동구매</h2>
+			</div>
+			<div class="table-area">
+				<table>
+						<thead>
+							<tr>
+                     	<th style="width:70px">글 번호</th>
+						<th style="width:70px">현재상태</th>
+						<th style="width:80px">작성자</th>
+						<th style="width:250px">제목</th>
+						<th style="width:100px">작성일</th>
+							</tr>
+						</thead>
+					<tbody id="list" class="table-content">
+
+					</tbody>
+				
+				</table>
+				
+				<div class="title-area">
+				<h2>내가 신청한 공동구매</h2>
+				</div>
+				<table>
+						<thead>
+							<tr>
+                 		<th style="width:70px">글 번호</th>
+						<th style="width:70px">현재상태</th>
+						<th style="width:80px">작성자</th>
+						<th style="width:250px">제목</th>
+						<th style="width:100px">작성일</th>
+							</tr>
+						</thead>
+					<tbody id="list2" class="table-content">
+
+					</tbody>
+			
+				</table>
+			</div>
+			</div>
+		</div>
 </body>
 <script>
 var showPage = 1;
-var pagePerNum = 5;
+var pagePerNum = 10;
 listCall(showPage,pagePerNum);
 listCall2(showPage,pagePerNum);
+
 function listCall(reqPage,reqPagePerNum){
 	 
 	 var reqUrl ='./mygroupwriteList/' + reqPagePerNum + "/" + reqPage;
@@ -157,16 +173,16 @@ function listCall(reqPage,reqPagePerNum){
 			 showPage = data.currPage;
 			 console.log(showPage);
 			 console.log(data.list);
+			 //listPrint(data.list);
 			 listPrint(data.list);
-			 
 				$("#pagination").twbsPagination({
 					startPage:data.currPage,//시작 페이지
 					totalPages:data.range,//생성 가능 최대 페이지
-					visiblePages:5,//5개씩 보여 주겠다.(1~5)
+					visiblePages:3,//5개씩 보여 주겠다.(1~5)
 					onPageClick:function(evt,page){//각 페이지를 눌렀을 경우
 						console.log(evt);
 						console.log(page);
-						listCall(page,pagePerNum);
+						listCall2(page,pagePerNum);
 					}
 				});
 		 },
@@ -193,7 +209,7 @@ function listCall2(reqPage,reqPagePerNum){
 				$("#pagination2").twbsPagination({
 					startPage:data.currPage,//시작 페이지
 					totalPages:data.range,//생성 가능 최대 페이지
-					visiblePages:5,//5개씩 보여 주겠다.(1~5)
+					visiblePages:3,//5개씩 보여 주겠다.(1~5)
 					onPageClick:function(evt,page){//각 페이지를 눌렀을 경우
 						console.log(evt);
 						console.log(page);
@@ -206,44 +222,46 @@ function listCall2(reqPage,reqPagePerNum){
 		 }
 	 });
 }
-
 	 
-	 function listPrint(list){
-		 var content = "";
-		 for(var i = 0; i<list.length; i++){
-			content +="<tr>"
-				content +="<td>"+list[i].gpIdx+"</td>"
-				content +="<td>"+list[i].progIdx+"</td>"
-				content +="<td>"+list[i].id+"</td>"
-				content +="<td>"+list[i].subject+"</td>"
+function listPrint(list){
+	 var content = "";
+	 for(var i = 0; i<list.length; i++){
+		content +="<tr>"
+			content +="<td>"+list[i].gpIdx+"</td>"
+			content +="<td>"+list[i].progIdx+"</td>"
+			content +="<td>"+list[i].id+"</td>"
+			content +="<td>"+list[i].subject+"</td>"
 			var date = new Date(list[i].reg_date);
-			content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"		
-			content +="</tr>"
-		}
-		$("#list").empty();
-		$("#list").append(content);
+		content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"		
+		
+		content +="</tr>"
 	}
-	 function listPrint2(list){
-		 var content = "";
-		 for(var i = 0; i<list.length; i++){
-			content +="<tr>"
-				content +="<td>"+list[i].gpIdx+"</td>"
-				content +="<td>"+list[i].progIdx+"</td>"
-				content +="<td>"+list[i].id+"</td>"
-				content +="<td>"+list[i].subject+"</td>"
-				var date = new Date(list[i].reg_date);
-			content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"		
-			
-			content +="</tr>"
-		}
-		$("#list2").empty();
-		$("#list2").append(content);
+	$("#list").empty();
+	$("#list").append(content);
+}
+function listPrint2(list){
+	 var content = "";
+	 for(var i = 0; i<list.length; i++){
+		content +="<tr>"
+			content +="<td>"+list[i].gpIdx+"</td>"
+			content +="<td>"+list[i].progIdx+"</td>"
+			content +="<td>"+list[i].id+"</td>"
+			content +="<td>"+list[i].subject+"</td>"
+			var date = new Date(list[i].reg_date);
+		content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"		
+		
+		content +="</tr>"
 	}
-	 
-	 var msg = "${msg}";
-	 if(msg != ""){
-		 alert(msg);
-	 }
+	$("#list2").empty();
+	$("#list2").append(content);
+}
+
+var msg = "${msg}";
+if(msg != ""){
+	 alert(msg);
+}
+	
+
 
 </script>
 </html>
