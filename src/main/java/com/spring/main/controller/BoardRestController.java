@@ -148,6 +148,7 @@ public class BoardRestController {
 			@RequestParam(value="roomsize", required=false, defaultValue="1") int roomsize
 			
 			){
+		logger.info("params" + pageNum +" / " +orderBy+" / " +formcategory+" / " +budget+" / " +roomsize);
 		logger.info("homemainlist");
 		return BoardService.homeMainList(pageNum, orderBy, formcategory, budget, roomsize);
 	}

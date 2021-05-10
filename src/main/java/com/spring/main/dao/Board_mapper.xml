@@ -308,12 +308,14 @@
 	    )
 	  ) photos ON photos.boardidx = board.boardidx
 	WHERE blind = 'n'
-  	  AND RNUM BETWEEN #{param1} AND #{param2}
-	  AND roomsize <![CDATA[ <= ]]> #{param6}
+	  	  AND RNUM BETWEEN #{param1} AND #{param2}
 	<if test="!param4 == 0">
       AND formidx = #{param4}
 	</if>
 	<choose>
+		<when test="param6 != 0">
+	    AND roomsize <![CDATA[ <= ]]> #{param6}
+		</when>
 	  <when test="param5 == 100">
         AND budget <![CDATA[ < ]]> 100
 	  </when>

@@ -490,6 +490,7 @@ public class BoardService {
 		}
 		
 		ArrayList<BoardDTO> list = boarddao.gethomeMainList(startNum, endNum, orderBy, formcategory, budget, roomsize);
+		logger.info("List Size : {} " , list.size());
 		map.put("list", list);
 		
 		return map;
