@@ -181,6 +181,7 @@ function searchGroup(){
 	if(keyword ==''){
 		alert("검색어를 입력해주세요");
 	}else{
+		$("#pagination").twbsPagination('destroy');
 		$("form").submit();
 	}
 }
@@ -219,6 +220,7 @@ function optSelect(e) {
 				}		 */
 					console.log("보여줄 페이지:"+visiblePage);
 				/* 플러그인 사용한 페이징 처리*/
+					console.log(data.range);
 				$("#pagination").twbsPagination({
 					startPage:data.currPage, //시작 페이지
 					totalPages:data.range, //생성가능 최대 페이지

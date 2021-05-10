@@ -273,7 +273,7 @@ a:link {
 		var boardIdx = "${dto.boardIdx}";
 		console.log("loginID:" + loginId + "/comment:" + comment);
 		if (comment != '') {
-<<<<<<< HEAD
+
 
 			var reqUrl = ' ./boardCommentWrite';
 			$.ajax({
@@ -291,25 +291,6 @@ a:link {
 					$("#comment").val('');
 					boardCommentList();// 작성후 댓글 리스트 요청
 
-=======
-
-			var reqUrl = ' ./boardCommentWrite';
-			$.ajax({
-				url : reqUrl,
-				type : "GET",
-				data : {
-					"boardIdx" : boardIdx,
-					"comment" : comment,
-					"loginId" : loginId
-				},
-				dataType : "JSON",
-				success : function(data) {
-					console.log("success: ", data);
-					alert(data.msg);
-					$("#comment").val('');
-					boardCommentList();// 작성후 댓글 리스트 요청
-
->>>>>>> 9a29e0dddaeb53837bbec45cbf994c1ec08e2439
 				},
 				error : function(error) {
 					console.log("error:", error);

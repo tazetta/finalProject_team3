@@ -424,7 +424,7 @@
 	</delete>
 	<!--내가추천한댓글 -->
 	<select id="myRecList" resultType="board">
-		 SELECT commIdx FROM recommend WHERE id=#{param1}
+		 SELECT commIdx FROM recommend WHERE id=#{param1} AND commidx is not null
 	</select>
 	<!--대댓글작성 -->
 	<insert id="boardRecommWrite">

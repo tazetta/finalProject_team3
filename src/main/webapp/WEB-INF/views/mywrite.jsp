@@ -77,7 +77,7 @@ select:hover {
 </style>
 </head>
 <body>
-	<iframe src="mainnavi.html" scrolling="no" frameborder="0" style="width: 100%; "></iframe>
+	<jsp:include page="mainnavi.jsp" />
 	<div class="flexBox" >
 		<div style="border-bottom: 2px solid #f2f2f2; border-top: 2px solid #f2f2f2;">
 			<div class="sideBar" style="margin-right: 15px;">
