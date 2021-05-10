@@ -41,7 +41,9 @@ width: 1200px;
 	border-bottom: 1px solid lightgray;
 	border-collapse: collapse;
 }
-
+#groupTable th{
+border-top:1px solid lightgray;
+}
 
 #groupCnt {
 	color: red;
@@ -288,7 +290,16 @@ background-color: #E6E6E6;
 	
 	/*신청-취소 toggle*/
 	$("#toggleApply").click(function() {
+		if($(this).val()=='신청'){
+			if(confirm("한 자리만 남은 경우 자동으로 마감처리 됩니다. 신청하시겠습니까?")){
+				location.href = '/main/applyGroup/${dto.gpIdx}/${sessionScope.loginId}';
+			}else{
+				console.log("신청취소");
+			}
+		}else{
+
 			location.href = '/main/applyGroup/${dto.gpIdx}/${sessionScope.loginId}';
+		}
 		});
 
 	
