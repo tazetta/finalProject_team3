@@ -6,6 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <title>수정하기</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" 
 integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
@@ -96,6 +97,7 @@ span:hover {
        
             </form>
         </table>
+        
         <button id="button" 
         onclick="fileUp()"
         style="height: 20;
@@ -142,10 +144,10 @@ span:hover {
     <script>
     $(".save").click(function() {
     	console.log($("#editable").html());
-    	$("#editable>a").find("b").remove(); //a태그안 b태그 삭제
-    	$("#editable>a").removeAttr("onclick"); //del(this) 무효화
-    	$("#content").val($("#editable").html());
-    	$("form").submit();
+     	$("#editable>a").find("b").remove(); //a태그안 b태그 삭제
+     	$("#editable>a").removeAttr("onclick"); //del(this) 무효화
+     	$("#content").val($("#editable").html()); //input에 div값 넣기
+     	$("form").submit();
     });
     /* 파일업로드 새창*/
     function fileUp(){
@@ -154,7 +156,7 @@ span:hover {
     }
 
     /* 파일 삭제 - 비동기 */
-    //groupuploadForm에서 보내는 elem확인
+
     function del(elem){
     	console.log(elem); //<a>
     	var newFileName = elem.id.substring(elem.id.lastIndexOf("/")+1); //파일명만 뽑아내기
