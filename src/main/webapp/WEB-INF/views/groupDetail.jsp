@@ -239,7 +239,7 @@ background-color: #E6E6E6;
 	<button onclick="reportBoard()" style="margin-left:1100px; margin-top:10px;" class="btnClass">신고</button>
 	</c:if>
 	<c:if test="${ dto.id == sessionScope.loginId }">
-	<button onclick="location.href='groupDel/${dto.gpIdx}'" style="margin-left:1000px; margin-top:10px;" class="btnClass">삭제</button>
+	<button onclick="groupDel(${dto.gpIdx})" style="margin-left:1000px; margin-top:10px;" class="btnClass">삭제</button>
 	<button onclick="location.href='groupUpdateForm/${dto.gpIdx}'" style="margin-left:10px; margin-top:10px;" class="btnClass">수정</button>
 	</c:if>
 	</div>
@@ -272,7 +272,14 @@ background-color: #E6E6E6;
 	}
 	
 	groupCommentList(); //댓글리스트 호출
-
+	/*삭제버튼*/
+	function groupDel(gpIdx){
+		 if(confirm("정말로 삭제하시겠습니까?")){
+			location.href="./groupDel/"+gpIdx;
+		 }else{
+			 console.log("삭제취소");
+		 }
+	}
 	/*글 신고 새창*/
 	function reportBoard(){
 		window.open("groupRepBoardForm/${dto.gpIdx}","reportBoard","width=800, height=600");
