@@ -143,8 +143,8 @@ public class BoardRestController {
 	public Map<String, Object> getApiHomemainList(
 			@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum,
 			@RequestParam(value="keyword", required=false, defaultValue="") String keyword,
-			@RequestParam(value="orderBy", required=false, defaultValue="recent") String orderBy,
-			@RequestParam(value="formcategory", required=false, defaultValue="form")String formcategory,
+			@RequestParam(value="orderBy", required=false, defaultValue="boardidx") String orderBy,
+			@RequestParam(value="formcategory", required=false, defaultValue="0")int formcategory,
 			@RequestParam(value="budget", required=false, defaultValue="0")int budget,
 			@RequestParam(value="roomsize", required=false, defaultValue="0") int roomsize
 			

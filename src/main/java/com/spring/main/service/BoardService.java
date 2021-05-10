@@ -469,7 +469,7 @@ public class BoardService {
 
 
 //우리집 자랑 세부검색
-	public Map<String, Object> homeMainList(int pageNum, String keyword,String orderBy, String formcategory, int budget,int roomsize) {
+	public Map<String, Object> homeMainList(int pageNum, String keyword,String orderBy, int formcategory, int budget,int roomsize) {
 		Map<String, Object> map = new HashMap<>();
 		// startNum, endNum 생성
 		int limit = 10; // 최대 10개 게시물 목록 보여줄거

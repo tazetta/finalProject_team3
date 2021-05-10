@@ -70,27 +70,27 @@ span:hover {
     <div class="container" style="text-align: center;">
         <select name="idx" id="orderBy" style="border-radius: 5px; border: 2px solid gray; ">
             
-            <option value="recent">최신순</option>
+            <option value="reg_date">최신순</option>
             <option value="cntreco">추천순</option>
         </select>
         <select name="idx" id="formcategory" style="border-radius: 5px; border: 2px solid gray;">
-            <option value="form">주거형태</option>
-            <option value="room">원룸&오피스텔</option>
-            <option value="apt">아파트</option>
-            <option value="solo">단독주택</option>
-            <option value="other">기타</option>
+            <option value="0">주거형태</option>
+            <option value="1">원룸&오피스텔</option>
+            <option value="2">아파트</option>
+            <option value="3">단독주택</option>
+            <option value="4">기타</option>
         </select>
       
         <select name="idx" id="budget" style="border-radius: 5px; border: 2px solid gray;">
             <option value="0">예산</option>
-            <option value="1">1백만원미만</option>
-            <option value="2">1백만원대</option>
-            <option value="3">2백만원대</option>
-            <option value="4">3백만원대</option>
-            <option value="5">4백만원대</option>
-            <option value="6">5백만원대</option>
-            <option value="7">1천만원대</option>
-            <option value="8">그 이상</option>
+            <option value="100">1백만원미만</option>
+            <option value="200">1백만원대</option>
+            <option value="300">2백만원대</option>
+            <option value="400">3백만원대</option>
+            <option value="500">4백만원대</option>
+            <option value="600">5백만원대</option>
+            <option value="10000">1천만원대</option>
+            <option value="10001">그 이상</option>
         </select>
         <label>평수</label>
         <input type="range" id="roomsize" min="1" max="100" step="1" oninput="document.getElementById('value').innerHTML=this.value;" onchange="console.log(this.value);">
@@ -157,10 +157,10 @@ $(document).ready(function() {
 		 */
 		var pageNum = !pageNum ? 1 : pageNum;
 		var keyword = !keyword ? '' : keyword;
-		var orderBy = !orderBy ? 'recent' : orderBy 
-		var formcategory = !formcategory ? 'form': formcategory
-		var budget = ! budget ? '' : budget
-		var roomsize = ! roomsize ? '' : budget
+		var orderBy = !orderBy ? 'reg_date' : orderBy 
+		var formcategory = !formcategory ? 0: formcategory
+		var budget = ! budget ? 0 : budget
+		var roomsize = ! roomsize ? 0 : budget
 		var oData = {
 			pageNum : pageNum,
 			keyword : keyword,
@@ -181,7 +181,7 @@ $(document).ready(function() {
 				createPagination(data.total_page, pageNum); //페이징 처리
 			},
 			error : function(error) {
-				console.log('에러 났음...');
+				console.log(error);
 			}
 		});
 	}
