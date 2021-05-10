@@ -31,14 +31,14 @@ a {
 	box-shadow: rgb(230, 226, 224) 0 0px 0px 40px inset;
 }
 
-#button2 {
+#commentSave {
 	border: 1px rgba(30, 22, 54, 0.6);
 	color: rgba(30, 22, 54, 0.6);
     background-color: rgb(255, 210, 180);
 	box-shadow: rgb(255, 210, 180) 0 0px 0px 2px inset;
 }
 
-#button2:hover {
+#commentSave:hover {
 	color: rgba(255, 255, 255, 0.85);
 	box-shadow: rgb(255, 210, 180) 0 0px 0px 40px inset;
 }
@@ -187,7 +187,7 @@ a:link {
             <tr>
                 <td>
                     <b id="loginId">${sessionScope.loginId}</b> : <input type="text" name="comment" id="comment" size="75" placeholder="댓글을 입력해주세요."> 
-                    <button class="button2" id="button2" style="border-radius: 10px;  max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold;">저장</button>
+                    <button class="button2" id="commentSave" style="border-radius: 10px;  max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold;">저장</button>
                 </td>
             </tr>
         <c:if test="${listSize = '0' }">
@@ -197,26 +197,34 @@ a:link {
         </div>  
         </body>
         <script>
-
-    	var msg = "${msg}";
+        var msg = "${msg}";
     	if (msg != "") {
     		alert(msg);
     	}
-    	
-    	boardCommentList(); //댓글리스트 호출
+    	boardCommentList(); //댓글리스트
+    	/*글 신고 새창*/
+    	function reportBoard(){
+    		window.open("./boardRepBoardForm/${dto.boardIdx}","reportBoard","width=800, height=600");
+    		//요청url,타이틀,옵션
+    	}
     	/* 댓글 등록 */
-    	$("#button2").click(function(){
+    	$("#commentSave").click(function() {
     		var comment = $("#comment").val();
-    		var loginId = "${sessionScope.loginId }";
-    		var gpIdx ="${dto.boardIdx}";
-    		console.log("loginID:"+loginId+"/comment:"+comment);
-    		if(comment!=''){
-    			
-    			var reqUrl =' ./qnadetail'; 
+    		var loginId = "${sessionScope.loginId}";
+    		var boardIdx = "${dto.boardIdx}";
+    		console.log("loginID:" + loginId + "/comment:" + comment);
+    		if (comment != '') {
+
+
+    			var reqUrl = ' ./boardCommentWrite';
     			$.ajax({
     				url : reqUrl,
-    				type : "get",
-    				data : {"boardIdx":boardIdx,"comment":comment, "loginId":loginId},
+    				type : "GET",
+    				data : {
+    					"boardIdx" : boardIdx,
+    					"comment" : comment,
+    					"loginId" : loginId
+    				},
     				dataType : "JSON",
     				success : function(data) {
     					console.log("success: ", data);
@@ -228,34 +236,13 @@ a:link {
     				error : function(error) {
     					console.log("error:", error);
     				}
-    			});	
+    			});
     		}
     	})
-    	
-    	/*댓글 목록*/
-    	function boardCommentList() {
-		var reqUrl = './boardCommentList/${dto.boardIdx}';
-		$.ajax({
-			url : reqUrl,
-			type : "get",
-			data : {},
-			dataType : "JSON",
-			success : function(data) {
-				console.log("success: ", data);
-				console.log("listSize:"+data.listSize);
-				$("#listSize").html(data.listSize);
-				commentListPrint(data.list); //댓글 리스트 뿌리기
-				recCommList(); //내가 추천한 댓글 이미지 활성화로 고정
-			},
-			error : function(error) {
-				console.log("error:", error);
-			}
-		});
-	}
-    	
+
     	/* 댓글 목록 불러오기 */
     	function boardCommentList() {
-    		var reqUrl = '../boardCommentList/' + ${dto.boardIdx};
+    		var reqUrl = './boardCommentList/' + ${dto.boardIdx};
     		$.ajax({
     			url : reqUrl,
     			type : "get",
@@ -277,6 +264,7 @@ a:link {
     			}
     		});
     	}
+
     	/* 댓글 리스트 뿌리기 */
     	function commentListPrint(list) {
     		var content = "";
@@ -330,7 +318,7 @@ a:link {
 
     		//삭제 confirm	
     		if (confirm("정말로 삭제하시겠습니까?")) {
-    			var reqUrl = "../boardCommDel/" + commIdx;
+    			var reqUrl = "./boardCommDel/" + commIdx;
     			$.ajax({
     				url : reqUrl,
     				type : "get",
@@ -351,7 +339,7 @@ a:link {
     	}
     	/* 내가 추천한 댓글 이미지 활성화로 고정*/
     	function recCommList() {
-    		var reqUrl = "../brdrecCommList";
+    		var reqUrl = "./brdrecCommList";
     		$.ajax({
     			url : reqUrl,
     			type : "get",
@@ -361,8 +349,7 @@ a:link {
     				console.log("recCommListsuccess: ", data);
     				for (var i = 0; i < data.recCommList.length; i++) {
     					console.log(data.recCommList[i].commIdx);
-    					$("#" + data.recCommList[i].commIdx + "").attr('src',
-    							'resources/images/recommend.png');
+    					$("#" + data.recCommList[i].commIdx + "").attr('src','resources/images/recommend.png');
     				}
     			},
     			error : function(error) {
@@ -384,7 +371,6 @@ a:link {
     		$("#commentDiv" + commIdx).after(content);
 
     	}
-    	
     	/*대댓글 작성*/
     	function recommWirte(commIdx) {
     		var recomment = $("#recomment").val();
@@ -394,7 +380,7 @@ a:link {
     		if (recomment != '') {
 
     			$.ajax({
-    				url : "../boardRecommWrite",
+    				url : "./boardRecommWrite",
     				type : "get",
     				data : {
     					"commIdx" : commIdx,
@@ -415,11 +401,10 @@ a:link {
     			});
     		}
     	}
-    	
     	/*대댓글 리스트 불러오기*/
     	function boardRecommList(commIdx) {
     		$.ajax({
-    			url : "../boardRecommList/" + commIdx,
+    			url : "./boardRecommList/" + commIdx,
     			type : "get",
     			data : {},
     			dataType : "JSON",
@@ -436,6 +421,7 @@ a:link {
     			}
     		});
     	}
+
     	/*대댓글 리스트 뿌리기*/
     	function boardRecommPrint(list) {
     		var content = "";
@@ -478,7 +464,7 @@ a:link {
     		//삭제 confirm	
     		if (confirm("정말로 삭제하시겠습니까?")) {
 
-    			var reqUrl = "../boardRecommentDel/" + com2ndIdx;
+    			var reqUrl = "./boardRecommentDel/" + com2ndIdx;
     			$.ajax({
     				url : reqUrl,
     				type : "get",
@@ -499,7 +485,7 @@ a:link {
     	/* 대댓글 추천-취소 */
     	function boardReCommRec(com2ndIdx){
     		console.log("com2ndIdx: "+com2ndIdx);
-    		var reqUrl = "../boardReCommRec/"+com2ndIdx;
+    		var reqUrl = "./boardReCommRec/"+com2ndIdx;
     		$.ajax({
     				url : reqUrl,
     				type : "get",
@@ -511,7 +497,7 @@ a:link {
     					if(data.recResult =='true'){
     						console.log($("#"+com2ndIdx+""));
     						$("#"+com2ndIdx+"").attr('src','resources/images/recommend.png');
-    						boardCommentList(); //댓글리스트 호출(댓글추천수 새로고침)
+    						boardRecommList(); //댓글리스트 호출(댓글추천수 새로고침)
     					}else{
     						console.log($("#"+com2ndIdx+""));
     						$("#"+com2ndIdx+"").attr('src','resources/images/decommend.png');
@@ -527,7 +513,7 @@ a:link {
     	/* 댓글 추천-취소 */
     	function boardCommRec(commIdx){
     		console.log("commIdx: "+commIdx);
-    		var reqUrl = "../boardCommRec/"+commIdx;
+    		var reqUrl = "./boardCommRec/"+commIdx;
     		$.ajax({
     				url : reqUrl,
     				type : "get",
@@ -552,6 +538,41 @@ a:link {
     				}
     			});
     	}
+    	/* 게시판추천하기*/
+    	function boardRec(boardIdx){
+    		console.log("boardIdx: "+boardIdx);
+    		var reqUrl = "./boardRec/"+boardIdx;
+    		$.ajax({
+    				url : reqUrl,
+    				type : "get",
+    				data : {},
+    				dataType : "JSON",
+    				success : function(data) {
+    					console.log("Success: ", data);
+    					console.log("rescResult:"+data.recResult);
+    					console.log("page:"+data.page);
+    					if(data.recResult =='true'){
+    						alert(data.msg);
+    					
+    					}else{
+    						alert(data.msg);
+    						
+    					}
+    					
+    				},
+    				error : function(error) {
+    					console.log("error:", error);
+    				}
+    			});
+    	}
+    		/* 댓글 신고 새창 */
+    	function repCommForm(commIdx){
+    		window.open("./boardRepCommForm/1/"+commIdx,"reportComment","width=800, height=600");
+    	}
     	
+    	/* 대댓글 신고 새창 */
+    	function repRecommForm(com2ndIdx){
+    		window.open("./boardRepCommForm/2/"+com2ndIdx,"reportRecomment","width=800, height=600");
+    	}
         </script>
     </html>
