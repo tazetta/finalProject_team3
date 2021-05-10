@@ -32,19 +32,23 @@ public class ChkPenaltyInterceptor extends HandlerInterceptorAdapter {
 		cal.setTime(new Date(System.currentTimeMillis()));
 		String toDay = df.format(cal.getTime());
 		System.out.println("toDay : " + toDay);
-
+		java.util.Date toDayTime = df.parse(toDay);
+		System.out.println("toDay Time : " + toDayTime.getTime());
+		
 		if (dao.isPenalty(loginId) != null) {
 			MemberDTO dto = dao.isPenalty(loginId);
-			Date endDay = dto.getEndDay();
+			long endDay = dto.getEndDay().getTime();
 			String strEndDay = df.format(endDay);
-			System.out.println("endDay : " + strEndDay);
+			System.out.println("endDay : " + endDay);
 
-			if (strEndDay.equals(toDay)) {
-				System.out.println("같음");
-				int delPenalty = dao.delPenalty(loginId);
-				int stateUpdate = dao.updateState(loginId);
-				System.out.println("패널티 제거 : " + delPenalty + "상태업데이트 : " + stateUpdate);
-			}
+			
+			  if (toDayTime.getTime() >= endDay) { 
+				  System.out.println("패널티 종료"); 
+				  int delPenalty = dao.delPenalty(loginId); 
+				  int stateUpdate = dao.updateState(loginId);
+				  System.out.println("패널티 제거 : " + delPenalty + " / 상태업데이트 : " + stateUpdate); 
+			  }
+			 
 		}
 	}
 
