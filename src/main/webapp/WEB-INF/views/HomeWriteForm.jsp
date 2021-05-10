@@ -101,18 +101,14 @@ input.button:hover{
 </head>
 
 <body>
-    <div class="container" style="text-align: center; padding-top: 10px;">
-        <input type="text" size="75" style="border-radius: 5px; border: 2px solid rgb(203, 228, 248); " placeholder="검색어를 입력해주세요.">
-        &nbsp;
-        <button id="btn" style="border-radius: 5px; background-color: rgb(203, 228, 248); border: 2px solid rgb(203, 228, 248); font-weight: bold; color: white;">검색</button>
-        <span><a href="" style="font-size:small; float: right; color: gray; font-weight: bold;">|고객센터</a></span>
-        <span><a href="" style="font-size:small; float: right; color: gray; font-weight: bold;" >|회원가입</a></span>
-        <span><a href="" style="font-size:small; float: right; color: gray; font-weight: bold;">로그인</a></span>
-    </div>
+
    <br/>
 	<form action="boardWrite" method="POST">
 	<input type="hidden" value="2" name="boardCtgIdx"/> 
 	<input type="hidden" value="${sessionScope.loginId}" name="id"/>
+	<div style="min-height: 210px; padding-top:50px;">
+	            <jsp:include page="mainnavi.jsp"></jsp:include> 
+            </div>
     <div class="container">
         <table class="table table-bordered">
             <thead>
@@ -195,5 +191,35 @@ input.button:hover{
     	}
     	
     });
+
+    function fileUp(){
+    	window.open("boardUploadForm","fileUpload","width=400, height=100");
+    	//요청url,타이틀,옵션
+    }
+    function del(elem){
+    	console.log(elem); //<a>
+    	var newFileName = elem.id.substring(elem.id.lastIndexOf("/")+1); //파일명만 뽑아내기
+    	console.log(newFileName);
+
+
+    //1. 실제 파일 삭제 요청
+    $.ajax({
+    	url:"boardFileDelete",
+    	type:"get",
+    	data:{"fileName":newFileName},
+    	dataType:"json",
+    	success:function(d){
+    		console.log("success:"+d.success);
+    // 2. 파일 삭제 요청이 완료되면 화면에 나타난 사진 삭제
+    		if(d.success ==1){ //실제 파일 삭제 성공시
+    			$(elem).find('img').remove(); //이미지 삭제
+    			/* $(elem).next().remove(); */ //<br> 삭제
+    			$(elem).remove(); // <a>삭제
+    		}
+    	},error:function(e){
+    		console.log(e);
+    	}
+    }); 	
+    }
     </script>
     </html>

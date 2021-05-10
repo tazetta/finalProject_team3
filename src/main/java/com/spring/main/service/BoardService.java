@@ -138,7 +138,7 @@ public class BoardService {
 				page = "redirect:/Freelist";
 				msg = "글쓰기 성공했습니다.";
 			} else if (boardctgidx == 2) {
-				page = "redirect:/api/homemainPage";
+				page = "redirect:/homemain";
 			} else if (boardctgidx == 3) {
 				page = "redirect:/tip";
 			} else if (boardctgidx == 4) {
