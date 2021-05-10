@@ -66,17 +66,12 @@
         <table class="업체정보">
        		 <tr>
             <td style="font-size: 20px; padding-top: 20px;">
-                <strong>서울인테리어</strong>
+                <strong>${company.comId}</strong>
             </td>
             </tr>
             <tr>
                 <td style="color: gainsboro;">
                    ─────────
-                </td>
-            </tr>
-            <tr>
-               <td style="color: gray;">
-                    리뷰2개 최근계약5개
                 </td>
             </tr>
             <tr>
@@ -86,7 +81,7 @@
             </tr>
             <tr>
                 <td style="font-size: 25px; ">
-                    <strong>리뷰:4.5</strong>
+                    <strong>★${rate }</strong>
                 </td>
             </tr>
         </table>

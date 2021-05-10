@@ -51,9 +51,9 @@ table{
 </style>
 </head>
 <body>
-	<div id="mainnavi" style="min-height: 210px;">
-	            <jsp:include page="mainnavi.jsp"></jsp:include> 
-    </div>
+
+	<jsp:include page="mainnavi.jsp"></jsp:include> 
+
 	
 	<!-- 업체세션있는 사람만 글쓰기 보이게 -->
 	<c:if test="${sessionScope.cLoginId ne null}">
@@ -118,7 +118,13 @@ if(msg != ""){
 			content += "</tr>"
 			content += "</table>"
 			content += "</div>"
+<<<<<<< HEAD
 			src = "";
+=======
+			if(i%3==0){
+				content += "<br/>"
+			}
+>>>>>>> 363a9f918ecc18e31e584ff6e76e2b085fe79936
 		}
 		$('#list').append(content);
 	}
