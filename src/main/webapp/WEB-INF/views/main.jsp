@@ -35,7 +35,8 @@
             color: rgb(143, 201, 248);
 	        box-shadow: rgb(143, 201, 248) 0 0px 0px 40px inset;
         }
-   
+
+  
     </style>
 </head>
 
@@ -52,16 +53,20 @@
                 style="padding-left: 5px;">회원가입</span></a>
         <a href="" style="font-size:small; float: right; color: gray; "><span>로그인</span></a>
     </div>-->
-          <iframe src="mainnavi" scrolling="no" frameborder="0" style="width: 100%; margin-left: 28%"></iframe>
-    <div class="flexBox">
-        <br />
+    <div class="flexBox" style="padding-bottom : 300px;">
+    
+       
         <div>
-            <br />
-            <%-- <jsp:include page="mainnavi.jsp"></jsp:include>  --%>
+           
+         
             <div class="container">
-                <h4>오늘의 땃쥐 룸</h4>
+            <div style="min-height: 210px;">
+	            <jsp:include page="mainnavi.jsp"></jsp:include> 
+            </div>
+              
                 <br/>
                 <div class="container">
+                <h3 style="font-weight:bold;padding-bottom:50px;">오늘의 땃쥐 룸</h3>
                     <div style="display: flex;  justify-content: center; border: 1px solid rgb(255, 255, 255); height: 100%;">
                         <div style="border: 5px solid white; margin-right: 90px; box-shadow:0 0 5px lightslategray;" >
                             <img src="C:\Users\user\Desktop\BootStrap\interior1.jpg" width="250" height="250">
@@ -80,9 +85,10 @@
             <br />
             <br />
             <div style="display: flex; max-width: 1300; justify-content: center;">
-                <div class="container">
-                    <h4>자유게시판</h4>
-                    <table class="table table-hover" style="min-width: 500;">
+                <div class="container" style="padding-top:20px;">
+                    <h4 style="font-weight:bold;">자유게시판</h4>
+                    <br/>
+                    <table class="table table-hover" style="min-width: 500; ">
                         <thead style="background-color: rgb(170, 187, 247); color: white;">
                             <tr>
                                 <th>제목</th>
@@ -90,25 +96,25 @@
                                 <th>조회수</th>
                             </tr>
                         </thead>
-                        <tr>
-                            <td>ㅇ</td>
-                            <td>ㅇ</td>
-                            <td>ㅇ</td>
-                        </tr>
-                        <tr>
-                            <td>ㅇ</td>
-                            <td>ㅇ</td>
-                            <td>ㅇ</td>
-                        </tr>
-                        <tr>
-                            <td>ㅇ</td>
-                            <td>ㅇ</td>
-                            <td>ㅇ</td>
-                        </tr>
+                       
+			<tbody id="list">
+				<!--
+				<c:forEach var="board" items="${boardList}" begin="0" end="9"
+					step="1" varStatus="status">
+					<tr>
+						<td><a href="boarddetail/${board.boardIdx}">${board.subject}</a></td>
+						<td>${board.id}</td>
+						<td>${board.bhit}</td>
+						<td>${board.reg_date}</td>
+					</tr>
+				</c:forEach>
+				-->
+			</tbody>
                     </table>
                 </div>
-                <div class="container">
-                    <h4>꿀팁</h4>
+                <div class="container" style="padding-top:20px;">
+                    <h4 style="font-weight:bold;">꿀팁</h4>
+                    <br/>
                     <table class="table table-hover" style="min-width: 500;">
                         <thead style="background-color: rgb(170, 187, 247); color: white;">
                             <tr>
@@ -117,26 +123,182 @@
                                 <th>조회수</th>
                             </tr>
                         </thead>
-                        <tr>
-                            <td>ㅇ</td>
-                            <td>ㅇ</td>
-                            <td>ㅇ</td>
-                        </tr>
-                        <tr>
-                            <td>ㅇ</td>
-                            <td>ㅇ</td>
-                            <td>ㅇ</td>
-                        </tr>
-                        <tr>
-                            <td>ㅇ</td>
-                            <td>ㅇ</td>
-                            <td>ㅇ</td>
-                        </tr>
+                                   
+			<tbody id="tlist">
+				<!--
+				<c:forEach var="board" items="${boardList}" begin="0" end="9"
+					step="1" varStatus="status">
+					<tr>
+						<td><a href="boarddetail/${board.boardIdx}">${board.subject}</a></td>
+						<td>${board.id}</td>
+						<td>${board.bhit}</td>
+						<td>${board.reg_date}</td>
+					</tr>
+				</c:forEach>
+				-->
+			</tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
 </body>
+<script>
+$(document).ready(function() {
+	// 목록을 조회하는 함수.
+	function getList(pageNum, opt, keyword) {
+		/*
+		 * pageNum, opt, keyword
+		 * 값이 없으면 초기값 사용.
+		 * 값이 있으면 입력받은 값 사용.
+		 */
+		var pageNum = !pageNum ? 1 : pageNum;
+		var opt = !opt ? 'all' : opt;
+		var keyword = !keyword ? '' : keyword;
+		var oData = {
+			pageNum : pageNum,
+			opt : opt,
+			keyword : keyword
+		};
+		console.log(oData);
 
+		$.ajax({
+			url : '/main/api/freelist',
+			type : 'GET',
+			data : oData,
+			dataType : 'JSON',
+			success : function(data) {
+				appendList(data.list);
+				createPagination(data.total_page,pageNum);
+			},
+			error : function(error) {
+				console.log('에러 났음...');
+			}
+		});
+	}
+
+	// 목록을 UI에 추가하는 함수.
+	function appendList(aList) {
+		// jquery의 반복문을 사용.
+		var sHtml = '';
+		$.each(aList,function(index, oInfo) {
+							/*
+							행 html 소스
+							<tr>
+								<td><a href="boarddetail/${board.boardIdx}">${board.subject}</a></td>
+								<td>${board.id}</td>
+								<td>${board.bhit}</td>
+								<td>${board.reg_date}</td>
+							</tr>
+							 */
+							sHtml += '<tr>';
+							sHtml += '	<td><a href="boarddetail/' + oInfo.boardIdx +'">'
+									+ oInfo.subject
+									+ '</a></td>';
+							sHtml += '	<td>' + oInfo.id
+									+ '</td>';
+							sHtml += '	<td>' + oInfo.bhit
+									+ '</td>';
+							
+							sHtml += '</tr>';
+						});
+
+		$("#list").empty();
+		$("#list").append(sHtml);
+	}
+	// 페이지 진입시 초기에 목록 조회.
+	getList();
+});
+
+$(document).ready(function() {
+	// 목록을 조회하는 함수.
+	function getList(pageNum, opt, keyword, orderBy) {
+		/*
+		 * pageNum, opt, keyword
+		 * 값이 없으면 초기값 사용.
+		 * 값이 있으면 입력받은 값 사용.
+		 */
+		var pageNum = !pageNum ? 1 : pageNum;
+		var opt = !opt ? 'all' : opt;
+		var keyword = !keyword ? '' : keyword;
+		var orderBy = !orderBy ? 'recent' : orderBy 
+		var oData = {
+			pageNum : pageNum,
+			opt : opt,
+			keyword : keyword,
+			orderBy : orderBy
+		};
+
+		$.ajax({
+			url : '/main/api/tip',
+			type : 'GET',
+			data : oData,
+			dataType : 'JSON',
+			success : function(data) {
+				appendList(data.list); //화면에 뿌려주기 위함
+				createPagination(data.total_page, pageNum); //페이징 처리
+			},
+			error : function(error) {
+				console.log('에러 났음...');
+			}
+		});
+	}
+
+	// 목록을 UI에 추가하는 함수.
+	function appendList(aList) {
+		// jquery의 반복문을 사용.
+		var sHtml = '';
+		$.each(aList,function(index, oInfo) {
+							/*
+							행 html 소스
+							<tr>
+								<td><a href="boarddetail/${board.boardIdx}">${board.subject}</a></td>
+								<td>${board.id}</td>
+								<td>${board.bhit}</td>
+								<td>${board.reg_date}</td>
+							</tr>
+							 */
+							sHtml += '<tr>';
+							sHtml += '	<td><a href="boarddetail/' + oInfo.boardIdx +'">'
+									+ oInfo.subject
+									+ '</a></td>';
+							sHtml += '	<td>' + oInfo.id
+									+ '</td>';
+							sHtml += '	<td>' + oInfo.cntreco
+									+ '</td>';
+							
+							sHtml += '</tr>';
+						});
+	
+		
+
+		$("#tlist").empty();
+		$("#tlist").append(sHtml);
+	}
+
+	getList();
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
 </html>

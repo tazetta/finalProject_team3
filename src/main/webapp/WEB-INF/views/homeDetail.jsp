@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>우리집 자랑 게시물</title>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" 
 integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 <!-- JavaScript Bundle with Popper -->
@@ -20,59 +21,159 @@ a {
 	text-decoration: none;
     border-radius: 10px;
 }
-a.button {
+#button {
 	color: rgba(30, 22, 54, 0.6);
     background-color: rgb(230, 226, 224);
 	box-shadow: rgb(230, 226, 224) 0 0px 0px 2px inset;
+	border-radius: 5px;
+	border: none;
 }
 
-a.button:hover {
+#button:hover {
 	color: rgba(255, 255, 255, 0.85);
 	box-shadow: rgb(230, 226, 224) 0 0px 0px 40px inset;
 }
 
-a.button2 {
+#contentbtn{
 	color: rgba(30, 22, 54, 0.6);
     background-color: rgb(255, 210, 180);
 	box-shadow: rgb(255, 210, 180) 0 0px 0px 2px inset;
+	border-radius: 5px;
+	border: none;
 }
 
-a.button2:hover {
+#contentbtn:hover {
 	color: rgba(255, 255, 255, 0.85);
 	box-shadow: rgb(255, 210, 180) 0 0px 0px 40px inset;
 }
+#btn{
+	 background-color: white;
+	 border:none;
+}
+#btn:hover{
+	background-color:white;
+}
+/* 생성된 댓글 테이블 설정*/
+.commentTable {
+	margin: 10px;
+	
+}
+/* 댓글작성란 스타일 */
+#comment {
+	background-color: rgb(241, 160, 122);
+	color: rgb(8, 8, 8);
+	font-weight: bold;
+	padding: 7px;
+	margin: 8px 0;
+	border: none;
+	cursor: pointer;
+	width: 800px;
+	height: 40px;
+	border-radius: 5px;
+}
+
+.commDel {
+	border: none;
+	
+}
+
+.commentDiv {
+	border: 2px solid red;
+}
+
+.commentTable {
+ min-width:900px;
+	margin: 10px;
+}
+
+.commDel {
+	border: none;
+}
+
+.grade {
+	color: orange;
+	font-weight: 600;
+	font-size: 90%;
+}
+
+a:link {
+	text-decoration: none;
+}
+/*대댓글창 영역*/
+#recommentBox {
+	margin-left: 50px;
+}
+
+.recommentTable {
+	background-color: #F2F1F1;
+}
+
+#recomment {
+	height: 30px;
+	width: 800px;
+}
+
+#recommentSave {
+	margin: 7px;
+	background-color: rgb(172, 172, 172);
+	color: rgb(8, 8, 8);
+	font-weight: bold;
+	cursor: pointer;
+	border-radius: 5px;
+	border: none;
+	padding: 7px;
+}
+#recommentSave:hover{
+
+	color: rgba(255, 255, 255, 0.85);
+	box-shadow: rgb(230, 226, 224) 0 0px 0px 40px inset;
+}
+
+#loginId {
+	margin: 20px;
+}
+
+.commDel {
+	color: red;
+}
+
 
 </style>
 </head>
 	
 	
 <body>
- 
+  <div style="min-height: 210px; padding-top:30px;">
+	            <jsp:include page="mainnavi.jsp"></jsp:include> 
+            </div>
     
-    <div class="container" style="text-align: center; padding-top: 10px;">
+   <!--   <div class="container" style="text-align: center; padding-top: 10px;">
         <input type="text" size="75" style="border-radius: 5px; border: 2px solid rgb(203, 228, 248); " placeholder="검색어를 입력해주세요.">
         &nbsp;
         <button id="btn" style="border-radius: 5px; background-color: rgb(203, 228, 248); border: 2px solid rgb(203, 228, 248); font-weight: bold; color: white;">검색</button>
         <span><a href="" style="font-size:small; float: right; color: gray; font-weight: bold;">|고객센터</a></span>
         <span><a href="" style="font-size:small; float: right; color: gray; font-weight: bold;" >|회원가입</a></span>
         <span><a href="" style="font-size:small; float: right; color: gray; font-weight: bold;">로그인</a></span>
-    </div>
+    </div>-->
    <br/>
 
-    <div class="container"  style="height:180px; background-color:rgb(170, 187, 247); text-align:center;">
+    <div class="container"  style="height:280px; background-color:rgb(170, 187, 247); text-align:center;">
   
-        <h1 style="padding-top: 50px; font-weight: bold; ">제목</h1>
+        <h1 style="padding-top: 8%; font-weight: bold; ">${dto.subject}</h1>
     
-        <div>
-            <a href="#" class="button" style="max-width: 75; margin-right: 10px; margin-left: 20px; padding: 10px 20px; font-weight: bold; float: right;">수정</a>
+        <div  style="padding-top: 4%;">
+         <c:set var="loginId" value="${sessionScope.loginId}" />
+          <c:if  test="${!empty loginId}">
+            <button id="button"  class="button" style="max-width: 75; margin-right: 10px; margin-left: 20px; padding: 10px 20px; font-weight: bold; float: right;">수정</button>
            
-            <a href="#" class="button" style="max-width: 75; padding: 10px 20px; font-weight: bold; float: right;">삭제</a>
+           <button id="button"  class="button" style="max-width: 75; padding: 10px 20px; font-weight: bold; float: right;">삭제</button>
+        	</c:if>
         </div>
     </div>
-    <div class="container" style="float: right; width: 600px;">
-        <span>등급</span>&nbsp;<span>유저아이디</span> <span>2021-04-19</span><span>조회수 5</span> 
-    </div>
     <br/>
+    <div class="container" style="float:right; padding-left:15%;">
+        <span class="grade">${writerGrade}</span>&nbsp;&nbsp;${dto.id}&nbsp;&nbsp;${dto.reg_date}&nbsp;&nbsp;조회수${dto.bhit}
+    </div>
     <br/>
        
     <div class="container">
@@ -88,30 +189,34 @@ a.button2:hover {
                     </thead>
                     <thead>
                     <tr>
-                        <td style="border:none;">받기</td>
-                        <td style="border:none;">받기</td>
-                        <td style="border:none;">받기</td>
+                        <td style="border:none;">${dto.formcategory}</td>
+                        <td style="border:none;">${dto.roomsize}</td>
+                        <td style="border:none;">${dto.budget}</td>
                         </tr>
                     </thead>
                 </table>
                 <table>
-                    내용물을쓰세요
+                    		${dto.content}
                 </table>
                 <br/>
-                <table class="table">
+                <table class="table" >
                     <thead>
                     <tr>
-                        <th style="border:none;">아이템:</th>
+                        <th style="border:none;padding-top: 10%;">아이템:</th>
                         <th style="border:none;"></th>
                      </tr>
                     </thead>
+                    
                 </table>
             </div>
         </table>
          </div>       
         <div class="container">
-            <a href="#" class="button" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; float: right;">목록</a>
-            <a href="#" class="button" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; float: right;">신고</a>
+            <button id="contentbtn" class="contentbtn" onclick="location.href='../homemain'" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; float: right;">목록</button>
+             <c:set var="loginId" value="${sessionScope.loginId}" />
+			 <c:if  test="${!empty loginId}">
+            <button id="contentbtn" class="contentbtn" onclick="reportBoard()" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; float: right;">신고</button>
+        	</c:if>
         </div>
         <br/>
         <br/> 
@@ -124,26 +229,371 @@ a.button2:hover {
                <table class="table">
                <tr>
                 <td>
-               <span style="font-size: medium; font-weight: bold; ">댓글</span>
-               <div class="wrap" style="float: right; margin-right: 100px;">
-                
-                <a href="#" class="button3" style="font-weight: bold; padding: 8px 10px;"><i class="bi bi-hand-thumbs-up">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="gray" class="bi bi-hand-thumbs-up" viewBox="0 0 16 16">
-                    <path d="M8.864.046C7.908-.193 7.02.53 6.956 1.466c-.072 1.051-.23 2.016-.428 2.59-.125.36-.479 1.013-1.04 1.639-.557.623-1.282 1.178-2.131 1.41C2.685 7.288 2 7.87 2 8.72v4.001c0 .845.682 1.464 1.448 1.545 1.07.114 1.564.415 2.068.723l.048.03c.272.165.578.348.97.484.397.136.861.217 1.466.217h3.5c.937 0 1.599-.477 1.934-1.064a1.86 1.86 0 0 0 .254-.912c0-.152-.023-.312-.077-.464.201-.263.38-.578.488-.901.11-.33.172-.762.004-1.149.069-.13.12-.269.159-.403.077-.27.113-.568.113-.857 0-.288-.036-.585-.113-.856a2.144 2.144 0 0 0-.138-.362 1.9 1.9 0 0 0 .234-1.734c-.206-.592-.682-1.1-1.2-1.272-.847-.282-1.803-.276-2.516-.211a9.84 9.84 0 0 0-.443.05 9.365 9.365 0 0 0-.062-4.509A1.38 1.38 0 0 0 9.125.111L8.864.046zM11.5 14.721H8c-.51 0-.863-.069-1.14-.164-.281-.097-.506-.228-.776-.393l-.04-.024c-.555-.339-1.198-.731-2.49-.868-.333-.036-.554-.29-.554-.55V8.72c0-.254.226-.543.62-.65 1.095-.3 1.977-.996 2.614-1.708.635-.71 1.064-1.475 1.238-1.978.243-.7.407-1.768.482-2.85.025-.362.36-.594.667-.518l.262.066c.16.04.258.143.288.255a8.34 8.34 0 0 1-.145 4.725.5.5 0 0 0 .595.644l.003-.001.014-.003.058-.014a8.908 8.908 0 0 1 1.036-.157c.663-.06 1.457-.054 2.11.164.175.058.45.3.57.65.107.308.087.67-.266 1.022l-.353.353.353.354c.043.043.105.141.154.315.048.167.075.37.075.581 0 .212-.027.414-.075.582-.05.174-.111.272-.154.315l-.353.353.353.354c.047.047.109.177.005.488a2.224 2.224 0 0 1-.505.805l-.353.353.353.354c.006.005.041.05.041.17a.866.866 0 0 1-.121.416c-.165.288-.503.56-1.066.56z"/>
-                  </svg></i></a>
-                
-                <a href="#" class="button4"  style="font-weight: bold;padding: 8px 10px; "><i class="bi bi-bookmark"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="gray" class="bi bi-bookmark" viewBox="0 0 16 16">
-                    <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
-                  </svg></i></a>
-            </div>
-            </td>
-            </tr>
+             	  댓글<span id ="listSize" style="font-size: medium; font-weight: bold; ">개</span>
+            	</td>
+               </tr>
                 </table>
             </div>
-            <b>user</b> : <input type="text" size="75" placeholder="댓글을 입력해주세요."> 
-            <a href="#" class="button2" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold;">저장</a>
-        </div>  
+      <div id="commentBox" class="container">
+      <c:set var="loginId" value="${sessionScope.loginId}" />
+      <c:if  test="${!empty loginId}">
+           <sapn><b id="loginId">${sessionScope.loginId}</b></sapn> : <input type="text" name="comment" id="comment" size="75" placeholder="댓글을 입력해주세요."/> 
+            <button id="contentbtn" class="contentbtn" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold;">저장</button>
+       </c:if>
+        <c:if  test="${empty loginId}">
+         <sapn><b id="loginId">${sessionScope.loginId}</b></sapn> : <input type="text" name="comment" id="comment" size="75" placeholder="로그인이 필요한 서비스입니다."/> 
+            <button id="contentbtn" class="contentbtn" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold;">저장</button>
+        </c:if>
+        <div>
+			<div id="commentListDiv"></div>
+		</div>
+      </div>
+        </div>
+        
    </body>
+   <script>
+   var msg = "${msg}";
+	if (msg != "") {
+		alert(msg);
+	}
+	boardCommentList(); //댓글리스트
+	/*글 신고 새창*/
+	function reportBoard(){
+		window.open("../boardRepBoardForm/${dto.boardIdx}","reportBoard","width=800, height=600");
+		//요청url,타이틀,옵션
+	}
+	/* 댓글 등록 */
+	$("#contentbtn").click(function() {
+		var comment = $("#comment").val();
+		var loginId = "${sessionScope.loginId}";
+		var boardIdx = "${dto.boardIdx}";
+		console.log("loginID:" + loginId + "/comment:" + comment);
+		if (comment != '') {
+
+			var reqUrl = ' ../boardCommentWrite';
+			$.ajax({
+				url : reqUrl,
+				type : "GET",
+				data : {
+					"boardIdx" : boardIdx,
+					"comment" : comment,
+					"loginId" : loginId
+				},
+				dataType : "JSON",
+				success : function(data) {
+					console.log("success: ", data);
+					alert(data.msg);
+					$("#comment").val('');
+					boardCommentList();// 작성후 댓글 리스트 요청
+
+				},
+				error : function(error) {
+					console.log("error:", error);
+				}
+			});
+		}
+	})
+	/* 댓글 목록 불러오기 */
+	function boardCommentList() {
+		var reqUrl = '../boardCommentList/' + ${dto.boardIdx};
+		$.ajax({
+			url : reqUrl,
+			type : "get",
+			data : {},
+			dataType : "JSON",
+			success : function(data) {
+				console.log("success: ", data);
+				console.log("listSize:" + data.listSize);
+				$("#listSize").html(data.listSize);
+				if (data.listSize == 0) {
+					$("#commentListDiv").html("현재 댓글이 없습니다!");
+				} else {
+					commentListPrint(data.list);
+					recCommList(); //내가 추천한 댓글 이미지 활성화로 고정
+				}
+			},
+			error : function(error) {
+				console.log("error:", error);
+			}
+		});
+	}
+	/* 댓글 리스트 뿌리기 */
+	function commentListPrint(list) {
+		var content = "";
+
+		for (var i = 0; i < list.length; i++) {
+			content += "<div id='commentDiv"+list[i].commIdx+"'>";
+			content += "<table class='commentTable'>";
+			content += "<tr>";
+			content += '<td style="width:14%;"><b>' + list[i].id + '</b></td>';
+			content += '<td colspan="2" style="text-align:left; min-width:900;">';
+			content += list[i].comments;
+			content += '</td>';
+			content += '</tr>';
+			content += '<tr>';
+			content += '<td style="width:14%; font-size:90%; color:gray; ">';
+			var reg_date = new Date(list[i].reg_date);
+			content += reg_date.toLocaleDateString("ko-KR");
+			content += '</td>';
+			content += ' <td style="width:7%" >';
+			//댓글추천 
+			content += '<a href="javascript:void(0)"; onclick="boardCommRec('
+					+ list[i].commIdx
+					+ ')"><img alt="decommend" src="resources/images/decommend.png" width="15px" height="15px" id="'+list[i].commIdx+'"> </a>';
+			//댓글 추천수
+			if (list[i].recCnt != 0) {
+				content += '<span class="commIdxRecCnt">' + list[i].recCnt
+						+ '</span></td>';
+			}
+			content += '<td style="text-align:left">';
+			if ("${sessionScope.loginId}" == list[i].id) {
+				content += '<a href="javascript:void(0)"; onclick="recommForm('
+						+ list[i].commIdx + ')">답글달기</a>&nbsp;&nbsp;';
+				content += '<button class="commDel" id="+list[i].commIdx+" onclick="boardCommentDel('
+						+ list[i].commIdx + ')">삭제</button></td>'; //댓글삭제호출
+			} else if("${sessionScope.loginId}" != list[i].id){
+				content += '<a href="#"; onclick="recommForm('+ (list[i].commIdx) + ')">답글달기</a>&nbsp;&nbsp;';
+				content += '<a href="#"; onclick="repCommForm('+(list[i].commIdx)+')">신고</a></td>'; 
+			}
+			content += '</tr>';
+			content += '</table>';
+			content += "</div>";
+			content += "<div id='recommentListDiv"+list[i].commIdx+"'></div>"; //대댓글 리스트 가져올 영역
+			boardRecommList(list[i].commIdx); //대댓글 리스트 호출 
+		}
+		$("#commentListDiv").empty(); //#list안의 내용을 버려라
+		$("#commentListDiv").append(content);
+
+	}
+	/* 댓글삭제 */
+	function boardCommentDel(commIdx) {
+
+		//삭제 confirm	
+		if (confirm("정말로 삭제하시겠습니까?")) {
+			var reqUrl = "../boardCommDel/" + commIdx;
+			$.ajax({
+				url : reqUrl,
+				type : "get",
+				data : {},
+				dataType : "JSON",
+				success : function(data) {
+					console.log("success: ", data);
+					boardCommentList(); //삭제 후 댓글리스트 요청
+				},
+				error : function(error) {
+					console.log("error:", error);
+				}
+			});
+
+		} else {
+			console.log("삭제취소");
+		}
+	}
+	/* 내가 추천한 댓글 이미지 활성화로 고정*/
+	function recCommList() {
+		var reqUrl = "../brdrecCommList";
+		$.ajax({
+			url : reqUrl,
+			type : "get",
+			data : {},
+			dataType : "JSON",
+			success : function(data) {
+				console.log("recCommListsuccess: ", data);
+				for (var i = 0; i < data.recCommList.length; i++) {
+					console.log(data.recCommList[i].commIdx);
+					$("#" + data.recCommList[i].commIdx + "").attr('src',
+							'resources/images/recommend.png');
+				}
+			},
+			error : function(error) {
+				console.log("error:", error);
+			}
+		});
+	}
+	/*대댓글 창 노출*/
+	function recommForm(commIdx) {
+		console.log("대댓글달기: " + commIdx);
+		var content = "";
+		content += '<div id="recommentBox">';
+		content += '<span><b id="loginId">${sessionScope.loginId }</b></span>';
+		content += '<input type="text" name="recomment" id="recomment" placeholder="답글 작성해주세요."/>';
+		content += '<input type="button" value="등록" id="recommentSave" onclick="recommWirte('
+				+ commIdx + ')"/>';
+		content += '</div>';
+		$("#recommentBox").remove();
+		$("#commentDiv" + commIdx).after(content);
+
+	}
+	
+	/*대댓글 작성*/
+	function recommWirte(commIdx) {
+		var recomment = $("#recomment").val();
+		var loginId = "${sessionScope.loginId }";
+		console.log("loginID:" + loginId + "/commIdx" + commIdx + "/recomment:"
+				+ recomment);
+		if (recomment != '') {
+
+			$.ajax({
+				url : "../boardRecommWrite",
+				type : "get",
+				data : {
+					"commIdx" : commIdx,
+					"comments" : recomment,
+					"loginId" : loginId
+				},
+				dataType : "JSON",
+				success : function(data) {
+					console.log(data);
+					alert(data.msg);
+
+					$("#recommentBox").remove();
+					boardCommentList();
+				},
+				error : function(error) {
+					console.log("recommWirteError:", error);
+				}
+			});
+		}
+	}
+	
+	/*대댓글 리스트 불러오기*/
+	function boardRecommList(commIdx) {
+		$.ajax({
+			url : "../boardRecommList/" + commIdx,
+			type : "get",
+			data : {},
+			dataType : "JSON",
+			success : function(data) {
+				console.log("commentsListsuccess: ", data);
+				for (var i = 0; i < data.list.length; i++) {
+					console.log(data.list[i].commIdx);
+					boardRecommPrint(data.list[i]); //대댓글 리스트 뿌리기
+				}
+				console.log("--------------------------------");
+			},
+			error : function(error) {
+				console.log("error:", error);
+			}
+		});
+	}
+	/*대댓글 리스트 뿌리기*/
+	function boardRecommPrint(list) {
+		var content = "";
+		var loginId = "${sessionScope.loginId}";
+		content += "<div id='recommentDiv"+list.commIdx+"'>";
+		content += "<table class='recommentTable'>";
+		content += "<tr>";
+		content += '<td  style="width:14%"><b>' + list.id + '</b></td>';
+		content += '<td colspan="2" style="text-align:left; min-width:900">';
+		content += list.comments;
+		content += '</td>';
+		content += '</tr>';
+		content += '<tr>';
+		content += '<td style=" font-size:90%; color:gray; ">';
+		var reg_date = new Date(list.reg_date);
+		content += reg_date.toLocaleDateString("ko-KR");
+		content += '</td>';
+		//대댓글삭제
+		if (loginId == list.id) {
+			content += ' <td  style="text-align:left">';
+			content += '<button class="commDel" onclick="boardRecommentDel('
+					+ list.com2ndIdx + ')">삭제</button></td>';
+					
+
+		} if(loginId != list.id) {
+			content += '<td><a href="javascript:void(0)" ; onclick="repRecommForm('+list.com2ndIdx+')">신고</a></td>';
+			content += '<td><a href="javascript:void(0)"; onclick="boardReCommRec(';
+			content += list.com2ndIdx;
+			content +=  ')"><img alt="decommend" src="resources/images/decommend.png" width="15px" height="15px" id="'+list.com2ndIdx+'"> </a></td>';
+		}
+		content += '</tr>';
+		content += '</table>';
+		content += "</div>";
+
+		$("#recommentListDiv" + list.commIdx).empty(); //#list안의 내용을 버려라
+		$("#recommentListDiv" + list.commIdx).after(content);
+
+	}
+	function boardRecommentDel(com2ndIdx) {
+		//삭제 confirm	
+		if (confirm("정말로 삭제하시겠습니까?")) {
+
+			var reqUrl = "../boardRecommentDel/" + com2ndIdx;
+			$.ajax({
+				url : reqUrl,
+				type : "get",
+				data : {},
+				dataType : "JSON",
+				success : function(data) {
+					console.log("success: ", data);
+					boardCommentList(); //삭제 후 댓글리스트 요청
+				},
+				error : function(error) {
+					console.log("error:", error);
+				}
+			});
+		} else {
+			console.log("삭제취소");
+		}
+	}
+	/* 대댓글 추천-취소 */
+	function boardReCommRec(com2ndIdx){
+		console.log("com2ndIdx: "+com2ndIdx);
+		var reqUrl = "../boardReCommRec/"+com2ndIdx;
+		$.ajax({
+				url : reqUrl,
+				type : "get",
+				data : {},
+				dataType : "JSON",
+				success : function(data) {
+					console.log("commRecSuccess: ", data);
+					console.log("rescResult:"+data.recResult);
+					if(data.recResult =='true'){
+						console.log($("#"+com2ndIdx+""));
+						$("#"+com2ndIdx+"").attr('src','resources/images/recommend.png');
+						boardCommentList(); //댓글리스트 호출(댓글추천수 새로고침)
+					}else{
+						console.log($("#"+com2ndIdx+""));
+						$("#"+com2ndIdx+"").attr('src','resources/images/decommend.png');
+						boardRecommList(); //댓글리스트 호출(댓글추천수 새로고침)
+					}
+					
+				},
+				error : function(error) {
+					console.log("error:", error);
+				}
+			});
+	}
+	/* 댓글 추천-취소 */
+	function boardCommRec(commIdx){
+		console.log("commIdx: "+commIdx);
+		var reqUrl = "../boardCommRec/"+commIdx;
+		$.ajax({
+				url : reqUrl,
+				type : "get",
+				data : {},
+				dataType : "JSON",
+				success : function(data) {
+					console.log("commRecSuccess: ", data);
+					console.log("rescResult:"+data.recResult);
+					if(data.recResult =='true'){
+						console.log($("#"+commIdx+""));
+						$("#"+commIdx+"").attr('src','resources/images/recommend.png');
+						boardCommentList(); //댓글리스트 호출(댓글추천수 새로고침)
+					}else{
+						console.log($("#"+commIdx+""));
+						$("#"+commIdx+"").attr('src','resources/images/decommend.png');
+						boardCommentList(); //댓글리스트 호출(댓글추천수 새로고침)
+					}
+					
+				},
+				error : function(error) {
+					console.log("error:", error);
+				}
+			});
+	}
+   
+   </script>
 </html>
           
    

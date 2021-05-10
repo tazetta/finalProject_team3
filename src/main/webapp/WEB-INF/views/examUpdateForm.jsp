@@ -7,14 +7,16 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <title>Insert title here</title>
 <style>
-table, th,td {
+table, td {
 	padding: 5px 10px;
 	text-align: center;
 	border: 1px solid black;
 	border-collapse: collapse;
+	width: 90%;
 }
+
 #editable {
-	width: 600px;
+	width: 99%;
 	height: 400px;
 	border: 1px solid gray;
 	text-align: left;
@@ -22,17 +24,59 @@ table, th,td {
 	padding: 5px;
 }
 
-td{
-	width: 500px;
-}
-
 input[type='text'] {
 	width: 100%;
+}
+#mainnavi {
+	position: absolute;
+	top: 5%;
+	left: 20%;
+}
+
+#box {
+	position: absolute;
+	top: 30%;
+	left: 20%;
+	width: 50%;
+}
+.btn{
+	position: absolute;
+	bottom : 10px;
+	left: 80%;
+}
+
+button,input[type='button'] {
+	height: 30px;
+	border: none;
+	background-color: #acd3fb;
+	cursor: pointer;
+	color: white;
+	font-weight: bold;
+}
+
+button:hover {
+	background-color: #acd3fb;
+	cursor: pointer;
+	box-shadow: 0 2px 4px rgba(0, 79, 255, 0.6);
+	border: 2px solid white;
+	color: white;
+}
+#table{
+	margin-left: 100px;
 }
 </style>
 </head>
 <body>
-	<h3>시공사례수정폼</h3>
+	<div id="mainnavi" style="min-height: 210px;">
+	            <jsp:include page="mainnavi.jsp"></jsp:include> 
+    </div>
+    <div id="box">
+    <div style="background-color: #acd3fb; width: 100%; height: 100px; text-align: center;">
+    	<br>
+    	<h3>시공사례 수정하기</h3>
+    </div>
+    <br/>
+    <div id="table">
 	<form action="/main/examUpdate" method="post">
 		<input type="hidden" name="combrdIdx" value="${dto.combrdIdx}" readonly/>
 		<table>
@@ -53,9 +97,12 @@ input[type='text'] {
 		</table>
 	</form>
 	<input type="button" value="파일업로드" onclick="fileUp()" />
-	<button onclick="location.href='examDetail?combrdIdx=${dto.combrdIdx}'">취소</button>
+	</div>
+	<div class="btn">
+	<button onclick="location.href='../examDetail?combrdIdx=${dto.combrdIdx}'">취소</button>
 	<button id="save">수정완료</button>	
-
+	</div>
+	</div>
 </body>
 <script>
 $("#save").click(function() {

@@ -99,4 +99,36 @@ public class AdminRestController {
 		logger.info("repCtg : {}", repCtgIdx);
 		return service.adminReportedCommList(pagePerCnt, page, repCtgIdx);
 	}
+	
+	@RequestMapping(value = "/adminReportedGroupList", method = RequestMethod.GET)
+	public ModelAndView adminReportedGroupListPage() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("adminReportedGroupList");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/adminReportedGroupList/{pagePerCnt}/{page}/{repCtgIdx}", method = RequestMethod.GET)
+	public HashMap<String, Object> adminReportedGroupList(@PathVariable int pagePerCnt, @PathVariable int page, @PathVariable int repCtgIdx) {
+		logger.info("pagePerCtn : {} / page : {}", pagePerCnt, page);
+		logger.info("repCtg : {}", repCtgIdx);
+		return service.adminReportedGroupList(pagePerCnt, page, repCtgIdx);
+	}
+	
+	@RequestMapping(value = "/adminGroupBlind/{gpIdx}", method = RequestMethod.GET)
+	public HashMap<String, Object> adminGroupBlind(@PathVariable int gpIdx) {
+		logger.info("gpIdx : {}", gpIdx);
+		return service.adminGroupBlind(gpIdx);
+	}
+	
+	@RequestMapping(value = "/adminCommBlind/{commIdx}", method = RequestMethod.GET)
+	public HashMap<String, Object> adminCommBlind(@PathVariable int commIdx) {
+		logger.info("commIdx : {}", commIdx);
+		return service.adminCommBlind(commIdx);
+	}
+	
+	@RequestMapping(value = "/adminBrdBlind/{boardIdx}", method = RequestMethod.GET)
+	public HashMap<String, Object> adminBrdBlind(@PathVariable int boardIdx) {
+		logger.info("boardIdx : {}", boardIdx);
+		return service.adminBrdBlind(boardIdx);
+	}
 }

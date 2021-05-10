@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-<title>내가 신청한 공동구매</title>
+<title>내 작성글-꿀팁</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <!-- 반응형 디자인을 위한 css/js 라이브러리 -->
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -84,6 +84,9 @@ th{
 	.sideBar {
 	float: left;
 }
+
+
+
 </style>
 </head>
 <body>
@@ -97,20 +100,12 @@ th{
 			<div class="sideBar">
 				<form>
 					<table>
-						<h2>내가 신청한 공동구매</h2>
-					   <tr>
-                     	<th style="width:70px">글 번호</th>
-						<th style="width:70px">현재상태</th>
-						<th style="width:70px">작성자</th>
-						<th style="width:450px">제목</th>
-						<th style="width:50px">작성일</th>
-                </tr>
-        </thead>
-        </div>
-		<tbody id="list">
-		 
-						
-		</tbody>
+						<h2>우리집 자랑</h2>
+			
+       
+			<div id="list" style="display: flex; flex-flow: wrap;  justify-content: left; border: 1px solid rgb(250px, 250px, 250px);">
+
+			</div> 
 			<tr>
 			<td id="paging" colspan="6">
 				<!-- 플러그인 사용 -->
@@ -137,7 +132,7 @@ listCall(showPage,pagePerNum);
 
 function listCall(reqPage,reqPagePerNum){
 	 
-	 var reqUrl ='./mygroupbuyList/' + reqPagePerNum + "/" + reqPage;
+	 var reqUrl ='./mywritehomeList/' + reqPagePerNum + "/" + reqPage;
 	 $.ajax({
 		 url:reqUrl
 		 ,type:'GET'
@@ -170,15 +165,9 @@ function listCall(reqPage,reqPagePerNum){
 function listPrint(list){
 	 var content = "";
 	 for(var i = 0; i<list.length; i++){
-		content +="<tr>"
-			content +="<td>"+list[i].gpIdx+"</td>"
-			content +="<td>"+list[i].progIdx+"</td>"
-			content +="<td>"+list[i].id+"</td>"
-			content +="<td>"+list[i].subject+"</td>"
-		var date = new Date(list[i].reg_date);
-		content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"		
-		
-		content +="</tr>"
+			content += "<div style='border-radius:20px; border: 5px solid white; margin: 20px; box-shadow:0 0 5px lightslategray;'>"
+			content += "<img src='resources/images/interior4.jpg' width='200' height='200' style=' border-radius:20px;'>"
+			content += "</div>"
 	}
 	
 	

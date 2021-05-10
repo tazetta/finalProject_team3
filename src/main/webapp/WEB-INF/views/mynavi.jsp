@@ -31,29 +31,40 @@ li a {
 	padding: 15px;
 }
 
-li a:hover, .navi li ul:hover {
+li a:hover {
 	background-color: #33f;
 	color: white;
 }
 
 .navi li ul {
-	/* << li íìì ul = ìë¸ë©ë´ */
-	text-indent: -3em;
+
+
 	list-style: none;
 	display: none;
-	background-color: white;
-	color: white;
 	transition: all 0.5s;
+	margin:0px;
+	padding:0px;
+	text-align: center;
+	position: relative;
 }
 
 .navi li:hover ul {
+	
+	
 	display: block;
+	
 }
 
 .navi li a {
 	list-style: none;
 	transition: all 0.5s;
 }
+
+.navi ul li a {
+background-color: silver;
+
+}
+
 </style>
 </head>
 <body>
@@ -63,7 +74,7 @@ li a:hover, .navi li ul:hover {
 			
 			<li><a href="mywrite" target="_parent">내 작성글</a>
 				<ul>
-					<li><a href="mywrite" target="_parent">우리집 자랑</a></li>
+					<li><a href="mywritehome" target="_parent">우리집 자랑</a></li>
 					<li><a href="mywriteboard" target="_parent">자유게시판</a></li>
 					<li><a href="mywritetip" target="_parent">꿀팁</a></li>
 					<li><a href="mywriteqna" target="_parent">질문 및 답변</a></li>
@@ -71,7 +82,7 @@ li a:hover, .navi li ul:hover {
 			<li><a href="myscrappage" target="_parent">스크랩북</a>
 				<ul>
 					<li><a href="#">우리집 자랑</a></li>
-					<li><a href="#">꿀팁</a></li>
+					<li><a href="myscrappage">꿀팁</a></li>
 				</ul></li>
 			<li><a href="msgpage" target="_parent">쪽지</a>
 				<ul>

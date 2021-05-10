@@ -22,23 +22,25 @@
 	</select>
 	
 	<select id="reportedBrdCnt" resultType="int">
-		SELECT COUNT(repidx) FROM reports WHERE repctgidx = 11 OR repctgidx = 12 OR repctgidx = 13 OR repctgidx = 14
+		SELECT COUNT(r.repidx) FROM (SELECT boardidx, repidx, reg_date FROM reports WHERE repctgidx = 11 OR repctgidx = 12 OR repctgidx = 13 OR repctgidx = 14) r 
+		WHERE boardidx is not null AND reg_date LIKE #{param1}
 	</select>
 	
 	<select id="reportedBrdList" resultType="hashMap">
-		SELECT b.rnum, b.subject, r.repctgidx FROM 
-			(SELECT ROW_NUMBER() OVER(ORDER BY boardidx DESC) AS rnum, boardidx, subject FROM board) b, reports r 
-			WHERE r.boardidx = b.boardidx AND b.rnum BETWEEN 1 AND 3
+		SELECT * FROM (SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) as rnum, boardidx, repctgidx, reg_date FROM reports WHERE boardidx is not null AND reg_date LIKE #{param1})
+    	WHERE rnum BETWEEN 1 and 3) r, (SELECT boardidx, subject, id FROM board) b WHERE r.boardidx = b.boardidx
 	</select>
 	
 	<select id="reportedCommCnt" resultType="int">
-		SELECT COUNT(commidx) FROM reports WHERE repctgidx = 11 OR repctgidx = 12 OR repctgidx = 13 OR repctgidx = 14
+		SELECT COUNT(r.repidx) FROM 
+	    (SELECT repidx, reg_date, commidx FROM reports WHERE repctgidx = 11 OR repctgidx = 12 OR repctgidx = 13 OR repctgidx = 14) r 
+	    WHERE commidx is not null AND reg_date LIKE #{param1}
 	</select>
 	
 	<select id="reportedCommList" resultType="photo">
-		SELECT c.rnum, c.comments, r.repctgidx 
-		    FROM (SELECT ROW_NUMBER() OVER(ORDER BY commidx DESC) AS rnum, commidx, comments FROM comments) c,reports r 
-		    WHERE r.commidx = c.commidx AND c.rnum BETWEEN 1 AND 3
+		SELECT * FROM (SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) as rnum, commidx, repctgidx, reg_date FROM reports WHERE commidx is not null AND reg_date LIKE #{param1})
+   		WHERE rnum BETWEEN 1 and 3) r, (SELECT commidx, comments, id FROM comments) c 
+   		WHERE r.commidx = c.commidx
 	</select>
 	
 	<select resultType="com.spring.main.dto.MemberDTO" id="adminMemberList">
@@ -80,6 +82,14 @@
 	<update id="penaltyCfm">
 		UPDATE generalmember SET stateIdx = #{param2} WHERE id = #{param1}
 	</update>
+	
+	<insert id="penaltyEndDay">
+		insert into penaltyEndDay(id, stateIdx, endDay, adminId) VALUES (#{param1}, #{param2}, #{param3}, #{param4})
+	</insert>
+	
+	<delete id="delEndDay">
+		DELETE penaltyEndDay WHERE id=#{param1}
+	</delete>
 	
 	<select id="adminCompanyList" resultType="com.spring.main.dto.CompanyMemberDTO"> 
 		SELECT * FROM 
@@ -124,8 +134,8 @@
 		SELECT sgtctg, id, email, subject, content FROM board WHERE boardIdx=#{param1}
 	</select>
 	
-	<select id="checkPenalty" resultType="com.spring.main.dto.BoardDTO">
-		
+	<select id="checkPenalty" resultType="com.spring.main.dto.MemberDTO">
+		SELECT stateIdx, id FROM generalMember WHERE id=#{param1}
 	</select>
 	
 	<select id="reportedBrdMaxCnt" resultType="int">
@@ -146,11 +156,38 @@
 	</select>
 	
 	<select id="adminReportedCommList" resultType="com.spring.main.dto.ReportDTO"> 
-		SELECT c.comments, r.repctgidx, r.targetid, r.reg_date, c.blind 
+		SELECT c.commIdx, c.comments, r.repctgidx, r.targetid, r.reg_date, c.blind 
     		FROM (SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, repctgidx, targetid, reg_date, commIdx FROM reports) r
         , comments c WHERE r.commIdx = c.commIdx AND r.rnum BETWEEN ${param1} AND ${param2}
 		<if test = "param3 != 0">
 			AND repctgidx = ${param3}
 		</if>
 	</select>
+	
+	<select id="adminReportedGroupList" resultType="com.spring.main.dto.ReportDTO">
+		SELECT g.subject, r.repctgidx, r.targetid, r.reg_date, g.blind, r.gpidx
+			FROM (SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, repctgidx, targetid, reg_date, boardidx, gpIdx FROM reports) r , grouppurchase g
+			WHERE r.gpidx = g.gpidx AND r.rnum BETWEEN #{param1} AND #{param2}
+			<if test = "param3 != 0">
+				AND repctgidx = ${param3}
+			</if>
+	</select>
+	
+	<select id="reportedGroupMaxCnt" resultType="int">
+		SELECT COUNT(gpIdx) FROM reports
+	</select>
+	
+	<update id="adminGroupBlind">
+		UPDATE  groupPurchase SET blind='y'
+		WHERE gpIdx=#{param1}
+	</update>
+	
+	<update id="adminCommBlind">
+		UPDATE  comments SET blind='y'
+		WHERE commIdx=#{param1}
+	</update>
+	<update id="adminBrdBlind">
+		UPDATE  board SET blind='y'
+		WHERE boardIdx=#{param1}
+	</update>
 </mapper>

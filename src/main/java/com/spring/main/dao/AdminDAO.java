@@ -56,6 +56,20 @@ public interface AdminDAO {
 
 	int reportedCommMaxCnt(int repCtgIdx);
 
-	ArrayList<ReportDTO> adminReportedCommList(int start, int end, int repCtgIdx);	
+	ArrayList<ReportDTO> adminReportedCommList(int start, int end, int repCtgIdx);
+
+	ArrayList<ReportDTO> adminReportedGroupList(int start, int end, int repCtgIdx);
+
+	int reportedGroupMaxCnt(int repCtgIdx);
+
+	int adminGroupBlind(int gpIdx);
+
+	int adminCommBlind(int commIdx);
+
+	int adminBrdBlind(int boardIdx);
+
+	int penaltyEndDay(String id, String stateIdx, String sqlDate, String adminId);
+
+	int delEndDay(String id);	
 
 }

@@ -56,8 +56,8 @@ a.button2:hover,.button2:hover {
 
     
     <form name = "form" method="POST" action="boardWrite">
-    	<input type="number" value="1" name="boardCtgIdx"/>
-    	<input type="text" value="${sessionScope.loginId}" name="id"/>
+    	<input type="hidden" value="1" name="boardCtgIdx"/>
+    	<input type="hidden" value="${sessionScope.loginId}" name="id"/>
         <div class="container" style="text-align: center; padding-top: 10px;">
             <input type="text" size="75" style="border-radius: 5px; border: 2px solid rgb(203, 228, 248); " placeholder="검색어를 입력해주세요.">
             &nbsp;
@@ -82,7 +82,7 @@ a.button2:hover,.button2:hover {
             </tr>
             <tr>
                 <td><div contenteditable="true" id="editable" style="overflow:scroll; width: 100%; height: 400px; border: 2px solid black; border-radius: 10px;">
-                <input type="text" class="form-control" placeholder="내용을 입력하세요" name="content" maxlength="1024" style="height: 400px;"  hidden="hidden"/></div></td>
+                <input id="content" type="text" class="form-control" placeholder="내용을 입력하세요" name="content" maxlength="1024" style="height: 400px;"  hidden="hidden"/></div></td>
             </tr>
         </table>
       </div>
@@ -90,7 +90,7 @@ a.button2:hover,.button2:hover {
         <!-- <a href="#" class="button" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; onclick="fileUp()">첨부파일</a> -->
           <input class="button" style="max-width: 100; margin: 10px ;  padding: 10px 10px; font-weight: bold;" type="button" value="파일업로드" onclick="fileUp()" />
             <div class="row" style="float: right;">
-           <input class="button2" id="save" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; " type="button" onclick="location.href='Freelist'" value="저장"/>
+           <input class="button2" id="save" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; " type="button" value="저장"/>
             </div>
             <a href="Freelist" class="button" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; float: right;">취소</a>
             </div>
@@ -101,13 +101,27 @@ a.button2:hover,.button2:hover {
 </body>
 <script>
 
+var msg = "${msg}";
+if(msg != ""){
+	alert(msg);
+	msg = "";
+}
+
 //boarduploadForm에서 보내는 elem확인
 $("#save").click(function() {
-	console.log($("#editable").html());
-	$("#editable>a").find("b").remove(); //a태그안 b태그 삭제
-	$("#editable>a").removeAttr("onclick"); //del(this) 무효화
-	$("#content").val($("#editable").html());
-	$("form").submit();
+	var subject = $("#subject").val();
+	var editable = $("#editable").html();
+	if(subject==''|| content==''){
+		console.log("subject:"+subject);
+		console.log("content:"+content);
+		alert("모든 양식을 작성해주세요");
+	}else{
+		$("#editable>a").find("b").remove(); //a태그안 b태그 삭제
+	 	$("#editable>a").removeAttr("onclick"); //del(this) 무효화
+	 	$("#content").val($("#editable").html()); //입력한 값 content에 넣기
+	 	alert("작성완료되었습니다.");
+		$("form").submit(); 
+	}		
 });
 
 function fileUp(){

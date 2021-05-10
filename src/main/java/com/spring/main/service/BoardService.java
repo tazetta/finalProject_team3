@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,8 +23,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.main.dao.BoardDAO;
 import com.spring.main.dto.BoardDTO;
+import com.spring.main.dto.Comments2ndDTO;
 import com.spring.main.dto.CommentsDTO;
-import com.spring.main.dto.GroupDTO;
+import com.spring.main.dto.ExamDTO;
 
 @Service
 public class BoardService {
@@ -112,7 +112,7 @@ public class BoardService {
 		} else if (boardctgidx == 3) {
 			page = "redirect:/tipWriteForm";
 		} else if (boardctgidx == 4) {
-			page = "redirect:/qnaWriteForm";
+			page = "redirect:/QWrite";
 		} else if (boardctgidx == 5) {
 			page = "redirect:/sgtWriteForm";
 		}
@@ -141,7 +141,7 @@ public class BoardService {
 			} else if (boardctgidx == 3) {
 				page = "redirect:/tiplist";
 			} else if (boardctgidx == 4) {
-				page = "redirect:/qnalist";
+				page = "redirect:/helpMain";
 			} else if (boardctgidx == 5) {
 				page = "redirect:/FAQ";
 			}
@@ -385,6 +385,9 @@ public class BoardService {
 
 		return map;
 	}
+	
+
+		
 
 	public HashMap<String, Object> BoardSearchList(int pagePerCnt, int page, String opt, String keyword) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -463,22 +466,27 @@ public class BoardService {
 		return map;
 	}
 
-//우리집 자랑 세부검색
-	public HashMap<String, Object> homeMainList(int pagePerCnt, int page, String order, String formcategory, int budget,
-			int roomsize) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		int end = page * pagePerCnt;
-		int start = end - (pagePerCnt - 1);
-		int maxCnt = boarddao.memberMaxCnt();
-		int maxpage = (int) Math.ceil(maxCnt / (double) pagePerCnt);
-		logger.info("maxCnt : {}", maxCnt);
-		logger.info("maxPage : {}", maxpage);
 
-		map.put("homeMainList", boarddao.homeMain(start, end, order, formcategory, budget, roomsize));
-		map.put("maxPage", maxpage);
-		map.put("currPage", page);
+
+//우리집 자랑 세부검색
+	public Map<String, Object> homeMainList(int pageNum, String keyword,String orderBy, int formcategory, int budget,int roomsize) {
+		Map<String, Object> map = new HashMap<>();
+		// startNum, endNum 생성
+		int limit = 10; // 최대 10개 게시물 목록 보여줄거
+		int startNum = (pageNum - 1) * limit + 1; // 시작페이지
+		int endNum = pageNum * limit; // 마지막 페이지
+		
+		int totalListCount = boarddao.gethomeMainCount(2, keyword, orderBy,  formcategory, budget,  roomsize);
+		map.put("total_page", totalListCount / 10 + 1);
+		
+		ArrayList<BoardDTO> list = boarddao.gethomeMainList(startNum, endNum, keyword, orderBy, formcategory, budget, roomsize);
+		map.put("list", list);
+		
 		return map;
 	}
+
+
+
 
 	public Map<String, Object> getTipmain (int pageNum, String orderBy, String opt, String keyword) { //메서드 선언
 		Map<String, Object> map = new HashMap<>();
@@ -514,49 +522,23 @@ public class BoardService {
 		return map;
 	}
 
-	public ModelAndView boardCntUp(String boardIdx, RedirectAttributes rAttr) {
-		ModelAndView mav = new ModelAndView();
-		int CntUP = boarddao.boardCntUp(boardIdx);
-		boarddao.boardbhitDown(boardIdx);
-		if (CntUP > 0) {
-			msg = "추천성공하였습니다.";
-			page = "redirect:/boarddetail/" + boardIdx;
-		} else {
-			msg = "추천실패했습니다.";
-			page = "redirect:/boarddetail/" + boardIdx;
-		}
-		rAttr.addFlashAttribute("msg", msg);
-		mav.setViewName(page);
-		return mav;
-	}
-
-	public ModelAndView boardCntDown(String boardIdx, RedirectAttributes rAttr) {
-		ModelAndView mav = new ModelAndView();
-		int CntDown = boarddao.boardCntDown(boardIdx);
-		boarddao.boardbhitDown(boardIdx);
-		if (CntDown > 0) {
-			msg = "추천취소하였습니다.";
-			page = "redirect:/boarddetail/" + boardIdx;
-		} else {
-			msg = "추천취소실패했습니다.";
-			page = "redirect:/boarddetail/" + boardIdx;
-		}
-		rAttr.addFlashAttribute("msg", msg);
-		mav.setViewName(page);
-		return mav;
-	}
-
-	public ModelAndView boardScrap(int boardIdx, String id, RedirectAttributes rAttr) {
+	public ModelAndView boardScrap(int boardIdx, String id, RedirectAttributes rAttr, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		int Scrap = boarddao.boardScrap(boardIdx, id);
+		String loginId = (String) session.getAttribute("loginId");
+		if(loginId!=null) {
 		logger.info("스크랩 쿼리문작동완료");
 		if (Scrap > 0) {
 			msg = "스크랩하였습니다.";
-			page = "redirect:/boarddetail/" + boardIdx;
+			page = "redirect:/boarddetail?boardIdx=" + boardIdx;
 		} else {
 			boarddao.boardScrapDel(boardIdx, id);
 			msg = "스크랩취소 했습니다.";
+			page = "redirect:/boarddetail?boardIdx=" + boardIdx;
+		}
+		}else {
 			page = "redirect:/boarddetail/" + boardIdx;
+			msg="로그인이후 스크랩이용부탁드립니다.";
 		}
 		rAttr.addFlashAttribute("msg", msg);
 		mav.setViewName(page);
@@ -575,12 +557,14 @@ public class BoardService {
 		if (commRecChk != null) {
 			logger.info("추천취소하기");
 			int result = boarddao.boardCommDec(commIdx, loginId);
+			int cnt = boarddao.boardCommcntDown(commIdx);
 			logger.info("result:" + result);
 			recResult = "false";
 			msg = "추천취소되었습니다";
 		} else {
 			logger.info("추천하기");
 			int result = boarddao.boardCommRec(commIdx, loginId);
+			int cnt = boarddao.boardCommRecUp(commIdx);
 			logger.info("result:" + result);
 			recResult = "true";
 			msg = "추천되었습니다";
@@ -617,4 +601,156 @@ public class BoardService {
 		return map;
 	}
 
+	public HashMap<String, Object> boardRecommList(int commIdx) {
+		logger.info(" 대댓글 리스트 서비스");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ArrayList<Comments2ndDTO> list = boarddao.boardRecommList(commIdx);
+		int listSize = list.size();
+		logger.info("listSize:" + listSize);
+		map.put("list", list);
+		return map;
+	}
+
+	public HashMap<String, Object> boardRecommDel(int com2ndIdx) {
+		logger.info(" 대댓글 삭제 서비스");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int result = boarddao.boardRecommDel(com2ndIdx);
+		msg = "답글 삭제에 실패했습니다";
+		if (result > 0) {
+			msg = "답글이 삭제 되었습니다";
+		}
+		map.put("msg", msg);
+		return map;
+	}
+
+	public ModelAndView boardRepBoardForm(String boardIdx, HttpSession session) {
+		logger.info("신고 form 서비스");
+		String loginId = (String) session.getAttribute("loginId");
+		ModelAndView mav = new ModelAndView();
+		BoardDTO dto = boarddao.Boarddetail(boardIdx);
+		if(dto!=null) {
+			mav.addObject("dto",dto);
+			mav.addObject("loginId",loginId);
+		}
+		mav.setViewName("reportBoard");
+		return mav;
+	}
+	public ModelAndView boardRepCommForm(int branch, int commIdx, HttpSession session) {
+		logger.info(" 댓글/답글신고 form 서비스");
+		String loginId = (String) session.getAttribute("loginId");
+		ModelAndView mav = new ModelAndView();
+		if(branch==1) { //댓글신고 form요청
+			logger.info("댓글신고 form 요청");
+			CommentsDTO dto = boarddao.boardCommForm(commIdx);
+			if(dto!=null) {
+				mav.addObject("dto",dto);
+				mav.addObject("loginId",loginId);
+				mav.addObject("branch", 1);
+			}
+		}else if(branch==2) { //대댓글 신고 form 요청
+			logger.info("대댓글신고 form 요청");
+			Comments2ndDTO dto = boarddao.boardRecommForm(commIdx);
+			if(dto!=null) {
+				mav.addObject("dto",dto);
+				mav.addObject("loginId",loginId);
+				mav.addObject("branch", 2);
+			}
+		}
+		mav.setViewName("reportComment");
+		return mav;
+	}
+	public HashMap<String, Object> boardRepComm(HashMap<String, String> params) {
+		logger.info("댓글/답글 신고 서비스");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int result = 0;
+		String success= "fail";
+		if(params.get("branch").equals("1")) { //댓글신고
+			logger.info("댓글신고 서비스 다우");
+			result = boarddao.boardRepComm(params); 
+		}else { //대댓글 신고
+			logger.info("대댓글신고 서비스 다우");
+			result = boarddao.boardRepRecomm(params);
+		}
+		logger.info("result:"+result);
+
+		if(result>0) {
+			success ="success";
+		}
+		map.put("success", success);
+		return map;
+	}
+
+	public HashMap<String, Object> boardRepBoard(HashMap<String, String> params) {
+		logger.info("게시글 신고 서비스");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int result = boarddao.boardRepBoard(params); 
+		logger.info("result:"+result);
+		String success="fail";
+		if(result>0) {
+			success="success";
+		}
+		map.put("success", success);
+		return map;
+		
+	}
+
+	public HashMap<String, Object> boardReCommRec(int com2ndIdx, RedirectAttributes rAttr, HttpSession session) {
+		logger.info("대댓글추천 서비스");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String loginId = (String) session.getAttribute("loginId");
+
+		String commRecChk = boarddao.boardReCommRecChk(com2ndIdx, loginId);
+		logger.info("댓글 추천 여부:" + commRecChk);
+
+		String recResult = "";
+		if (commRecChk != null) {
+			logger.info("추천취소하기");
+			int result = boarddao.boardReCommDec(com2ndIdx, loginId);
+			int cnt = boarddao.boardReCommcntDown(com2ndIdx);
+			logger.info("result:" + result);
+			recResult = "false";
+			msg = "추천취소되었습니다";
+		} else {
+			logger.info("추천하기");
+			int result = boarddao.boardReCommRec(com2ndIdx, loginId);
+			int cnt = boarddao.boardReCommcntUp(com2ndIdx);
+			logger.info("result:" + result);
+			recResult = "true";
+			msg = "추천되었습니다";
+		}
+
+		map.put("recResult", recResult);
+		map.put("msg", msg);
+		return map;
+	}
+
+	public HashMap<String, Object> boardRec(int boardIdx, RedirectAttributes rAttr, HttpSession session) {
+		logger.info("대댓글추천 서비스");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String loginId = (String) session.getAttribute("loginId");
+
+		String RecChk = boarddao.boardRecChk(boardIdx, loginId);
+		logger.info("게시글 추천 여부:" + RecChk);
+
+		String recResult = "";
+		if (RecChk != null) {
+			logger.info("추천취소하기");
+			int result = boarddao.boardDec(boardIdx, loginId);
+			int cnt = boarddao.boardCntDown(boardIdx);
+			logger.info("result:" + result);
+			recResult = "false";
+			msg = "추천취소되었습니다";
+		} else {
+			logger.info("추천하기");
+			int result = boarddao.boardRec(boardIdx, loginId);
+			int cnt = boarddao.boardCntUp(boardIdx);
+			logger.info("result:" + result);
+			recResult = "true";
+			msg = "추천되었습니다";
+		}
+
+		map.put("recResult", recResult);
+		map.put("msg", msg);
+		return map;
+	}
 }

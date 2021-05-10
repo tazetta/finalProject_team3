@@ -7,6 +7,7 @@ import com.spring.main.dto.BoardDTO;
 import com.spring.main.dto.EstimateDTO;
 import com.spring.main.dto.MsgDTO;
 import com.spring.main.dto.MyDTO;
+import com.spring.main.dto.PhotoDTO;
 
 public interface MyDAO {
 
@@ -74,9 +75,21 @@ public interface MyDAO {
 
 	ArrayList<MyDTO> mygroupwriteList(int start, int end, String sessionId);
 
+	int receiverChk(String receiver);
 
+	int sendMsg(HashMap<String, String> params);
+	
+	int mygroupbuyAllCount(String sessionId);
 
+	ArrayList<MyDTO> mygroupbuyList(int start, int end, String sessionId);
 
+	int myscrapAllCount(String sessionId);
+
+	ArrayList<MyDTO> myscrapList(int start, int end, String sessionId);
+
+	int mywritehomeAllCount(String sessionId);
+
+	ArrayList<MyDTO> mywritehomeList(int start, int end, String sessionId);
 
 
 }

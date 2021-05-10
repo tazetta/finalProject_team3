@@ -2,8 +2,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-<title>스크랩북</title>
+<title>내 작성글-자유게시판</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- 반응형 디자인을 위한 css/js 라이브러리 -->
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>   
+ <!-- 페이징 라이브러리(제이쿼리 반드시 필요, 버전도 맞아야 함) -->
+<script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
 <style>
 table, td, th {
 	border-collapse: collapse;
@@ -42,20 +47,6 @@ td {
 	margin-bottom: 0px;
 }
 
-input[type="button"], input[type="submit"] {
-	background-color: #acd3fb;
-	cursor: pointer;
-	color: white;
-	font-weight: bold;
-}
-
-input[type="button"]:hover, input[type="submit"]:hover {
-	background-color: #acd3fb;
-	cursor: pointer;
-	box-shadow: 0 2px 4px rgba(0, 79, 255, 0.6);
-	border: 2px solid white;
-	color: white;
-}
 
 #monitor {
 	width: 750px;
@@ -89,6 +80,10 @@ th{
       text-align: center;
 	background-color: dodgerblue;
             }
+
+	.sideBar {
+	float: left;
+}
 </style>
 </head>
 <body>
@@ -101,29 +96,33 @@ th{
 			</div>
 			<div class="sideBar">
 				<form>
-					<table >
-						<c:forEach items="${scrap}}" var="board">
-						<tr>
-							<td id="user" rowspan="2">
-							   <div>
-								  <a href="./scrapDetail?contentId=${scrap.contentid}" target=window.open()><img src="${scrap.firstimage}" width="200px" height="200px">
-								  </a>
-							   </div>
-							 </td>
-						</tr>
-						
-						 <tr>
-							<td id="user" rowspan="2">
-							   <div>
-								  <a href="./scrapDetail?contentId=${scrap.contentid}" target=window.open()><img src="${scrap.firstimage}" width="200px" height="200px">
-								  </a>
-							   </div>
-							 </td>
-							
-							
-						 </tr>
-						 </c:forEach>
+					<table>
+						<h2>스크랩 게시판</h2>
+					   <tr>
+                   	<th style="width:70px">글 번호</th>
+						<th style="width:300px">제목</th>
+						<th style="width:120px">작성자</th>
+						<th style="width:60px">조회수</th>
+						<th style="width:100px">작성일</th>
+                </tr>
+        </thead>
+        </div>
+		<tbody id="list">
+             
+		</tbody>
+			<tr>
+			<td id="paging" colspan="6">
+				<!-- 플러그인 사용 -->
+				<div class="container">
+					<nav aria-label="page navigation" style="text-align: center">
+						<ul class="pagination" id="pagination"></ul>
+					</nav>
+				</div>
+				<!--// 플러그인 사용 -->
+			</td>
+		</tr>
 					</table>
+
 				</form>
 			</div>
 			
@@ -131,29 +130,60 @@ th{
 	</div>
 </body>
 <script>
-	function del(elem) {
-		console.log(elem);
-		var newFileName= elem.id.substring(elem.id.lastIndexOf("/")+1);
-		console.log(newFileName);
-		
-		//1.실제 파일 삭제 요청
-		$.ajax({
-			url:'fileDelete',
-			type:'get',
-			data:{"fileName":newFileName},
-			dataType:'json',
-			success:function(d){
-				console.log(d);
-				if(d.success==1){
-					$(elem).remove();//X 버튼삭제(자기자신)
-				}
-			},
-			error:function(e){
-				console.log(e);
-			}
-		});
-		//2.파일 삭제 요청이 완료 되면 화면에 나타난 사진 삭제
+var showPage = 1;
+var pagePerNum = 10;
+listCall(showPage,pagePerNum);
+
+function listCall(reqPage,reqPagePerNum){
+	 
+	 var reqUrl ='./myscrapList/' + reqPagePerNum + "/" + reqPage;
+	 $.ajax({
+		 url:reqUrl
+		 ,type:'GET'
+		 ,data:{}
+		 ,dataType:'JSON'
+		 ,success:function(data){
+			 console.log(data);
+			 showPage = data.currPage;
+			 console.log(showPage);
+			 console.log(data.list);
+			 listPrint(data.list);
+			 
+				$("#pagination").twbsPagination({
+					startPage:data.currPage,//시작 페이지
+					totalPages:data.range,//생성 가능 최대 페이지
+					visiblePages:5,//5개씩 보여 주겠다.(1~5)
+					onPageClick:function(evt,page){//각 페이지를 눌렀을 경우
+						console.log(evt);
+						console.log(page);
+						listCall(page,pagePerNum);
+					}
+				});
+		 },
+		 error:function(error){
+				console.log(error);
+		 }
+	 });
+}
+	 
+function listPrint(list){
+	 var content = "";
+	 for(var i = 0; i<list.length; i++){
+		content +="<tr>"
+		content +="<td>"+list[i].scrapIdx+"</td>"
+		content +="<td>"+list[i].id+"</td>"
+		content +="<td>"+list[i].boardIdx+"</td>"
+		content +="</tr>"
 	}
+	
+	
+	$("#list").empty();
+	$("#list").append(content);
+}
+var msg = "${msg}";
+if(msg != ""){
+	 alert(msg);
+}
 
 </script>
 </html>

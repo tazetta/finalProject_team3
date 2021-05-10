@@ -39,7 +39,7 @@ a {
 }
 
 .row {
-	width: 400px;
+	width: 200px;
 }
 
 a.button2 {
@@ -54,6 +54,7 @@ a.button2:hover {
 
 a.page-link {
 	color: gray;
+	font-weight:bold;
 }
 
 a.page-link:hover {
@@ -65,8 +66,13 @@ a.page-link:hover {
 
 
 <body>
+ <div style="min-height: 210px; padding-top:50px;">
+	            <jsp:include page="helpNavi.jsp"></jsp:include> 
+	           
+            </div>
+        
 
-	<div class="container" style="text-align: center; padding-top: 10px;">
+	<!--  <div class="container" style="text-align: center; padding-top: 10px;">
 		<input type="text" size="75" id="keywordForTotalSearch" name="keyword"
 			style="border-radius: 5px; border: 2px solid rgb(203, 228, 248);"
 			placeholder="검색어를 입력해주세요."> &nbsp;
@@ -78,7 +84,7 @@ a.page-link:hover {
 			style="font-size: small; float: right; color: gray; font-weight: bold;">|회원가입</a></span>
 		<span><a href=""
 			style="font-size: small; float: right; color: gray; font-weight: bold;">로그인</a></span>
-	</div>
+	</div>-->
 	<br />
 	<div class="container"
 		style="height: 200px; background-color: rgb(184, 185, 190); text-align: center;">
@@ -107,11 +113,13 @@ a.page-link:hover {
 	<br />
 	<div class="container">
 		<div class="row">
-			<a href="QWrite" class="button"
-				style="max-width: 110; margin: 10px; padding: 10px 20px; font-weight: bold;">질문하기</a>
+			<a href="boardWriteForm?boardCtgIdx=4" class="button"
+				style="max-width: 70; margin: 10px; padding: 10px 20px; font-weight: bold;">질문하기</a>
+		
 			<a href="#" class="button2" id="isWaitForAnswerBtn"
-				style="max-width: 200; margin: 10px; padding: 10px 20px; font-weight: bold;">답변을
+				style="max-width: 150; margin: 10px; padding: 10px 20px; font-weight: bold;">답변을
 				기다리는 질문</a>
+		</div>
 			<div class="container">
 				<select name="idx" id="miniopt"
 					style="float: right; border-radius: 5px; border: 2px solid gray;">
@@ -119,7 +127,6 @@ a.page-link:hover {
 					<option value="comment">답변순</option>
 				</select>
 			</div>
-		</div>
 	</div>
 
 	<div class="container">
@@ -153,7 +160,7 @@ a.page-link:hover {
 		</div>
 	</div>
 	
-	<div id="pagination-div" style="text-align : center"></div>
+	<div id="pagination-div" style="padding-left:40%; margin-top:15px;"></div>
 			<!-- <ul class="pagination justify-content-center">
 				<li class="page-item"><a class="page-link" href="#">이전</a></li>
 				<li class="page-item"><a class="page-link" href="#">1</a></li>
@@ -180,6 +187,7 @@ $('button#btnForTotalSearch').click(function() {
 $(document).ready(function() {
 			// 목록을 조회하는 함수.
 			function getList(pageNum, opt, keyword, orderBy, isWaitForAnswer) {
+			
 				/*
 				 * pageNum, opt, keyword
 				 * 값이 없으면 초기값 사용.
@@ -230,7 +238,7 @@ $(document).ready(function() {
 									</tr>
 									 */
 									sHtml += '<tr>';
-									sHtml += '	<td><a href="boarddetail/' + oInfo.boardIdx +'">'
+									sHtml += '	<td><a href="boarddetail?boardIdx=' + oInfo.boardIdx +'">'
 											+ oInfo.subject
 											+ '</a></td>';
 									sHtml += '	<td>' + oInfo.id
@@ -310,5 +318,6 @@ $(document).ready(function() {
 			// 페이지 진입시 초기에 목록 조회.
 			getList();
 		});
+		
 </script>
 </html>

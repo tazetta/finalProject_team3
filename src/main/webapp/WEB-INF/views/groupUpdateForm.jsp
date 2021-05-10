@@ -28,15 +28,15 @@ input[type='text'] {
 </style>
 </head>
 <body>
+ <jsp:include page="mainnavi.jsp"></jsp:include> 
+
 	<h3>수정하기</h3>
 	<form action="/main/groupUpdate" method="post">
 		<table>
 			<tr>
 				<td><select name="gpCtgIdx">
 					
-					<%-- <c:if test="${dto.gpCtgIdx =='1'}"></c:if> --%>
-						<option value="1">공동구매</option>
-						
+						<option value="1">공동구매</option>					
 						<option value="2">무료나눔</option>
 				</select></td>
 				<td><input type="text" name="subject" value="${dto.subject }"/>
@@ -153,7 +153,7 @@ function maxUserChk(elem){
 					$("#maxUser").val(elem[0]);  //초기값으로 설정
 					alert("현재신청한 인원보다 작게 설정할 수 없습니다");
 					
-				}else if(data.currUser==elem[0]){ //변경한 최대참여자수가 현재신청인원수와 같다면
+				}else if(data.currUser==elem[1]){ //변경한 최대참여자수가 현재신청인원수와 같다면
 					 if(confirm("현재신청인원수와 일치합니다. 마감하시겠습니끼?")){
 						 //마감을 원한다면
 						 console.log("마감O");
@@ -200,17 +200,17 @@ String.prototype.zf = function (len) { return "0".string(len - this.length) + th
 Number.prototype.zf = function (len) { return this.toString().zf(len); };
 
 var today = new Date();
-today = today.format("yyyy-MM-dd");
+today = today.format("yyyy-MM-dd"); //오늘날짜
 
 
-/* 날짜 변경시  초기값으로 등록된 날짜 이후로 설정하도록 강제*/
+/* 날짜 변경시  오늘 이전으로 설정하지 못하도록 강제*/
 $("#deadline").on("change", function dateChk(e){
  		var deadline = $(this).val();
  		var defaultVal = $(this).prop("defaultValue");
  		console.log("deadline:"+deadline);
  		console.log("defaultVal:"+defaultVal);
- 	if(deadline<defaultVal){
- 		alert("마감일은 처음 등록된 값보다 이전으로 설정 할 수 없습니다.")
+ 	if(deadline<today){
+ 		alert("마감일은 오늘날짜보다 이전으로 설정 할 수 없습니다.")
  		$(this).val(defaultVal); 
  	}
 });
@@ -246,6 +246,28 @@ if(selected==2){ //인원부족마감에서
 	 		$("#deadline").val(today); 
 		}
 	}
+});
+	/* 인원부족마감인 상태에서 날짜변경시 진행중으로 변경묻기*/
+	$("#deadline").on("change", function dateChk(e){
+ 		var deadline = $(this).val();
+ 		var defaultVal = $(this).prop("defaultValue");
+ 		console.log("deadline:"+deadline);
+ 		console.log("defaultVal:"+defaultVal);
+ 	if(deadline>=today){
+ 		if(confirm("진행중으로 변경하시겠습니까?")){
+ 			$("#progIdx").val(1); //진행중으로 변경
+ 		}else{
+ 			$("#deadline").val(defaultVal);  //원래값으로 강제
+ 		}
+ 	}
+});
+	/*인원부족마감인 상태에서 마감으로 변경시 인원부족마감으로 강제*/
+	$("#progIdx").change(function(){ 
+		if($("#progIdx").val() ==3){ //마감으로 변경시
+			alert("현재 모집인원이 부족하여 인원부족마감으로 변경합니다.");
+			$("#progIdx").val(2); //인원부족마감으로 변경
+		}
+	
 });
 }
 
@@ -287,7 +309,26 @@ if(selected==3){ //마감상태에서
 			 }
 		}
 	});
+	
+	/*마감인 상태에서 최대인원 수정시 진행중으로 변경묻기*/
+	$("#maxUser").change(function(e){
+		var defaultVal = $(this).prop("defaultValue");
+		var currVal = $(this).val();
+		
+		if(currVal > defaultVal){
+			if(confirm("진행중으로 변경하시겠습니까?")){
+	 			$("#progIdx").val(1); //진행중으로 변경
+	 		}else{
+	 			$(this).val(defaultVal); //원래값으로 강제
+	 		}
+		}
+	});
 }
+
+
+
+
+	
 
  
 

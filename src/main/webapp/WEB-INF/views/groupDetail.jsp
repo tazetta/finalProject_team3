@@ -9,7 +9,7 @@
 <title>상세보기</title>
 <style>
 
-table, td, th {
+#groupTable table,#groupTable td,#groupTable th {
 	width: 1100px;
 	padding: 5px 10px;
 	text-align: center;
@@ -94,8 +94,9 @@ background-color: #F2F1F1;
 </style>
 </head>
 <body>
-	<a href="/main/logout">로그아웃</a>
-	<table>
+ <jsp:include page="mainnavi.jsp"></jsp:include> 
+
+	<table id="groupTable">
 		<tr>
 			<th>idx</th>
 			<th>카테고리</th>
@@ -103,6 +104,7 @@ background-color: #F2F1F1;
 			<th>제목</th>
 			<th>작성자</th>
 			<th>작성일</th>
+			<th>조회수</th>
 			<th>진행상황</th>
 		</tr>
 		<tr>
@@ -113,10 +115,11 @@ background-color: #F2F1F1;
 			<td>${dto.subject}</td>
 			<td><span class="grade">${writerGrade}</span>&nbsp;${dto.id}</td>
 			<td>${dto.reg_date}</td>
+			<td>${dto.gHit}</td>
 			<td>${dto.progress}</td>
 		</tr>
 		<tr>
-			<td colspan="5" style="padding: 20px">${dto.content}</td>
+			<td colspan="6" style="padding: 20px">${dto.content}</td>
 			<td style="width: 20%">현재인원/모집인원 : <span id="groupCnt">${dto.currUser }/${dto.maxUser}</span>
 				<br />마감날짜 : <b>${dto.deadline}</b> <br /> 
 				
@@ -137,7 +140,7 @@ background-color: #F2F1F1;
 		<c:if test="${state eq 'true'  || dto.id == sessionScope.loginId }">
 		<!-- 신청자와 작성자에게만 노출 -->
 			<tr>
-				<td colspan="6">
+				<td colspan="7">
 					<div id="kakaoLink">
 						오픈카카오톡 링크 : <a href="${dto.chatURL }" target="_blanck">${dto.chatURL }</a>
 					</div>
@@ -145,7 +148,7 @@ background-color: #F2F1F1;
 				</td>
 			</tr>
 			<tr>
-				<td colspan="6"><b>신청자</b>
+				<td colspan="7"><b>신청자</b>
 					<div id="applicant">
 						<!-- 신청자 명단 불러올 영역 -->
 					</div></td>
@@ -189,7 +192,7 @@ background-color: #F2F1F1;
 	
 	groupCommentList(); //댓글리스트 호출
 
-	/*글 신고*/
+	/*글 신고 새창*/
 	function reportBoard(){
 		window.open("groupRepBoardForm/${dto.gpIdx}","reportBoard","width=800, height=600");
 		//요청url,타이틀,옵션
@@ -229,27 +232,6 @@ background-color: #F2F1F1;
 		});
 	}
 
-	/* 모집인원 달성시 마감으로 변경 */
-	if ("${dto.currUser}" == "${dto.maxUser}" && "${dto.progIdx}" !='3') { 
-		progUpdate();
-	}
-
-	function progUpdate() {
-		var reqUrl = './progUpdate/${dto.gpIdx}/${dto.progIdx}';
-		$.ajax({
-			url : reqUrl,
-			type : "get",
-			data : {},
-			dataType : "JSON",
-			success : function(data) {
-				console.log("success: ", data);
-
-			},
-			error : function(error) {
-				console.log("error:", error);
-			}
-		});
-	}
 	
 	/* 댓글 등록 */
 	$("#commentSave").click(function(){
@@ -333,7 +315,8 @@ background-color: #F2F1F1;
 		}else{
 		//대댓글작성
 		content += '<a href="javascript:void(0)"; onclick="recommForm('+list[i].commIdx+')">답글달기</a>&nbsp;&nbsp;';
-		content += '<a href="#">신고</a></td>' ;
+		//댓글 신고
+		content += '<a href="javascript:void(0)"; onclick="repCommForm('+list[i].commIdx+')">신고</a></td>' ;
 		}
 		content += '</tr>';
 		content += '</table>';
@@ -506,7 +489,7 @@ background-color: #F2F1F1;
 			content += '<button class="commDel" onclick="groupRecommentDel('+list.com2ndIdx+')">삭제</button>' ; 
 			
 		}else{
-		content += '<a href="#">신고</a></td>' ;
+		content += '<a href="javascript:void(0)"; onclick="repRecommForm('+list.com2ndIdx+')">신고</a></td>' ;
 		}
 		content += '</tr>';
 		content += '</table>';
@@ -539,6 +522,16 @@ background-color: #F2F1F1;
 			}else{
 				console.log("삭제취소");
 			}	
+	}
+	
+	/* 댓글 신고 새창 */
+	function repCommForm(commIdx){
+		window.open("groupRepCommForm/1/"+commIdx,"reportComment","width=800, height=600");
+	}
+	
+	/* 대댓글 신고 새창 */
+	function repRecommForm(com2ndIdx){
+		window.open("groupRepCommForm/2/"+com2ndIdx,"reportRecomment","width=800, height=600");
 	}
 	
 	

@@ -28,10 +28,23 @@ a {
 	text-decoration: none;
 	border-radius: 4px;
 }
+    a.page-link {
+	color: gray;
+	font-weight:bold;
+}
+
+a.page-link:hover {
+	color: rgba(255, 255, 255, 0.85);
+	box-shadow: rgb(173, 170, 169) 0 0px 0px 40px inset;
+}
 </style>
 <body>
-	<form action="Freelist">
-		<div class="container" style="text-align: center; padding-top: 10px;">
+  
+
+	 <div style="min-height: 210px; padding-top:50px;">
+	            <jsp:include page="mainnavi.jsp"></jsp:include> 
+            </div>
+		<!--  <div class="container" style="text-align: center; padding-top: 10px;">
 			<select name="opt" id="searchOpt" style="border-radius: 5px;">
 				<option value="all" selected>전체</option>
 				<option value="subject">제목</option>
@@ -48,9 +61,10 @@ a {
 				style="font-size: small; float: right; color: gray; font-weight: bold;">|회원가입</a></span>
 			<span><a href=""
 				style="font-size: small; float: right; color: gray; font-weight: bold;">로그인</a></span>
-		</div>
-	</form>
+		</div>-->
+	
 	<hr />
+	
 	<div class="container">
 		<table class="table table-hover">
 			<thead style="background-color: rgb(170, 187, 247); color: white;">
@@ -77,21 +91,24 @@ a {
 			</tbody>
 		</table>
 		<hr />
-		<div class="row">
-			<div class="col">
-				<div id="pagination-div"></div>
-
-
-			</div>
-		</div>
-
 		<button class="btn" id="btn2"
-			style="border-radius: 5px; background-color: rgb(170, 187, 247); font-weight: bold; color: white;"
+			style="border-radius: 5px; float:right; background-color: rgb(170, 187, 247); font-weight: bold; color: white;"
 			onclick="location.href='boardWriteForm?boardCtgIdx=1'">글쓰기</button>
 	</div>
+		
+				<div id="pagination-div"  style="padding-left:43%; margin-top:25px;"></div>
+
+
+		
 </body>
 
-<script type="text/javascript">
+<script>
+	var msg = "${msg}";
+	if(msg != ""){
+		alert(msg);
+		msg = "";
+	}
+
 	// 페이지 로딩이 끝난 후 동작.
 	/*
 	$('button').click(function() {
@@ -103,8 +120,7 @@ a {
 		}
 	});
 	*/
-	$(document).ready(
-					function() {
+	$(document).ready(function() {
 						// 목록을 조회하는 함수.
 						function getList(pageNum, opt, keyword) {
 							/*
@@ -152,7 +168,7 @@ a {
 												</tr>
 												 */
 												sHtml += '<tr>';
-												sHtml += '	<td><a href="boarddetail/' + oInfo.boardIdx +'">'
+												sHtml += '	<td><a href="boarddetail?boardIdx=' + oInfo.boardIdx +'">'
 														+ oInfo.subject
 														+ '</a></td>';
 												sHtml += '	<td>' + oInfo.id

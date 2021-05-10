@@ -217,42 +217,43 @@
 		<if test="param3.equals('id') and !param4.equals('')">AND id LIKE '%'||#{param4}||'%' </if>
 		)
 
-		WHERE rnum BETWEEN #{param1} AND #{param2}
+		WHERE RNUM BETWEEN #{param1} AND #{param2}
 
+	</select>
+	<!-- 우리집 자랑 전체 목록 조회 -->
+	<select id="gethomeMainCount" resultType="int">
+	 SELECT COUNT(boardidx) FROM board WHERE brdctgidx = #{param1}
+	 	<if test="param2 == '' and param4 == 0 and param5 == 0 and param6 == 0">
+	 		AND blind = 'n'
+	 	</if>
+	 	<if test="param2 != ''">
+	 		AND content like #{param2} AND blind = 'n'
+	 	</if>
+	 	<if test="param4 != 0">
+			AND formidx = #{param3}	AND blind = 'n'
+	 	</if>
+	 	<if test="param5 != 0">
+			AND budget = #{param4} AND blind = 'n'
+	 	</if>
+	 	<if test="param6 != 0">
+			AND roomsize like #{param6} AND blind = 'n'
+	 	</if>
 	</select>
 	
 	<!-- 우리집 자랑 세부검색 -->
-	<select resultType="com.spring.main.dto.BoardDTO"
-		id="homeMainList">
-		SELECT cntreco,FORMIDX,BUDGET,ROOMSIZE,ID,SUBJECT
-		FROM (SELECT ROW_NUMBER() OVER (ORDER BY REG_DATE DESC) AS RNUM,
-		BOARDIDX,SUBJECT,CONTENT,ID,REG_DATE,ROOMSIZE,BUDGET,KEYITEMS,BHIT,BLIND,BRDCTGIDX,FORMIDX,EMAIL,
-		cntreco
-		FROM BOARD)
-		<if
-			test="param3 == 0 param4 == 0 and param5 == 0 and param6 == 'none'">
-			WHERE rnum BETWEEN #{param1} AND #{param2} order by rnum desc
-		</if>
-		<if test="param3 == 1 || param3 == 2">
-			order by #{param3} desc
-		</if>
-
-		<if test="param4 == 1 || param4 == 2 || param4 == 3 || param4 == 4">
-			WHERE FORMIDX=#{param4} AND rnum BETWEEN #{param1} AND #{param2} order by
-			FORMIDX desc
-		</if>
-		<if
-			test="param5 == 1 || param5 == 2 || param5 == 3 || param5 == 4 || param5 == 5 || param5 == 6 || param5 == 7 || param5 == 8">
-			WHERE BUDGET= #{param5} AND rnum BETWEEN #{param1} AND #{param2}
-			order by BUDGET desc
-		</if>
-		<if test="param6 != 'none'">
-			WHERE ROOMSIZE= #{param6} AND rnum BETWEEN #{param1} AND #{param2} order
-			by ROOMSIZE desc
-		</if>
+	<select id="gethomeMainList" resultType="com.spring.main.dto.BoardDTO">
+		SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY ${param4} DESC) AS rnum, b.boardidx, b.subject, b.id, b.reg_date, b.brdctgidx, b.keyitems, b.budget, b.roomsize, b.blind, b.formidx, b.bhit, b.cntreco, p.newfilename FROM (
+		(SELECT photoidx, newfilename, boardidx FROM (SELECT photoidx, newfilename, boardidx FROM photos) where ROWID IN (SELECT MAX(ROWID) FROM photos GROUP BY boardidx)) p 
+		), board b WHERE p.boardidx = b.boardIdx AND brdctgidx = 2)
+		<where>
+			<if test="param3 == '' and param5 == 0 and param6 == 0 and param7 == 0">rnum BETWEEN #{param1} AND #{param2}</if>
+			<if test="param3 != ''">keyword like #{param3} AND rnum BETWEEN #{param1} AND #{param2}</if>
+			<if test="param5 != 0">formidx = #{param5} AND rnum BETWEEN #{param1} AND #{param2}</if>
+			<if test="param6 != 0">budget <![CDATA[<]]> #{param6} AND rnum BETWEEN #{param1} AND #{param2}</if>		
+			<if test="param7 != 0">roomsize = #{param7}  AND rnum BETWEEN #{param1} AND #{param2}</if>
+		</where>
 	</select>
-
-
+<!-- 		(startNum, endNum, keyword, orderBy, formcategory, budget, roomsize) -->
 
 
 	<!--게시판카테고리 -->
@@ -406,21 +407,6 @@
 	<delete id="boardScrapDel">
 			DELETE FROM scrap WHERE boardIdx=${param1} and id=#{param2}
 	</delete>
-	<!--게시물신고하기-->
-	<insert id="boardreport">
-		INSERT INTO reports (repIdx,id,boardIdx,repCtgIdx)
-		VALUES (reports_seq.NEXTVAL,#{id},#{boardIdx},#{repCtgIdx});
-	</insert>
-	<!--댓글신고하기-->
-	<insert id="comreport">
-	INSERT INTO reports (repIdx,id,commIdx,repCtgIdx)
-		VALUES (reports_seq.NEXTVAL,#{id},#{commIdx},#{repCtgIdx});
-	</insert>
-	<!--대댓글신고하기-->
-	<insert id="com2report">
-		 INSERT INTO reports (repIdx,id,com2ndidx,repCtgIdx)
-		VALUES (reports_seq.NEXTVAL,#{id},#{com2ndIdx},#{repCtgIdx});
-	</insert>
 	
 	<select id="fileList" resultType="com.spring.main.dto.PhotoDTO">
 		SELECT * FROM photos WHERE boardIdx=#{param1}
@@ -428,19 +414,19 @@
 	<!--로그인아이디 비교-->
 	<select id="boardCommRecChk" resultType="String">
 		SELECT id FROM recommend WHERE commIdx=#{param1} AND id=#{param2}
-	<!--대댓글작성--></select>
+	<!--댓글작성--></select>
 	<insert id="boardCommRec">
 		INSERT INTO recommend (recIdx,commIdx,id) VALUES (recomend_seq.NEXTVAL,#{param1},#{param2}) 
 	</insert>
-	<!--대댓글삭제-->
+	<!--댓글추천삭제-->
 	<delete id="boardCommDec">
 		DELETE  FROM recommend WHERE commIdx=#{param1} AND id=#{param2}
 	</delete>
-	<!--해당아이디대댓글표시 -->
+	<!--내가추천한댓글 -->
 	<select id="myRecList" resultType="board">
 		 SELECT commIdx FROM recommend WHERE id=#{param1}
 	</select>
-	
+	<!--대댓글작성 -->
 	<insert id="boardRecommWrite">
 		INSERT INTO comments_2nd (com2ndIdx, COMMENTS, id, commIdx) 
 		VALUES (comments_2nd_seq.NEXTVAL, #{comments}, #{loginId}, #{commIdx})
@@ -450,5 +436,77 @@
 	SELECT rnum, newFileName 
 			FROM (SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, newFileName, id FROM photos WHERE id=#{param1}) 
 	</select>
+	<!--대댓글 리스트-->
+	<select id="boardRecommList" resultType="comments2nd">
+		  SELECT s.commIdx, s.com2ndIdx, s.comments, s.reg_date, s.id FROM comments c, comments_2nd s 
+		  WHERE  c.commIdx=s.commIdx(+) AND c.commIdx=#{param1} AND s.blind='n' ORDER BY s.com2ndIdx DESC 
+	</select>
+	<!--대댓글삭제-->
+	<update id="boardRecommDel">
+		 UPDATE comments_2nd SET blind='y' WHERE com2ndIdx=#{com2ndIdx}
+	</update>
+	<!-- 게시물 신고 -->
+	 <insert id="boardRepBoard">
+		INSERT INTO reports (repIdx,id,targetId,boardIdx,repCtgIdx) VALUES (reports_seq.NEXTVAL,#{id},#{targetId},#{boardIdx},#{repCtgIdx})
+	</insert> 
+	<!-- 댓글신고 이동 -->
+	<select id="boardCommForm" resultType="comments">
+		SELECT commIdx, comments, reg_date, blind, id, boardIdx FROM comments WHERE commIdx=#{commIdx}
+	</select>
+	<!--댓글 신고처리  -->
+	<insert id="boardRepComm">
+		INSERT INTO  reports (repIdx,id,targetId,commIdx,repCtgIdx) VALUES (reports_seq.NEXTVAL,#{id},#{targetId},#{commIdx},#{repCtgIdx})
+	</insert>
+	<!-- 대댓글 신고이동 -->
+	<select id="boardRecommForm" resultType="comments2nd">
+		SELECT com2ndIdx, comments, reg_date, blind, id FROM comments_2nd WHERE com2ndIdx=#{commIdx}
+	</select>
+	<!--대댓글 신고처리-->
+	<insert id="boardRepRecomm">
+		INSERT INTO  reports (repIdx,id,targetId,com2ndIdx,repCtgIdx) VALUES (reports_seq.NEXTVAL,#{id},#{targetId},#{com2ndIdx},#{repCtgIdx})
+	</insert>
 	
+	<!--대댓글 아이디체크-->
+	<select id="boardReCommRecChk" resultType="String">
+		SELECT id FROM recommend WHERE com2ndIdx=#{param1} AND id=#{param2}
+	<!--대댓글작성--></select>
+	<insert id="boardReCommRec">
+		INSERT INTO recommend (recIdx,com2ndIdx,id) VALUES (recomend_seq.NEXTVAL,#{param1},#{param2}) 
+	</insert>
+	<!--대댓글추천삭제-->
+	<delete id="boardReCommDec">
+		DELETE  FROM recommend WHERE com2ndIdx=#{param1} AND id=#{param2}
+	</delete>
+	<!--대댓글 cnt 증가 -->
+	<update id="boardReCommcntUp">
+		UPDATE comments_2nd SET cnt=cnt+1 WHERE
+		com2ndIdx=#{com2ndIdx}
+	</update>
+	<!-- 대댓글 cnt 감소 -->
+	<update id="boardReCommcntDown">
+		UPDATE comments_2nd SET cnt=cnt-1 WHERE
+		com2ndIdx=#{com2ndIdx}
+		</update>
+		<!--댓글 cnt 증가 -->
+	<update id="boardCommRecUp">
+		UPDATE comments SET cnt=cnt+1 WHERE
+		commIdx=#{commIdx}
+	</update>
+	<!-- 댓글 cnt 감소 -->
+	<update id="boardCommcntDown">
+		UPDATE comments SET cnt=cnt-1 WHERE
+		commIdx=#{commIdx}
+		</update>
+	<!--게시글추천 아이디체크-->
+	<select id="boardRecChk" resultType="String">
+		SELECT id FROM recommend WHERE boardIdx=#{param1} AND id=#{param2}
+	</select>
+	<!--게시글추천하기-->
+	<insert id="boardRec">
+		INSERT INTO recommend (recIdx,boardIdx,id) VALUES (recomend_seq.NEXTVAL,#{param1},#{param2}) 
+	</insert>
+	<!--게시글추천삭제-->
+	<delete id="boardDec">
+		DELETE  FROM recommend WHERE boardIdx=#{param1} AND id=#{param2}
+	</delete>
 </mapper>

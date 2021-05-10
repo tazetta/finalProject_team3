@@ -97,8 +97,45 @@ SELECT gpIdx ,  subject , content , id , progIdx, reg_date, gHit rnum
     WHERE rnum BETWEEN #{param1} AND #{param2}
 </select>
 
+<!--내가 신청한 공동구매  -->
+<select id="mygroupbuyAllCount" resultType="int" parameterType="String">
+	SELECT COUNT(gpIdx) FROM GROUPPURCHASE WHERE id = #{param1}
+</select>
+
+<select id="mygroupbuyList" resultType="com.spring.main.dto.GroupDTO">
+SELECT gpIdx ,  subject , content , id , progIdx, reg_date, gHit rnum 
+    FROM (SELECT gpIdx , subject , content , id , progIdx, reg_date, gHit,
+    ROW_NUMBER() OVER(ORDER BY gpIdx DESC) AS rnum FROM GROUPPURCHASE  WHERE ID=#{param3})
+    WHERE rnum BETWEEN #{param1} AND #{param2}
+</select>
 
 
+
+<!--나의 스크랩  -->
+<select id="myscrapAllCount" resultType="int" parameterType="String">
+	SELECT COUNT(scrapIdx) FROM scrap WHERE id = #{param1}
+</select>
+
+<select id="myscrapList" resultType="com.spring.main.dto.BoardDTO">
+SELECT scrapIdx  , id , boardIdx, rnum 
+    FROM (SELECT scrapIdx   ,  id , boardIdx, 
+    ROW_NUMBER() OVER(ORDER BY scrapIdx DESC) AS rnum FROM scrap  WHERE ID=#{param3})
+    WHERE rnum BETWEEN #{param1} AND #{param2}
+</select>
+
+
+<!--우리집 자랑  -->
+<select id="mywritehomeAllCount" resultType="int" parameterType="String">
+	SELECT COUNT(photoIdx) FROM PHOTOS WHERE id = #{param1}
+</select>
+
+<select id="mywritehomeList" resultType="com.spring.main.dto.PhotoDTO">
+SELECT * FROM 
+(SELECT ROW_NUMBER() OVER(ORDER BY photoidx DESC) AS rnum,  b.subject, b.boardIdx, p.newFileName FROM 
+(SELECT photoidx, newfilename, boardidx 
+    FROM (SELECT photoidx, newfilename, boardidx FROM photos) 
+    where ROWID IN (SELECT MAX(ROWID) FROM photos GROUP BY boardidx)) p , board b WHERE p.boardidx = b.boardIdx AND b.brdCtgIdx=2) ORDER BY rnum ASC
+</select>
 
 
 
@@ -143,6 +180,12 @@ SELECT msgidx , sender , receiver , content , reg_date, rnum
 </update>
 
 
+<select id="receiverChk" resultType="int">
+	SELECT COUNT(id) FROM generalmember WHERE id=#{param1}
+</select>
 
+<insert id="sendMsg" parameterType="hashmap">
+	INSERT INTO msg (msgidx, sender, receiver , content )values(MSG_SEQ.NEXTVAL,  #{sender} , #{receiver} , #{content})
+</insert>
 
 </mapper>

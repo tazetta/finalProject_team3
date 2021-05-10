@@ -99,7 +99,7 @@ select:hover {
 	float: left;
 }
 
-#reportedBrd {
+#reportedGroup {
 	font-weight: 600;
 	text-decoration: underline;
 }
@@ -114,7 +114,7 @@ select:hover {
 					<div class="sideBar" style="margin-right: 15px;">
 						<div
 							style="display: flex; justify-content: space-between; margin-right: 10px;">
-							<div class="headDESC">신고된 게시글</div>
+							<div class="headDESC">신고된 공동구매</div>
 							<div>
 								<select id="repCtgIdx" class="inputs">
 									<option value="0">신고사유</option>
@@ -174,7 +174,7 @@ $("#repCtgIdx").change(()=>{
 });
 
 function listCall(reqPage,repCtgIdx) {	
-	var reqUrl = 'adminReportedBrdList/'+10+'/'+reqPage+'/'+repCtgIdx;
+	var reqUrl = 'adminReportedGroupList/'+10+'/'+reqPage+'/'+repCtgIdx;
 	$.ajax({
 		url:reqUrl
 		,data:{}
@@ -211,7 +211,7 @@ function listPrint(list){
 	var content = "";
 	console.log("list.length : "+list.length);
 		if(list.length == 0) {
-			content += "<tr><td colspan='6'>현재 신고된 게시글이 없습니다.</td></tr>";
+			content += "<tr><td colspan='6'>현재 신고된 공동구매가 없습니다.</td></tr>";
 		} else {
 			for(var i=0;i<list.length;i++){
 			content += "<tr>"
@@ -229,11 +229,11 @@ function listPrint(list){
 				var date = new Date(list[i].reg_date);
 				content += "<td>"+date.toLocaleDateString("ko-KR")+"</td>"
 				if(list[i].blind == 'n'){
-					content += "<td><input type='checkbox' id="+(list[i].boardIdx)+" value='블라인드' />블라인드</td>"
+					content += "<td><input type='checkbox' id="+(i)+" value="+(list[i].gpIdx)+" />블라인드</td>"
 				} else {
 					content += "<td style='color: red;'>블라인드 중</td>"
 				}
-				content += "<td><input type='button' value='확인' style='width: 50px;' class='inputs' id="+(list[i].boardIdx+'Btn')+" /></td>"
+				content += "<td><input type='button' value='확인' style='width: 50px;' class='inputs' onclick='blind("+(i)+")' /></td>"
 			content += "</tr>"
 		}
 	}
@@ -241,5 +241,22 @@ function listPrint(list){
 	$("#list").append(content);
 }
 
+function blind(i){	
+	if($("#"+i).prop("checked")){
+		var gpIdx = $("#"+i).val();
+		$.ajax({
+			url: "adminGroupBlind/"+gpIdx
+			,data: {}
+			,type: "get"
+			,dataType: "JSON"
+			,success:(data)=>{
+				listCall(1, 0);
+			}
+			,error:(error)=>{
+				console.log(error);
+			}
+		});
+	}
+}
 </script>
 </html>

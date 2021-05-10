@@ -33,7 +33,7 @@
 						rows="10"></textarea></td>
 			</tr>
 			<tr>
-				<th><input type="button" onclick="goSubmit()" value="보내기" /></th>
+				<th><input type="button" onclick="goSubmit()"  value="보내기" /></th>
 			</tr>
 		</table>
 	</form>
@@ -56,7 +56,7 @@
 		var $content = $("#content");
 
 		var params = {};
-		var reqUrl = './sendMsg';
+		var reqUrl = '../sendMsg';
 		params.sender = $sender.val();
 		params.receiver = $receiver.val();
 		params.content = $content.val();

@@ -14,7 +14,7 @@ public interface GroupDAO {
 
 	GroupDTO groupDetail(int gpIdx);
 
-	void groupWriteFile(String key, String string, int gpIdx);
+	void groupWriteFile(String key, String string, int gpIdx, String string2);
 
 	String groupCtg(int gpCtgIdx);
 	
@@ -81,6 +81,18 @@ public interface GroupDAO {
 	int groupRecommDel(int com2ndIdx);
 
 	ReportDTO groupRepBoardForm(int gpIdx);
+
+	int groupRepBoard(HashMap<String, String> params);
+
+	CommentsDTO groupCommForm(int commIdx);
+
+	int groupRepComm(HashMap<String, String> params);
+
+	Comments2ndDTO groupRecommForm(int commIdx);
+
+	int groupRepRecomm(HashMap<String, String> params);
+
+	void groupDownHit(int gpIdx);
 
 
 

@@ -15,11 +15,15 @@
 	</insert>
 	
 	<select id="groupDetail" resultType="group">
-	 SELECT GPIDX,SUBJECT,CONTENT,CHATURL,PROGIDX,ID,MAXUSER,CURRUSER,DEADLINE,GPCTGIDX,reg_date FROM groupPurchase WHERE GPIDX=#{gpIdx}
+	 SELECT GPIDX,SUBJECT,CONTENT,CHATURL,PROGIDX,ID,MAXUSER,CURRUSER,DEADLINE,GPCTGIDX,reg_date,gHit FROM groupPurchase WHERE GPIDX=#{gpIdx}
 	</select>
 	
 	<update id="groupUpHit" >
 		UPDATE groupPurchase SET gHit=gHit+1 WHERE gpIdx=#{gpIdx}
+	</update>
+	
+	<update id="groupDownHit" >
+		UPDATE groupPurchase SET gHit=gHit-1 WHERE gpIdx=#{gpIdx}
 	</update>
 	
 	<!-- 카테고리  -->
@@ -33,8 +37,8 @@
 	</select>
 	
 	<insert id="groupWriteFile">
-		INSERT INTO photos (PHOTOIDX, NEWFILENAME, ORIFILENAME, GPIDX) 
-		VALUES (photos_seq.NEXTVAL, #{param1}, #{param2}, #{param3})
+		INSERT INTO photos (PHOTOIDX, NEWFILENAME, ORIFILENAME, GPIDX, id) 
+		VALUES (photos_seq.NEXTVAL, #{param1}, #{param2}, #{param3},#{param4})
 	</insert>
 	
 	<select id="groupList"  parameterType="int" resultType="group">
@@ -214,6 +218,28 @@
 	<update id="groupRecommDel">
 		 UPDATE comments_2nd SET blind='y' WHERE com2ndIdx=#{com2ndIdx}
 	</update>
+	
+	 <insert id="groupRepBoard">
+		INSERT INTO reports (repIdx,id,targetId,gpIdx,repCtgIdx) VALUES (reports_seq.NEXTVAL,#{id},#{targetId},#{gpIdx},#{repCtgIdx})
+	</insert> 
+	
+	<!-- 댓글신고 -->
+	<select id="groupCommForm" resultType="comments">
+		SELECT commIdx, comments, reg_date, blind, id, gpIdx FROM comments WHERE commIdx=#{commIdx}
+	</select>
+	
+	<insert id="groupRepComm">
+		INSERT INTO  reports (repIdx,id,targetId,commIdx,repCtgIdx) VALUES (reports_seq.NEXTVAL,#{id},#{targetId},#{commIdx},#{repCtgIdx})
+	</insert>
+	
+	<!-- 대댓글 신고 -->
+	<select id="groupRecommForm" resultType="comments2nd">
+		SELECT com2ndIdx, comments, reg_date, blind, id FROM comments_2nd WHERE com2ndIdx=#{commIdx}
+	</select>
+	
+	<insert id="groupRepRecomm">
+		INSERT INTO  reports (repIdx,id,targetId,com2ndIdx,repCtgIdx) VALUES (reports_seq.NEXTVAL,#{id},#{targetId},#{com2ndIdx},#{repCtgIdx})
+	</insert>
 
 	
 </mapper>

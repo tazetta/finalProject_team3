@@ -112,4 +112,8 @@
 	WHERE rnum between #{param1} AND #{param2}
 	</select>
 	
+	<select id="reviewrate" resultType="float">
+		SELECT AVG(rate) FROM review where comId=#{param1}
+	</select>
+	
 </mapper>
