@@ -140,7 +140,7 @@ public class BoardService {
 			} else if (boardctgidx == 2) {
 				page = "redirect:/api/homemainPage";
 			} else if (boardctgidx == 3) {
-				page = "redirect:/tiplist";
+				page = "redirect:/tip";
 			} else if (boardctgidx == 4) {
 				page = "redirect:/helpMain";
 			} else if (boardctgidx == 5) {
@@ -177,9 +177,10 @@ public class BoardService {
 			} else if (category.equals("우리집자랑")) {
 				page = "homedUpdateForm";
 			} else if (category.equals("팁게시판")) {
-				page = "tipdUpdateForm";
+				page = "tipUpdateForm";
 			} else if (category.equals("질문과답변")) {
 				page = "QupdateForm";
+				logger.info("타긴했냐?4");
 			} else if (category.equals("고객의소리")) {
 				page = "sgtUpdateForm";
 			}

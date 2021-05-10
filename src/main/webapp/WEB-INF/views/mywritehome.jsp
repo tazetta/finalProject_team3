@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-<title>내 작성글-꿀팁</title>
+<title>우리집 자랑</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <!-- 반응형 디자인을 위한 css/js 라이브러리 -->
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -10,120 +10,114 @@
  <!-- 페이징 라이브러리(제이쿼리 반드시 필요, 버전도 맞아야 함) -->
 <script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
 <style>
-table, td, th {
-	border-collapse: collapse;
-	padding: 10px 10px;
-	margin: 10px;
-	line-height: 100%;
-	text-align: center;
-	font-family: Arial, Helvetica, sans-serif;
-}
-
-
-td {
-	height: 55px;
-}
-
-.flexBox {
+body {
 	display: flex;
 	justify-content: center;
-	align-items: center;
-	min-height: 100vh;
+	
 }
-
-.inputs {
-	width: 130px;
-	height: 35px;
-	border: 2px solid lightslategrey;
-	line-height: 100%;
-	font-size: 16px;
+.sender{
+	width:200px;
 }
-
-.headDESC {
-	font-size: 25px;
-	font-weight: 600;
-	color: tomato;
-	margin-left: 10px;
-	margin-bottom: 0px;
+reg_date{
+	width:100px;
 }
-
-
-#monitor {
-	width: 750px;
-	height: 500px;
-	overflow: auto;
-	border: 2px solid #acd3fb;
+.delete{
+	width:40px;
 }
-
-select:hover {
-	cursor: pointer;
+.content{
+	width:300px;
 }
-
-.pagingBtn {
-	text-decoration: none;
-	color: black;
-	font-weight: 600;
-	background-color: lightgray;
-	margin: 1px 2px;
-	margin-top: 0px;
-	padding: 3px;
-	border: 1px white;
+.center-area{
+	display:flex;
+	text-align:center;
 }
-
-.sideBar {
-	float: left;
+.sidenavi-area{
+	width:190px;
 }
-
-th{
-      border:1px solid gray;
-      border-collapse: collapse;
-      text-align: center;
-	background-color: dodgerblue;
-            }
-
-	.sideBar {
-	float: left;
+table{
+	text-align:left;
+	margin-left:50px;
+	width:300px;
+	table-layout: fixed;
 }
-
-
-
+table th{
+	width:200px;
+		
+	
+}
+.table-content tr:hover {
+	       background-color:rgb(235, 232, 232);
+}
+.name{
+	font-size:20px;
+}
+.list-area{
+margin-top:50px;
+}
+   button{
+      color: white;
+    background-color: #166cea;
+    border:none;
+    border-radius: 2px;
+    font-weight: bold;
+     padding: 2px 2px;
+    }
+    button:hover{
+       background-color: white;
+    color: #166cea;
+    border: 1px solid #166cea;
+    cursor: pointer;
+    box-shadow: 0px 5px 5px rgb(235, 232, 232);
+     transition: all .3s ease;
+    }
+    .ctn:hover{
+		text-decoration: none;
+		color:black;
+	}
+	 h2{
+			border: 1px solid black;
+			width: 160px;
+			margin: 1px;
+			text-align: center;
+			font-size: 16px;
+			background-color: cornflowerblue;
+		}
 </style>
-</head>
+
 <body>
-	<iframe src="mainnavi.html" scrolling="no" frameborder="0" style="width: 100%; "></iframe>
-	<div class="flexBox" >
-		<div style="border-bottom: 2px solid #f2f2f2; border-top: 2px solid #f2f2f2;">
-			<div class="sideBar" style="margin-right: 15px;">
-				<iframe class="마이프로필네비" src="mynavi.html" scrolling="no" frameborder="0"
-				style="height: 650px; float: left; width:250px;" ></iframe>
+	<div class="all-area">
+		<div class="mainnavi-area">
+			<jsp:include page="mainnavi.jsp"></jsp:include>
+		</div>
+		<div class="center-area">
+		<div class="sidenavi-area">
+			<jsp:include page="sidemenu.jsp"></jsp:include>
+		</div>
+
+		<div class="list-area">
+			<div class="title-area">
+				<h2>우리집 자랑</h2>
 			</div>
-			<div class="sideBar">
-				<form>
-					<table>
-						<h2>우리집 자랑</h2>
-			
-       
+			<div class="table-area">
+				<table>
+				
 			<div id="list" style="display: flex; flex-flow: wrap;  justify-content: left; border: 1px solid rgb(250px, 250px, 250px);">
 
 			</div> 
-			<tr>
-			<td id="paging" colspan="6">
-				<!-- 플러그인 사용 -->
-				<div class="container">
-					<nav aria-label="page navigation" style="text-align: center">
-						<ul class="pagination" id="pagination"></ul>
-					</nav>
-				</div>
-				<!--// 플러그인 사용 -->
-			</td>
-		</tr>
-					</table>
-
-				</form>
+					<tr>
+						<td id="paging" colspan="6">
+							<!-- 플러그인 사용 -->
+							<div class="container">
+								<nav aria-label="page navigation" style="text-align: center; width:700px;">
+									<ul class="pagination" id="pagination"></ul>
+								</nav>
+							</div> <!--// 플러그인 사용 -->
+						</td>
+					</tr>
+				</table>
 			</div>
-			
+			</div>
 		</div>
-	</div>
 </body>
 <script>
 var showPage = 1;
@@ -178,6 +172,5 @@ var msg = "${msg}";
 if(msg != ""){
 	 alert(msg);
 }
-
 </script>
 </html>
