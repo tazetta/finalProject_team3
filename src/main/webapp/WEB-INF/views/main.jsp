@@ -144,6 +144,13 @@
     </div>
 </body>
 <script>
+
+var msg ="${msg}";
+if(msg!=''){
+	
+	alert(msg);
+}
+
 $(document).ready(function() {
 	// 목록을 조회하는 함수.
 	function getList(pageNum, opt, keyword) {
