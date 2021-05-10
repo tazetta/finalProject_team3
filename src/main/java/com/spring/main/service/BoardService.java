@@ -178,7 +178,7 @@ public class BoardService {
 			} else if (category.equals("팁게시판")) {
 				page = "tipdUpdateForm";
 			} else if (category.equals("질문과답변")) {
-				page = "qnaUpdateForm";
+				page = "QupdateForm";
 			} else if (category.equals("고객의소리")) {
 				page = "sgtUpdateForm";
 			}
