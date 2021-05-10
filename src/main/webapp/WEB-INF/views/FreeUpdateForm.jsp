@@ -25,7 +25,8 @@
 <body>
     <br/>
 	 <div style="min-height: 210px; padding-top:50px;">
-	            <jsp:include page="mainnavi.jsp"></jsp:include> 
+	            <%-- <jsp:include page="mainnavi.jsp" />  --%>
+	            <%@ include file="mainnavi.jsp" %>
             </div>
 <div class="container" style="height:300px; background-color: rgb(163, 182, 248); text-align:center;">
 
