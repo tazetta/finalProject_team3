@@ -55,21 +55,12 @@ span:hover {
 	
 	
 <body>
- 
-    
-    <div class="container" style="text-align: center; padding-top: 10px;">
-        <input type="text" size="75" style="border-radius: 5px; border: 2px solid rgb(203, 228, 248); "
-            placeholder="검색어를 입력해주세요.">
-        &nbsp;
-        <button id="btn"
-            style="border-radius: 5px; background-color: rgb(203, 228, 248); border: 2px solid rgb(203, 228, 248); font-weight: bold; color: white;">검색</button>
-        <a href="" style="font-size:small; float: right; color: gray; padding-left: 5px;  font-weight: bold;">|<span
-                style="padding-left: 5px; font-weight: bold; ">고객센터</span></a>
-        <a href="" style="font-size:small; float: right; color: gray; padding-left: 5px; font-weight: bold;">|<span
-                style="padding-left: 5px;  font-weight: bold;">회원가입</span></a>
-        <a href="" style="font-size:small; float: right; color: gray;  font-weight: bold; "><span>로그인</span></a>
-        <br />
-    </div>
+ <form action="/main/boardUpdate" method="POST">
+    <div style="min-height: 210px; padding-top:50px;">
+	            <jsp:include page="mainnavi.jsp"></jsp:include> 
+            </div>
+    	<input name="boardIdx" type="hidden" value="${dto.boardIdx}" />
+      				<input type="hidden" name="brdctgidx" value="${dto.brdctgidx }" />
     <br />
     <div class="container"  style="height:200px; background-color: rgb(184, 185, 190); text-align:center;">
   
@@ -79,23 +70,114 @@ span:hover {
     </div>
     <br/>
     <div class="container">
-        <table class="table">
+            <table class="table">
+      
+        
+      
             <tr>
-                <td><input type="text" class="form-control" placeholder="제목을 입력해주세요" name="content" maxlength="40"></td>
+      
+                <td><input type="text" class="form-control" name="subject"  maxlength="40" value="${dto.subject}">
+                </td>
+      
             </tr>
+      
             <tr>
-                <td><textarea type="text" class="form-control" placeholder="내용을 10000자 이내로 입력해주세요" name="contentDetail" maxlength="1024" style="height: 400px;"></textarea></td>
+            <td colspan="2">
+      				<input name="boardIdx" type="hidden" value="${dto.boardIdx}" />
+      				<input type="hidden" name="brdctgidx" value="${dto.brdctgidx }" />
+					<div contenteditable="true" id="editable"> ${dto.content}</div> 
+					<input name="content" type="hidden" id="content" />
+			</td>
+          <%--       <td><div contenteditable="true" id="editable"><textarea type="text" class="form-control" placeholder="내용을 입력하세요" name="content"
+                    maxlength="1000" style="height: 400px; ">${dto.content }</textarea></div></td> --%>
+   
             </tr>
+      
+       
+            </form>
         </table>
-        <div class="container">
-            <a href="#" class="button" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; ">첨부파일</a>
-            <div class="row" style="float: right;">
-                <a href="#" class="button2" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; ">수정</a>
-            </div>
-           
-            <a href="#" class="button" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; float: right;">취소</a>
-            
-      </div>    
-    </div>     
+        <button id="button" 
+        onclick="fileUp()"
+        style="height: 20;
+        background-color: rgb(182, 172, 159);
+        color: white;
+        font-weight: bold;
+        padding: 3px 15px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 15%;
+        border-radius: 10px;">사진추가</button>
+    </div>
+       
+      
+
+     
+        <div style="text-align: right; padding-right: 230px;">
+        <button id="button" style="height: 20;
+        background-color: rgb(218, 208, 194);
+        color: rgb(19, 18, 18);
+        font-weight: bold;
+        padding: 3px 10px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 7%;
+        border-radius: 10px;"
+        onclick="location.href='../boarddetail?boardIdx=${dto.boardIdx}'">취소</button>
+        &nbsp;&nbsp;
+        <button id="button" style="height: 20;
+        background-color: rgb(252, 214, 158);
+        color: rgb(19, 18, 18);
+        font-weight: bold;
+        padding: 3px 15px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 7%;
+        border-radius: 10px;"
+        class="save">수정</button>
+        </div> 
     </body>
+    <script>
+    $(".save").click(function() {
+    	console.log($("#editable").html());
+    	$("#editable>a").find("b").remove(); //a태그안 b태그 삭제
+    	$("#editable>a").removeAttr("onclick"); //del(this) 무효화
+    	$("#content").val($("#editable").html());
+    	$("form").submit();
+    });
+    /* 파일업로드 새창*/
+    function fileUp(){
+    	window.open("/main/boardUploadForm","fileUpload","width=400, height=100");
+    	//요청url,타이틀,옵션
+    }
+
+    /* 파일 삭제 - 비동기 */
+    //groupuploadForm에서 보내는 elem확인
+    function del(elem){
+    	console.log(elem); //<a>
+    	var newFileName = elem.id.substring(elem.id.lastIndexOf("/")+1); //파일명만 뽑아내기
+    	console.log("newFileName:"+newFileName);
+
+    	// 1. 실제 파일 삭제 요청
+    	 $.ajax({
+    		url:"/main/boardFileDelete",
+    		type:"get",
+    		data:{"fileName":newFileName},
+    		dataType:"json",
+    		success:function(d){
+    			console.log("success:"+d.success);
+    	// 2. 파일 삭제 요청이 완료되면 화면에 나타난 사진 삭제
+    			if(d.success ==1){ //실제 파일 삭제 성공시
+    				$(elem).find('img').remove(); //이미지 삭제
+    				/* $(elem).next().remove(); */ //<br> 삭제
+    				$(elem).remove(); // <a>삭제
+    			}
+    		},error:function(e){
+    			console.log(e);
+    		}
+    	}); 	
+    }
+</script>
 </html>

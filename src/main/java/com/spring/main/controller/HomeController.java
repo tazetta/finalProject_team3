@@ -5,7 +5,6 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
->>>>>>> 2f6fb4d45953ea2591d595db317a1a94f94b6e49
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,18 +25,19 @@ public class HomeController {
 	@Autowired
 	BoardService BoardService;
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	
+	  @RequestMapping(value = "/", method = RequestMethod.GET)
+	 
+	  public ModelAndView home() {
+		  logger.info("main"); 
 
-	public ModelAndView home() {
-		logger.info("main");
-		ModelAndView mav = new ModelAndView();
-
-		// 사진 있는 3개 데이터
-		mav.addObject("list", BoardService.getMainhomeListLimit3());
-		mav.setViewName("main");
-		
-		return mav;
-
+	  ModelAndView mav = new ModelAndView();
+	  
+	  // 사진 있는 3개 데이터 mav.addObject("list", BoardService.getMainhomeListLimit3());
+	  mav.setViewName("main");
+	  
+	  return mav;
+	  }
 	public String home(HttpSession session, HttpServletRequest request) {
 		String msg =(String) session.getAttribute("msg");
 		if(msg!=null) { //msg에 값이 있으면
