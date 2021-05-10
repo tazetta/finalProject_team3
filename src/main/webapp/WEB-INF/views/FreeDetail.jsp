@@ -407,8 +407,7 @@ a:link {
 				console.log("recCommListsuccess: ", data);
 				for (var i = 0; i < data.recCommList.length; i++) {
 					console.log(data.recCommList[i].commIdx);
-					$("#" + data.recCommList[i].commIdx + "").attr('src',
-							'resources/images/recommend.png');
+					$("#" + data.recCommList[i].commIdx + "").attr('src','resources/images/recommend.png');
 				}
 			},
 			error : function(error) {
@@ -609,12 +608,13 @@ a:link {
 				success : function(data) {
 					console.log("Success: ", data);
 					console.log("rescResult:"+data.recResult);
+					console.log("page:"+data.page);
 					if(data.recResult =='true'){
 						alert(data.msg);
-						
+						data.page;
 					}else{
 						alert(data.msg);
-							
+							data.page;
 					}
 					
 				},
