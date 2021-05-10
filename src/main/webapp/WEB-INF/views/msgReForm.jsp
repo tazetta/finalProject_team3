@@ -64,7 +64,7 @@
 		$.ajax({
 
 			url : reqUrl,
-			type : 'GET',
+			type : 'post',
 			data : params,
 			dataType : 'JSON',
 			success : function(data) {
