@@ -66,7 +66,7 @@ public class BoardService {
 			page = "FreeDetail";
 			logger.info("1탐");
 		} else if (category.equals("우리집자랑")) {
-			page = "homeDetail";
+			page = "homedetail2";
 			logger.info("2탐");
 		} else if (category.equals("팁게시판")) {
 			page = "tipdetail";
