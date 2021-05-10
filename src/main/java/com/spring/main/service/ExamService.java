@@ -23,6 +23,7 @@ import com.spring.main.dao.ExamDAO;
 import com.spring.main.dao.ReviewDAO;
 import com.spring.main.dto.ExamDTO;
 import com.spring.main.dto.GroupDTO;
+import com.spring.main.dto.PhotoDTO;
 import com.spring.main.dto.ReviewDTO;
 
 @Service
@@ -284,16 +285,25 @@ public class ExamService {
 		return map;
 	}
 
-	public HashMap<String, Object> examListScroll(int count) {
-		int cnt = count*8;
-		int allCnt = examDAO.allScrollCount();
-		logger.info("전체 게시물수:{},불러올 게시물수:{}",allCnt,cnt);
-		HashMap<String, Object> map = new HashMap<String, Object>();	
-		if(allCnt>=cnt) {
-			map.put("list",examDAO.examListScroll(cnt));			
-		}else {
-			map.put("list",examDAO.examListScroll(allCnt));			
-		}
+	public HashMap<String, Object> examListScroll(int pagePerCnt, int page) {
+		/*
+		 * int cnt = count*8; int allCnt = examDAO.allScrollCount();
+		 * logger.info("전체 게시물수:{},불러올 게시물수:{}",allCnt,cnt); HashMap<String, Object> map
+		 * = new HashMap<String, Object>(); if(allCnt>=cnt) {
+		 * map.put("list",examDAO.examListScroll(cnt)); }else {
+		 * map.put("list",examDAO.examListScroll(allCnt)); } return map;
+		 */
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int end = page * pagePerCnt;
+		int start = end - (pagePerCnt - 1);
+		int photoMaxCnt = examDAO.getExamPhotoMax();
+		ArrayList<ExamDTO> list = examDAO.getExamPhotos(start, end); 
+		logger.info("list Size : {}", list.size());
+		int maxPage = (int) Math.ceil(photoMaxCnt / (double) pagePerCnt);
+		logger.info("사진 수 : {}", photoMaxCnt);
+		map.put("maxPage", maxPage);
+		map.put("list", list);
+		map.put("currPage", page);
 		return map;
 	}
 
