@@ -238,7 +238,7 @@ $(document).ready(function() {
 									</tr>
 									 */
 									sHtml += '<tr>';
-									sHtml += '	<td><a href="boarddetail/' + oInfo.boardIdx +'">'
+									sHtml += '	<td><a href="boarddetail?boardIdx=' + oInfo.boardIdx +'">'
 											+ oInfo.subject
 											+ '</a></td>';
 									sHtml += '	<td>' + oInfo.id

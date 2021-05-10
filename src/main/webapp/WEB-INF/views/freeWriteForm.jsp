@@ -90,7 +90,7 @@ a.button2:hover,.button2:hover {
         <!-- <a href="#" class="button" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; onclick="fileUp()">첨부파일</a> -->
           <input class="button" style="max-width: 100; margin: 10px ;  padding: 10px 10px; font-weight: bold;" type="button" value="파일업로드" onclick="fileUp()" />
             <div class="row" style="float: right;">
-           <input class="button2" id="save" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; " type="button" onclick="location.href='Freelist'" value="저장"/>
+           <input class="button2" id="save" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; " type="button" value="저장"/>
             </div>
             <a href="Freelist" class="button" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; float: right;">취소</a>
             </div>
@@ -119,6 +119,7 @@ $("#save").click(function() {
 		$("#editable>a").find("b").remove(); //a태그안 b태그 삭제
 	 	$("#editable>a").removeAttr("onclick"); //del(this) 무효화
 	 	$("#content").val($("#editable").html()); //입력한 값 content에 넣기
+	 	alert("작성완료되었습니다.");
 		$("form").submit(); 
 	}		
 });

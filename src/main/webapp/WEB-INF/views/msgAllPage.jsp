@@ -15,51 +15,95 @@
 <script src="resources/js/jquery.twbsPagination.js"
 	type="text/javascript"></script>
 <style>
-.body {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 100vh;
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+   
 }
-
-.all-area {
-	min-height: 900px;
-	min-width: 1680px;
-}
-
-.mainnavi-area {
+ .all-area{
+ 	text-align:center;
+ }
+.center-area{
+	display:flex;
+	text-align:center;
 	
 }
-
-.sidenavi-area {
-	float: left;
-	width: 200px;
-	height: 634px;
+.table-area{
+	display:inline-block;
+}
+.sidenavi{
+	
+		width:250px;
+		
+}
+.sender , .reg_date{
+	width:100px;
+}
+.delete{
+	width:40px;
+}
+.content{
+	width:300px;
+}
+.table-area{
+	margin-top:50px;
+	margin-left:50px;
+}
+.table-content{
+	margin-left:50px;
 }
 
-.table-area {
-	float: left;
+#btn-none{
+	visibility: hidden;
 }
-
-.table-top {
-	text-align: center;
+table{
+		width:300px;
+	table-layout: fixed;
 }
-
-table th {
-	width: 300px;
-}
+   button{
+      color: white;
+    background-color: #166cea;
+    border:none;
+    border-radius: 2px;
+    font-weight: bold;
+     padding: 2px 2px;
+    }
+    button:hover{
+       background-color: white;
+    color: #166cea;
+    border: 1px solid #166cea;
+    cursor: pointer;
+    box-shadow: 0px 5px 5px rgb(235, 232, 232);
+    }
+    table tr{
+    	margin:6px;
+    }
+    .table-contet tr:hover{
+    	       background-color:rgb(235, 232, 232);
+    }
+	table td{
+		width:100px;
+	}
+	
 </style>
 
 </head>
 <body>
 	<div class="all-area">
-
-		<div class="mainnavi-area">
-			<jsp:include page="mainnavi.jsp"></jsp:include>
-		</div>
-		
+	
+	<div class="navi-area">
+		  <jsp:include page="mainnavi.jsp"></jsp:include> 
+	</div>
+	
+	<div class="center-area">
+	
+	<div class="sidenavi">
+		  <jsp:include page="sidemenu.jsp"></jsp:include> 
+	</div>
+	
 		<div class="table-area">
-			<h3>전체 쪽지함</h3>
 			<div class="table-top">
 				<span>받은쪽지함</span> <a href="msgreceivepage">더보기</a>
 				<button onclick="msgFormPopUp()">쪽지 쓰기</button>
@@ -67,140 +111,61 @@ table th {
 			<table>
 				<thead>
 					<tr>
-						<th>작성자</th>
-						<th>내용</th>
-						<th>날짜</th>
-						<th></th>
+						<th class="sender">작성자</th>
+						<th class="content">내용</th>
+						<th class="reg_date">날짜</th>
+						<th class="delete"></th>
 					</tr>
 				</thead>
-				<tbody id="list">
-					<tr>
-						<td>자취만렙</td>
-						<td><a href="msgDetail/84">테스트25</a></td>
-						<td>2021. 5. 5.</td>
-						<td><button class="delBtn" onclick="deleteMsg(84)">삭제</button></td>
-					</tr>
-					<tr>
-						<td>자취만렙</td>
-						<td><a href="msgDetail/83">테스트24</a></td>
-						<td>2021. 5. 5.</td>
-						<td><button class="delBtn" onclick="deleteMsg(83)">삭제</button></td>
-					</tr>
-					<tr>
-						<td>자취만렙</td>
-						<td><a href="msgDetail/82">테스트23</a></td>
-						<td>2021. 5. 5.</td>
-						<td><button class="delBtn" onclick="deleteMsg(82)">삭제</button></td>
-					</tr>
-					<tr>
-						<td>자취만렙</td>
-						<td><a href="msgDetail/81">테스트22</a></td>
-						<td>2021. 5. 5.</td>
-						<td><button class="delBtn" onclick="deleteMsg(81)">삭제</button></td>
-					</tr>
-					<tr>
-						<td>자취만렙</td>
-						<td><a href="msgDetail/80">테스트22</a></td>
-						<td>2021. 5. 5.</td>
-						<td><button class="delBtn" onclick="deleteMsg(80)">삭제</button></td>
-					</tr>
+				<tbody id="list" class="table-contet">
+					
 				</tbody>
 				<tbody>
 					<tr>
 						<td class="paging" colspan="6">
 							<!-- 플러그인 사용 -->
 							<div class="container">
-								<nav aria-label="page navigation" style="text-align: center">
-									<ul class="pagination" id="pagination">
-										<li class="page-item first disabled"><a href="#"
-											class="page-link">First</a></li>
-										<li class="page-item prev disabled"><a href="#"
-											class="page-link">Previous</a></li>
-										<li class="page-item active"><a href="#"
-											class="page-link">1</a></li>
-										<li class="page-item"><a href="#" class="page-link">2</a></li>
-										<li class="page-item"><a href="#" class="page-link">3</a></li>
-										<li class="page-item"><a href="#" class="page-link">4</a></li>
-										<li class="page-item next"><a href="#" class="page-link">Next</a></li>
-										<li class="page-item last"><a href="#" class="page-link">Last</a></li>
-									</ul>
+								<nav aria-label="page navigation" style="text-align: center; width:600px;">
+									<ul class="pagination" id="pagination"></ul>
 								</nav>
 							</div> <!--// 플러그인 사용 -->
 						</td>
 					</tr>
 				</tbody>
 			</table>
+		
 
 			<div class="table-top">
 				<span>보낸 쪽지함</span> <a href="msgsenderpage">더보기</a>
+				<button id="btn-none">쪽지 쓰기</button>
 			</div>
+		
 			<table>
 				<thead>
 					<tr>
-						<th>작성자</th>
-						<th>내용</th>
-						<th>날짜</th>
-						<th></th>
-
+						<th class="sender">작성자</th>
+						<th class="content">내용</th>
+						<th class="reg_date">날짜</th>
+						<th class="delete"></th>
 					</tr>
 				</thead>
-				<tbody id="list2">
-					<tr>
-						<td>kthwan</td>
-						<td><a href="msgDetail/107">하위</a></td>
-						<td>2021. 5. 6.</td>
-						<td><button class="delBtn" onclick="deleteMsg(107)">삭제</button></td>
-					</tr>
-					<tr>
-						<td>kthwan</td>
-						<td><a href="msgDetail/106">hihi</a></td>
-						<td>2021. 5. 6.</td>
-						<td><button class="delBtn" onclick="deleteMsg(106)">삭제</button></td>
-					</tr>
-					<tr>
-						<td>kthwan</td>
-						<td><a href="msgDetail/66">테스트9</a></td>
-						<td>2021. 5. 5.</td>
-						<td><button class="delBtn" onclick="deleteMsg(66)">삭제</button></td>
-					</tr>
-					<tr>
-						<td>kthwan</td>
-						<td><a href="msgDetail/65">테스트8</a></td>
-						<td>2021. 5. 5.</td>
-						<td><button class="delBtn" onclick="deleteMsg(65)">삭제</button></td>
-					</tr>
-					<tr>
-						<td>kthwan</td>
-						<td><a href="msgDetail/64">테스트7</a></td>
-						<td>2021. 5. 5.</td>
-						<td><button class="delBtn" onclick="deleteMsg(64)">삭제</button></td>
-					</tr>
+				<tbody id="list2" class="table-contet">
+					
 				</tbody>
 				<tbody>
 					<tr>
 						<td class="paging" colspan="6">
 							<!-- 플러그인 사용 -->
 							<div class="container">
-								<nav aria-label="page navigation" style="text-align: center">
-									<ul class="pagination" id="pagination2">
-										<li class="page-item first disabled"><a href="#"
-											class="page-link">First</a></li>
-										<li class="page-item prev disabled"><a href="#"
-											class="page-link">Previous</a></li>
-										<li class="page-item active"><a href="#"
-											class="page-link">1</a></li>
-										<li class="page-item"><a href="#" class="page-link">2</a></li>
-										<li class="page-item"><a href="#" class="page-link">3</a></li>
-										<li class="page-item next"><a href="#" class="page-link">Next</a></li>
-										<li class="page-item last"><a href="#" class="page-link">Last</a></li>
-									</ul>
+								<nav aria-label="page navigation" style="text-align: center; width:600px; ">
+									<ul class="pagination" id="pagination2"></ul>
 								</nav>
 							</div> <!--// 플러그인 사용 -->
 						</td>
 					</tr>
 				</tbody>
 			</table>
-
+		</div>
 		</div>
 </body>
 <script>
