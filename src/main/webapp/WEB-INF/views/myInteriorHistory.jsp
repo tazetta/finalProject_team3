@@ -27,18 +27,6 @@
 	//]]>
 </script>
 <style>
-table, td, th {
-	border-collapse: collapse;
-	padding: 10px 15px;
-	margin: 15px;
-	line-height: 100%;
-	text-align: center;
-	font-family: Arial, Helvetica, sans-serif;
-}
-
-td {
-	height: 55px;
-}
 
 .flexBox {
 	display: flex;
@@ -74,19 +62,6 @@ select:hover {
 	float: left;
 }
 
-th {
-	border: 1px solid gray;
-	border-collapse: collapse;
-	text-align: center;
-	background-color: cornflowerblue;
-}
-
-.ì´ë¯¸ì§ {
-	margin-top: 2%;
-	width: 200px;
-	height: 150px;
-	float: right;
-}
 
 h2 {
 	border: 1px solid black;
@@ -129,7 +104,7 @@ h2 {
 </head>
 <body>
 	<div class="sideBar"
-		style="margin-right: 15px; position: fixed; left: 150px;">
+		style="margin-right: 15px; position: fixed; left: 150px; top: 25vh">
 		<jsp:include page="mynavi.jsp" />
 	</div>
 	<div class="flexBox">
@@ -143,11 +118,6 @@ h2 {
 				<div class="sliderBox">
 					<div class="wraping" style="height: 300px">
 						<div class="bxslider">
-<%-- 						<c:if test="${slide.size() == 0}">
-							<div>
-								현재 사진이 없습니다.
-							</div>
-						</c:if> --%>
 						<c:if test="${slide.size() > 0}">
 							<c:forEach items="${slide}" var="slide">
 								<div>
@@ -155,6 +125,11 @@ h2 {
 										height=300px>
 								</div>
 							</c:forEach>
+						</c:if>
+						<c:if test="${slide.size() == 0}">
+							<div>
+								<img alt="" src="resources/css/memberCSS/logo.png" width="800px" height="300px">
+							</div>
 						</c:if>
 						</div>
 					</div>

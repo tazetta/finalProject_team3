@@ -244,6 +244,8 @@ public class BoardService {
 	public ModelAndView boardDel(String boardIdx, HttpSession session, RedirectAttributes rAttr) {
 		ModelAndView mav = new ModelAndView();
 		String newFileName = boarddao.boardGetFileName(boardIdx);// 보드파일찾기
+		BoardDTO dto = new BoardDTO();
+		String category = null;
 		if (newFileName != null) { // 파일이 있으면
 			int success = boarddao.boardPhotoDel(boardIdx); // DB에서 삭제
 			logger.info("photos 삭제 결과:" + success);
@@ -258,8 +260,7 @@ public class BoardService {
 		}
 		msg = "삭제되었습니다.";
 		rAttr.addFlashAttribute("msg", msg);
-
-		mav.setViewName("redirect:/Freelist");
+		mav.setViewName("redirect:/main");
 		return mav;
 	}
 
