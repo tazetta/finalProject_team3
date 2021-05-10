@@ -51,9 +51,9 @@ table{
 </style>
 </head>
 <body>
-	<div id="mainnavi" style="min-height: 210px;">
-	            <jsp:include page="mainnavi.jsp"></jsp:include> 
-    </div>
+
+	<jsp:include page="mainnavi.jsp"></jsp:include> 
+
 	
 	<!-- 업체세션있는 사람만 글쓰기 보이게 -->
 	<c:if test="${sessionScope.cLoginId ne null}">
@@ -112,7 +112,6 @@ if(msg != ""){
 			content += "</table>"
 			content += "</div>"
 			if(i%3==0){
-				console.log("줄좀바꿔줘..");
 				content += "<br/>"
 			}
 		}

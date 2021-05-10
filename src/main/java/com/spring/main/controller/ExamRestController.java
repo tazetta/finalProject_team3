@@ -39,9 +39,10 @@ public class ExamRestController {
 	}
 	
 	@RequestMapping(value = "/companyDetailExam", method = RequestMethod.GET)
-	public ModelAndView companyDetailExam(@RequestParam String comId ) {
+	public ModelAndView companyDetailExam(@RequestParam String comId, @RequestParam float rate) {
 		logger.info("시공사례 전체보기 페이지로 이동");
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("rate", rate);
 		mav.addObject("comId", comId);
 		mav.setViewName("companyDetailExam");
 		return mav;
