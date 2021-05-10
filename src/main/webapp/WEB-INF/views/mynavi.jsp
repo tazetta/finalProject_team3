@@ -31,29 +31,40 @@ li a {
 	padding: 15px;
 }
 
-li a:hover, .navi li ul:hover {
+li a:hover {
 	background-color: #33f;
 	color: white;
 }
 
 .navi li ul {
-	/* << li íìì ul = ìë¸ë©ë´ */
-	text-indent: -3em;
+
+
 	list-style: none;
 	display: none;
-	background-color: white;
-	color: white;
 	transition: all 0.5s;
+	margin:0px;
+	padding:0px;
+	text-align: center;
+	position: relative;
 }
 
 .navi li:hover ul {
+	
+	
 	display: block;
+	
 }
 
 .navi li a {
 	list-style: none;
 	transition: all 0.5s;
 }
+
+.navi ul li a {
+background-color: silver;
+
+}
+
 </style>
 </head>
 <body>
