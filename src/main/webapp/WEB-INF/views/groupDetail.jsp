@@ -83,10 +83,8 @@ border-radius:5px;
 
 /*버튼*/
 #btnBox{
-width:300px;
-position:relative;
-margin:10px;
-left:1300px;
+display: flex; 
+justify-content: center;
 }
 .btnClass{
 border:none;
@@ -238,11 +236,11 @@ background-color: #E6E6E6;
 	<div id="btnBox">
 	<!-- <button onclick="location.href='groupListPage'" style="margin-right:10px;">목록</button> -->
 	<c:if test="${ dto.id != sessionScope.loginId }">
-	<button onclick="reportBoard()" style="margin-right:8px;" class="btnClass">신고</button>
+	<button onclick="reportBoard()" style="margin-left:1100px; margin-top:10px;" class="btnClass">신고</button>
 	</c:if>
 	<c:if test="${ dto.id == sessionScope.loginId }">
-	<button onclick="location.href='groupDel/${dto.gpIdx}'" style="margin-right:8px;" class="btnClass">삭제</button>
-	<button onclick="location.href='groupUpdateForm/${dto.gpIdx}'" style="margin-right:8px;" class="btnClass">수정</button>
+	<button onclick="location.href='groupDel/${dto.gpIdx}'" style="margin-left:1000px; margin-top:10px;" class="btnClass">삭제</button>
+	<button onclick="location.href='groupUpdateForm/${dto.gpIdx}'" style="margin-left:10px; margin-top:10px;" class="btnClass">수정</button>
 	</c:if>
 	</div>
 	
