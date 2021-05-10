@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-<title>내 견적서</title>
+<title>나의 견적서</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <!-- 반응형 디자인을 위한 css/js 라이브러리 -->
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -10,124 +10,124 @@
  <!-- 페이징 라이브러리(제이쿼리 반드시 필요, 버전도 맞아야 함) -->
 <script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
 <style>
-table, td, th {
-	border-collapse: collapse;
-	padding: 10px 10px;
-	margin: 10px;
-	line-height: 100%;
-	text-align: center;
-	font-family: Arial, Helvetica, sans-serif;
-}
-
-
-td {
-	height: 55px;
-}
-
-.flexBox {
+body {
 	display: flex;
 	justify-content: center;
-	align-items: center;
-	min-height: 100vh;
+	
 }
-
-.inputs {
-	width: 130px;
-	height: 35px;
-	border: 2px solid lightslategrey;
-	line-height: 100%;
-	font-size: 16px;
+.sender{
+	width:200px;
 }
-
-.headDESC {
-	font-size: 25px;
-	font-weight: 600;
-	color: tomato;
-	margin-left: 10px;
-	margin-bottom: 0px;
+reg_date{
+	width:100px;
 }
-
-
-#monitor {
-	width: 750px;
-	height: 500px;
-	overflow: auto;
-	border: 2px solid #acd3fb;
+.delete{
+	width:40px;
 }
-
-select:hover {
-	cursor: pointer;
+.content{
+	width:300px;
 }
+.center-area{
+	display:flex;
+	text-align:center;
+	padding :50px;
 
-.pagingBtn {
-	text-decoration: none;
-	color: black;
-	font-weight: 600;
-	background-color: lightgray;
-	margin: 1px 2px;
-	margin-top: 0px;
-	padding: 3px;
-	border: 1px white;
 }
-
-.sideBar {
-	float: left;
+.sidenavi-area{
+	width:190px;
 }
-
-th{
+table{
+	text-align:left;
+	margin-left:50px;
+	width:450px;
+	table-layout: fixed;
+}
+table th{
+	width:200px;
+		
+	
+}
+	 h2{
+			border: 1px solid black;
+			width: 120px;
+			margin: 10px;
+			text-align: center;
+			font-size: 18px;
+			background-color: cornflowerblue;
+			margin-left:50px;
+			
+		}
+	
+	 th{
       border:1px solid gray;
       border-collapse: collapse;
       text-align: center;
-	background-color: dodgerblue;
-            }
+      background-color: cornflowerblue;
+      width: 300px;
+		
+.table-content tr:hover {
+	  background-color:rgb(235, 232, 232);
+}
+.name{
+	font-size:20px;
+}
 
-	.sideBar {
-	float: left;
+.list-area{
+margin-top:50px;
+ width: 300px;
+}
+
+   
+    .ctn:hover{
+		text-decoration: none;
+		color:black;
+	}
+	
 }
 </style>
-</head>
+
 <body>
-	<iframe src="mainnavi" scrolling="no" frameborder="0" style="width: 100%; "></iframe>
-	<div class="flexBox" >
-		<div style="border-bottom: 2px solid #f2f2f2; border-top: 2px solid #f2f2f2;">
-			<div class="sideBar" style="margin-right: 15px;">
-				<iframe class="마이프로필네비" src="mynavi" scrolling="no" frameborder="0"
-				style="height: 650px; float: left; width:250px;" ></iframe>
+	<div class="all-area">
+		<div class="mainnavi-area">
+			<jsp:include page="mainnavi.jsp"></jsp:include>
+		</div>
+		<div class="center-area">
+		<div class="sidenavi-area">
+			<jsp:include page="sidemenu.jsp"></jsp:include>
+		</div>
+
+		<div class="list-area">
+			<div class="title-area">
+				<h2>내 견적서</h2>
 			</div>
-			<div class="sideBar">
-				<form>
-					<table>
-						<h2>내 견적서</h2>
+			<div class="table-area">
+				<table>
+						<thead>
 					   <tr>
                    	    <th style="width:60px">글번호</th>
-                   	    <th style="width:40px">업체명</th>
-                   	    <th style="width:60px">예산</th>
-						<th style="width:350px">내용</th>
-						<th style="width:60px">날짜</th>
+                   	    <th style="width:80px">업체명</th>
+                   	    <th style="width:100px">예산</th>
+						<th style="width:250px">내용</th>
+						<th style="width:130px">날짜</th>
                        </tr>
-        </thead>
-        </div>
-		<tbody id="list">
-             
-		</tbody>
-			<tr>
-			<td id="paging" colspan="6">
-				<!-- 플러그인 사용 -->
-				<div class="container">
-					<nav aria-label="page navigation" style="text-align: center">
-						<ul class="pagination" id="pagination"></ul>
-					</nav>
-				</div>
-				<!--// 플러그인 사용 -->
-			</td>
-		</tr>
-					</table>
+						</thead>
+					<tbody id="list" class="table-content">
 
-				</form>
+					</tbody>
+					<tr>
+						<td id="paging" colspan="6">
+							<!-- 플러그인 사용 -->
+							<div class="container">
+								<nav aria-label="page navigation" style="text-align: center; width:700px;">
+									<ul class="pagination" id="pagination"></ul>
+								</nav>
+							</div> <!--// 플러그인 사용 -->
+						</td>
+					</tr>
+				</table>
 			</div>
-			
+			</div>
 		</div>
-	</div>
 </body>
 <script>
 var showPage = 1;
@@ -172,7 +172,7 @@ function listPrint(list){
 		content +="<tr>"
 		content +="<td>"+list[i].estIdx+"</td>"
 		content +="<td>"+list[i].comId+"</td>"
-		content +="<td>"+list[i].budget+"</td>"
+		content +="<td>"+list[i].budget+"만원"+"</td>"
 		content +="<td><a href='estDetail/"+list[i].estIdx+"'>"+list[i].content+"</a></td>"
 		var date = new Date(list[i].reg_date);
 		content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"		

@@ -57,7 +57,7 @@ input[type="button"]:hover, input[type="submit"]:hover {
 
 
 
-table#msg {
+table#est {
 	background-color: white;
 	position: relative;
 	top: 80px;
@@ -76,26 +76,88 @@ span {
 }
 h4{
 	color: gray;
-    margin-left: 40%;
+    margin-left: 35%;
 }
 .content{
     border: 1px solid black;
+}
+body {
+	display: flex;
+	justify-content: center;
+	
+}
+.sender{
+	width:200px;
+}
+reg_date{
+	width:100px;
+}
+.delete{
+	width:40px;
+}
+.content{
+	width:300px;
+}
+.center-area{
+	display:flex;
+	text-align:center;
+	padding :50px;
+
+}
+.sidenavi-area{
+	width:190px;
+}
+table{
+	text-align:left;
+	margin-left:50px;
+	width:450px;
+	table-layout: fixed;
+}
+table th{
+	width:200px;
+		
+	
+}
+	
+	 th{
+ 	text-align: center;
+
+      width: 300px;
+		
+.table-content tr:hover {
+	  background-color:rgb(235, 232, 232);
+}
+.name{
+	font-size:20px;
+}
+
+.list-area{
+margin-top:50px;
+ width: 300px;
+}
+
+.ctn:hover{
+text-decoration: none;
+color:black;
+	}
+	
 }
 
         
 </style>
 </head>
 <body>
-		<iframe src="mainnavi" scrolling="no" frameborder="0" style="width: 100%; "></iframe>
-	<div class="flexBox" >
-		<div style="border-bottom: 2px solid #f2f2f2; border-top: 2px solid #f2f2f2;">
-			<div class="sideBar" style="margin-right: 15px;">
-				<iframe class="마이프로필네비" src="mynavi" scrolling="no" frameborder="0"
-				style="height: 650px; float: left; width:250px;" ></iframe>
-			</div>
+		<div class="all-area">
+		<div class="mainnavi-area">
+			<jsp:include page="mainnavi.jsp"></jsp:include>
+		</div>
+		<div class="center-area">
+		<div class="sidenavi-area">
+			<jsp:include page="sidemenu.jsp"></jsp:include>
+		</div>
 			<div class="sideBar">
                 <div id="content">
-                    <table id="msg">
+                    <table id="est">
 						<h4>견적서</h4>
                         		 <tr>
 									<th>업체명</th>
@@ -117,14 +179,18 @@ h4{
 									<th>연락처</th>
 									<td>${info.phone}</td>
 								</tr>
-                      	<tr> 
-                            <td colspan="2" style="padding-top:10px;padding-bottom:60px;"><hr/>
-							   <span>내용</span><br/><br/>
-							    ${info.content}
-							</td>
-						</tr>
+								 <td colspan="2" style="padding-top:15px;padding-bottom:60px;"><hr/>
+							 	</td>
+								<tr>
+									<th>내용</th><br/><br/>
+									<td>${info.content}</td>
+								</tr>
+                      
                        
                  </table>
+                 </div>
+                 </div>
+                 
           </div>
 	</div>
 </body>

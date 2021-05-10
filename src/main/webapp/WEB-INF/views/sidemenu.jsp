@@ -34,7 +34,7 @@
                 </a>
                 <ul class="scrap-show">
                   	<li><a href="myscrappage">내 스크랩북</a></li>
-                    <li><a href="#">우리집 자랑</a></li>
+                    <li><a href="myscrappage">우리집 자랑</a></li>
                     <li><a href="myscrappage">꿀팁</a></li>
                 </ul>
             </li>
@@ -54,9 +54,9 @@
                     <span class="fas fa-caret-down bying"></span>
                 </a>
                 <ul class="bying-show">
-                	<li><a href="mygrouppage">공통구매 전체</a></li>
-                    <li><a href="mygroupbuy">신청한 공통구매</a></li>
-                    <li><a href="mygroupwrite">작성한 공통구매</a></li>
+                	<li><a href="mygrouppage">공동구매 전체</a></li>
+                    <li><a href="mygroupbuy">신청한 공동구매</a></li>
+                    <li><a href="mygroupwrite">작성한 공동구매</a></li>
                 </ul>
             </li>
             <li><a href="myInteriorHistory">내 인테리어 변천사</a></li>
