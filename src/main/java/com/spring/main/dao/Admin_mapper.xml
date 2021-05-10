@@ -22,23 +22,25 @@
 	</select>
 	
 	<select id="reportedBrdCnt" resultType="int">
-		SELECT COUNT(repidx) FROM reports WHERE repctgidx = 11 OR repctgidx = 12 OR repctgidx = 13 OR repctgidx = 14
+		SELECT COUNT(r.repidx) FROM (SELECT boardidx, repidx, reg_date FROM reports WHERE repctgidx = 11 OR repctgidx = 12 OR repctgidx = 13 OR repctgidx = 14) r 
+		WHERE boardidx is not null AND reg_date LIKE #{param1}
 	</select>
 	
 	<select id="reportedBrdList" resultType="hashMap">
-		SELECT b.rnum, b.subject, r.repctgidx FROM 
-			(SELECT ROW_NUMBER() OVER(ORDER BY boardidx DESC) AS rnum, boardidx, subject FROM board) b, reports r 
-			WHERE r.boardidx = b.boardidx AND b.rnum BETWEEN 1 AND 3
+		SELECT * FROM (SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) as rnum, boardidx, repctgidx, reg_date FROM reports WHERE boardidx is not null AND reg_date LIKE #{param1})
+    	WHERE rnum BETWEEN 1 and 3) r, (SELECT boardidx, subject, id FROM board) b WHERE r.boardidx = b.boardidx
 	</select>
 	
 	<select id="reportedCommCnt" resultType="int">
-		SELECT COUNT(commidx) FROM reports WHERE repctgidx = 11 OR repctgidx = 12 OR repctgidx = 13 OR repctgidx = 14
+		SELECT COUNT(r.repidx) FROM 
+	    (SELECT repidx, reg_date, commidx FROM reports WHERE repctgidx = 11 OR repctgidx = 12 OR repctgidx = 13 OR repctgidx = 14) r 
+	    WHERE commidx is not null AND reg_date LIKE #{param1}
 	</select>
 	
 	<select id="reportedCommList" resultType="photo">
-		SELECT c.rnum, c.comments, r.repctgidx 
-		    FROM (SELECT ROW_NUMBER() OVER(ORDER BY commidx DESC) AS rnum, commidx, comments FROM comments) c,reports r 
-		    WHERE r.commidx = c.commidx AND c.rnum BETWEEN 1 AND 3
+		SELECT * FROM (SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) as rnum, commidx, repctgidx, reg_date FROM reports WHERE commidx is not null AND reg_date LIKE #{param1})
+   		WHERE rnum BETWEEN 1 and 3) r, (SELECT commidx, comments, id FROM comments) c 
+   		WHERE r.commidx = c.commidx
 	</select>
 	
 	<select resultType="com.spring.main.dto.MemberDTO" id="adminMemberList">

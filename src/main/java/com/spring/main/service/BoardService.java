@@ -469,7 +469,7 @@ public class BoardService {
 
 
 //우리집 자랑 세부검색
-	public Map<String, Object> homeMainList(int pageNum, String keyword,String orderBy, String formcategory, int budget,int roomsize) {
+	public Map<String, Object> homeMainList(int pageNum, String keyword,String orderBy, int formcategory, int budget,int roomsize) {
 		Map<String, Object> map = new HashMap<>();
 		// startNum, endNum 생성
 		int limit = 10; // 최대 10개 게시물 목록 보여줄거
@@ -530,11 +530,11 @@ public class BoardService {
 		logger.info("스크랩 쿼리문작동완료");
 		if (Scrap > 0) {
 			msg = "스크랩하였습니다.";
-			page = "redirect:/boarddetail/" + boardIdx;
+			page = "redirect:/boarddetail?boardIdx=" + boardIdx;
 		} else {
 			boarddao.boardScrapDel(boardIdx, id);
 			msg = "스크랩취소 했습니다.";
-			page = "redirect:/boarddetail/" + boardIdx;
+			page = "redirect:/boarddetail?boardIdx=" + boardIdx;
 		}
 		}else {
 			page = "redirect:/boarddetail/" + boardIdx;
@@ -740,15 +740,17 @@ public class BoardService {
 			logger.info("result:" + result);
 			recResult = "false";
 			msg = "추천취소되었습니다";
+			page = "redirect:/boarddetail?boardIdx=" + boardIdx;
 		} else {
 			logger.info("추천하기");
 			int result = boarddao.boardRec(boardIdx, loginId);
 			int cnt = boarddao.boardCntUp(boardIdx);
+			page = "redirect:/boarddetail?boardIdx=" + boardIdx;
 			logger.info("result:" + result);
 			recResult = "true";
 			msg = "추천되었습니다";
 		}
-
+		map.put("page", page);
 		map.put("recResult", recResult);
 		map.put("msg", msg);
 		return map;

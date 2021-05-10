@@ -124,8 +124,8 @@ public class BoardController {
 		return "mainnavi";
 	}
 
-	@RequestMapping(value = "/boarddetail/{boardIdx}", method = RequestMethod.GET)
-	public ModelAndView boarddetail(@PathVariable String boardIdx) {
+	@RequestMapping(value = "/boarddetail", method = RequestMethod.GET)
+	public ModelAndView boarddetail(@RequestParam String boardIdx) {
 		logger.info("게시글idx{}상세보기", boardIdx);
 		return BoardService.boarddetail(boardIdx);
 	}

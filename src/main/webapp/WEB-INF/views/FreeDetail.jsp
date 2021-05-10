@@ -186,7 +186,7 @@ a:link {
 	<div class="container">
 	<div style = "min-height:150px;">
 	
-		<jsp:include page="./mainnavi.jsp" />
+		<jsp:include page="mainnavi.jsp" />
 	</div>
 	</div>
 
@@ -197,12 +197,12 @@ a:link {
 			<div style="margin-top: 10%; margin-left: 300;">
 			 <c:set var="loginId" value="${sessionScope.loginId}" />
 			 <c:if test="${ dto.id == loginId }">
-				<button id="button" style="margin-left: 300;" onclick="location.href='../boardUpdateForm/${dto.boardIdx}'">수정</button>
-				<button id="button" style="margin-left: 50;" onclick="location.href='../boardDel/${dto.boardIdx}'">삭제</button>
+				<button id="button" style="margin-left: 300;" onclick="location.href='./boardUpdateForm/${dto.boardIdx}'">수정</button>
+				<button id="button" style="margin-left: 50;" onclick="location.href='./boardDel/${dto.boardIdx}'">삭제</button>
 				</c:if>
 			 <c:if  test="${ dto.id != loginId}">
-				<button id="button2" style="margin-left: 70; width: 100px;" onclick="boardRec('${boardIdx}')">추천하기</button>
-				<button id="button2" style="margin-left: 50;" onclick="location.href='../boardScrap/${dto.boardIdx}/${dto.id}'">스크랩</button>
+				<button id="button2" style="margin-left: 70; width: 100px;" onclick="boardRec('${dto.boardIdx}')">추천하기</button>
+				<button id="button2" style="margin-left: 50;" onclick="location.href='./boardScrap/${dto.boardIdx}/${dto.id}'">스크랩</button>
 					</c:if>
 			</div>
 			<!--style="
@@ -230,7 +230,7 @@ a:link {
 			 			<c:if  test="${!empty loginId}">
 					<button id="contentbtn" style="margin-left: 500;" onclick="reportBoard()">신고</button>
 					</c:if>
-					<button onclick="location.href='../Freelist'" id="contentbtn" style="float:right;margin-left: 50;">목록</button>
+					<button onclick="location.href='./Freelist'" id="contentbtn" style="float:right;margin-left: 50;">목록</button>
 				</div>
 			</div>
 		</div>
@@ -263,7 +263,7 @@ a:link {
 	boardCommentList(); //댓글리스트
 	/*글 신고 새창*/
 	function reportBoard(){
-		window.open("../boardRepBoardForm/${dto.boardIdx}","reportBoard","width=800, height=600");
+		window.open("./boardRepBoardForm/${dto.boardIdx}","reportBoard","width=800, height=600");
 		//요청url,타이틀,옵션
 	}
 	/* 댓글 등록 */
@@ -274,7 +274,7 @@ a:link {
 		console.log("loginID:" + loginId + "/comment:" + comment);
 		if (comment != '') {
 
-			var reqUrl = ' ../boardCommentWrite';
+			var reqUrl = ' ./boardCommentWrite';
 			$.ajax({
 				url : reqUrl,
 				type : "GET",
@@ -300,7 +300,7 @@ a:link {
 
 	/* 댓글 목록 불러오기 */
 	function boardCommentList() {
-		var reqUrl = '../boardCommentList/' + ${dto.boardIdx};
+		var reqUrl = './boardCommentList/' + ${dto.boardIdx};
 		$.ajax({
 			url : reqUrl,
 			type : "get",
@@ -376,7 +376,7 @@ a:link {
 
 		//삭제 confirm	
 		if (confirm("정말로 삭제하시겠습니까?")) {
-			var reqUrl = "../boardCommDel/" + commIdx;
+			var reqUrl = "./boardCommDel/" + commIdx;
 			$.ajax({
 				url : reqUrl,
 				type : "get",
@@ -397,7 +397,7 @@ a:link {
 	}
 	/* 내가 추천한 댓글 이미지 활성화로 고정*/
 	function recCommList() {
-		var reqUrl = "../brdrecCommList";
+		var reqUrl = "./brdrecCommList";
 		$.ajax({
 			url : reqUrl,
 			type : "get",
@@ -439,7 +439,7 @@ a:link {
 		if (recomment != '') {
 
 			$.ajax({
-				url : "../boardRecommWrite",
+				url : "./boardRecommWrite",
 				type : "get",
 				data : {
 					"commIdx" : commIdx,
@@ -463,7 +463,7 @@ a:link {
 	/*대댓글 리스트 불러오기*/
 	function boardRecommList(commIdx) {
 		$.ajax({
-			url : "../boardRecommList/" + commIdx,
+			url : "./boardRecommList/" + commIdx,
 			type : "get",
 			data : {},
 			dataType : "JSON",
@@ -523,7 +523,7 @@ a:link {
 		//삭제 confirm	
 		if (confirm("정말로 삭제하시겠습니까?")) {
 
-			var reqUrl = "../boardRecommentDel/" + com2ndIdx;
+			var reqUrl = "./boardRecommentDel/" + com2ndIdx;
 			$.ajax({
 				url : reqUrl,
 				type : "get",
@@ -544,7 +544,7 @@ a:link {
 	/* 대댓글 추천-취소 */
 	function boardReCommRec(com2ndIdx){
 		console.log("com2ndIdx: "+com2ndIdx);
-		var reqUrl = "../boardReCommRec/"+com2ndIdx;
+		var reqUrl = "./boardReCommRec/"+com2ndIdx;
 		$.ajax({
 				url : reqUrl,
 				type : "get",
@@ -556,7 +556,7 @@ a:link {
 					if(data.recResult =='true'){
 						console.log($("#"+com2ndIdx+""));
 						$("#"+com2ndIdx+"").attr('src','resources/images/recommend.png');
-						boardCommentList(); //댓글리스트 호출(댓글추천수 새로고침)
+						boardRecommList(); //댓글리스트 호출(댓글추천수 새로고침)
 					}else{
 						console.log($("#"+com2ndIdx+""));
 						$("#"+com2ndIdx+"").attr('src','resources/images/decommend.png');
@@ -572,7 +572,7 @@ a:link {
 	/* 댓글 추천-취소 */
 	function boardCommRec(commIdx){
 		console.log("commIdx: "+commIdx);
-		var reqUrl = "../boardCommRec/"+commIdx;
+		var reqUrl = "./boardCommRec/"+commIdx;
 		$.ajax({
 				url : reqUrl,
 				type : "get",
@@ -600,7 +600,7 @@ a:link {
 	/* 게시판추천하기*/
 	function boardRec(boardIdx){
 		console.log("boardIdx: "+boardIdx);
-		var reqUrl = "../boardRec/"+boardIdx;
+		var reqUrl = "./boardRec/"+boardIdx;
 		$.ajax({
 				url : reqUrl,
 				type : "get",
@@ -610,13 +610,11 @@ a:link {
 					console.log("Success: ", data);
 					console.log("rescResult:"+data.recResult);
 					if(data.recResult =='true'){
-						console.log($("#"+boardIdx+""));
-						$("#"+boardIdx+"").attr('src','resources/images/recommend.png');
-						boardCommentList(); //댓글리스트 호출(댓글추천수 새로고침)
+						alert(data.msg);
+						
 					}else{
-						console.log($("#"+boardIdx+""));
-						$("#"+boardIdx+"").attr('src','resources/images/decommend.png');
-						boardCommentList(); //댓글리스트 호출(댓글추천수 새로고침)
+						alert(data.msg);
+							
 					}
 					
 				},
@@ -627,12 +625,12 @@ a:link {
 	}
 		/* 댓글 신고 새창 */
 	function repCommForm(commIdx){
-		window.open("../boardRepCommForm/1/"+commIdx,"reportComment","width=800, height=600");
+		window.open("./boardRepCommForm/1/"+commIdx,"reportComment","width=800, height=600");
 	}
 	
 	/* 대댓글 신고 새창 */
 	function repRecommForm(com2ndIdx){
-		window.open("../boardRepCommForm/2/"+com2ndIdx,"reportRecomment","width=800, height=600");
+		window.open("./boardRepCommForm/2/"+com2ndIdx,"reportRecomment","width=800, height=600");
 	}
 </script>
 </html>

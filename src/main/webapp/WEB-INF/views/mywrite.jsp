@@ -85,13 +85,12 @@ select:hover {
 				style="height: 650px; float: left; width:250px;" ></iframe>
 			</div>
 			<div class="sideBar">
-				<form>
-					 <table>
-						<h2>우리집 자랑</h2>
-						<tbody id="list" style="border: 1px solid black; width: 50px; height: 50px; ">
-             
-						</tbody>
-						<tr>
+			<form>
+			<h2>우리집 자랑</h2>
+			<div id="list" style="display: flex; flex-flow: wrap;  justify-content: left; border: 1px solid rgb(150px, 150px, 150px);">
+
+			</div> 
+			
 			<td id="paging" colspan="6">
 				<!-- 플러그인 사용 -->
 				<div class="container">
@@ -101,8 +100,8 @@ select:hover {
 				</div>
 				<!--// 플러그인 사용 -->
 				</td>
-				</table>
-                   <table>
+			
+                 
 					 <table>
 						<h2>나의 자유게시판</h2>
 					   <tr>
@@ -172,7 +171,7 @@ select:hover {
 				</td>
 				</table>
                 </form>
-			</div>
+		
 			
 		</div>
 	</div>
@@ -231,9 +230,9 @@ function listCall2(reqPage,reqPagePerNum){
 			 showPage = data.currPage;
 			 console.log(showPage);
 			 console.log(data.list);
-			 listPrint(data.list);
+			 listPrint2(data.list);
 			 
-				$("#pagination").twbsPagination({
+				$("#pagination2").twbsPagination({
 					startPage:data.currPage,//시작 페이지
 					totalPages:data.range,//생성 가능 최대 페이지
 					visiblePages:3,//5개씩 보여 주겠다.(1~5)
@@ -263,8 +262,8 @@ function listCall3(reqPage,reqPagePerNum){
 			 console.log(showPage);
 			 console.log(data.list);
 			 //listPrint(data.list);
-			 listPrint2(data.list);
-				$("#pagination2").twbsPagination({
+			 listPrint3(data.list);
+				$("#pagination3").twbsPagination({
 					startPage:data.currPage,//시작 페이지
 					totalPages:data.range,//생성 가능 최대 페이지
 					visiblePages:3,//5개씩 보여 주겠다.(1~5)
@@ -294,8 +293,8 @@ function listCall4(reqPage,reqPagePerNum){
 			 console.log(showPage);
 			 console.log(data.list);
 			 //listPrint(data.list);
-			 listPrint3(data.list);
-				$("#pagination3").twbsPagination({
+			 listPrint4(data.list);
+				$("#pagination4").twbsPagination({
 					startPage:data.currPage,//시작 페이지
 					totalPages:data.range,//생성 가능 최대 페이지
 					visiblePages:3,//5개씩 보여 주겠다.(1~5)
@@ -312,16 +311,19 @@ function listCall4(reqPage,reqPagePerNum){
 	 });
 }
 	 
-	 function listPrint(list){
-		 var content = "";
-		 for(var i = 0; i<list.length; i++){
-			 content +="<tr>"
-			content +="<td><img src='list[i].newFileName'></td>"
-			content +="</tr>"
-		}
-		$("#list").empty();
-		$("#list").append(content);
-	}
+function listPrint(list) {
+	console.log("listprint실행");
+	console.log(list.length);
+	var content = "";
+	for (var i = 0; i < list.length; i++) {
+		
+		content += "<div style='border-radius:20px; border: 5px solid white; margin: 20px; box-shadow:0 0 5px lightslategray;'>"
+		content += "<img src='resources/images/interior4.jpg' width='200' height='200' style=' border-radius:20px;'>"
+		content += "</div>"
+}
+	$('#list').empty();
+	$('#list').append(content);
+}
 	 function listPrint2(list){
 		 var content = "";
 		 for(var i = 0; i<list.length; i++){
@@ -367,8 +369,8 @@ function listCall4(reqPage,reqPagePerNum){
 			
 			content +="</tr>"
 		}
-		$("#list3").empty();
-		$("#list3").append(content);
+		$("#list4").empty();
+		$("#list4").append(content);
 	}
 	 
 	 var msg = "${msg}";
