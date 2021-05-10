@@ -97,8 +97,8 @@ span:hover {
 
 	<table id="mainTopTable">
 		<tr >
-			<td style="width: 150px"><a href="main"> <img
-					src="resources/css/memberCSS/logo.png"
+			<td style="width: 150px"><a href="${pageContext.request.contextPath}"> <img
+					src="${pageContext.request.contextPath}/resources/css/memberCSS/logo.png"
 					style="height: 50px; width: 80px;">
 			</a></td>
 			<td style="width: 700px"><input type="text" size="75"
@@ -112,33 +112,33 @@ span:hover {
 			<td style="width: 210px"><c:set var="loginId" value="${sessionScope.loginId}" /> <c:set
 					var="comloginId" value="${sessionScope.cLoginId}" /> <c:if
 					test="${empty loginId and empty comloginId}">
-					<a class="네비a" href="FAQ"
+					<a class="네비a" href="${pageContext.request.contextPath}/FAQ"
 						style="font-weight: bold; font-size: small; float: right; color: gray; padding-left: 5px;">|<span
 						class="네비span" style="padding-left: 5px;">고객센터</span></a>
-					<a class="네비a" href="registForm"
+					<a class="네비a" href="${pageContext.request.contextPath}/registForm"
 						style="font-weight: bold; font-size: small; float: right; color: gray; padding-left: 5px;">|<span
 						class="네비span" style="padding-left: 5px;">회원가입</span></a>
-					<a class="네비a" href="membership"
+					<a class="네비a" href="${pageContext.request.contextPath}/membership"
 						style="font-weight: bold; font-size: small; float: right; color: gray;"><span
 						class="네비span">로그인</span></a>
 				</c:if> <c:if test="${!empty loginId}">
-					<a class="네비a" href="FAQ"
+					<a class="네비a" href="${pageContext.request.contextPath}/FAQ"
 						style="font-weight: bold; font-size: small; float: right; color: gray; padding-left: 5px;">|<span
 						class="네비span" style="font-weight: bold; padding-left: 5px;">고객센터</span></a>
-					<a class="네비a" href="mywrite"
+					<a class="네비a" href="${pageContext.request.contextPath}/mywrite"
 						style="font-weight: bold; font-size: small; float: right; color: gray; padding-left: 5px;">|<span
 						class="네비span" style="font-weight: bold; padding-left: 5px;">마이페이지</span></a>
-					<a class="네비a" href="logOut"
+					<a class="네비a" href="${pageContext.request.contextPath}/logOut"
 						style="font-weight: bold; font-size: small; float: right; color: gray;"><span
 						class="네비span">로그아웃</span></a>
 				</c:if> <c:if test="${!empty comloginId}">
-					<a class="네비a" href="FAQ"
+					<a class="네비a" href="${pageContext.request.contextPath}/FAQ"
 						style="font-weight: bold; font-size: small; float: right; color: gray; padding-left: 5px;">|<span
 						class="네비span" style="font-weight: bold; padding-left: 5px;">고객센터</span></a>
-					<a class="네비a" href="companydetail"
+					<a class="네비a" href="${pageContext.request.contextPath}/companydetail"
 						style="font-weight: bold; font-size: small; float: right; color: gray; padding-left: 5px;">|<span
 						class="네비span" style="font-weight: bold; padding-left: 5px;">업체페이지</span></a>
-					<a class="네비a" href="logOut"
+					<a class="네비a" href="${pageContext.request.contextPath}/logOut"
 						style="font-weight: bold; font-size: small; float: right; color: gray;"><span
 						class="네비span">로그아웃</span></a>
 				</c:if></td>
@@ -183,11 +183,11 @@ span:hover {
 </div>
 <div class="네비bar">
 	<ul id="네비ul">
-		<li class="네비li"><a class="네비a" href="Freelist" target="_parent">자유게시판</a></li>
-		<li class="네비li"><a class="네비a" href="homemain" target="_parent">우리집자랑</a></li>
-		<li class="네비li"><a class="네비a" href="groupListPage" target="_parent">공동구매</a></li>
-		<li class="네비li"><a class="네비a" href="helpMain" target="_parent">도와줘요 자취만렙</a></li>
-		<li class="네비li"><a class="네비a" href="interiorexamList" target="_parent">전문가 인테리어</a></li>
+		<li class="네비li"><a class="네비a" href="${pageContext.request.contextPath}/Freelist" target="_parent">자유게시판</a></li>
+		<li class="네비li"><a class="네비a" href="${pageContext.request.contextPath}/homemain" target="_parent">우리집자랑</a></li>
+		<li class="네비li"><a class="네비a" href="${pageContext.request.contextPath}/groupListPage" target="_parent">공동구매</a></li>
+		<li class="네비li"><a class="네비a" href="${pageContext.request.contextPath}/helpMain" target="_parent">도와줘요 자취만렙</a></li>
+		<li class="네비li"><a class="네비a" href="${pageContext.request.contextPath}/interiorexamList" target="_parent">전문가 인테리어</a></li>
 	</ul>
 
 </div>
