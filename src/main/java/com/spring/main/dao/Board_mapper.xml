@@ -119,7 +119,7 @@
 	<select id="gettipMainLimit3" resultType="board">
         SELECT board.boardidx, photos.newfilename
 		FROM (
-		  SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, BOARDIDX
+		  SELECT ROW_NUMBER() OVER(ORDER BY cntreco DESC) AS rnum, BOARDIDX
 		  FROM BOARD
 		  WHERE brdctgidx = 3
 		) board
