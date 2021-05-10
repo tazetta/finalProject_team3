@@ -88,7 +88,7 @@ select:hover {
 				<form>
 					 <table>
 						<h2>우리집 자랑</h2>
-						<tbody id="list" style="border: 1px solid black; width: 50px; height: 50px; ">
+						<tbody id="list" style="border: 1px solid black; width: 100px; height: 100px; ">
              
 						</tbody>
 						<tr>
@@ -231,9 +231,9 @@ function listCall2(reqPage,reqPagePerNum){
 			 showPage = data.currPage;
 			 console.log(showPage);
 			 console.log(data.list);
-			 listPrint(data.list);
+			 listPrint2(data.list);
 			 
-				$("#pagination").twbsPagination({
+				$("#pagination2").twbsPagination({
 					startPage:data.currPage,//시작 페이지
 					totalPages:data.range,//생성 가능 최대 페이지
 					visiblePages:3,//5개씩 보여 주겠다.(1~5)
@@ -263,8 +263,8 @@ function listCall3(reqPage,reqPagePerNum){
 			 console.log(showPage);
 			 console.log(data.list);
 			 //listPrint(data.list);
-			 listPrint2(data.list);
-				$("#pagination2").twbsPagination({
+			 listPrint3(data.list);
+				$("#pagination3").twbsPagination({
 					startPage:data.currPage,//시작 페이지
 					totalPages:data.range,//생성 가능 최대 페이지
 					visiblePages:3,//5개씩 보여 주겠다.(1~5)
@@ -294,8 +294,8 @@ function listCall4(reqPage,reqPagePerNum){
 			 console.log(showPage);
 			 console.log(data.list);
 			 //listPrint(data.list);
-			 listPrint3(data.list);
-				$("#pagination3").twbsPagination({
+			 listPrint4(data.list);
+				$("#pagination4").twbsPagination({
 					startPage:data.currPage,//시작 페이지
 					totalPages:data.range,//생성 가능 최대 페이지
 					visiblePages:3,//5개씩 보여 주겠다.(1~5)
@@ -316,11 +316,11 @@ function listCall4(reqPage,reqPagePerNum){
 		 var content = "";
 		 for(var i = 0; i<list.length; i++){
 			 content +="<tr>"
-			content +="<td><img src='list[i].newFileName'></td>"
+		    content +="<td><img src=list[i].newFileName></td>"
 			content +="</tr>"
 		}
-		$("#list").empty();
-		$("#list").append(content);
+		$("#list1").empty();
+		$("#list1").append(content);
 	}
 	 function listPrint2(list){
 		 var content = "";
@@ -367,8 +367,8 @@ function listCall4(reqPage,reqPagePerNum){
 			
 			content +="</tr>"
 		}
-		$("#list3").empty();
-		$("#list3").append(content);
+		$("#list4").empty();
+		$("#list4").append(content);
 	}
 	 
 	 var msg = "${msg}";
