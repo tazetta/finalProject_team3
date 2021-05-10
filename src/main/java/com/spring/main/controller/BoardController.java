@@ -57,18 +57,7 @@ public class BoardController {
 		
   return mav;
 	   }
-	
-	
-	@RequestMapping(value = "/Freeview", method = RequestMethod.GET)
-	public String Freeview() {
-		logger.info("프리뷰.");
-		System.out.println("프리뷰~~");
-		return "Freeview";
-	}
 	@RequestMapping(value = "/Freelist", method = RequestMethod.GET)
-	
-	
-	
 	public ModelAndView Freelist() {
 		ModelAndView mav = new ModelAndView();
 		logger.info("페이지이동이당");

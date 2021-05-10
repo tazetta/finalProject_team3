@@ -82,7 +82,7 @@ a.button2:hover,.button2:hover {
             </tr>
             <tr>
                 <td><div contenteditable="true" id="editable" style="overflow:scroll; width: 100%; height: 400px; border: 2px solid black; border-radius: 10px;">
-                <input type="text" class="form-control" placeholder="내용을 입력하세요" name="content" maxlength="1024" style="height: 400px;"  hidden="hidden"/></div></td>
+                <input id="content" type="text" class="form-control" placeholder="내용을 입력하세요" name="content" maxlength="1024" style="height: 400px;"  hidden="hidden"/></div></td>
             </tr>
         </table>
       </div>
@@ -100,6 +100,7 @@ a.button2:hover,.button2:hover {
 
 </body>
 <script>
+
 var msg = "${msg}";
 if(msg != ""){
 	alert(msg);
@@ -108,11 +109,18 @@ if(msg != ""){
 
 //boarduploadForm에서 보내는 elem확인
 $("#save").click(function() {
-	console.log($("#editable").html());
-	$("#editable>a").find("b").remove(); //a태그안 b태그 삭제
-	$("#editable>a").removeAttr("onclick"); //del(this) 무효화
-	$("#content").val($("#editable").html());
-	$("form").submit();
+	var subject = $("#subject").val();
+	var editable = $("#editable").html();
+	if(subject==''|| content==''){
+		console.log("subject:"+subject);
+		console.log("content:"+content);
+		alert("모든 양식을 작성해주세요");
+	}else{
+		$("#editable>a").find("b").remove(); //a태그안 b태그 삭제
+	 	$("#editable>a").removeAttr("onclick"); //del(this) 무효화
+	 	$("#content").val($("#editable").html()); //입력한 값 content에 넣기
+		$("form").submit(); 
+	}		
 });
 
 function fileUp(){

@@ -141,7 +141,7 @@ public class BoardService {
 			} else if (boardctgidx == 3) {
 				page = "redirect:/tiplist";
 			} else if (boardctgidx == 4) {
-				page = "redirect:/qnalist";
+				page = "redirect:/helpMain";
 			} else if (boardctgidx == 5) {
 				page = "redirect:/FAQ";
 			}
