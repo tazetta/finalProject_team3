@@ -69,6 +69,10 @@ margin-top:50px;
     cursor: pointer;
     box-shadow: 0px 5px 5px rgb(235, 232, 232);
     }
+    .ctn:hover{
+		text-decoration: none;
+		color:black;
+	}
 </style>
 
 <body>
@@ -198,7 +202,9 @@ function listPrint(list){
 		console.log(list[i].content.length);
 		content +="<tr>"
 		content +="<td>"+list[i].sender+"</td>"
-		content +="<td><a href='#' id="+list[i].msgIdx+" onclick='msgDetailPopUp("+list[i].msgIdx+")'>"+str+"</td>"
+		content += "<td><a href='#' id=" + list[i].msgIdx
+		+ " class='ctn' onclick='msgDetailPopUp(" + list[i].msgIdx + ")'>"
+		+ str + "</td>"
 		var date = new Date(list[i].reg_date);
 		content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"		
 		content +="<td><button class=\"delBtn\"  onclick=\"deleteMsg("+list[i].msgIdx+")\""+">삭제</button></td>"

@@ -68,7 +68,12 @@ margin-top:50px;
     border: 1px solid #166cea;
     cursor: pointer;
     box-shadow: 0px 5px 5px rgb(235, 232, 232);
+     transition: all .3s ease;
     }
+    .ctn:hover{
+		text-decoration: none;
+		color:black;
+	}
 </style>
 
 <body>
@@ -199,8 +204,8 @@ margin-top:50px;
 			content += "<tr>"
 			content += "<td>" + list[i].sender + "</td>"
 			content += "<td><a href='#' id=" + list[i].msgIdx
-					+ " onclick='msgDetailPopUp(" + list[i].msgIdx + ")'>"
-					+ str + "</td>"
+			+ " class='ctn' onclick='msgDetailPopUp(" + list[i].msgIdx + ")'>"
+			+ str + "</td>"
 			var date = new Date(list[i].reg_date);
 			content += "<td>" + date.toLocaleDateString("ko-KR") + "</td>"
 			content += "<td><button class=\"delBtn\"  onclick=\"deleteMsg("

@@ -126,7 +126,7 @@ public class MyRestController {
 		
 	}
 	
-	@RequestMapping(value = "/sendMsg", method = RequestMethod.GET)
+	@RequestMapping(value = "/sendMsg", method = RequestMethod.POST)
 	public HashMap<String, Object> sendMsg(@RequestParam HashMap<String, String> params) {
 		logger.info("쪽지쓰기 요청");
 		logger.info("params {}" + params);
