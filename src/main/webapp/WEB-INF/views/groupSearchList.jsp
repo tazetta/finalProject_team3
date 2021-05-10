@@ -273,7 +273,7 @@ console.log("진행상황:"+list[i].progIdx);
 	 var deadline = new Date(list[i].deadline); 
 	content += "<td>"+deadline.toLocaleDateString("ko-KR")+"</td>" //마감날짜
 
-	content += "<td><a href='/main/groupDetail?gpIdx="+list[i].gpIdx+"' class='subject'>"+list[i].subject+"</a></td>" //제목
+	content += "<td><a href='groupDetail?gpIdx="+list[i].gpIdx+"&loginId=${sessionScope.loginId}' ' class='subject'>"+list[i].subject+"</a></td>" //제목
 	content += "<td>"+list[i].id+"</td>"  //작성자
 	content += "<td>"+list[i].gHit+"</td>" //남은자리(->조회수로 대체)
 	

@@ -26,6 +26,7 @@
 			<mvc:mapping path="/groupRecommWrite"/> 
 			<mvc:mapping path="/boardWrite"/> 
 			<mvc:mapping path="/boardCommentWrite"/>
+			<mvc:mapping path="/boardRecommWrite"/>
 			<!--  아래 클래스로 이동시켜라 -->
 			<bean class="com.spring.main.service.MemberInterceptor" />
 		</mvc:interceptor>
