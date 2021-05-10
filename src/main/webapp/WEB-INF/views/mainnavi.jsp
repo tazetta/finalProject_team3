@@ -109,7 +109,7 @@ span:hover {
 
 
 			</td>
-			<td><c:set var="loginId" value="${sessionScope.loginId}" /> <c:set
+			<td style="width: 210px"><c:set var="loginId" value="${sessionScope.loginId}" /> <c:set
 					var="comloginId" value="${sessionScope.cLoginId}" /> <c:if
 					test="${empty loginId and empty comloginId}">
 					<a class="네비a" href="FAQ"

@@ -273,7 +273,7 @@ a:link {
 		var boardIdx = "${dto.boardIdx}";
 		console.log("loginID:" + loginId + "/comment:" + comment);
 		if (comment != '') {
-<<<<<<< HEAD
+
 
 			var reqUrl = ' ./boardCommentWrite';
 			$.ajax({
@@ -291,25 +291,6 @@ a:link {
 					$("#comment").val('');
 					boardCommentList();// 작성후 댓글 리스트 요청
 
-=======
-
-			var reqUrl = ' ./boardCommentWrite';
-			$.ajax({
-				url : reqUrl,
-				type : "GET",
-				data : {
-					"boardIdx" : boardIdx,
-					"comment" : comment,
-					"loginId" : loginId
-				},
-				dataType : "JSON",
-				success : function(data) {
-					console.log("success: ", data);
-					alert(data.msg);
-					$("#comment").val('');
-					boardCommentList();// 작성후 댓글 리스트 요청
-
->>>>>>> 9a29e0dddaeb53837bbec45cbf994c1ec08e2439
 				},
 				error : function(error) {
 					console.log("error:", error);
@@ -427,8 +408,7 @@ a:link {
 				console.log("recCommListsuccess: ", data);
 				for (var i = 0; i < data.recCommList.length; i++) {
 					console.log(data.recCommList[i].commIdx);
-					$("#" + data.recCommList[i].commIdx + "").attr('src',
-							'resources/images/recommend.png');
+					$("#" + data.recCommList[i].commIdx + "").attr('src','resources/images/recommend.png');
 				}
 			},
 			error : function(error) {
@@ -576,11 +556,7 @@ a:link {
 					if(data.recResult =='true'){
 						console.log($("#"+com2ndIdx+""));
 						$("#"+com2ndIdx+"").attr('src','resources/images/recommend.png');
-<<<<<<< HEAD
-						boardCommentList(); //댓글리스트 호출(댓글추천수 새로고침)
-=======
 						boardRecommList(); //댓글리스트 호출(댓글추천수 새로고침)
->>>>>>> 9a29e0dddaeb53837bbec45cbf994c1ec08e2439
 					}else{
 						console.log($("#"+com2ndIdx+""));
 						$("#"+com2ndIdx+"").attr('src','resources/images/decommend.png');
@@ -633,20 +609,13 @@ a:link {
 				success : function(data) {
 					console.log("Success: ", data);
 					console.log("rescResult:"+data.recResult);
+					console.log("page:"+data.page);
 					if(data.recResult =='true'){
-<<<<<<< HEAD
-						alert("추천완료");
-				
+						alert(data.msg);
+					
 					}else{
-						alert("추천취소");
-		
-=======
 						alert(data.msg);
 						
-					}else{
-						alert(data.msg);
-							
->>>>>>> 9a29e0dddaeb53837bbec45cbf994c1ec08e2439
 					}
 					
 				},

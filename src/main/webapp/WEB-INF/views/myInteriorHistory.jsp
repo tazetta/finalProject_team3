@@ -143,12 +143,19 @@ h2 {
 				<div class="sliderBox">
 					<div class="wraping" style="height: 300px">
 						<div class="bxslider">
-						<c:forEach items="${slide}" var="slide">
+<%-- 						<c:if test="${slide.size() == 0}">
 							<div>
-								<img src="resources/images/${slide.newFileName}" width="880px"
-									height=300px>
+								현재 사진이 없습니다.
 							</div>
-						</c:forEach>
+						</c:if> --%>
+						<c:if test="${slide.size() > 0}">
+							<c:forEach items="${slide}" var="slide">
+								<div>
+									<img src="resources/images/${slide.newFileName}" width="880px"
+										height=300px>
+								</div>
+							</c:forEach>
+						</c:if>
 						</div>
 					</div>
 				</div>
@@ -165,7 +172,7 @@ const getDataLength = 4;
 let count = 0;
 let image = "";
 var thisPage = 1;
-var id = 'mingmang17';
+var id = "${sessionScope.loginId}";
 
 	getTodos(thisPage, id);
 
@@ -181,7 +188,7 @@ function getTodos (reqPage, id){
 		,type:'GET'
 		,dataType:'JSON'
 		,success:(data)=>{
-			if(reqPage > data.maxPage){listCall(data.maxPage, id);}
+			/* if(reqPage > data.maxPage){listCall(data.maxPage, id);} */
 			console.log(reqUrl);
 			console.log(data);
 			thisPage = data.currPage;
@@ -200,10 +207,14 @@ function getTodos (reqPage, id){
 function appendPhotos(list){
 	var card = "";
 	var src = "";
+	if(list.length > 0){
 	for(var i = 0; i<list.length;i++){
 		src += "C:/upload/"+list[i].newFileName;
 		card += "<div class='myPhotos'><img src='" + src + "' alt='image' width='400px' height='250px'><div class='container'><p>"+src+"</p></div></div>"
 		src = "";
+	}
+	} else {
+		card += "<div class='myPhotos'>현재 등록된 사진이 없습니다.</div>"
 	}
 	$(".box").append(card);
 };

@@ -7,7 +7,29 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <title>공동구매 글쓰기</title>
 <style>
-table, td {
+/*title*/
+#groupTitle{
+font-weight:600;
+font-size:130%;
+margin:20px;
+margin-top:30px;
+color:#337ab7;
+/* 중앙정렬 */
+display: flex; 
+justify-content: center;
+}
+#groupTitle>a:visited{
+color:#337ab7;
+}
+a:link{
+text-decoration:none;
+}
+/*테이블*/
+#writeTable{
+margin:0 auto;
+width:900px;
+}
+#writeTable table,#writeTable td {
 	padding: 5px 10px;
 	text-align: center;
 	border: 1px solid black;
@@ -15,12 +37,13 @@ table, td {
 }
 
 #editable {
-	width: 600px;
-	height: 400px;
+	width: 1000px;
+	height: 700px;
 	border: 1px solid gray;
 	text-align: left;
 	overflow: auto;
 	padding: 5px;
+	
 }
 
 .text{
@@ -30,9 +53,9 @@ table, td {
 </head>
 <body>
  <jsp:include page="mainnavi.jsp"></jsp:include> 
-
+<span id="groupTitle"><a href="groupListPage">공동구매&무료나눔</a></span>
 	<form action="groupWrite" method="post">
-		<table>
+		<table id="writeTable">
 			<tr>
 				<td><select name="groupCtg">
 						<option value="1">공동구매</option>

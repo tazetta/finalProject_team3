@@ -24,9 +24,9 @@ public class MyController {
 	
 
 	@RequestMapping(value = "/myInteriorHistory", method = RequestMethod.GET)
-	public ModelAndView adminMain() {
+	public ModelAndView adminMain(HttpSession session) {
 		logger.info("인테리어변천사");
-		String id = "mingmang17";
+		String id = (String) (session.getAttribute("loginId"));
 		return myService.myInteriorSlider(id);
 	}
 

@@ -181,6 +181,7 @@ function searchGroup(){
 	if(keyword ==''){
 		alert("검색어를 입력해주세요");
 	}else{
+		$("#pagination").twbsPagination('destroy');
 		$("form").submit();
 	}
 }
@@ -195,6 +196,7 @@ listCall(showPage);  // 시작하자마자 이 함수를 호출
 
 function optSelect(e) {
 	console.log("opt.val:"+$("#opt").val());
+	$("#pagination").twbsPagination('destroy');
 	opt = $("#opt").val();
 	listCall(showPage); //옵션이 변경될때마다 호출
 }
@@ -213,11 +215,12 @@ function optSelect(e) {
 				listPrint(data.list); //list내용을 뿌려주는 함수 실행
 				
 				var visiblePage = 5; //보여줄 페이징버튼 수 -> 왜 안먹지?
-				if(data.range < 5 ){
+				/* if(data.range < 5 ){
 					visiblePage = data.range ;
-				}		
+				}		 */
 					console.log("보여줄 페이지:"+visiblePage);
 				/* 플러그인 사용한 페이징 처리*/
+					console.log(data.range);
 				$("#pagination").twbsPagination({
 					startPage:data.currPage, //시작 페이지
 					totalPages:data.range, //생성가능 최대 페이지

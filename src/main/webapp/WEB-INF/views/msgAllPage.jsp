@@ -47,6 +47,9 @@ body{
 .content{
 	width:300px;
 }
+.content:hover{
+	width
+}
 .table-area{
 	margin-top:50px;
 	margin-left:50px;
@@ -67,15 +70,16 @@ table{
     background-color: #166cea;
     border:none;
     border-radius: 2px;
-    font-weight: bold;
+    font-siez: 10px;
      padding: 2px 2px;
     }
     button:hover{
-       background-color: white;
+    background-color: white;
     color: #166cea;
     border: 1px solid #166cea;
     cursor: pointer;
     box-shadow: 0px 5px 5px rgb(235, 232, 232);
+   	  transition: all .3s ease;
     }
     table tr{
     	margin:6px;
@@ -85,6 +89,10 @@ table{
     }
 	table td{
 		width:100px;
+	}
+	.ctn:hover{
+		text-decoration: none;
+		color:black;
 	}
 	
 </style>
@@ -269,7 +277,7 @@ table{
 			content += "<tr>"
 			content += "<td>" + list[i].sender + "</td>"
 			content += "<td><a href='#' id=" + list[i].msgIdx
-					+ " onclick='msgDetailPopUp(" + list[i].msgIdx + ")'>"
+					+ " class='ctn' onclick='msgDetailPopUp(" + list[i].msgIdx + ")'>"
 					+ str + "</td>"
 			var date = new Date(list[i].reg_date);
 			content += "<td>" + date.toLocaleDateString("ko-KR") + "</td>"
@@ -300,8 +308,8 @@ table{
 			content += "<tr>"
 			content += "<td>" + list[i].sender + "</td>"
 			content += "<td><a href='#' id=" + list[i].msgIdx
-					+ " onclick='msgDetailPopUp(" + list[i].msgIdx + ")'>"
-					+ str + "</td>"
+			+ " class='ctn' onclick='msgDetailPopUp(" + list[i].msgIdx + ")'>"
+			+ str + "</td>"
 			var date = new Date(list[i].reg_date);
 			content += "<td>" + date.toLocaleDateString("ko-KR") + "</td>"
 			content += "<td><button class=\"delBtn\"  onclick=\"deleteMsg("
