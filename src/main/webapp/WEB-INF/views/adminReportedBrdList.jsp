@@ -228,7 +228,7 @@ function listPrint(list){
 				content += "<td>"+list[i].targetId+"</td>"
 				var date = new Date(list[i].reg_date);
 				content += "<td>"+date.toLocaleDateString("ko-KR")+"</td>"
-				if(list[i].blind.equals('n')){
+				if(list[i].blind == 'n'){
 					content += "<td><input type='checkbox' id="+(list[i].boardIdx)+" value='블라인드' />블라인드</td>"
 				} else {
 					content += "<td style='color: red;'>블라인드 중</td>"
