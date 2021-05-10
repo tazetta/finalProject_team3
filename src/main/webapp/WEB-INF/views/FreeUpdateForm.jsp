@@ -23,17 +23,10 @@
 </head>
 
 <body>
-    <div class="container" style="text-align: center;">
-        <input type="text" size="75" style="border-radius: 5px; border: 1px solid;" placeholder="검색어를 입력해주세요.">
-        &nbsp;
-        <button id="btn" style="border-radius: 5px; background-color: white; border: 1px solid;">검색</button>
-        <span><a href="" style="font-size:small; float: right; color: gray;">|고객센터</a></span>
-        <span><a href="" style="font-size:small; float: right; color: gray;" >|회원가입</a></span>
-        <span><a href="" style="font-size:small; float: right; color: gray;">로그인</a></span>
-    </div>
     <br/>
-
-
+	 <div style="min-height: 210px; padding-top:50px;">
+	            <jsp:include page="mainnavi.jsp"></jsp:include> 
+            </div>
 <div class="container" style="height:300px; background-color: rgb(163, 182, 248); text-align:center;">
 
   <form action="/main/boardUpdate" method="POST">
@@ -97,7 +90,7 @@
         cursor: pointer;
         width: 7%;
         border-radius: 10px;"
-        onclick="location.href='../boarddetail/+${dto.boardIdx}'">취소</button>
+        onclick="location.href='./boarddetail?boardIdx='+${dto.boardIdx}''">취소</button>
         &nbsp;&nbsp;
         <button id="button" style="height: 20;
         background-color: rgb(252, 214, 158);

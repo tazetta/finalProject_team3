@@ -58,14 +58,9 @@ a.button2:hover,.button2:hover {
     <form name = "form" method="POST" action="boardWrite">
     	<input type="hidden" value="1" name="boardCtgIdx"/>
     	<input type="hidden" value="${sessionScope.loginId}" name="id"/>
-        <div class="container" style="text-align: center; padding-top: 10px;">
-            <input type="text" size="75" style="border-radius: 5px; border: 2px solid rgb(203, 228, 248); " placeholder="검색어를 입력해주세요.">
-            &nbsp;
-            <button id="btn" style="border-radius: 5px; background-color: rgb(203, 228, 248); border: 2px solid rgb(203, 228, 248); font-weight: bold; color: white;">검색</button>
-            <span><a href="" style="font-size:small; float: right; color: gray; font-weight: bold;">|고객센터</a></span>
-            <span><a href="" style="font-size:small; float: right; color: gray; font-weight: bold;" >|회원가입</a></span>
-            <span><a href="" style="font-size:small; float: right; color: gray; font-weight: bold;">로그인</a></span>
-        </div>
+      	 <div style="min-height: 210px; padding-top:50px;">
+	            <jsp:include page="mainnavi.jsp"></jsp:include> 
+            </div>
         <br/>
         
         <div class="container" style="height:200px; background-color: rgb(163, 182, 248); text-align:center;">

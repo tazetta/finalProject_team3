@@ -25,6 +25,8 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		
 		if(session.getAttribute("loginId") ==null) {
 			System.out.println("로그인 처리 안되어있음(logout상태) ");
+			String msg= "로그인 후 이용해주세요";
+			session.setAttribute("msg", msg);
 			response.sendRedirect("/main/");
 		}else {
 			System.out.println("로그인 처리 되어있음(login상태)");

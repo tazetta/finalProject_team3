@@ -144,6 +144,13 @@
 </body>
 <script>
 
+
+var msg ="${msg}";
+if(msg!=''){
+	
+	alert(msg);
+}
+
 $(document).ready(function() {
 	// 목록을 조회하는 함수.
 	function getList(pageNum, opt, keyword) {
@@ -192,7 +199,7 @@ $(document).ready(function() {
 							</tr>
 							 */
 							sHtml += '<tr>';
-							sHtml += '	<td><a href="boarddetail/' + oInfo.boardIdx +'">'
+							sHtml += '	<td><a href="boarddetail?boardIdx=' + oInfo.boardIdx +'">'
 									+ oInfo.subject
 									+ '</a></td>';
 							sHtml += '	<td>' + oInfo.id
@@ -259,7 +266,7 @@ $(document).ready(function() {
 							</tr>
 							 */
 							sHtml += '<tr>';
-							sHtml += '	<td><a href="boarddetail/' + oInfo.boardIdx +'">'
+							sHtml += '	<td><a href="boarddetail?boardIdx=' + oInfo.boardIdx +'">'
 									+ oInfo.subject
 									+ '</a></td>';
 							sHtml += '	<td>' + oInfo.id

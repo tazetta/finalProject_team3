@@ -31,15 +31,19 @@ public class PenaltyInterceptor extends HandlerInterceptorAdapter {
 		boolean pass = false;
 		HttpSession session = request.getSession();
 		String loginId = (String) session.getAttribute("loginId");
-		System.out.println("loginId:" + loginId);
-		String msg = "현재 작성금지 패널티 적용중입니다.";
-		MemberDTO dto = admindao.checkPenalty(loginId);
-		System.out.println(dto.getStateIdx());
-		if (dto.getStateIdx() == 0) {
-			pass = true;
+		if(loginId != null) {
+			System.out.println("loginId:" + loginId);
+			String msg = "현재 작성금지 패널티 적용중입니다.";
+			MemberDTO dto = admindao.checkPenalty(loginId);
+			System.out.println(dto.getStateIdx());
+			if (dto.getStateIdx() == 0) {
+				pass = true;
+			} else {
+				String referer = request.getHeader("Referer");
+				response.sendRedirect(referer);
+			}
 		} else {
-			String referer = request.getHeader("Referer");
-			response.sendRedirect(referer);
+			response.sendRedirect("main");
 		}
 		return pass;
 	}

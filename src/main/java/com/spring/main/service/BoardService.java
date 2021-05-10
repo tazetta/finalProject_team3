@@ -178,7 +178,7 @@ public class BoardService {
 			} else if (category.equals("팁게시판")) {
 				page = "tipdUpdateForm";
 			} else if (category.equals("질문과답변")) {
-				page = "qnaUpdateForm";
+				page = "QupdateForm";
 			} else if (category.equals("고객의소리")) {
 				page = "sgtUpdateForm";
 			}
@@ -217,7 +217,7 @@ public class BoardService {
 		int result = boarddao.boardUpdate(dto);// 성공시 dao실행
 		logger.info("결과 : {}", result);
 		// 실패시 다시 카테고리에 맞는 수정으로 보내기
-		page = "redirect:/boarddetail/" + boardIdx;
+		page = "redirect:/boarddetail?boardIdx=" + boardIdx;
 		msg = "글 수정 실패했습니다.";
 		@SuppressWarnings("unchecked") // unchecked-미확인 오퍼레이션과 관련된 경고를 억제합니다.
 		HashMap<String, String> fileList = (HashMap<String, String>) session.getAttribute("fileList");
@@ -244,6 +244,8 @@ public class BoardService {
 	public ModelAndView boardDel(String boardIdx, HttpSession session, RedirectAttributes rAttr) {
 		ModelAndView mav = new ModelAndView();
 		String newFileName = boarddao.boardGetFileName(boardIdx);// 보드파일찾기
+		BoardDTO dto = new BoardDTO();
+		String category = null;
 		if (newFileName != null) { // 파일이 있으면
 			int success = boarddao.boardPhotoDel(boardIdx); // DB에서 삭제
 			logger.info("photos 삭제 결과:" + success);
@@ -258,8 +260,7 @@ public class BoardService {
 		}
 		msg = "삭제되었습니다.";
 		rAttr.addFlashAttribute("msg", msg);
-
-		mav.setViewName("redirect:/Freelist");
+		mav.setViewName("redirect:/main");
 		return mav;
 	}
 
@@ -557,7 +558,7 @@ public class BoardService {
 			page = "redirect:/boarddetail?boardIdx=" + boardIdx;
 		}
 		}else {
-			page = "redirect:/boarddetail/" + boardIdx;
+			page = "redirect:/boarddetail?boardIdx=" + boardIdx;
 			msg="로그인이후 스크랩이용부탁드립니다.";
 		}
 		rAttr.addFlashAttribute("msg", msg);
@@ -745,14 +746,15 @@ public class BoardService {
 	}
 
 	public HashMap<String, Object> boardRec(int boardIdx, RedirectAttributes rAttr, HttpSession session) {
-		logger.info("대댓글추천 서비스");
+		logger.info("게시판추천 서비스");
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		String loginId = (String) session.getAttribute("loginId");
+		String recResult = "";
 
+		if(loginId!=null) {
 		String RecChk = boarddao.boardRecChk(boardIdx, loginId);
 		logger.info("게시글 추천 여부:" + RecChk);
 
-		String recResult = "";
 		if (RecChk != null) {
 			logger.info("추천취소하기");
 			int result = boarddao.boardDec(boardIdx, loginId);
@@ -760,15 +762,21 @@ public class BoardService {
 			logger.info("result:" + result);
 			recResult = "false";
 			msg = "추천취소되었습니다";
+			page = "redirect:/boarddetail?boardIdx=" + boardIdx;
 		} else {
 			logger.info("추천하기");
 			int result = boarddao.boardRec(boardIdx, loginId);
 			int cnt = boarddao.boardCntUp(boardIdx);
+			page = "redirect:/boarddetail?boardIdx=" + boardIdx;
 			logger.info("result:" + result);
 			recResult = "true";
 			msg = "추천되었습니다";
 		}
-
+		}else {
+			msg = "로그인이 필요한서비스입니다.";
+			page = "redirect:/boarddetail?boardIdx=" + boardIdx;
+		}
+		map.put("page", page);
 		map.put("recResult", recResult);
 		map.put("msg", msg);
 		return map;

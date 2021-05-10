@@ -39,18 +39,19 @@ public class ExamRestController {
 	}
 	
 	@RequestMapping(value = "/companyDetailExam", method = RequestMethod.GET)
-	public ModelAndView companyDetailExam(@RequestParam String comId ) {
+	public ModelAndView companyDetailExam(@RequestParam String comId, @RequestParam float rate) {
 		logger.info("시공사례 전체보기 페이지로 이동");
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("rate", rate);
 		mav.addObject("comId", comId);
 		mav.setViewName("companyDetailExam");
 		return mav;
 	}
-	@RequestMapping(value = "/examListScroll/{count}", method = RequestMethod.GET)
-	public HashMap<String, Object> examListScroll(@PathVariable int count) {
-		logger.info("스크롤됨!!");
-		logger.info("count:{} ",count);
-		return examService.examListScroll(count);
+	@RequestMapping(value = "/examListScroll/{pagePerCnt}/{page}", method = RequestMethod.GET)
+	public HashMap<String, Object> examListScroll(@PathVariable int pagePerCnt, @PathVariable int page) {
+		HashMap<String , Object> map = new HashMap<String, Object>();	
+		logger.info("pagePerCnt :{}, page :{}",pagePerCnt, page);
+		return examService.examListScroll(pagePerCnt, page);
 	}
 	
 //	//list/보여줄개수/페이지

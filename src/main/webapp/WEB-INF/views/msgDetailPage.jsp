@@ -7,10 +7,43 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
+
 <style>
 input {
 	border: none;
 }
+input:focus{
+	outline: none;
+}
+table tr td{
+	
+	padding :10px 3px;
+}
+#content{
+	width:370px;
+	heigth:500px;
+	resize:none;
+	font-size:14px;
+}
+   #btn{
+      color: white;
+    background-color: #166cea;
+    border:none;
+    border-radius: 2px;
+    font-weight: bold;
+     padding: 8px;
+     width:200px;
+     height:40px;
+     border-radius: 4px;
+    }
+    #btn:hover{
+       background-color: white;
+    color: #166cea;
+    border: 1px solid #166cea;
+    cursor: pointer;
+    box-shadow: 0px 5px 5px rgb(235, 232, 232);
+     transition: all .4s ease;
+    }
 </style>
 </head>
 <body>
@@ -29,14 +62,14 @@ input {
 			</tr>
 			<tr>
 				<th>내용</th>
-				<td>${info.content}</td>
+				<td id="content">${info.content}</td>
 			</tr>
 			<c:set var="sender" value="${info.sender}"></c:set>
 			<c:set var="loingId" value="${sessionScope.loginId}"></c:set>
 			<c:if test="${sender == loingId}"></c:if>
 			<c:if test="${sender != loingId}">
 				<tr>
-					<th><input type="button"
+					<th colspan="2"><input id="btn" type="button"
 						onclick="reMsgFormPopUp('${info.sender}')" value="답장" /></th>
 				</tr>
 			</c:if>

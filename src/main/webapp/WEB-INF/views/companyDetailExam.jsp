@@ -17,36 +17,88 @@
             margin-left: 50px;
             margin-top: 10px;
             max-width: 600px;
-            position: absolute;
-            top:10%;
-            left:10%;
          }
-         table,td{
-            border: 1px solid;
+         table,th,td{
+            border: 1px solid lightgray;
             border-collapse: collapse;
             padding: 5px 10px;
+            text-align: center;
+         }
+         th{
+              background-color: rgb(144, 209, 240);
+              color: white;
          }
          td{
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
          }
+         
+         #mainnavi {
+			position: absolute;
+			top:5%;
+			left:20%;
+        }
+        #side{
+        	margin-left: 4%;
+        	margin-top: 300px;
+        }
+        #box{
+        	position:absolute;
+        	top: 40%;
+        	margin-left: 300px;
+        }
+		.업체정보{
+            border:1px solid gainsboro;
+            border-collapse: collapse;
+            width: 200px;
+            height: 200px;
+            position: absolute;
+            top:250px;
+            margin-top: 30px;
+            margin-left: 4%;
+            text-align: center;
+        }
          #paging{
             text-align: center;
          }
+         #examList{
+         	text-align: center;
+         	position: absolute;
+         	top: 40%;
+    		left: 20%;
+    		width: 400px;
+         }
+         
 </style>
 </head>
 <body>
-	<h3>시공사례전체보기</h3>
+<jsp:include page="mainnavi.jsp"></jsp:include>
+	<table class="업체정보">
+			<tr>
+				<td style="font-size: 20px; padding-top: 20px;"><strong>${comId}</strong>
+				</td>
+			</tr>
+			<tr>
+				<td style="color: gainsboro;">─────────</td>
+			</tr>
+			<tr>
+				<td style="color: gray;">종합리모델링 기타</td>
+			</tr>
+			<tr>
+				<td style="font-size: 25px;"><strong>★ ${rate}</strong></td>
+			</tr>
+		</table>
+	<div id="side">
+
+	</div>
 	<input type="hidden" id ="comId" value="${comId}" readonly/>
-	<jsp:include page="companyDetailnavi.jsp" />
-	<table>
+	<table id="examList">
 		<thead>
 			<tr>
-				<td>제목</td>
-				<td>업체명</td>
-				<td>조회수</td>
-				<td>작성일</td>
+				<th>제목</th>
+				<th>업체명</th>
+				<th>작성일</th>
 			</tr>
 		</thead>
 		<tbody id="list">
@@ -92,6 +144,12 @@ if(msg != ""){
 					startPage : data.currPage, //시작 페이지
 					totalPages : data.range, //생성가능 최대 페이지
 					visiblePages : 5,//5개씩 보여주겠다
+					initiateStartPageClick : false, // 플러그인이 시작시 페이지 버튼 클릭 여부 (default : true)
+					first : '<span aria-hidden="true"><<</span>', // 페이지네이션 버튼중 처음으로 돌아가는 버튼에 쓰여 있는 텍스트
+					prev : "이전", // 이전 페이지 버튼에 쓰여있는 텍스트
+					next : "다음", // 다음 페이지 버튼에 쓰여있는 텍스트
+					last : '<span aria-hidden="true">>></span>', // 페이지네이션 버튼중 마지막으로 가는 버튼에 쓰여있는 텍스트
+					anchorClass : "page-link", //버튼 안의 앵커에 대한 CSS class
 					onPageClick : function(evt, page) {//각 페이지를 눌렀을 경우
 						console.log(evt);
 						console.log(page);
@@ -113,7 +171,6 @@ if(msg != ""){
 			content += "<tr>"
 			content += "<td><a href='examDetail?combrdIdx="+list[i].combrdIdx+"'>" + list[i].subject + "</td>"
 			content += "<td>" + list[i].comId + "</td>"
-			content += "<td>" + list[i].bHit + "</td>"
 			//java에서 가끔 날짜가 milliseconds로 나올 경우..
 			var date = new Date(list[i].reg_date);
 			content += "<td>" + date.toLocaleDateString("ko-KR") + "</td>"

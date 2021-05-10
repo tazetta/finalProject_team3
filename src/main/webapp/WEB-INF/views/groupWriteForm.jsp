@@ -7,38 +7,90 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <title>공동구매 글쓰기</title>
 <style>
-table, td {
+
+/*title*/
+#groupTitle{
+font-weight:600;
+font-size:130%;
+margin:20px;
+margin-top:30px;
+color:#337ab7;
+/* 중앙정렬 */
+display: flex; 
+justify-content: center;
+}
+#groupTitle>a:visited{
+color:#337ab7;
+}
+a:link{
+text-decoration:none;
+}
+/*테이블*/
+#writeTable{
+margin:0 auto;
+width:800px;
+position:relative;
+}
+#writeTable table,#writeTable td {
 	padding: 5px 10px;
-	text-align: center;
-	border: 1px solid black;
 	border-collapse: collapse;
 }
 
 #editable {
-	width: 600px;
-	height: 400px;
+	width: 800px;
+	height: 500px;
 	border: 1px solid gray;
 	text-align: left;
 	overflow: auto;
 	padding: 5px;
+	
 }
 
 .text{
 	width: 100%;
 }
+
+/*버튼*/
+#btnBox{
+display: flex; 
+justify-content: center;
+}
+
+#fileBtn{
+margin-right:600px;
+border:none;
+height:30px;
+background-color: #424242;
+color:white;
+font-weight:600;
+border-radius:4px;
+}
+.btn{
+border:none;
+height:30px;
+background-color: dodgerblue;
+color:white;
+font-weight:600;
+border-radius:4px;
+}
+
 </style>
 </head>
 <body>
  <jsp:include page="mainnavi.jsp"></jsp:include> 
-
+<span id="groupTitle"><a href="groupListPage">공동구매&무료나눔</a></span>
 	<form action="groupWrite" method="post">
-		<table>
+		<table id="writeTable">
 			<tr>
-				<td><select name="groupCtg">
+				<td  style="text-align: left;" colspan="2"><select name="groupCtg">
 						<option value="1">공동구매</option>
 						<option value="2">무료나눔</option>
 				</select></td>
-				<td><input type="text" name="subject"  id="subject" required="required" class="text"/>
+				
+			</tr>
+			<tr>
+			<td style="width:80%;" colspan="2">
+			<input type="text" name="subject"  id="subject" required="required" class="text"  placeholder="제목을 입력해주세요" style="height:30px;"/>
 				<input type="hidden" name="id" value="${sessionScope.loginId }"/> 
 				</td>
 			</tr>
@@ -49,22 +101,25 @@ table, td {
 				</td>
 			</tr>
 			<tr>
-				<td>오픈카카오톡 URL</td>
-				<td><input type="text" name="chatUrl" id="chatUrl" class="text"/></td>
+				<td style="width:150px; text-align:right;">오픈카카오톡 URL</td>
+				<td><input type="text" name="chatUrl" id="chatUrl" class="text" placeholder="신청자들과 소통할 URL링크를 붙여 넣어주세요" style="height:30px;"/></td>
 			</tr>
 			<tr>
-				<td>최대참여자</td>
-				<td><input type="number" name="maxUser"  id="maxUser"  /></td>
+				<td style=" text-align:right;">최대참여자</td>
+				<td><input type="number" name="maxUser"  id="maxUser" style="height:30px; width:50px;" placeholder="0" /></td>
 			</tr>
 			<tr>
-				<td>마감날짜</td>
+				<td style=" text-align:right;">마감날짜</td>
 				<td><input type="Date" name="deadline" id="deadline" /></td>
 			</tr>
 		</table>
 	</form>
-	<input type="button" value="파일업로드" onclick="fileUp()" />
-	<button onclick="location.href='groupListPage'">취소</button>
-	<input type="button" id="save" value ="작성완료" />
+	
+	<div id="btnBox">
+	<input type="button" value="파일업로드" onclick="fileUp()" id="fileBtn" />
+	<button onclick="location.href='groupListPage'" style="margin-right:10px;" class="btn">취소</button>
+	<input type="button" id="save" value ="작성완료" class="btn"/>
+</div>
 
 </body>
 <script>
@@ -166,6 +221,17 @@ table, td {
 	 		alert("마감일은 오늘날짜보다 이전으로 설정 할 수 없습니다.")
 	 		$(this).val(defaultVal); 
 	 	}
+	});
+	
+	/* 최대참여자 수를 1이상 입력하도록 강제*/
+	$("#maxUser").change(function(e){
+		var defaultVal = $(this).prop("defaultValue");
+		var currVal = $(this).val();
+		
+		if(currVal < 0){
+			alert("최대참여자 수는 0 보다 커야합니다");
+			$(this).val(1);
+		}
 	});
 	
 	

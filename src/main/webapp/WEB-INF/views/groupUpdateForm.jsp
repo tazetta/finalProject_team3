@@ -6,16 +6,38 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <title>수정 상세보기</title>
 <style>
-table, td {
+/*title*/
+#groupTitle{
+font-weight:600;
+font-size:130%;
+margin:20px;
+margin-top:30px;
+color:#337ab7;
+/* 중앙정렬 */
+display: flex; 
+justify-content: center;
+}
+#groupTitle>a:visited{
+color:#337ab7;
+}
+a:link{
+text-decoration:none;
+}
+
+/*테이블*/
+#updateTable{
+margin:0 auto;
+width:800px;
+position:relative;
+}
+#updateTable table, #updateTable td {
 	padding: 5px 10px;
-	text-align: center;
-	border: 1px solid black;
 	border-collapse: collapse;
 }
 
 #editable {
-	width: 600px;
-	height: 400px;
+	width: 800px;
+	height: 500px;
 	border: 1px solid gray;
 	text-align: left;
 	overflow: auto;
@@ -25,21 +47,49 @@ table, td {
 input[type='text'] {
 	width: 100%;
 }
+/*버튼*/
+#btnBox{
+display: flex; 
+justify-content: center;
+}
+
+#fileBtn{
+margin-right:600px;
+border:none;
+height:30px;
+background-color: #424242;
+color:white;
+font-weight:600;
+border-radius:4px;
+}
+.btn{
+border:none;
+height:30px;
+background-color: dodgerblue;
+color:white;
+font-weight:600;
+border-radius:4px;
+}
 </style>
 </head>
 <body>
  <jsp:include page="mainnavi.jsp"></jsp:include> 
+ <span id="groupTitle"><a href="/main/groupListPage">공동구매&무료나눔</a></span>
 
-	<h3>수정하기</h3>
 	<form action="/main/groupUpdate" method="post">
-		<table>
+		<table id="updateTable">
 			<tr>
-				<td><select name="gpCtgIdx">
+				<td colspan="2"><select name="gpCtgIdx" style="height:25px;">
 					
 						<option value="1">공동구매</option>					
 						<option value="2">무료나눔</option>
 				</select></td>
-				<td><input type="text" name="subject" value="${dto.subject }"/>
+				
+			</tr>
+			<tr>
+				
+				<td colspan="2">
+				<input type="text" name="subject" value="${dto.subject }" style="height:30px;"/>
 				</td>
 			</tr>
 			<tr>
@@ -50,31 +100,36 @@ input[type='text'] {
 				</td>
 			</tr>
 			<tr>
-				<td>오픈카카오톡 URL</td>
-				<td><input type="text" name="chatURL" value="${dto.chatURL }" /></td>
+				<td style="width:150px; text-align:right;">오픈카카오톡 URL</td>
+				<td><input type="text" name="chatURL" value="${dto.chatURL }"  style="height:30px;" /></td>
 			</tr>
 			<tr>
-				<td>최대참여자</td>
-				<td><input type="number" name="maxUser" id="maxUser" value="${dto.maxUser }" min="0"></td>
+				<td style=" text-align:right;">최대참여자</td>
+				<td><input type="number" name="maxUser" id="maxUser" style="height:25px; width:50px;"   value="${dto.maxUser }" min="0"></td>
 			</tr>
 			<tr>
-				<td>모집상태</td>
-				<td><select name="progIdx" id="progIdx">
-						<option value="1" <c:if test="${dto.progIdx == 1}">selected</c:if>>진행중</option>
+				<td style=" text-align:right;">모집상태</td>
+				<td>
+				<select name="progIdx" id="progIdx"  style="height:25px;">
+						<option value="1" <c:if test="${dto.progIdx == 1}">selected </c:if> >진행중</option>
 						<option value="2" <c:if test="${dto.progIdx == 2}">selected</c:if>>인원부족마감</option>
 						<option value="3" <c:if test="${dto.progIdx == 3}">selected</c:if>>마감</option>
-				</select></td>
+				</select>
+				</td>
 			</tr>
 			<tr>
-				<td>마감날짜</td>
+				<td style=" text-align:right;">마감날짜</td>
 				<td><input type="Date" name="deadline" id="deadline" value="${dto.deadline }" /></td>
 			</tr>
 		</table>
-	<input type="button" value="파일업로드" onclick="fileUp()" />
-	<input type="button" id="save" value="수정완료" />
 	</form>
-	<button onclick="location.href='/main/groupDetail?gpIdx=${dto.gpIdx}&loginId=${sessionScope.loginId}'">취소</button>
+		<div id="btnBox">
+	<input type="button" value="파일업로드" onclick="fileUp()" id="fileBtn" >
+	<button onclick="location.href='/main/groupDetail?gpIdx=${dto.gpIdx}&loginId=${sessionScope.loginId}'" class="btn" style="margin-right:10px;" >취소</button>
+	<input type="button" id="save" value="수정완료" class="btn"/>
+</div>
 </body>
+
 <script>
 
 var msg = "${msg}";
@@ -89,7 +144,7 @@ if (msg != "") {
  	$("#editable>a").find("b").remove(); //a태그안 b태그 삭제
  	$("#editable>a").removeAttr("onclick"); //del(this) 무효화
  	$("#content").val($("#editable").html()); //input에 div값 넣기
- 	$("#save").attr("type","submit");
+ 	$("form").submit();
  	
  });
 
@@ -153,7 +208,7 @@ function maxUserChk(elem){
 					$("#maxUser").val(elem[0]);  //초기값으로 설정
 					alert("현재신청한 인원보다 작게 설정할 수 없습니다");
 					
-				}else if(data.currUser==elem[1]){ //변경한 최대참여자수가 현재신청인원수와 같다면
+				}else if(data.currUser==elem[1] && elem[1]>0){ //변경한 최대참여자수가 현재신청인원수와 같다면
 					 if(confirm("현재신청인원수와 일치합니다. 마감하시겠습니끼?")){
 						 //마감을 원한다면
 						 console.log("마감O");

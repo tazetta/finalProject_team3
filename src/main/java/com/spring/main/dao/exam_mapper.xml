@@ -60,17 +60,17 @@
 	SELECT COMBRDIDX,SUBJECT,CONTENT,COMID,reg_date,rnum
 	FROM( 
 	 		SELECT COMBRDIDX,SUBJECT,CONTENT,COMID,reg_date, 
-	 		ROW_NUMBER() OVER(ORDER BY COMBRDIDX DESC) AS rnum FROM COMPANYBOARD WHERE COMID=#{param3} AND (blind='N' or blind is null)
+	 		ROW_NUMBER() OVER(ORDER BY COMBRDIDX DESC) AS rnum FROM COMPANYBOARD WHERE COMID=#{param3} AND (blind='n' or blind is null)
 	 		)
 	WHERE rnum between #{param1} AND #{param2}
 	</select>
 	
 	<select id="allCount" resultType="Integer">
-		SELECT COUNT(COMBRDIDX) FROM COMPANYBOARD WHERE COMID=#{param1} AND (blind='N' or blind is null)
+		SELECT COUNT(COMBRDIDX) FROM COMPANYBOARD WHERE COMID=#{param1} AND (blind='n' or blind is null)
 	</select> 
 	
 	<select id="allScrollCount" resultType="Integer">
-		SELECT COUNT(COMBRDIDX) FROM COMPANYBOARD WHERE (blind='N' or blind is null)
+		SELECT COUNT(COMBRDIDX) FROM COMPANYBOARD WHERE (blind='n' or blind is null)
 	</select> 
 	
 	
@@ -78,7 +78,7 @@
 		SELECT COMBRDIDX,SUBJECT,CONTENT,COMID,reg_date,rnum
 	FROM( 
 	 		SELECT COMBRDIDX,SUBJECT,CONTENT,COMID,reg_date, 
-	 		ROW_NUMBER() OVER(ORDER BY COMBRDIDX DESC) AS rnum FROM COMPANYBOARD WHERE COMID=#{param1} AND (blind='N' or blind is null)
+	 		ROW_NUMBER() OVER(ORDER BY COMBRDIDX DESC) AS rnum FROM COMPANYBOARD WHERE COMID=#{param1} AND (blind='n' or blind is null)
 	 		)
 	WHERE rnum between 1 AND 5
 	
@@ -97,7 +97,7 @@
 		SELECT COMBRDIDX,SUBJECT,CONTENT,COMID,reg_date,rnum
 		FROM( 
 	 		SELECT COMBRDIDX,SUBJECT,CONTENT,COMID,reg_date, 
-	 		ROW_NUMBER() OVER(ORDER BY COMBRDIDX DESC) AS rnum FROM COMPANYBOARD WHERE (blind='N' or blind is null)
+	 		ROW_NUMBER() OVER(ORDER BY COMBRDIDX DESC) AS rnum FROM COMPANYBOARD WHERE (blind='n' or blind is null)
 	 		)
 		WHERE rnum between 1 AND #{param1}
 	
@@ -116,4 +116,15 @@
 		SELECT AVG(rate) FROM review where comId=#{param1}
 	</select>
 	
+	<select id="getExamPhotoMax" resultType="int">
+		SELECT COUNT(combrdidx) FROM (SELECT ROW_NUMBER() OVER(ORDER BY c.combrdidx DESC) AS rnum, c.combrdidx, c.subject, c.comid, p.newfilename 
+		FROM (SELECT newfilename, combrdidx FROM (SELECT newfilename, combrdidx FROM photos) WHERE ROWID IN (SELECT MAX(ROWID) FROM photos GROUP BY combrdidx)) p
+		, companyboard c WHERE c.combrdidx = p.combrdidx)
+	</select> 
+	
+	<select id="getExamPhotos" resultType="exam">
+		SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY c.combrdidx DESC) AS rnum, c.combrdidx, c.subject, c.comid, p.newfilename 
+		FROM (SELECT newfilename, combrdidx FROM (SELECT newfilename, combrdidx FROM photos) WHERE ROWID IN (SELECT MAX(ROWID) FROM photos GROUP BY combrdidx)) p
+		, companyboard c WHERE c.combrdidx = p.combrdidx) WHERE rnum BETWEEN #{param1} AND #{param2}
+	</select>
 </mapper>

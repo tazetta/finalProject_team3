@@ -372,6 +372,7 @@ public class MyService {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("msg", msg);
 		map.put("success", success);
+		logger.info("success {} " , success);
 		return map;
 	}
 

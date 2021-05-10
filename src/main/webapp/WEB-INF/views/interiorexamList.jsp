@@ -51,9 +51,9 @@ table{
 </style>
 </head>
 <body>
-	<div id="mainnavi" style="min-height: 210px;">
-	            <jsp:include page="mainnavi.jsp"></jsp:include> 
-    </div>
+
+	<jsp:include page="mainnavi.jsp"></jsp:include> 
+
 	
 	<!-- 업체세션있는 사람만 글쓰기 보이게 -->
 	<c:if test="${sessionScope.cLoginId ne null}">
@@ -71,22 +71,30 @@ var msg = "${msg}";
 if(msg != ""){
 	alert(msg);
 }
-	var count = 1;
-	listCall(count); //시작하자마자 이 함수를 호출
+	const getDataLength = 6;
+	let count = 0;
+	let image = "";
+	var thisPage = 1;
+	listCall(thisPage); //시작하자마자 이 함수를 호출
 
-	function listCall(count) {
-		console.log("스크롤이 되니?",count);
+	function listCall(thisPage) {
 		//Restful service는 ajax를 통해 호출하여 사용하는 경우가 많지만
 		//restful service가 곧 ajax라고 생각해서는 안된다.
-		var reqUrl = './examListScroll/' + count;
+		count++;
+		var reqUrl = 'examListScroll/' +6+"/"+ thisPage;
 		$.ajax({
 			url : reqUrl,
 			type : 'GET',
 			data : {},
 			dataType : 'JSON',
 			success : function(data) {
-				console.log(data);
-				listPrint(data.list);
+				if(thisPage <= data.maxPage){
+					console.log("스크롤이 되니?",thisPage);
+					thisPage = data.currPage;
+					listPrint(data.list);
+					
+					console.log('최대 페이지 '+data.maxPage);					
+				}
 			},
 			error : function(error) {
 				console.log(error);
@@ -98,10 +106,11 @@ if(msg != ""){
 		console.log("listprint실행");
 		console.log(list.length);
 		var content = "";
+		var src = "";
 		for (var i = 0; i < list.length; i++) {
-			
+			src += "C:/upload/"+list[i].newFileList;
 			content += "<div style='border-radius:20px; border: 5px solid white; margin: 20px; box-shadow:0 0 5px lightslategray;'>"
-			content += "<img src='resources/images/interior1.jpg' width='250' height='250' style=' border-radius:20px;'>"
+			content += "<img src="+src+" width='250' height='250' style=' border-radius:20px;'>"
 			content += "<table class='table'>"
 			content += "<tr>"
 			content += "<th style='border-color: white;'><a href='examDetail?combrdIdx="+list[i].combrdIdx+"'>" + list[i].subject + "</a></th>"
@@ -111,82 +120,20 @@ if(msg != ""){
 			content += "</tr>"
 			content += "</table>"
 			content += "</div>"
-			if(i%3==0){
-				console.log("줄좀바꿔줘..");
-				content += "<br/>"
-			}
+
+			src = "";
 		}
-		$('#list').empty();
 		$('#list').append(content);
 	}
 
+
 	$(window).scroll(function () {
-		console.log("스크롤이 되는거니?");
-		console.log($(window).scrollTop());
-		console.log($(document).height());
-		console.log($(window).height());
-		//if ($(window).scrollTop() >= $(document).height() - $(window).height()) {
-		console.log("아몰랑");
-		count++;
-		listCall(count);
-		//}
+		if ($(window).scrollTop() == $(document).height()-1007) {
+			thisPage++;
+			listCall(thisPage);
+		} 
 	});
 
-/* const getDataLength = 9;
-let count = 0;
 
-$(document).ready(() => {
-	console.log("루프시작");
-	loop();
-});
-
-const loop = () => {
-	Array.from({ length: getDataLength }, (_, i) => i + count).forEach(
-		num => {
-			getTodos(num);
-		}
-	);
-};
-
-const getTodos = num => {
-	if (!num) return;
-
-	count++;
-	var reqUrl = './examListScroll/' + count;
-	$.ajax({
-		url : reqUrl,
-		type : 'GET',
-		data : {},
-		dataType : 'JSON',
-		success : function(data) {
-			console.log(data);
-			addTodoCard(data.list);
-		},
-		error : function(error) {
-			console.log(error);
-		}
-	});
-	
-};
-
-const addTodoCard = ({ list, target }) => { 
-			var content = "";
-            for (var i = 0; i < list.length; i++) {
-            	content += "<tr>"
-            	content += "<td><a href='#'>" + list[i].subject + "</td>"
-            	content += "<td>" + list[i].comId + "</td>"
-            	//java에서 가끔 날짜가 milliseconds로 나올 경우..
-            	var date = new Date(reviewList[i].reg_date);
-            	content += "<td>" + date.toLocaleDateString("ko-KR") + "</td>"
-            	content += "</tr>"
-
-	$(target).append(card);
-};
-
-$(window).scroll(function () {
-	if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-		loop();
-	}
-}); */
 </script>
 </html>

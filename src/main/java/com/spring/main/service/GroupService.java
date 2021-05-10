@@ -467,7 +467,7 @@ public class GroupService {
 
 		logger.info("groupList size: " + groupList.size());
 
-		String msg = keyword + "에 대한 검색결과가 없습니다.";
+		String msg = keyword + "에 대한 검색결과가 없습니다. ";
 
 		if (groupList.size() > 0) { // 검색결과가 있으면
 			msg = keyword + "에 대한 검색결과가 " + groupList.size() + "건 있습니다.";

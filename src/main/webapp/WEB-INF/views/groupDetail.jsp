@@ -8,17 +8,41 @@
 
 <title>상세보기</title>
 <style>
-
-#groupTable table,#groupTable td,#groupTable th {
-	width: 1100px;
-	padding: 5px 10px;
-	text-align: center;
-	border: 1px solid black;
-	border-collapse: collapse;
+/*title*/
+#groupTitle{
+font-weight:600;
+font-size:130%;
+margin:20px;
+margin-top:30px;
+color:#337ab7;
+/* 중앙정렬 */
+display: flex; 
+justify-content: center;
+}
+#groupTitle>a:visited{
+color:#337ab7;
 }
 
-#kakaoLink {
-	border: 1px solid gray;
+/*테이블*/
+#detailAll{
+display: flex; 
+justify-content: center;
+position:relative;
+}
+#groupTable{
+margin-top:10px;
+width: 1200px;
+
+}
+
+#groupTable table, #groupTable td, #groupTable th {
+	padding: 5px 10px;
+	text-align: center;
+	border-bottom: 1px solid lightgray;
+	border-collapse: collapse;
+}
+#groupTable th{
+border-top:1px solid lightgray;
 }
 
 #groupCnt {
@@ -34,15 +58,51 @@
 #applicant{
 margin:20px;
 }
-
+/*모집상태*/
 .deadlineSpan {
 	display: block;
 	width: 100px;
 	margin:0 auto;
 	background-color : lightgray;
 	padding:10px;
+	border-radius:4px;
+	font-weight:600;
 }
+/*신청-취소버튼*/
+#toggleApply{
+margin:10px;
+width:80px;
+height:40px;
+border:none;
+font-size:110%;
+font-weight:600;
+cursor:pointer;
+background-color: #0080FF;
+color:white;
+border-radius:5px;
+
+}
+
+/*버튼*/
+#btnBox{
+display: flex; 
+justify-content: center;
+}
+.btnClass{
+border:none;
+font-weight:600;
+font-size:90%;
+color:gray;
+background-color: white;
+cursor:pointer;
+}
+
 /*댓글창 영역*/
+#commentBox{
+margin:0 auto;
+text-align:center;
+margin-top:15px;
+}
 #comment{
 width:800px;
 height:40px;
@@ -53,11 +113,17 @@ margin:20px;
 }
 
 /* 댓글리스트영역 */
-
+#commentListDiv{
+width:1000px;
+margin:0 auto;
+ 
+}
 .commentTable{
+
 width:1000px;
 margin:10px;
 }
+
 .commDel{
 border:none;
 }
@@ -69,6 +135,7 @@ font-size:90%;
 a:link{
 text-decoration:none;
 }
+
 /*대댓글창 영역*/
 #recommentBox{
 	margin-left:50px;
@@ -84,21 +151,25 @@ margin:5px;
 
 /*대댓글 리스트 영역*/
 .recommentTable{
- width:1000px;
+ width:900px;
  margin:10px;
- margin-left:50px;
+ margin-left:70px;
+ border-radius:5px;
+ padding:8px;
 }
 .recommentTable{
-background-color: #F2F1F1;
+background-color: #E6E6E6;
 }
+
 </style>
 </head>
 <body>
  <jsp:include page="mainnavi.jsp"></jsp:include> 
-
+<span id="groupTitle"><a href="groupListPage">공동구매&무료나눔</a></span>
+<div id="detailAll">
 	<table id="groupTable">
-		<tr>
-			<th>idx</th>
+		<tr >
+			<th>글번호</th>
 			<th>카테고리</th>
 
 			<th>제목</th>
@@ -107,20 +178,20 @@ background-color: #F2F1F1;
 			<th>조회수</th>
 			<th>진행상황</th>
 		</tr>
-		<tr>
+		<tr >
 			<td>${dto.gpIdx}</td>
 			<td>
 				 ${dto.category }
 			</td>
-			<td>${dto.subject}</td>
+			<td style="width:40%; font-weight:600;">${dto.subject}</td>
 			<td><span class="grade">${writerGrade}</span>&nbsp;${dto.id}</td>
 			<td>${dto.reg_date}</td>
 			<td>${dto.gHit}</td>
 			<td>${dto.progress}</td>
 		</tr>
-		<tr>
-			<td colspan="6" style="padding: 20px">${dto.content}</td>
-			<td style="width: 20%">현재인원/모집인원 : <span id="groupCnt">${dto.currUser }/${dto.maxUser}</span>
+		<tr >
+			<td colspan="6" style="padding: 20px;  border-bottom:none; ">${dto.content}</td>
+			<td style="width: 20%; border-bottom:none;">현재인원/모집인원 : <span id="groupCnt">${dto.currUser }/${dto.maxUser}</span>
 				<br />마감날짜 : <b>${dto.deadline}</b> <br /> 
 				
 				<c:if test="${ dto.progIdx eq '1'  && state eq 'false' ||  empty state  }">
@@ -140,46 +211,58 @@ background-color: #F2F1F1;
 		<c:if test="${state eq 'true'  || dto.id == sessionScope.loginId }">
 		<!-- 신청자와 작성자에게만 노출 -->
 			<tr>
-				<td colspan="7">
+				<td colspan="7" style="border-top:1px dashed dodgerblue; border-width:2px;  border-bottom:none; ">
 					<div id="kakaoLink">
-						오픈카카오톡 링크 : <a href="${dto.chatURL }" target="_blanck">${dto.chatURL }</a>
+						오픈카카오톡 링크 &nbsp;&nbsp; <a href="${dto.chatURL }" target="_blanck">${dto.chatURL }</a>
 					</div>
 
 				</td>
 			</tr>
 			<tr>
-				<td colspan="7"><b>신청자</b>
+				<td colspan="7" style="border-top:1px dashed dodgerblue; border-width:2px;"><br/><b>신청자</b>
 					<div id="applicant">
 						<!-- 신청자 명단 불러올 영역 -->
+						<c:if test="${dto.currUser==0 }">
+							<span>현재 신청자가 없습니다</span>
+						</c:if>
 					</div></td>
 			</tr>
 		</c:if>
+		<c:if test="${state ne 'true'  && dto.id != sessionScope.loginId }">
+		<tr>
+			<td colspan="7" style="border-top:1px solid lightgray;">신청자와 작성자에게만 오픈 채팅 URL이 공유됩니다.</td>
+		</tr>
+		</c:if>
 	</table>
-	<button onclick="location.href='groupListPage'">목록</button>
+	</div>
+	<div id="btnBox">
+	<!-- <button onclick="location.href='groupListPage'" style="margin-right:10px;">목록</button> -->
 	<c:if test="${ dto.id != sessionScope.loginId }">
-	<button onclick="reportBoard()" >신고</button>
+	<button onclick="reportBoard()" style="margin-left:1100px; margin-top:10px;" class="btnClass">신고</button>
 	</c:if>
 	<c:if test="${ dto.id == sessionScope.loginId }">
-	<button onclick="location.href='groupDel/${dto.gpIdx}'">삭제</button>
-	<button onclick="location.href='groupUpdateForm/${dto.gpIdx}'">수정</button>
+	<button onclick="groupDel(${dto.gpIdx})" style="margin-left:1000px; margin-top:10px;" class="btnClass">삭제</button>
+	<button onclick="location.href='groupUpdateForm/${dto.gpIdx}'" style="margin-left:10px; margin-top:10px;" class="btnClass">수정</button>
 	</c:if>
+	</div>
 	
 	
 
-	<hr />
-	<b>댓글 <span id="listSize"></span>개</b>
+
 	<div id="commentBox">
+	<span style="position:relative; left:-500; font-weight:600;">댓글 <span id="listSize"></span>개</span><br/><br/>
 		<span><b id="loginId">${sessionScope.loginId }</b></span>
 		<input type="text" name="comment" id="comment" placeholder="개인정보를 공유 및 요청하거나, 명예훼손, 무단 광고시 모니터링 후 삭제될수 있습니다"/>
 
-		<input type="button" value="등록" id="commentSave"/>
+		<input type="button" value="등록" id="commentSave" style="width:50px; height:40px; font-weight:600; border:none; background-color:#F7BE81; border-radius:4px;"/>
 	</div>
 	<c:if test="${listSize ='0' }">
 	<div>현재 댓글이 없습니다</div>
 	</c:if>
-	<div id="commentListDiv">
+	<section id="commentListDiv">
 	<!-- 댓글 불러올 영역 -->
-	</div>
+	</section>
+	
 
 </body>
 <script>
@@ -191,7 +274,14 @@ background-color: #F2F1F1;
 	}
 	
 	groupCommentList(); //댓글리스트 호출
-
+	/*삭제버튼*/
+	function groupDel(gpIdx){
+		 if(confirm("정말로 삭제하시겠습니까?")){
+			location.href="./groupDel/"+gpIdx;
+		 }else{
+			 console.log("삭제취소");
+		 }
+	}
 	/*글 신고 새창*/
 	function reportBoard(){
 		window.open("groupRepBoardForm/${dto.gpIdx}","reportBoard","width=800, height=600");
@@ -200,7 +290,16 @@ background-color: #F2F1F1;
 	
 	/*신청-취소 toggle*/
 	$("#toggleApply").click(function() {
+		if($(this).val()=='신청'){
+			if(confirm("한 자리만 남은 경우 자동으로 마감처리 됩니다. 신청하시겠습니까?")){
+				location.href = '/main/applyGroup/${dto.gpIdx}/${sessionScope.loginId}';
+			}else{
+				console.log("신청취소");
+			}
+		}else{
+
 			location.href = '/main/applyGroup/${dto.gpIdx}/${sessionScope.loginId}';
+		}
 		});
 
 	
@@ -287,30 +386,30 @@ background-color: #F2F1F1;
 	function commentListPrint(list){
 		var content ="";
 		for (var i = 0 ; i < list.length ; i++) {
-		content +=	"<div id='commentDiv"+list[i].commIdx+"'>";
+		content +=	"<div id='commentDiv"+list[i].commIdx+"' style='margin-top:25px;'>";
 		content += "<table class='commentTable'>";
 		content += "<tr>";
-		content += '<td style="width:14%;"><b>'+list[i].id+'</b></td>';
-		content += '<td colspan="2" style="text-align:left">';
+		content += '<td style="width:14%; text-align:center;"><b>'+list[i].id+'</b></td>';
+		content += '<td colspan="2" style="text-align:left; padding:5px;">';
 		content += list[i].comments;
 	 	content += '</td>';
 		content += '</tr>';
 		content += '<tr>';
-		content += '<td style="width:14%; font-size:90%; color:gray; ">';
+		content += '<td style="width:14%; font-size:90%; color:gray; text-align:center;">';
 		 var reg_date = new Date(list[i].reg_date); 	 
 		content += reg_date.toLocaleDateString("ko-KR");
 		content += '</td>';
-		content += ' <td style="width:7%" >';
+		content += ' <td style="width:5%" >';
 		//댓글추천 
 		content += '<a href="javascript:void(0)"; onclick="commRec('+list[i].commIdx+')"><img alt="decommend" src="resources/images/decommend.png" width="15px" height="15px" id="'+list[i].commIdx+'"> </a>';
 		//댓글 추천수
 		if(list[i].recCnt!=0){
 		content += '<span class="commIdxRecCnt">'+list[i].recCnt+'</span></td>';
 		}
-		content += '<td style="text-align:left">';
+		content += '<td style="text-align:left; font-size:90%;">';
 		//댓글삭제
 		if("${sessionScope.loginId}"==list[i].id){
-			content += '<button class="commDel" onclick="groupCommentDel('+list[i].commIdx+')">삭제</button></td>' ; 
+			content += '<a class="commDel" href="javascript:void(0)"; onclick="groupCommentDel('+list[i].commIdx+')" style="color: #FA5858;">삭제</a></td>' ; 
 			
 		}else{
 		//대댓글작성
@@ -473,20 +572,20 @@ background-color: #F2F1F1;
 		content +=	"<div id='recommentDiv"+list.commIdx+"'>";
 		content += "<table class='recommentTable'>";
 		content += "<tr>";
-		content += '<td  style="width:14%"><b>'+list.id+'</b></td>';
-		content += '<td colspan="2" style="text-align:left">';
+		content += '<td  style="width:14%;  text-align:center; padding:5px;"><b>'+list.id+'</b></td>';
+		content += '<td colspan="2" style="text-align:left;">';
 		content += list.comments;
 	 	content += '</td>';
 		content += '</tr>';
 		content += '<tr>';
-		content += '<td style=" font-size:90%; color:gray; ">';
+		content += '<td style=" font-size:90%; color:gray;  text-align:center; ">';
 		 var reg_date = new Date(list.reg_date); 	 
 		content += reg_date.toLocaleDateString("ko-KR");
 		content += '</td>';
-		content += ' <td  style="text-align:left">';
+		content += ' <td  style="text-align:left; font-size:90%;">';
 		//대댓글삭제
 		if("${sessionScope.loginId}"==list.id){
-			content += '<button class="commDel" onclick="groupRecommentDel('+list.com2ndIdx+')">삭제</button>' ; 
+			content += '<a class="commDel" href="javascript:void(0)"; onclick="groupRecommentDel('+list.com2ndIdx+')" style="color: #FA5858;">삭제</a>' ; 
 			
 		}else{
 		content += '<a href="javascript:void(0)"; onclick="repRecommForm('+list.com2ndIdx+')">신고</a></td>' ;

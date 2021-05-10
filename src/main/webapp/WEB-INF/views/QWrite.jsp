@@ -57,46 +57,35 @@ span:hover {
 	
 	
 <body>
+     <div style="min-height: 210px; padding-top:50px;">
+	            <jsp:include page="mainnavi.jsp"></jsp:include> 
+            </div>
  
     
 	<form action="boardWrite" method="POST">
-    <div class="container" style="text-align: center; padding-top: 10px;">
     <input type="hidden" value="4" name="boardCtgIdx"/>
     	<input type="hidden" value="${sessionScope.loginId}" name="id"/>
-        <input type="text" size="75" style="border-radius: 5px; border: 2px solid rgb(203, 228, 248); "
-            placeholder="검색어를 입력해주세요.">
-        &nbsp;
-        <button id="btn"
-            style="border-radius: 5px; background-color: rgb(203, 228, 248); border: 2px solid rgb(203, 228, 248); font-weight: bold; color: white;">검색</button>
-        <a href="" style="font-size:small; float: right; color: gray; padding-left: 5px;  font-weight: bold;">|<span
-                style="padding-left: 5px; font-weight: bold; ">고객센터</span></a>
-        <a href="" style="font-size:small; float: right; color: gray; padding-left: 5px; font-weight: bold;">|<span
-                style="padding-left: 5px;  font-weight: bold;">회원가입</span></a>
-        <a href="" style="font-size:small; float: right; color: gray;  font-weight: bold; "><span>로그인</span></a>
-        <br />
-    </div>
     <br />
     <div class="container"  style="height:200px; background-color: rgb(184, 185, 190); text-align:center;">
   
         <h1 style="padding-top: 50px; font-weight: bold;">질문하기</h1>
         <br/>
-        <h>홈페이지 관련 문의가 필요하시다면 <a href="">문의하러 가기</a></h>
+        <h>홈페이지 관련 문의가 필요하시다면 <a href="FAQ">문의하러 가기</a></h>
     </div>
     <br/>
-    <div class="container">
         <table class="table">
             <tr>
                 <td><input id="subject" type="text" class="form-control" placeholder="제목을 입력해주세요" name="subject" maxlength="40"></td>
             </tr>
             <tr>
                 <td><div contenteditable="true" id="editable" style="overflow:scroll; width: 100%; height: 400px; border: 2px solid black; border-radius: 10px;">
-                <input type="text" class="form-control" placeholder="내용을 입력하세요" name="content" maxlength="1024" style="height: 400px;"  hidden="hidden"/></div></td>
+                <input id="content" type="text" class="form-control" placeholder="내용을 입력하세요" name="content" maxlength="1024" style="height: 400px;"  hidden="hidden"/></div></td>
             </tr>
         </table>
         <div class="container">
          <input id="button" class="button" style="max-width: 100; margin: 10px ;  padding: 10px 10px; font-weight: bold;" type="button" value="파일업로드" onclick="fileUp()" />
             <div class="row" style="float: right;">
-           <input class="button2" id="save" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; " type="button" onclick="location.href='helpMain'" value="저장"/>
+           <input class="button2" id="save" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; " type="button" value="저장"/>
             </div>
             <a href="helpMain" id="button" class="button" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; float: right;">취소</a>
             </div>

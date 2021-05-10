@@ -18,7 +18,7 @@
         	table{
         		position:absolute;
         		left:20%;
-        		top:30%;
+        		top:40%;
         		width: 40%;
         	}
             th{
@@ -54,6 +54,7 @@
 				color: blue;
 				font-weight: 600;
 			}
+			
         </style>
      
     
@@ -111,6 +112,12 @@
         					startPage : data.currPage, //시작 페이지
         					totalPages : data.range, //생성가능 최대 페이지
         					visiblePages : 10,//10개씩 보여주겠다
+        					initiateStartPageClick : false, // 플러그인이 시작시 페이지 버튼 클릭 여부 (default : true)
+        					first : '<span aria-hidden="true"><<</span>', // 페이지네이션 버튼중 처음으로 돌아가는 버튼에 쓰여 있는 텍스트
+        					prev : "이전", // 이전 페이지 버튼에 쓰여있는 텍스트
+        					next : "다음", // 다음 페이지 버튼에 쓰여있는 텍스트
+        					last : '<span aria-hidden="true">>></span>', // 페이지네이션 버튼중 마지막으로 가는 버튼에 쓰여있는 텍스트
+        					anchorClass : "page-link", //버튼 안의 앵커에 대한 CSS class
         					onPageClick : function(evt, page) {//각 페이지를 눌렀을 경우
         						console.log(evt);
         						console.log(page);

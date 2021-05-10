@@ -109,7 +109,7 @@ span:hover {
 
 
 			</td>
-			<td><c:set var="loginId" value="${sessionScope.loginId}" /> <c:set
+			<td style="width: 210px"><c:set var="loginId" value="${sessionScope.loginId}" /> <c:set
 					var="comloginId" value="${sessionScope.cLoginId}" /> <c:if
 					test="${empty loginId and empty comloginId}">
 					<a class="네비a" href="FAQ"
@@ -128,7 +128,7 @@ span:hover {
 					<a class="네비a" href="mywrite"
 						style="font-weight: bold; font-size: small; float: right; color: gray; padding-left: 5px;">|<span
 						class="네비span" style="font-weight: bold; padding-left: 5px;">마이페이지</span></a>
-					<a class="네비a" href="membership"
+					<a class="네비a" href="logOut"
 						style="font-weight: bold; font-size: small; float: right; color: gray;"><span
 						class="네비span">로그아웃</span></a>
 				</c:if> <c:if test="${!empty comloginId}">
@@ -138,7 +138,7 @@ span:hover {
 					<a class="네비a" href="companydetail"
 						style="font-weight: bold; font-size: small; float: right; color: gray; padding-left: 5px;">|<span
 						class="네비span" style="font-weight: bold; padding-left: 5px;">업체페이지</span></a>
-					<a class="네비a" href="membership"
+					<a class="네비a" href="logOut"
 						style="font-weight: bold; font-size: small; float: right; color: gray;"><span
 						class="네비span">로그아웃</span></a>
 				</c:if></td>
