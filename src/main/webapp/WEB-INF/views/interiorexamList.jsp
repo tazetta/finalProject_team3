@@ -78,7 +78,6 @@ if(msg != ""){
 	listCall(thisPage); //시작하자마자 이 함수를 호출
 
 	function listCall(thisPage) {
-		console.log("스크롤이 되니?",thisPage);
 		//Restful service는 ajax를 통해 호출하여 사용하는 경우가 많지만
 		//restful service가 곧 ajax라고 생각해서는 안된다.
 		count++;
@@ -89,10 +88,13 @@ if(msg != ""){
 			data : {},
 			dataType : 'JSON',
 			success : function(data) {
-				thisPage = data.currPage;
-				listPrint(data.list);
-				
-				console.log('최대 페이지 '+data.maxPage);
+				if(thisPage <= data.maxPage){
+					console.log("스크롤이 되니?",thisPage);
+					thisPage = data.currPage;
+					listPrint(data.list);
+					
+					console.log('최대 페이지 '+data.maxPage);					
+				}
 			},
 			error : function(error) {
 				console.log(error);
@@ -118,13 +120,8 @@ if(msg != ""){
 			content += "</tr>"
 			content += "</table>"
 			content += "</div>"
-<<<<<<< HEAD
+
 			src = "";
-=======
-			if(i%3==0){
-				content += "<br/>"
-			}
->>>>>>> 363a9f918ecc18e31e584ff6e76e2b085fe79936
 		}
 		$('#list').append(content);
 	}
@@ -137,61 +134,6 @@ if(msg != ""){
 		} 
 	});
 
-/* const getDataLength = 9;
-let count = 0;
 
-$(document).ready(() => {
-	console.log("루프시작");
-	loop();
-});
-
-const loop = () => {
-	Array.from({ length: getDataLength }, (_, i) => i + count).forEach(
-		num => {
-			getTodos(num);
-		}
-	);
-};
-
-const getTodos = num => {
-	if (!num) return;
-
-	count++;
-	var reqUrl = './examListScroll/' + count;
-	$.ajax({
-		url : reqUrl,
-		type : 'GET',
-		data : {},
-		dataType : 'JSON',
-		success : function(data) {
-			console.log(data);
-			addTodoCard(data.list);
-		},
-		error : function(error) {
-			console.log(error);
-		}
-	});
-	
-};
-
-const addTodoCard = ({ list, target }) => { 
-			var content = "";
-            for (var i = 0; i < list.length; i++) {
-            	content += "<tr>"
-            	content += "<td><a href='#'>" + list[i].subject + "</td>"
-            	content += "<td>" + list[i].comId + "</td>"
-            	//java에서 가끔 날짜가 milliseconds로 나올 경우..
-            	var date = new Date(reviewList[i].reg_date);
-            	content += "<td>" + date.toLocaleDateString("ko-KR") + "</td>"
-            	content += "</tr>"
-
-	$(target).append(card);
-};
-
-$(window).scroll(function () {
-	if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-		loop();
-	}
-}); */
 </script>
 </html>
