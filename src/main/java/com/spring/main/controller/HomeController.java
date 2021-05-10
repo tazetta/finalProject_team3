@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
->>>>>>> 2f6fb4d45953ea2591d595db317a1a94f94b6e49
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,6 +37,7 @@ public class HomeController {
 		mav.setViewName("main");
 		
 		return mav;
+	}
 
 	public String home(HttpSession session, HttpServletRequest request) {
 		String msg =(String) session.getAttribute("msg");

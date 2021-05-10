@@ -15,7 +15,8 @@ integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKm
 <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" 
 integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-
+<script src="resources/js/jquery.twbsPagination.js"
+	type="text/javascript"></script>
 <style>
  #comment{
     border-radius: 5px; 
@@ -157,26 +158,26 @@ if(msg != ""){
 	
 $(document).ready(function() {
 	// 목록을 조회하는 함수.
-	function getList(pageNum, keyword, orderBy,formcategory,budget,roomsize) {
+	function getList(pageNum, orderBy,formcategory,budget,roomsize) {
 		/*
 		 * pageNum, opt, keyword
 		 * 값이 없으면 초기값 사용.
 		 * 값이 있으면 입력받은 값 사용.
 		 */
 		var pageNum = !pageNum ? 1 : pageNum;
-		var keyword = !keyword ? '' : keyword;
+		
 		var orderBy = !orderBy ? 'reg_date' : orderBy 
 		var formcategory = !formcategory ? 0: formcategory
 		var budget = ! budget ? 0 : budget
 		var roomsize = ! roomsize ? 0 : budget
 		var oData = {
 			pageNum : pageNum,
-			keyword : keyword,
 			orderBy : orderBy,
 			formcategory :formcategory,
 			budget : budget,
 			roomsize : roomsize
 		};
+			
 			
 
 		$.ajax({
@@ -186,7 +187,7 @@ $(document).ready(function() {
 			dataType : 'JSON',
 			success : function(data) {
 				appendList(data.list); //화면에 뿌려주기 위함
-				
+				createPagination(data.total_page, pageNum);
 			},
 			error : function(error) {
 				console.log(error);
@@ -230,8 +231,69 @@ $(document).ready(function() {
 		$("#list").empty();
 		$("#list").append(sHtml);
 	}
+	
+	
+	var orderBy = '';
+	var formcategory ='';
+	var budget ='';
+	var roomsize = '';
+	
 
+	function createPagination(iTotalPage, iStartPage) {
+		console.log('iTotalPage : ' + iTotalPage);
+		$('#pagination-div').twbsPagination('destroy');
+		$('#pagination-div').twbsPagination({
+			totalPages : iTotalPage, // 총 페이지 번호 수 TODO:
+			visiblePages : 5, // 하단에서 한번에 보여지는 페이지 번호 수
+			startPage : iStartPage, // 시작시 표시되는 현재 페이지
+			initiateStartPageClick : false, // 플러그인이 시작시 페이지 버튼 클릭 여부 (default : true)
+			first : '<span aria-hidden="true"><<</span>', // 페이지네이션 버튼중 처음으로 돌아가는 버튼에 쓰여 있는 텍스트
+			prev : "이전", // 이전 페이지 버튼에 쓰여있는 텍스트
+			next : "다음", // 다음 페이지 버튼에 쓰여있는 텍스트
+			last : '<span aria-hidden="true">>></span>', // 페이지네이션 버튼중 마지막으로 가는 버튼에 쓰여있는 텍스트
+			// nextClass : "page-item next",	// 이전 페이지 CSS class
+			// prevClass : "page-item prev",	// 다음 페이지 CSS class
+			lastClass : "", // 마지막 페이지 CSS calss
+			firstClass : "", // 첫 페이지 CSS class
+			pageClass : "page-item", // 페이지 버튼의 CSS class
+			activeClass : "active", // 클릭된 페이지 버튼의 CSS class
+			disabledClass : "disabled", // 클릭 안된 페이지 버튼의 CSS class
+			anchorClass : "page-link", //버튼 안의 앵커에 대한 CSS class
 
+			onPageClick : function(event, page) {
+				getList(page,orderBy,formcategory,budget,roomsize);
+			}
+		});
+	}
+	
+	//정렬이 변경 된 경우
+	
+	$('#orderBy').on('change', function(){
+		orderBy =$(this).val();
+		getList(1,orderBy);
+	});
+	
+	$('#formcategory').on('change', function(){
+		formcategory = $(this).val();
+		getList(1,formcategory);
+	});
+	
+	$('#budget').on('change', function(){
+		budget = $(this).val();
+		getList(1, budget);
+	});
+	$('#roomsize').on('change', function(){
+		roomsize = $(this).val();
+		getList(1, roomsize);
+	});
+	
+	
+	
+	
+	
+	
+	
+	
 	getList();
 });
 
