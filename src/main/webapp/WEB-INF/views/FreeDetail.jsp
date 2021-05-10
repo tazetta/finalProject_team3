@@ -556,7 +556,7 @@ a:link {
 					if(data.recResult =='true'){
 						console.log($("#"+com2ndIdx+""));
 						$("#"+com2ndIdx+"").attr('src','resources/images/recommend.png');
-						boardCommentList(); //댓글리스트 호출(댓글추천수 새로고침)
+						boardRecommList(); //댓글리스트 호출(댓글추천수 새로고침)
 					}else{
 						console.log($("#"+com2ndIdx+""));
 						$("#"+com2ndIdx+"").attr('src','resources/images/decommend.png');
@@ -610,11 +610,11 @@ a:link {
 					console.log("Success: ", data);
 					console.log("rescResult:"+data.recResult);
 					if(data.recResult =='true'){
-						alert("추천완료");
-				
+						alert(data.msg);
+						
 					}else{
-						alert("추천취소");
-		
+						alert(data.msg);
+							
 					}
 					
 				},

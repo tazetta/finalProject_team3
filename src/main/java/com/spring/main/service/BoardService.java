@@ -740,15 +740,17 @@ public class BoardService {
 			logger.info("result:" + result);
 			recResult = "false";
 			msg = "추천취소되었습니다";
+			page = "redirect:/boarddetail?boardIdx=" + boardIdx;
 		} else {
 			logger.info("추천하기");
 			int result = boarddao.boardRec(boardIdx, loginId);
 			int cnt = boarddao.boardCntUp(boardIdx);
+			page = "redirect:/boarddetail?boardIdx=" + boardIdx;
 			logger.info("result:" + result);
 			recResult = "true";
 			msg = "추천되었습니다";
 		}
-
+		map.put("page", page);
 		map.put("recResult", recResult);
 		map.put("msg", msg);
 		return map;
