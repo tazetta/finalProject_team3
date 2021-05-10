@@ -201,7 +201,7 @@ a:link {
 				<button id="button" style="margin-left: 50;" onclick="location.href='./boardDel/${dto.boardIdx}'">삭제</button>
 				</c:if>
 			 <c:if  test="${ dto.id != loginId}">
-				<button id="button2" style="margin-left: 70; width: 100px;" onclick="boardRec('${boardIdx}')">추천하기</button>
+				<button id="button2" style="margin-left: 70; width: 100px;" onclick="boardRec('${dto.boardIdx}')">추천하기</button>
 				<button id="button2" style="margin-left: 50;" onclick="location.href='./boardScrap/${dto.boardIdx}/${dto.id}'">스크랩</button>
 					</c:if>
 			</div>
@@ -610,13 +610,11 @@ a:link {
 					console.log("Success: ", data);
 					console.log("rescResult:"+data.recResult);
 					if(data.recResult =='true'){
-						console.log($("#"+boardIdx+""));
-						$("#"+boardIdx+"").attr('src','resources/images/recommend.png');
-						boardCommentList(); //댓글리스트 호출(댓글추천수 새로고침)
+						alert("추천완료");
+				
 					}else{
-						console.log($("#"+boardIdx+""));
-						$("#"+boardIdx+"").attr('src','resources/images/decommend.png');
-						boardCommentList(); //댓글리스트 호출(댓글추천수 새로고침)
+						alert("추천취소");
+		
 					}
 					
 				},
