@@ -107,7 +107,9 @@
 		SELECT COUNT(GPCTGIDX) FROM groupPurchase
 		<where>
 		<if test="param1.equals('all')">
+
 		  subject LIKE '%'||#{param2}||'%' OR content LIKE '%'||#{param2}||'%' AND blind = 'n'
+
 		</if>
 		<if test="param1.equals('subject')">
 		  subject LIKE '%'||#{param2}||'%' AND blind = 'n'
