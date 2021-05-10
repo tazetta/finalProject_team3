@@ -116,6 +116,25 @@
 		WHERE RNUM BETWEEN #{param1} AND #{param2}
 		
 	</select>
+	<select id="gettipMainLimit3" resultType="board">
+        SELECT board.boardidx, photos.newfilename
+		FROM (
+		  SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, BOARDIDX
+		  FROM BOARD
+		  WHERE brdctgidx = 3
+		) board
+		  LEFT JOIN (
+	    SELECT boardidx, photoidx, newfilename
+	    FROM PHOTOS
+	    WHERE photoidx IN (
+	        SELECT MAX(photoidx)
+	        FROM photos
+	        GROUP BY BOARDIDX
+	    )
+	  ) photos ON photos.boardidx = board.boardidx
+		WHERE rnum BETWEEN 1 and 3
+	</select>
+	
 
 	<!-- 도와줘요게시판 목록 전체 개수 조회 -->
 	<select id="getHelpmainCount" resultType="int">
@@ -222,26 +241,43 @@
 	</select>
 	<!-- 우리집 자랑 전체 목록 조회 -->
 	<select id="gethomeMainCount" resultType="int">
-	 SELECT COUNT(boardidx) FROM board WHERE brdctgidx = #{param1}
-	 	<if test="param2 == '' and param4 == 0 and param5 == 0 and param6 == 0">
-	 		AND blind = 'n'
-	 	</if>
-	 	<if test="param2 != ''">
-	 		AND content like #{param2} AND blind = 'n'
-	 	</if>
-	 	<if test="param4 != 0">
-			AND formidx = #{param3}	AND blind = 'n'
-	 	</if>
-	 	<if test="param5 != 0">
-			AND budget = #{param4} AND blind = 'n'
-	 	</if>
-	 	<if test="param6 != 0">
-			AND roomsize like #{param6} AND blind = 'n'
-	 	</if>
+	 SELECT COUNT(boardidx)
+	 FROM board
+	 WHERE blind = 'n' AND brdctgidx = 2
+	   AND roomsize <![CDATA[ <= ]]> #{param3}
+	 <if test="!param1 == 0">
+       AND formidx = #{param1}
+	 </if>
+	<choose>
+	  <when test="param2 == 100">
+        AND budget <![CDATA[ < ]]> 100
+	  </when>
+	  <when test="param2 == 200">
+        AND budget <![CDATA[ >= ]]> 100 AND budget <![CDATA[ < ]]> 200
+	  </when>
+	  <when test="param2 == 300">
+	    AND budget <![CDATA[ >= ]]> 200 AND budget <![CDATA[ < ]]> 300
+	  </when>
+	  <when test="param2 == 400">
+	    AND budget <![CDATA[ >= ]]> 300 AND budget <![CDATA[ < ]]> 400
+	  </when>
+	  <when test="param2 == 500">
+	    AND budget <![CDATA[ >= ]]> 400 AND budget <![CDATA[ < ]]> 500
+	  </when>
+	  <when test="param2 == 600">
+	    AND budget <![CDATA[ >= ]]> 500 AND budget <![CDATA[ < ]]> 1000
+	  </when>
+	  <when test="param2 == 1000">
+	    AND budget <![CDATA[ >= ]]> 1000 AND budget 
+	  </when>
+	  <otherwise>
+	  </otherwise>
+	</choose>
 	</select>
 	
 	<!-- 우리집 자랑 세부검색 -->
 	<select id="gethomeMainList" resultType="com.spring.main.dto.BoardDTO">
+	<!-- 
 		SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY ${param4} DESC) AS rnum, b.boardidx, b.subject, b.id, b.reg_date, b.brdctgidx, b.keyitems, b.budget, b.roomsize, b.blind, b.formidx, b.bhit, b.cntreco, p.newfilename FROM (
 		(SELECT photoidx, newfilename, boardidx FROM (SELECT photoidx, newfilename, boardidx FROM photos) where ROWID IN (SELECT MAX(ROWID) FROM photos GROUP BY boardidx)) p 
 		), board b WHERE p.boardidx = b.boardIdx AND brdctgidx = 2)
@@ -252,10 +288,77 @@
 			<if test="param6 != 0">budget <![CDATA[<]]> #{param6} AND rnum BETWEEN #{param1} AND #{param2}</if>		
 			<if test="param7 != 0">roomsize = #{param7}  AND rnum BETWEEN #{param1} AND #{param2}</if>
 		</where>
+	-->
+	
+	SELECT board.boardidx, subject, content, id, reg_date, roomsize, budget, keyitems, bhit, cntreco, photos.newfilename, board.formidx
+	FROM (
+	  SELECT ROW_NUMBER() OVER(ORDER BY ${param3} DESC) AS rnum,
+	    boardidx, subject, content, id, reg_date, roomsize, budget, keyitems, bhit, cntreco, formidx,
+	    blind, brdctgidx
+	  FROM BOARD
+	  WHERE brdctgidx = 2
+	) board
+	  LEFT JOIN (
+	    SELECT boardidx, photoidx, newfilename
+	    FROM PHOTOS
+	    WHERE photoidx IN (
+	        SELECT MAX(photoidx)
+	        FROM photos
+	        GROUP BY BOARDIDX
+	    )
+	  ) photos ON photos.boardidx = board.boardidx
+	WHERE blind = 'n'
+  	  AND RNUM BETWEEN #{param1} AND #{param2}
+	  AND roomsize <![CDATA[ <= ]]> #{param6}
+	<if test="!param4 == 0">
+      AND formidx = #{param4}
+	</if>
+	<choose>
+	  <when test="param5 == 100">
+        AND budget <![CDATA[ < ]]> 100
+	  </when>
+	  <when test="param5 == 200">
+        AND budget <![CDATA[ >= ]]> 100 AND budget <![CDATA[ < ]]> 200
+	  </when>
+	  <when test="param5 == 300">
+	    AND budget <![CDATA[ >= ]]> 200 AND budget <![CDATA[ < ]]> 300
+	  </when>
+	  <when test="param5 == 400">
+	    AND budget <![CDATA[ >= ]]> 300 AND budget <![CDATA[ < ]]> 400
+	  </when>
+	  <when test="param5 == 500">
+	    AND budget <![CDATA[ >= ]]> 400 AND budget <![CDATA[ < ]]> 500
+	  </when>
+	  <when test="param5 == 600">
+	    AND budget <![CDATA[ >= ]]> 500 AND budget <![CDATA[ < ]]> 1000
+	  </when>
+	  <when test="param5 == 1000">
+	    AND budget <![CDATA[ >= ]]> 1000 
+	  </when>
+	  <otherwise>
+	  </otherwise>
+	</choose>
 	</select>
 <!-- 		(startNum, endNum, keyword, orderBy, formcategory, budget, roomsize) -->
-
-
+	<!-- 메인에 띄울 우리집 자랑  -->
+	<select id="getMainhomeLimit3" resultType="board">
+        SELECT board.boardidx, photos.newfilename
+		FROM (
+		  SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, BOARDIDX
+		  FROM BOARD
+		  WHERE brdctgidx = 2
+		) board
+		  LEFT JOIN (
+	    SELECT boardidx, photoidx, newfilename
+	    FROM PHOTOS
+	    WHERE photoidx IN (
+	        SELECT MAX(photoidx)
+	        FROM photos
+	        GROUP BY BOARDIDX
+	    )
+	  ) photos ON photos.boardidx = board.boardidx
+		WHERE rnum BETWEEN 1 and 3
+	</select>
 	<!--게시판카테고리 -->
 	<select id="boardCtg" resultType="String">
 		SELECT category FROM boardCtg

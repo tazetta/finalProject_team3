@@ -37,11 +37,20 @@ public class BoardController {
 		logger.info("고객센터페이지입니다.");
 		return "FAQ";
 	}
-	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public String Main() {
+	/*
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public ModelAndView Main() {
 		logger.info("main");
-		return "main";
+		ModelAndView mav = new ModelAndView();
+
+		// 사진 있는 3개 데이터
+		mav.addObject("mainhome", BoardService.getMainhomeListLimit3());
+		System.out.println(mav);
+		mav.setViewName("main");
+		
+		return mav;
 	}
+	*/
 
 	@RequestMapping(value = "/qnadetail", method = RequestMethod.GET)
 	public String qnadetail() {
@@ -82,11 +91,23 @@ public class BoardController {
 	 */
 	@RequestMapping(value = "/tip",method = {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView tipmain() {
+		logger.info("tip");
 		ModelAndView mav = new ModelAndView();
-		logger.info("팁메인이동");
+		mav.addObject("list", BoardService.gettipMainLimit3());
 		mav.setViewName("tipMain");
 		return mav;
 	}
+	@RequestMapping(value = "/homedetail",method = {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView homedetail(@RequestParam(value="boardIdx", required=true) int boardIdx) {
+		// ModelAndView mav = new ModelAndView();
+		logger.info("우리집자랑이동");
+		// mav.setViewName("homedetail");
+		ModelAndView mav = BoardService.boarddetail(Integer.toString(boardIdx));
+		System.out.println(mav);
+		return mav;
+		// return mav;
+	}
+
 
 	
 	

@@ -74,6 +74,8 @@ public interface BoardDAO {
 
 	// 꿀팁 게시판 목록 조회
 	ArrayList<BoardDTO> getTipmain(int startNum, int endNum, String orderBy, String opt, String keyword);
+	// 꿀팁 3개
+	ArrayList <BoardDTO> gettipMainLimit3();
 	
 	// 도와줘요 게시판 목록 전체 개수 조회
 	int getHelpmainCount(int brdCtgIdx, String opt, String keyword, char isWaitForAnswer);
@@ -94,14 +96,15 @@ public interface BoardDAO {
 	ArrayList<PhotoDTO> myInteriorSlider(String id);
 	
 	//우리집 자랑 목록 전체 개수 조회
-	int gethomeMainCount(int brdCtgIdx, String keyword, String orderBy, int formcategory,int budget, int roomsize);
+	int gethomeMainCount(int formcategory,int budget, int roomsize);
 	
 
 	
 	//우리집 자랑 목록 조회
 	//ArrayList<BoardDTO> homeMainList(int startNum, int endNum, String keyword,String orderBy, String formcategory,int budget, int roomsize);
+	ArrayList<BoardDTO> gethomeMainList(int startNum, int endNum, String orderBy, int formcategory, int budget, int roomsize);
 	
-	ArrayList<BoardDTO> gethomeMainList(int startNum, int endNum, String keyword,String orderBy, int formcategory,int budget, int roomsize);
+	ArrayList<BoardDTO> getMainhomeLimit3();
 	//대댓글리스트
 	ArrayList<Comments2ndDTO> boardRecommList(int commIdx);
 	//대댓글삭제
@@ -142,6 +145,9 @@ public interface BoardDAO {
 	//게시글 cnt 증가
 	int boardCntUp(int boardIdx);
 	ArrayList<BoardDTO> list();
+	
+	
+	
 
 		
 	

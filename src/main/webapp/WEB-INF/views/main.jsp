@@ -67,16 +67,15 @@
                 <br/>
                 <div class="container">
                 <h3 style="font-weight:bold;padding-bottom:50px;">오늘의 땃쥐 룸</h3>
-                    <div style="display: flex;  justify-content: center; border: 1px solid rgb(255, 255, 255); height: 100%;">
-                        <div style="border: 5px solid white; margin-right: 90px; box-shadow:0 0 5px lightslategray;" >
-                            <img src="C:\Users\user\Desktop\BootStrap\interior1.jpg" width="250" height="250">
-                        </div>
-                        <div style="border: 5px solid white; margin-right: 90px; box-shadow:0 0 5px lightslategray;" >
-                            <img src="C:\Users\user\Desktop\BootStrap\interior2.jpg" width="250" height="250">
-                        </div>
-                        <div style="border: 5px solid white; margin-right: 90px; box-shadow:0 0 5px lightslategray;" >
-                            <img src="C:\Users\user\Desktop\BootStrap\interior3.jpg" width="250" height="250">
-                        </div>
+                  <div style="display: flex;  justify-content: center; border: 1px solid rgb(255, 255, 255); height: 100%;">
+						<c:forEach var="homedetail" items="${list}" begin="0" end="2" step="1" varStatus="status">
+							<div style="border: 5px solid white; margin-right: 90px; box-shadow:0 0 5px lightslategray;" >
+	                        	<a href="/main/homedetail?boardIdx=${homedetail.boardIdx}">
+	                        		<!-- <img src="resources/images/interior1.jpg" width="250" height="250"> -->
+	                        		<img src="${homedetail.newfilename}" width="250" height="250">
+	                        	</a>
+	                        </div>
+						</c:forEach>
                     </div>
                 </div>
                 <br/>
@@ -144,6 +143,7 @@
     </div>
 </body>
 <script>
+
 $(document).ready(function() {
 	// 목록을 조회하는 함수.
 	function getList(pageNum, opt, keyword) {

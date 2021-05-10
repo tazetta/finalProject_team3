@@ -9,13 +9,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>우리 집 자랑</title>
-
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" 
 integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" 
 integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
 <style>
  #comment{
     border-radius: 5px; 
@@ -83,14 +83,13 @@ span:hover {
       
         <select name="idx" id="budget" style="border-radius: 5px; border: 2px solid gray;">
             <option value="0">예산</option>
-            <option value="100">1백만원미만</option>
-            <option value="200">1백만원대</option>
-            <option value="300">2백만원대</option>
-            <option value="400">3백만원대</option>
-            <option value="500">4백만원대</option>
-            <option value="600">5백만원대</option>
-            <option value="10000">1천만원대</option>
-            <option value="10001">그 이상</option>
+            <option value="100">100만원 미만</option>
+            <option value="200">100만원 이상 ~ 200만원 미만</option>
+            <option value="300">200만원 이상 ~ 300만원 미만</option>
+            <option value="400">300만원 이상 ~ 400만원 미만</option>
+            <option value="500">400만원 이상 ~ 500만원 미만</option>
+            <option value="600">500만원 이상 ~ 1000만원 미만</option>
+            <option value="1000">1000만원 이상</option>
         </select>
         <label>평수</label>
         <input type="range" id="roomsize" min="1" max="100" step="1" oninput="document.getElementById('value').innerHTML=this.value;" onchange="console.log(this.value);">
@@ -111,14 +110,23 @@ span:hover {
         <div class="container" style="padding-top: 100px;">
 
 
-            <div style="display: flex;  justify-content: center; border: 1px solid rgb(255, 255, 255);">
+           <div id="totaldiv" class="container" style="font-size: large; font-weight: bold; padding-left: 40px;">
+			<div id="list" style="display: flex; flex-flow: wrap;  justify-content: center; border: 1px solid rgb(255, 255, 255);">
+
+			</div> 
+		</div>
+           
+           
+           
+            <!--<div style="display: flex;  justify-content: center; border: 1px solid rgb(255, 255, 255);">
                <div id="totaldiv" class="container" style="font-size: large; font-weight: bold; padding-left: 40px;">
 			<div id="list" style="display: flex; flex-flow: wrap;  justify-content: center; border: 1px solid rgb(255, 255, 255);">
 
 			</div> 
 				</div>
+				</div>
 				
-               <!--  <div style="border-radius:20px; border: 5px solid white; margin-right: 90px; box-shadow:0 0 5px lightslategray;">
+               <div style="border-radius:20px; border: 5px solid white; margin-right: 90px; box-shadow:0 0 5px lightslategray;">
                     <img src="C:\Users\user\Desktop\BootStrap\interior1.jpg" width="250" height="250" style=" border-radius:20px;">
                     <table class="table">
                         <tr>
@@ -130,8 +138,8 @@ span:hover {
                     </table>
                 </div>
 
-                </div>-->
-            </div>
+                </div>
+            </div>-->
 
 
 
@@ -178,7 +186,7 @@ $(document).ready(function() {
 			dataType : 'JSON',
 			success : function(data) {
 				appendList(data.list); //화면에 뿌려주기 위함
-				createPagination(data.total_page, pageNum); //페이징 처리
+				
 			},
 			error : function(error) {
 				console.log(error);
@@ -200,6 +208,9 @@ $(document).ready(function() {
 								<td>${board.reg_date}</td>
 							</tr>
 							 */
+							sHtml += "<div style='border-radius:20px; border: 5px solid white; margin: 20px; box-shadow:0 0 5px lightslategray;'>"
+							sHtml += "<img src='resources/images/interior1.jpg' width='250' height='250' style=' border-radius:20px;'>"
+							sHtml += "<table class='table'>"
 							sHtml += '<tr>';
 							sHtml += '	<td><a href="boarddetail/' + oInfo.boardIdx +'">'
 									+ oInfo.subject
@@ -208,12 +219,10 @@ $(document).ready(function() {
 									+ '</td>';
 							sHtml += '	<td>' + oInfo.cntreco
 									+ '</td>';
-							sHtml += '	<td>'
-									+ new Date(
-											oInfo.reg_date)
-											.toLocaleDateString("ko-KR")
-									+ '</td>';
 							sHtml += '</tr>';
+							sHtml += "</table>"
+							sHtml += "</div>"
+						
 						});
 	
 		

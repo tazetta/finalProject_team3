@@ -207,7 +207,7 @@ public class BoardService {
 		dto.setId(params.get("id"));
 		if (brdCtgIdx == 2) {// 카테고리가 2 (우리집자랑)일경우
 			dto.setKeyitems(params.get("keyitems"));// 키아이템
-			dto.setRoomsize(Integer.parseInt(params.get("roomsize")));// 평수
+			dto.setRoomsize(Integer.parseInt(params.get("roomsize")));// 평수 
 			dto.setBudget(Integer.parseInt(params.get("budget")));// 예산
 			dto.setFormidx(Integer.parseInt(params.get("formidx")));// 주거형태
 		}
@@ -469,23 +469,43 @@ public class BoardService {
 
 
 //우리집 자랑 세부검색
-	public Map<String, Object> homeMainList(int pageNum, String keyword,String orderBy, int formcategory, int budget,int roomsize) {
+	public Map<String, Object> homeMainList(int pageNum, String orderBy, int formcategory, int budget,int roomsize) {
 		Map<String, Object> map = new HashMap<>();
 		// startNum, endNum 생성
 		int limit = 10; // 최대 10개 게시물 목록 보여줄거
 		int startNum = (pageNum - 1) * limit + 1; // 시작페이지
 		int endNum = pageNum * limit; // 마지막 페이지
 		
-		int totalListCount = boarddao.gethomeMainCount(2, keyword, orderBy,  formcategory, budget,  roomsize);
-		map.put("total_page", totalListCount / 10 + 1);
+		int totalListCount = boarddao.gethomeMainCount(formcategory, budget,  roomsize);
+
+		if (totalListCount == 0) {
+			map.put("total_page", totalListCount);
+		} else {
+			if (totalListCount % limit == 0) {
+				map.put("total_page", totalListCount / 10);
+			} else {
+				map.put("total_page", totalListCount / 10 + 1);
+			}
+		}
 		
-		ArrayList<BoardDTO> list = boarddao.gethomeMainList(startNum, endNum, keyword, orderBy, formcategory, budget, roomsize);
+		ArrayList<BoardDTO> list = boarddao.gethomeMainList(startNum, endNum, orderBy, formcategory, budget, roomsize);
 		map.put("list", list);
 		
 		return map;
 	}
-
-
+    //메인에 우리집 자랑 데이터 3개
+	public ArrayList<BoardDTO> getMainhomeListLimit3() {
+		// 3개의 목록을 조회
+		ArrayList list = boarddao.getMainhomeLimit3();
+		System.out.println(list);
+		
+		return list;
+	}
+   //팁 자랑 3개
+	public ArrayList<BoardDTO> gettipMainLimit3() {
+		ArrayList list = boarddao.gettipMainLimit3();
+		return list;
+	}
 
 
 	public Map<String, Object> getTipmain (int pageNum, String orderBy, String opt, String keyword) { //메서드 선언
@@ -753,4 +773,6 @@ public class BoardService {
 		map.put("msg", msg);
 		return map;
 	}
+
+	
 }

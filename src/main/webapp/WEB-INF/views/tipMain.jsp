@@ -118,7 +118,21 @@ a.page-link:hover {
 
             <br />
 
-            <div style="display: flex;  justify-content: center; border: 1px solid rgb(255, 255, 255);">
+ 			<div style="display: flex;  justify-content: center; border: 1px solid rgb(255, 255, 255); height: 100%;">
+						<c:forEach var="tipdetail" items="${list}" begin="0" end="2" step="1" varStatus="status">
+							<div style="border: 5px solid white; margin-right: 90px; box-shadow:0 0 5px lightslategray;" >
+	                        	<a href="/main/tipdetail?boardIdx=${tipdetail.boardIdx}">
+	                        		<!-- <img src="resources/images/interior1.jpg" width="250" height="250"> -->
+	                        		<img src="${tipdetail.newfilename}" width="250" height="250">
+	                        	</a>
+	                        </div>
+						</c:forEach>
+                    </div>
+                    </div>
+                    </div>
+                    
+                    
+            <!--  <div style="display: flex;  justify-content: center; border: 1px solid rgb(255, 255, 255);">
                 <div style="border: 5px solid white; margin-right: 90px; box-shadow:0 0 5px lightslategray;">
                     <img src="C:\Users\user\Desktop\BootStrap\interior1.jpg" width="250" height="250">
                     <table class="table">
@@ -165,8 +179,8 @@ a.page-link:hover {
 
         </div>
 
-    </div>
-    <div class="container">
+    </div>-->
+    <div class="container" style="padding-top:50px;">
         <div class="container" style="display: flex; justify-content: space-between;">
             <!--  <a href="#" class="button2"
                 style="max-width: 90; margin: 10px ; padding: 10px 20px; font-weight: bold; " >글쓰기</a>-->

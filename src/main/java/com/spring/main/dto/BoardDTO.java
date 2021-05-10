@@ -28,7 +28,18 @@ public class BoardDTO {
 	private String sgtctg;
 	private int commIdx;
 	private int scrapIdx;
+	private String newfilename;
 	
+	public String getNewfilename() {
+		return newfilename;
+	}
+
+
+	public void setNewfilename(String newfilename) {
+		this.newfilename = newfilename;
+	}
+
+
 	public int getScrapIdx() {
 		return scrapIdx;
 	}
