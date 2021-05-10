@@ -530,11 +530,11 @@ public class BoardService {
 		logger.info("스크랩 쿼리문작동완료");
 		if (Scrap > 0) {
 			msg = "스크랩하였습니다.";
-			page = "redirect:/boarddetail/" + boardIdx;
+			page = "redirect:/boarddetail?boardIdx=" + boardIdx;
 		} else {
 			boarddao.boardScrapDel(boardIdx, id);
 			msg = "스크랩취소 했습니다.";
-			page = "redirect:/boarddetail/" + boardIdx;
+			page = "redirect:/boarddetail?boardIdx=" + boardIdx;
 		}
 		}else {
 			page = "redirect:/boarddetail/" + boardIdx;
