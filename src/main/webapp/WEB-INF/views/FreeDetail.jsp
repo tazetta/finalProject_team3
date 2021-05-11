@@ -202,7 +202,7 @@ a:link {
 				</c:if>
 			 <c:if  test="${ dto.id != loginId}">
 				<button id="button2" style="margin-left: 70; width: 100px;" onclick="boardRec('${dto.boardIdx}')">추천하기</button>
-				<button id="button2" style="margin-left: 50;" onclick="location.href='./boardScrap/${dto.boardIdx}/${dto.id}'">스크랩</button>
+				<%-- <button id="button2" style="margin-left: 50;" onclick="location.href='./boardScrap/${dto.boardIdx}/${dto.id}'">스크랩</button> --%>
 					</c:if>
 			</div>
 			<!--style="
