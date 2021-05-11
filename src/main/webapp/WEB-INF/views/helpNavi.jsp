@@ -206,7 +206,7 @@ span:hover {
 <div class="helpbar">
 <ul id="helpul" >
     <a id="help" href="helpMain" target="_parent" >
-        <li id="help" style="color: black;">질문 및 답변</li>
+        <li id="help"">질문 및 답변</li>
     </a>
     <a id="help" href="tip" target="_parent">
         <li id="help">꿀팁 게시판</li>

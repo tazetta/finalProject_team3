@@ -66,7 +66,8 @@ a.page-link:hover {
 
 
 <body>
- <div style="min-height: 210px; padding-top:50px;">
+<div class="flexbox">
+ <div>
 	            <jsp:include page="helpNavi.jsp"></jsp:include> 
 	           
             </div>
@@ -172,7 +173,7 @@ a.page-link:hover {
 			</ul>-->
 
 
-
+</div>
 </body>
 <script>
 $('button#btnForTotalSearch').click(function() {
