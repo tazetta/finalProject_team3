@@ -104,8 +104,8 @@ h2 {
 </head>
 <body>
 	<div class="sideBar"
-		style="margin-right: 15px; position: fixed; left: 150px; top: 25vh">
-		<jsp:include page="mynavi.jsp" />
+		style="margin-right: 15px; position: fixed; left: 300px; top: 15vh;">
+		<jsp:include page="sidemenu.jsp" />
 	</div>
 	<div class="flexBox">
 		<jsp:include page="mainnavi.jsp" />
