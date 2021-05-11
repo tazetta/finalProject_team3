@@ -111,7 +111,7 @@ margin-top:50px;
 						<th style="width:130px">날짜</th>
                        </tr>
 						</thead>
-					<tbody id="list" class="table-content">
+					<tbody id="list" class="table-content" style="font-size: 18px; text-align: center;">
 
 					</tbody>
 					<tr>

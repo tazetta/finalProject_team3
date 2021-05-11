@@ -76,11 +76,13 @@ margin-top:50px;
 	}
 	 h2{
 			border: 1px solid black;
-			width: 160px;
-			margin: 1px;
+			width: 178px;
+			margin: 10px;
 			text-align: center;
-			font-size: 16px;
+			font-size: 18px;
 			background-color: cornflowerblue;
+			margin-left:50px;
+			
 		}
 </style>
 
