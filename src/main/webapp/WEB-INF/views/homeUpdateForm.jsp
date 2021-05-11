@@ -1,4 +1,3 @@
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -9,7 +8,7 @@
 
 <head>
 <meta  charset= "UTF-8">
-<title>우리 집 자랑 글쓰기</title>
+<title>우리 집 자랑 글수정</title>
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <!-- 부트스트랩 사용 -->
@@ -103,7 +102,7 @@ input.button:hover{
 <body>
 
    <br/>
-	<form action="boardWrite" method="POST">
+ <form action="/main/boardUpdate" method="POST">
 	<input type="hidden" value="2" name="boardCtgIdx"/> 
 	<input type="hidden" value="${sessionScope.loginId}" name="id"/>
 	<div style="min-height: 210px; padding-top:50px;">
@@ -118,8 +117,8 @@ input.button:hover{
                     <td>
                         <ul>
                             <li>
-                                <select name="formidx" id="formcategory"style="border-radius: 5px; margin: 5px; ">
-                                <option value="0">주거형태</option>
+                                <select name="formidx" id="formcategory"style="border-radius: 5px; margin: 5px;">
+                                <option value="${dto.formidx}">${dto.formcategory}</option>
                                 <option value="1">원룸&오피스텔</option>
                                 <option value="2">아파트</option>
                                 <option value="3">단독주택</option>
@@ -129,14 +128,14 @@ input.button:hover{
                             <br/>
                          
                                 <li>
-                                    평수<input type="text" id="roomsize" name="roomsize" style="border-radius: 5px; border-color:  rgb(162, 163, 163); width: 50px;">평
+                                    평수<input type="text" id="roomsize" name="roomsize" style="border-radius: 5px; border-color:  rgb(162, 163, 163); width: 50px;" value="${dto.roomsize}">
     
                                 </li>
                                 <br/>
                            
                             <li>
 
-                                예산<input type="text" id="budget" name="budget" style="border-radius: 5px;border-color:  rgb(162, 163, 163);  width: 50px;">만원
+                                예산<input type="text" id="budget" name="budget" style="border-radius: 5px;border-color:  rgb(162, 163, 163);  width: 50px;" value="${dto.budget}">
                             </li>
 
                         </ul>
@@ -146,17 +145,15 @@ input.button:hover{
             <tbody>
                 <tr>
                     <th  style=" border: 3px solid rgb(204, 203, 203);">제목</th>
-                    <td  style=" border: 3px solid rgb(204, 203, 203);"><input id="subject" name="subject" type="text" style="width: 100%; " placeholder="제목을 입력해주세요."></td>
+                    <td  style=" border: 3px solid rgb(204, 203, 203);"><input id="subject" name="subject" type="text" style="width: 100%; " value="${dto.subject}"></td>
                 </tr>
                 <tr>
                     <th  style=" border: 3px solid rgb(204, 203, 203);">내용</th>
-                   </td>
-                  <td><div contenteditable="true" id="editable" style="overflow:scroll; width: 100%; height: 400px; border: 2px solid black; border-radius: 10px;">
-                <input id="content" type="text" class="form-control" placeholder="내용을 입력하세요" name="content" maxlength="1024" style="height: 400px;"  hidden="hidden"/></div></td>
+                    <td  id="editable" style=" border: 3px solid rgb(204, 203, 203);"><textarea id="content" name="content" style="width: 100%;"cols="30" rows="10"></textarea> ${dto.content}</td>
                 </tr>
                 <tr>
                     <th  style=" border: 3px solid rgb(204, 203, 203);">아이템</th>
-                    <td style=" border: 3px solid rgb(204, 203, 203);"><textarea id="iteme" name="keyitems" style="width: 100%;" cols="30" rows="5" placeholder="ex)1.이케아 가구"></textarea></td>
+                    <td style=" border: 3px solid rgb(204, 203, 203);"><textarea id="iteme" name="keyitems" style="width: 100%;" cols="30" rows="5"></textarea>${dto.keyitems}</td>
                 </tr>
             </tbody>
         </table>
@@ -165,7 +162,7 @@ input.button:hover{
            <!--   <a href="#" class="button" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; " onclick="fileUp()">첨부파일</a>-->
              <input id="button" class="button" style="max-width: 100; margin: 10px ;  padding: 10px 10px; font-weight: bold;" type="button" value="파일업로드" onclick="fileUp()" />
             <div class="row" style="float: right;">
-                <button id="button2" class="button2" style="max-width: 75; margin: 10px ; padding: 10px 10px; font-weight: bold; text-align:center;">저장</button>
+                <button id="button2" class="save" style="max-width: 75; margin: 10px ; padding: 10px 10px; font-weight: bold; text-align:center;">저장</button>
             </div>
             <a id="button" class="button"  onclick="location.href='homemain'"style=" max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; float: right;">취소</a>
         </div>
@@ -173,60 +170,48 @@ input.button:hover{
        
 
  </form>
-    </body>
-    <script>
-    var msg = "${msg}";
-    if(msg != ""){
-    	alert(msg);
-    }
-   
-    $("#button2").click(function(){
-    	var subject = $("#subject").val();
-    	var editable = $("#editable").html();
-    	if($("#formcategory").val()=="0"||$("#roomsize").val()==""||$("#budget").val()==""){
-    		alert("주거형태,평수,예산을 작성해주세요");
-    		return false;
-    	}else if($("#subject").val()==""||$("#editable").html()==""||$("#iteme").val()==""){
-    		alert("제목,내용, 아이템을 작성해주세요");
-    		return false;
-    	}else{
-    		$("#editable>a").find("b").remove(); //a태그안 b태그 삭제
-    	 	$("#editable>a").removeAttr("onclick"); //del(this) 무효화
-    	 	$("#content").val($("#editable").html()); //입력한 값 content에 넣기
-    	 	alert("작성완료되었습니다.");
-    		$("form").submit();
-    	}
-    	
-    });
+</body>
+<script>
+$(".save").click(function() {
+	console.log($("#editable").html());
+	$("#editable>a").find("b").remove(); //a태그안 b태그 삭제
+	$("#editable>a").removeAttr("onclick"); //del(this) 무효화
+	$("#content").val($("#editable").html());
+	$("form").submit();
+});
 
-    function fileUp(){
-    	window.open("boardUploadForm","fileUpload","width=400, height=100");
-    	//요청url,타이틀,옵션
-    }
-    function del(elem){
-    	console.log(elem); //<a>
-    	var newFileName = elem.id.substring(elem.id.lastIndexOf("/")+1); //파일명만 뽑아내기
-    	console.log(newFileName);
+/* 파일업로드 새창*/
+function fileUp(){
+	window.open("/main/boardUploadForm","fileUpload","width=400, height=100");
+	//요청url,타이틀,옵션
+}
 
+/* 파일 삭제 - 비동기 */
+//groupuploadForm에서 보내는 elem확인
+function del(elem){
+	console.log(elem); //<a>
+	var newFileName = elem.id.substring(elem.id.lastIndexOf("/")+1); //파일명만 뽑아내기
+	console.log("newFileName:"+newFileName);
 
-    //1. 실제 파일 삭제 요청
-    $.ajax({
-    	url:"boardFileDelete",
-    	type:"get",
-    	data:{"fileName":newFileName},
-    	dataType:"json",
-    	success:function(d){
-    		console.log("success:"+d.success);
-    // 2. 파일 삭제 요청이 완료되면 화면에 나타난 사진 삭제
-    		if(d.success ==1){ //실제 파일 삭제 성공시
-    			$(elem).find('img').remove(); //이미지 삭제
-    			/* $(elem).next().remove(); */ //<br> 삭제
-    			$(elem).remove(); // <a>삭제
-    		}
-    	},error:function(e){
-    		console.log(e);
-    	}
-    }); 	
-    }
-    </script>
-    </html>
+	// 1. 실제 파일 삭제 요청
+	 $.ajax({
+		url:"/main/boardFileDelete",
+		type:"get",
+		data:{"fileName":newFileName},
+		dataType:"json",
+		success:function(d){
+			console.log("success:"+d.success);
+	// 2. 파일 삭제 요청이 완료되면 화면에 나타난 사진 삭제
+			if(d.success ==1){ //실제 파일 삭제 성공시
+				$(elem).find('img').remove(); //이미지 삭제
+				/* $(elem).next().remove(); */ //<br> 삭제
+				$(elem).remove(); // <a>삭제
+			}
+		},error:function(e){
+			console.log(e);
+		}
+	}); 	
+}
+</script>
+
+</html>

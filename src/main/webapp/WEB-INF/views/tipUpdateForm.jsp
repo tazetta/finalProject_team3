@@ -68,7 +68,7 @@ a.button2:hover {
                  <td colspan="2">
       				<input name="boardIdx" type="hidden" value="${dto.boardIdx}" />
       				<input type="hidden" name="brdctgidx" value="${dto.brdctgidx }" />
-					<div contenteditable="true" id="editable"> ${dto.content}</div> 
+					<div contenteditable="true" id="editable" style="height: 300px; border: 1px solid gray;" > ${dto.content}</div> 
 					<input name="content" type="hidden" id="content" />
 			</td>
             </tr>

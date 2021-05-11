@@ -20,6 +20,8 @@ integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroa
 a {
 	text-decoration: none;
     border-radius: 10px;
+   
+	border: none;
 }
 #button {
 	color: rgba(30, 22, 54, 0.6);
@@ -32,6 +34,20 @@ a {
 #button:hover {
 	color: rgba(255, 255, 255, 0.85);
 	box-shadow: rgb(230, 226, 224) 0 0px 0px 40px inset;
+}
+#commentSave{
+color: rgba(30, 22, 54, 0.6);
+    background-color: rgb(230, 226, 224);
+	box-shadow: rgb(230, 226, 224) 0 0px 0px 2px inset;
+	border-radius: 5px;
+	border: none;
+
+}
+
+#commentSave :hover{
+color: rgba(255, 255, 255, 0.85);
+	box-shadow: rgb(230, 226, 224) 0 0px 0px 40px inset;
+
 }
 
 #contentbtn{
@@ -163,16 +179,19 @@ a:link {
     
         <div  style="padding-top: 4%;">
          <c:set var="loginId" value="${sessionScope.loginId}" />
-          <c:if  test="${!empty loginId}">
-            <button onclick="location.href='./boardUpdateForm/${dto.boardIdx}'" id="button"  class="button" style="max-width: 75; margin-right: 10px; margin-left: 20px; padding: 10px 20px; font-weight: bold; float: right;">수정</button>
-           
-           <button onclick="location.href='./boardDel/${dto.boardIdx}'" id="button"  class="button" style="max-width: 75; padding: 10px 20px; font-weight: bold; float: right;">삭제</button>
+         <c:if test="${ dto.id == loginId }">
+				<button id="button" style="margin-left: 300;" onclick="location.href='./boardUpdateForm/${dto.boardIdx}'">수정</button>
+				<button id="button" style="margin-left: 50;" onclick="location.href='./boardDel/${dto.boardIdx}'">삭제</button>
+		</c:if>
+        <c:if  test="${ dto.id != loginId}">
+        <button id="button" style="margin-left: 300;" onclick="boardRec('${dto.boardIdx}')">추천하기</button>
+		<button id="button" style="margin-left: 50;" onclick="location.href='./boardScrap/${dto.boardIdx}/${dto.id}'">스크랩</button>
         	</c:if>
         </div>
     </div>
     <br/>
     <div class="container" style="float:right; padding-left:15%;">
-        <span class="grade">${writerGrade}</span>&nbsp;&nbsp;${dto.id}&nbsp;&nbsp;${dto.reg_date}&nbsp;&nbsp;조회수${dto.bhit}
+        <span class="grade">${writerGrade}</span>&nbsp;&nbsp;${dto.id}&nbsp;&nbsp;${dto.reg_date}&nbsp;&nbsp;조회수${dto.bhit} &nbsp;&nbsp; 추천수 ${dto.CNTRECO}
     </div>
     <br/>
        
@@ -234,6 +253,9 @@ a:link {
              	  댓글<span id ="listSize" style="font-size: medium; font-weight: bold; ">개</span>
             	</td>
                </tr>
+                <c:if test="${listSize = '0' }">
+        	<div>현재 댓글이 없습니다.</div>
+			</c:if>     
                 </table>
             </div>
       <div id="commentBox" class="container">

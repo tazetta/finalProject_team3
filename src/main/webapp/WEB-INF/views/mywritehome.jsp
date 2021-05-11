@@ -101,7 +101,7 @@ margin-top:50px;
 			<div class="table-area">
 				<table>
 				
-			<div id="list" style="display: flex; flex-flow: wrap;  justify-content: left; border: 1px solid rgb(250px, 250px, 250px);">
+			<div id="list" style="display: flex; flex-flow: wrap; max-width: 900px; justify-content: left; border: 1px solid rgb(250px, 250px, 250px);">
 
 			</div> 
 					<tr>

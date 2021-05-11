@@ -121,12 +121,13 @@ a.page-link:hover {
  			<div style="display: flex;  justify-content: center; border: 1px solid rgb(255, 255, 255); height: 100%;">
 						<c:forEach var="tipdetail" items="${list}" begin="0" end="2" step="1" varStatus="status">
 							<div style="border: 5px solid white; margin-right: 90px; box-shadow:0 0 5px lightslategray;" >
-	                        	<a href="/main/tipdetail?boardIdx=${tipdetail.boardIdx}">
+	                        	<a href="/main/boarddetail?boardIdx=${tipdetail.boardIdx}">
 	                        		<!-- <img src="resources/images/interior1.jpg" width="250" height="250"> -->
 	                        		<img src="${tipdetail.newfilename}" width="250" height="250">
 	                        	</a>
 	                        </div>
 						</c:forEach>
+						
                     </div>
                     </div>
                     </div>
@@ -205,8 +206,8 @@ a.page-link:hover {
               	</tr>
               </thead>
               <tbody  id="list">
-              
               </tbody>
+
             
             </table>
         </div>
