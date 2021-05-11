@@ -267,7 +267,7 @@
 	    AND budget <![CDATA[ >= ]]> 500 AND budget <![CDATA[ < ]]> 1000
 	  </when>
 	  <when test="param2 == 1000">
-	    AND budget <![CDATA[ >= ]]> 1000 AND budget 
+	    AND budget <![CDATA[ >= ]]> 1000
 	  </when>
 	  <otherwise>
 	  </otherwise>
@@ -289,25 +289,9 @@
 		</where>
 	-->
 	
-	SELECT board.boardidx, subject, content, id, reg_date, roomsize, budget, keyitems, bhit, cntreco, photos.newfilename, board.formidx
-	FROM (
-	  SELECT ROW_NUMBER() OVER(ORDER BY ${param3} DESC) AS rnum,
-	    boardidx, subject, content, id, reg_date, roomsize, budget, keyitems, bhit, cntreco, formidx,
-	    blind, brdctgidx
-	  FROM BOARD
-	  WHERE brdctgidx = 2
-	) board
-	  LEFT JOIN (
-	    SELECT boardidx, photoidx, newfilename
-	    FROM PHOTOS
-	    WHERE photoidx IN (
-	        SELECT MAX(photoidx)
-	        FROM photos
-	        GROUP BY BOARDIDX
-	    )
-	  ) photos ON photos.boardidx = board.boardidx
-	WHERE blind = 'n'
-	  	  AND RNUM BETWEEN #{param1} AND #{param2}
+	SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY b.${param3} DESC) AS rnum, b.boardidx, subject, id, reg_date, roomsize, budget, bhit, cntreco, formidx, blind, brdctgidx, newfilename FROM 
+(SELECT boardidx, subject, id, reg_date, roomsize, budget, bhit, cntreco, formidx, blind, brdctgidx FROM board WHERE brdctgidx = 2 AND blind='n') b
+,(SELECT * FROM(SELECT photoidx, newfilename, boardidx FROM photos) WHERE ROWID IN (SELECT MAX(ROWID) FROM photos GROUP BY boardidx)) p WHERE b.boardidx = p.boardidx)WHERE rnum BETWEEN #{param1} AND #{param2}
 	<if test="!param4 == 0">
       AND formidx = #{param4}
 	</if>

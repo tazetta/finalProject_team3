@@ -121,7 +121,7 @@ h2 {
 						<c:if test="${slide.size() > 0}">
 							<c:forEach items="${slide}" var="slide">
 								<div>
-									<img src="resources/images/${slide.newFileName}" width="880px"
+									<img src="/photo/${slide.newFileName}" width="880px"
 										height=300px>
 								</div>
 							</c:forEach>
@@ -184,8 +184,8 @@ function appendPhotos(list){
 	var src = "";
 	if(list.length > 0){
 	for(var i = 0; i<list.length;i++){
-		src += "C:/upload/"+list[i].newFileName;
-		card += "<div class='myPhotos'><img src='" + src + "' alt='image' width='400px' height='250px'><div class='container'><p>"+src+"</p></div></div>"
+		src += "/photo/"+list[i].newFileName;
+		card += "<div class='myPhotos'><img src='" + src + "' alt='image' width='400px' height='250px'></div>"
 		src = "";
 	}
 	} else {
