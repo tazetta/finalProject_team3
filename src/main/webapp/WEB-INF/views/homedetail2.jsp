@@ -20,6 +20,8 @@ integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroa
 a {
 	text-decoration: none;
     border-radius: 10px;
+   
+	border: none;
 }
 #button {
 	color: rgba(30, 22, 54, 0.6);
@@ -32,6 +34,20 @@ a {
 #button:hover {
 	color: rgba(255, 255, 255, 0.85);
 	box-shadow: rgb(230, 226, 224) 0 0px 0px 40px inset;
+}
+#commentSave{
+color: rgba(30, 22, 54, 0.6);
+    background-color: rgb(230, 226, 224);
+	box-shadow: rgb(230, 226, 224) 0 0px 0px 2px inset;
+	border-radius: 5px;
+	border: none;
+
+}
+
+#commentSave :hover{
+color: rgba(255, 255, 255, 0.85);
+	box-shadow: rgb(230, 226, 224) 0 0px 0px 40px inset;
+
 }
 
 #contentbtn{
