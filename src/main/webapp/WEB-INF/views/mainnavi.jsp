@@ -53,7 +53,7 @@ font-weight:600px;
 
 div.네비bar {
 	background-color: white;
-	width: 1100px;
+	width: 1300px;
 	border-top: 2px solid dodgerblue;
 	border-bottom: 2px solid dodgerblue;
 	height: 50px;
