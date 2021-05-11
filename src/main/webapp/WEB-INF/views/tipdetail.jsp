@@ -152,6 +152,7 @@ a:link {
         <h1 style="padding-top: 50px; font-weight: bold;">${dto.subject}</h1>
         <br/>
        <span class="grade">${writerGrade}</span>&nbsp;&nbsp;${dto.id}&nbsp;&nbsp;날짜${dto.reg_date}&nbsp;&nbsp;조회수${dto.bhit}&nbsp;&nbsp;댓글${dto.commIdx} 
+        
         <div>
            <c:if test="${dto.id == sessionScope.loginId}">
             <button class="btn" id="button" onclick="location.href='./boardUpdateForm/${dto.boardIdx}'"style=" border-radius: 10px; max-width: 75; margin-right: 10px; margin-left: 20px; padding: 10px 20px; font-weight: bold; float: right;">수정</button>
@@ -161,6 +162,7 @@ a:link {
             <button class="btn" id="button" onclick="boardRec('${dto.boardIdx}')"style=" border-radius: 10px; max-width: 75; margin-right: 10px; margin-left: 20px; padding: 10px 20px; font-weight: bold; float: right;">추천하기</button>
             <button class="btn" id="button" onclick="location.href='./boardScrap/${dto.boardIdx}/${dto.id}'" style=" border-radius: 10px; max-width: 75; padding: 10px 20px; font-weight: bold; float: right;">스크랩</button>
             </c:if>
+            
         </div>
        
     </div>
@@ -176,6 +178,7 @@ a:link {
                     <td>${dto.content}</td>
                 </tr>
              </tbody>
+             
                    
         </table>
         <div class="container">

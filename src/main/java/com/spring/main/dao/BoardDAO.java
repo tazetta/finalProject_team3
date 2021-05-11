@@ -145,6 +145,8 @@ public interface BoardDAO {
 	//게시글 cnt 증가
 	int boardCntUp(int boardIdx);
 	ArrayList<BoardDTO> list();
+	//회원등급
+	BoardDTO grand(String boardIdx);
 	
 	
 	
