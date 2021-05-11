@@ -250,6 +250,9 @@ a:link {
              	  댓글<span id ="listSize" style="font-size: medium; font-weight: bold; ">개</span>
             	</td>
                </tr>
+                <c:if test="${listSize = '0' }">
+        	<div>현재 댓글이 없습니다.</div>
+			</c:if>     
                 </table>
             </div>
       <div id="commentBox" class="container">

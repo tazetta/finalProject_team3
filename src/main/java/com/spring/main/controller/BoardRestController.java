@@ -65,7 +65,7 @@ public class BoardRestController {
 		return BoardService.cntboardList(pagePerCnt,page,CNTRECO);
 	}
 	*/
-	
+
 	/**
 	 * 꿀팁 목록 조회
 	 * @param pageNum 이동하려는 페이지 번호
