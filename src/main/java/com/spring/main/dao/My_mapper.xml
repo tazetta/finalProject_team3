@@ -128,7 +128,7 @@ SELECT gpIdx ,  subject , content , id , progIdx, reg_date, gHit rnum
 
 <select id="mytipscrapList"  resultType="com.spring.main.dto.BoardDTO">
 	  SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY boardIdx DESC) as RNUM, boardIdx, subject, content, reg_date, id, bHit, blind
-	FROM Board WHERE boardIdx IN (SELECT boardIdx FROM scrap  WHERE id=#{param3}) AND  brdctgIdx IN (SELECT brdctgIdx FROM boardCtg WHERE brdctgIdx='4')) WHERE RNUM BETWEEN #{param1} AND #{param2}
+	FROM Board WHERE boardIdx IN (SELECT boardIdx FROM scrap  WHERE id=#{param3}) AND  brdctgIdx IN (SELECT brdctgIdx FROM boardCtg WHERE brdctgIdx='3')) WHERE RNUM BETWEEN #{param1} AND #{param2}
 </select>
 
 
@@ -150,11 +150,10 @@ SELECT gpIdx ,  subject , content , id , progIdx, reg_date, gHit rnum
 </select>
 
 <select id="mywritehomeList" resultType="com.spring.main.dto.PhotoDTO">
-SELECT * FROM 
-(SELECT ROW_NUMBER() OVER(ORDER BY photoidx DESC) AS rnum,  b.subject, b.boardIdx, p.newFileName FROM 
-(SELECT photoidx, newfilename, boardidx 
-    FROM (SELECT photoidx, newfilename, boardidx FROM photos) 
-    where ROWID IN (SELECT MAX(ROWID) FROM photos GROUP BY boardidx)) p , board b WHERE p.boardidx = b.boardIdx AND b.brdCtgIdx=2) ORDER BY rnum ASC
+SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY photoidx DESC) AS rnum, b.subject, b.boardIdx, 
+p.newFileName FROM (SELECT photoidx, newfilename, boardidx FROM (SELECT photoidx, newfilename, 
+boardidx FROM photos) where ROWID IN (SELECT MAX(ROWID) FROM photos GROUP BY boardidx)) p , 
+board b WHERE p.boardidx = b.boardIdx AND b.brdCtgIdx=2) WHERE rnum between #{param1} AND #{param2}
 </select>
 
 
