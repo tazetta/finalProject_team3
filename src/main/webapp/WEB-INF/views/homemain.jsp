@@ -196,9 +196,9 @@ $(document).ready(function() {
 								<td>${board.reg_date}</td>
 							</tr>
 							 */
-							 src +="C:/upload/"+list.newfilename;
+							
 							sHtml += "<div style='border-radius:20px; border: 5px solid white; margin: 20px; box-shadow:0 0 5px lightslategray;'>"
-							sHtml += "<img src="+src+" width='250' height='250' style=' border-radius:20px;'>"
+							sHtml += "<img  src='${pageContext.request.contextPath}+ oInfo.newFileList;' width='250' height='250' style=' border-radius:20px;'>"
 							sHtml += "<table class='table'>"
 							sHtml += '<tr>';
 							sHtml += '	<td><a href="boarddetail?boardIdx=' + oInfo.boardIdx +'">'
