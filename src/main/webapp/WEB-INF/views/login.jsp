@@ -13,7 +13,7 @@
     <div class="loginForm">
         <form action="login" method="POST">
            <div class="logo-area">
-               <a href="main">
+               <a href="../main">
                    <img src="resources/css/memberCSS/logo.png">
                </a>
            </div>
