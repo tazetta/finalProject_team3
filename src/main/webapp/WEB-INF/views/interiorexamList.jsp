@@ -44,15 +44,18 @@ integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroa
 table{
 	text-align: center;
 }
- #mainnavi {
-	position: absolute;
-	top:5%;
-	left:20%;
-        }
+        .flexBox {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+}
+        
 </style>
 </head>
 <body>
-
+	<div class="flexBox">
+	<div>
 	<jsp:include page="mainnavi.jsp"></jsp:include> 
 
 	
@@ -65,7 +68,8 @@ table{
 
 			</div> 
 		</div>
-
+</div>
+</div>
 </body>
 <script>
 var msg = "${msg}";
@@ -129,7 +133,9 @@ if(msg != ""){
 
 
 	$(window).scroll(function () {
-		if ($(window).scrollTop() == $(document).height()-1007) {
+		if ($(window).scrollTop() >= $(document).height()-1007) {
+			console.log("window : "+$(window).scrollTop());
+			console.log("document : " + $(document).height());
 			thisPage++;
 			listCall(thisPage);
 		} 
