@@ -88,9 +88,8 @@ span:hover {
         <span id="value"></span>평
         
    
-       <div style="float: right;">
-        <button id="btn"
-        style="border-radius: 5px; background-color: rgb(95, 176, 241); border: 2px solid rgb(203, 228, 248); font-weight: bold; color: white;" onclick="location.href='boardWriteForm?boardCtgIdx=2'">글쓰기</button>
+       <div style="float: right; padding-right:10%;">
+        <button id="btn"style="border-radius: 5px; background-color: rgb(95, 176, 241); border: 2px solid rgb(203, 228, 248); font-weight: bold; color: white;" onclick="location.href='boardWriteForm?boardCtgIdx=2'">글쓰기</button>
         </div>
 
     </div>
@@ -98,12 +97,12 @@ span:hover {
    
     <div class="container" style="font-size: large; font-weight: bold; padding-left: 40px;">
         <br />
-        <h4  style=" font-weight: bold;">우리 집 자랑</h4>
-        <div class="container" style="padding-top: 100px;">
+        <h4  style=" font-weight: bold; padding-left:10%;">우리 집 자랑</h4>
+        <div class="container" style="padding-top: 100px; ">
 
 
            <div id="totaldiv" class="container" style="font-size: large; font-weight: bold; padding-left: 40px;">
-			<div id="list" style="display: flex; flex-flow: wrap;  justify-content: center; border: 1px solid rgb(255, 255, 255);">
+			<div id="list" style="display: flex; flex-flow: wrap; padding-left:80px;justify-content: center; border: 1px solid rgb(255, 255, 255);">
 
 			</div> 
 		</div>

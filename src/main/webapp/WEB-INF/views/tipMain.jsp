@@ -262,6 +262,7 @@ $(document).ready(function() {
 	function appendList(aList) {
 		// jquery의 반복문을 사용.
 		var sHtml = '';
+		if(aList.length>0){
 		$.each(aList,function(index, oInfo) {
 							/*
 							행 html 소스
@@ -289,7 +290,10 @@ $(document).ready(function() {
 						});
 	
 		
-
+		}else{
+			
+			sHtml += "<th colspan='4' style='text-align: center;'>해당하는 게시물이 없습니다.</th>"
+		}
 		$("#list").empty();
 		$("#list").append(sHtml);
 	}
