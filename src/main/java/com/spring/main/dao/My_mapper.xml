@@ -102,12 +102,22 @@ SELECT gpIdx ,  subject , content , id , progIdx, reg_date, gHit rnum
 	SELECT COUNT(gpIdx) FROM GROUPPURCHASE WHERE id = #{param1}
 </select>
 
+<select id="buyAllCount" resultType="int">
+SELECT COUNT(gpIdx) FROM applicants a WHERE  a.id=#{param1}
+</select>
+
 <select id="mygroupbuyList" resultType="com.spring.main.dto.GroupDTO">
+SELECT gpIdx ,  subject , content , id , progIdx, reg_date, gHit rnum 
+    FROM (SELECT gpIdx , subject , content , id , progIdx, reg_date, gHit,
+    ROW_NUMBER() OVER(ORDER BY gpIdx DESC) AS rnum FROM GROUPPURCHASE g  WHERE g.gpidx IN (SELECT gpIdx FROM  applicants a WHERE  a.id=#{param3}))
+    WHERE rnum BETWEEN #{param1} AND #{param2}
+</select>
+<!-- <select id="mygroupbuyList" resultType="com.spring.main.dto.GroupDTO">
 SELECT gpIdx ,  subject , content , id , progIdx, reg_date, gHit rnum 
     FROM (SELECT gpIdx , subject , content , id , progIdx, reg_date, gHit,
     ROW_NUMBER() OVER(ORDER BY gpIdx DESC) AS rnum FROM GROUPPURCHASE  WHERE ID=#{param3})
     WHERE rnum BETWEEN #{param1} AND #{param2}
-</select>
+</select> -->
 
 
 

@@ -180,18 +180,25 @@ function listCall(reqPage,reqPagePerNum){
 function listPrint(list){
 	 var content = "";
 	 for(var i = 0; i<list.length; i++){
+		 
+		 
 		content +="<tr>"
 			content +="<td>"+list[i].gpIdx+"</td>"
-			content +="<td>"+list[i].progIdx+"</td>"
+		 if(list[i].progIdx == 1){//현재상태
+				content += "<td style='color:red'>진행중</td>" 
+			}else if(list[i].progIdx == 2){
+				content += "<td >인원부족마감</td>"
+			}else{
+				content += "<td>마감</td>" 
+			}
+/* 			content +="<td>"+list[i].progIdx+"</td>" */
 			content +="<td>"+list[i].id+"</td>"
 			content +="<td>"+list[i].subject+"</td>"
-		var date = new Date(list[i].reg_date);
+			var date = new Date(list[i].reg_date);
 		content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"		
 		
 		content +="</tr>"
 	}
-	
-	
 	$("#list").empty();
 	$("#list").append(content);
 }

@@ -91,5 +91,9 @@ public interface MyDAO {
 
 	ArrayList<MyDTO> mywritehomeList(int start, int end, String sessionId);
 
+	int buyAllCount(String sessionId);
+
+	
+
 
 }
