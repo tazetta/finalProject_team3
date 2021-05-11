@@ -76,7 +76,11 @@ public class MyRestController {
 		logger.info("스크랩");
 		return service.myscrapList(pagePerCnt,page,session);	
 	}
-	
+	@RequestMapping(value = "/myhomescrapList/{pagePerCnt}/{page}", method = RequestMethod.GET)
+	public HashMap<String, Object> myhomescrapList(@PathVariable int page , @PathVariable int pagePerCnt ,HttpSession session) {
+		logger.info("내 우리집자랑 스크랩");
+		return service.myhomescrapList(pagePerCnt,page,session);	
+	}
 	
 	@RequestMapping(value = "/mywritehomeList/{pagePerCnt}/{page}", method = RequestMethod.GET)
 	public HashMap<String, Object> mywritehomeList(@PathVariable int page , @PathVariable int pagePerCnt ,HttpSession session) {

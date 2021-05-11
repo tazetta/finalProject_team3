@@ -134,6 +134,12 @@ SELECT scrapIdx  , id , boardIdx, rnum
 </select>
 
 
+<select id="myhomescrapList">
+	  SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY boardidx DESC) as rnum, boardidx, subject, content, reg_date, blind
+	FROM Board WHERE boardIdx IN (SELECT boardidx FROM scrap  WHERE id=#{param3}) AND  brdCtgIdx IN (SELECT brdCtgIdx FROM boardCtg WHERE brdCtgIdx='2')) WHERE rnum BETWEEN #{param1} AND #{param2} ;
+</select>
+
+
 <!--우리집 자랑  -->
 <select id="mywritehomeAllCount" resultType="int" parameterType="String">
 	SELECT COUNT(photoIdx) FROM PHOTOS WHERE id = #{param1}
@@ -146,7 +152,6 @@ SELECT * FROM
     FROM (SELECT photoidx, newfilename, boardidx FROM photos) 
     where ROWID IN (SELECT MAX(ROWID) FROM photos GROUP BY boardidx)) p , board b WHERE p.boardidx = b.boardIdx AND b.brdCtgIdx=2) ORDER BY rnum ASC
 </select>
-
 
 
 
