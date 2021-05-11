@@ -111,6 +111,7 @@ input.button:hover {
 <body>
 		<jsp:include page="mainnavi.jsp" />
 	<form action="boardWrite" method="POST">
+
 		<input type="hidden" value="2" name="boardCtgIdx" /> <input
 			type="hidden" value="${sessionScope.loginId}" name="id" />
 		<div class="container">
@@ -186,6 +187,79 @@ input.button:hover {
 	</form>
 </body>
 <script>
+
+	<input type="hidden" value="2" name="boardCtgIdx"/> 
+	<input type="hidden" value="${sessionScope.loginId}" name="id"/>
+	<div style="min-height: 210px; padding-top:50px;">
+	            <jsp:include page="mainnavi.jsp"></jsp:include> 
+            </div>
+    <div class="container">
+        <table class="table table-bordered">
+            <thead>
+                <tr> 
+                    <th class="list" style="vertical-align: top; border: 3px solid rgb(204, 203, 203);">필수항목</th>
+                
+                    <td>
+                        <ul>
+                            <li>
+                                <select name="formidx" id="formcategory"style="border-radius: 5px; margin: 5px; ">
+                                <option value="0">주거형태</option>
+                                <option value="1">원룸&오피스텔</option>
+                                <option value="2">아파트</option>
+                                <option value="3">단독주택</option>
+                                <option value="4">기타</option>
+                                </select>
+                            </li>
+                            <br/>
+                         
+                                <li>
+                                    평수<input type="text" id="roomsize" name="roomsize" style="border-radius: 5px; border-color:  rgb(162, 163, 163); width: 50px;">평
+    
+                                </li>
+                                <br/>
+                           
+                            <li>
+
+                                예산<input type="text" id="budget" name="budget" style="border-radius: 5px;border-color:  rgb(162, 163, 163);  width: 50px;">만원
+                            </li>
+
+                        </ul>
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th  style=" border: 3px solid rgb(204, 203, 203);">제목</th>
+                    <td  style=" border: 3px solid rgb(204, 203, 203);"><input id="subject" name="subject" type="text" style="width: 100%; " placeholder="제목을 입력해주세요."></td>
+                </tr>
+                <tr>
+                    <th  style=" border: 3px solid rgb(204, 203, 203);">내용</th>
+                   </td>
+                  <td><div contenteditable="true" id="editable" style="overflow:scroll; width: 100%; height: 400px; border: 2px solid black; border-radius: 10px;">
+                <input id="content" type="text" class="form-control" placeholder="내용을 입력하세요" name="content" maxlength="1024" style="height: 400px;"  hidden="hidden"/></div></td>
+                </tr>
+                <tr>
+                    <th  style=" border: 3px solid rgb(204, 203, 203);">아이템</th>
+                    <td style=" border: 3px solid rgb(204, 203, 203);"><textarea id="iteme" name="keyitems" style="width: 100%;" cols="30" rows="5" placeholder="ex)1.이케아 가구"></textarea></td>
+                </tr>
+            </tbody>
+        </table>
+       
+        <div class="container">
+           <!--   <a href="#" class="button" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; " onclick="fileUp()">첨부파일</a>-->
+             <input id="button" class="button" style="max-width: 100; margin: 10px ;  padding: 10px 10px; font-weight: bold;" type="button" value="파일업로드" onclick="fileUp()" />
+            <div class="row" style="float: right;">
+                <button id="button2" class="button2" style="max-width: 75; margin: 10px ; padding: 10px 10px; font-weight: bold; text-align:center;">저장</button>
+            </div>
+            <a id="button" class="button"  onclick="location.href='homemain'"style=" max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; float: right;">취소</a>
+        </div>
+        </div>
+       
+
+ </form>
+    </body>
+    <script>
+
     var msg = "${msg}";
     if(msg != ""){
     	alert(msg);
@@ -197,7 +271,7 @@ input.button:hover {
     	if($("#formcategory").val()=="0"||$("#roomsize").val()==""||$("#budget").val()==""){
     		alert("주거형태,평수,예산을 작성해주세요");
     		return false;
-    	}else if($("#subject").val()==""||$("#content").val()==""||$("#iteme").val()==""){
+    	}else if($("#subject").val()==""||$("#editable").html()==""||$("#iteme").val()==""){
     		alert("제목,내용, 아이템을 작성해주세요");
     		return false;
     	}else{

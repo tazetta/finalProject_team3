@@ -76,8 +76,8 @@ a.button2:hover,.button2:hover {
                 <td><input type="text" class="form-control" placeholder="제목을 100자 내로 입력해주세요" id="subject" name="subject" maxlength="40"></td>
             </tr>
             <tr>
-                <td><div contenteditable="true" id="editable" style="overflow:scroll; width: 100%; height: 400px; border: 2px solid black; border-radius: 10px;">
-                <input id="content" type="text" class="form-control" placeholder="내용을 입력하세요" name="content" maxlength="1024" style="height: 400px;"  hidden="hidden"/></div></td>
+                <td><input id="content" type="text" class="form-control" name="content" maxlength="1024" style="height: 400px;"  hidden="hidden"/><div contenteditable="true" id="editable" style="overflow:scroll; width: 100%; height: 400px; border: 2px solid black; border-radius: 10px;">
+                </div></td>
             </tr>
         </table>
       </div>
@@ -106,7 +106,7 @@ if(msg != ""){
 $("#save").click(function() {
 	var subject = $("#subject").val();
 	var editable = $("#editable").html();
-	if(subject==''|| content==''){
+	if(subject==''|| editable==''){
 		console.log("subject:"+subject);
 		console.log("content:"+content);
 		alert("모든 양식을 작성해주세요");

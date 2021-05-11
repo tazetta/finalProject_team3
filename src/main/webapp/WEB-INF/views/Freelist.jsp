@@ -41,9 +41,8 @@ a.page-link:hover {
 <body>
   
 
-	 <div style="min-height: 210px; padding-top:50px;">
+
 	            <jsp:include page="mainnavi.jsp"></jsp:include> 
-            </div>
 		<!--  <div class="container" style="text-align: center; padding-top: 10px;">
 			<select name="opt" id="searchOpt" style="border-radius: 5px;">
 				<option value="all" selected>전체</option>
