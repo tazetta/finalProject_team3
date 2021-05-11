@@ -175,7 +175,7 @@ public class BoardService {
 			if (category.equals("자유게시판")) {// 페이지 보내기
 				page = "FreeUpdateForm";
 			} else if (category.equals("우리집자랑")) {
-				page = "homedUpdateForm";
+				page = "homeUpdateForm";
 			} else if (category.equals("팁게시판")) {
 				page = "tipUpdateForm";
 			} else if (category.equals("질문과답변")) {
