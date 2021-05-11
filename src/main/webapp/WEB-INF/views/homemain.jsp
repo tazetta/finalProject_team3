@@ -95,7 +95,7 @@ span:hover {
    
     <div class="container" style="font-size: large; font-weight: bold; padding-left: 40px;">
         <br />
-        <h4  style=" font-weight: bold; padding-left:10%;">우리 집 자랑</h4>
+        <h4  style=" font-weight: bold; padding-left:70px;">우리 집 자랑</h4>
         <div class="container" style="padding-top: 100px; ">
 
 
