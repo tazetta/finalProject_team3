@@ -196,6 +196,7 @@ $(document).ready(function() {
 								<td>${board.reg_date}</td>
 							</tr>
 							 */
+							
 							sHtml += "<div style='border-radius:20px; border: 5px solid white; margin: 20px; box-shadow:0 0 5px lightslategray;'>"
 							sHtml += "<img  src='/photo/"+oInfo.newfilename+"' width='250' height='250' style=' border-radius:20px;'>"
 							sHtml += "<table class='table'>"

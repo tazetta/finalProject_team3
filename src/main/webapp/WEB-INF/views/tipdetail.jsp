@@ -171,7 +171,7 @@ border-top:1px solid lightgray;
             </c:if>
             <c:if test="${dto.id != sessionScope.loginId}">
             <button class="btn" id="button" onclick="boardRec('${dto.boardIdx}')"style=" border-radius: 10px; max-width: 75; margin-right: 10px; margin-left: 20px; padding: 10px 20px; font-weight: bold; float: right;">추천하기</button>
-            <button class="btn" id="button" onclick="location.href='./boardScrap/${dto.boardIdx}/${dto.id}'" style=" border-radius: 10px; max-width: 75; padding: 10px 20px; font-weight: bold; float: right;">스크랩</button>
+            <button class="btn" id="button" onclick="location.href='./boardScrap/${dto.boardIdx}/${sessionScope.loginId}'" style=" border-radius: 10px; max-width: 75; padding: 10px 20px; font-weight: bold; float: right;">스크랩</button>
             </c:if>
             
         </div>

@@ -123,7 +123,7 @@ margin-top:50px;
 						<th style="width:100px">작성일</th>
 						</tr>
 						</thead>
-					<tbody id="list" class="table-content">
+					<tbody id="list" class="table-content" style="font-size: 18px; text-align: center;">
 
 					</tbody>
 					<tr>
@@ -186,6 +186,10 @@ function listPrint(list){
 			content +="<td>"+list[i].id+"</td>"
 			content +="<td><a href='boarddetail?boardIdx="+list[i].boardIdx+"'>" + list[i].subject + "</td>"
 			content +="<td>"+list[i].bhit+"</td>"
+			var date = new Date(list[i].reg_date);
+			content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"	
+			
+			
 		content +="</tr>"
 	}
 	

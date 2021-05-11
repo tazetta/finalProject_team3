@@ -31,11 +31,11 @@ UPDATE generalmember SET pw=#{pw} WHERE id = #{id}
 <!--내가 작성한 자유게시판  -->
 
 <select id="mywriteboardAllCount" resultType="int" parameterType="String">
-	SELECT COUNT(BOARDIDX) FROM BOARD WHERE id = #{param1}
+	SELECT COUNT(BOARDIDX) FROM BOARD WHERE brdctgidx = 1 AND id = #{param1}
 </select>
 	
 <select id="mywriteboardList" resultType="com.spring.main.dto.MyDTO">
-SELECT  boardIdx , subject ,  id , REG_DATE, BHIT 
+SELECT  boardIdx , subject ,  id , REG_DATE, BHIT , rnum 
     FROM (SELECT boardIdx , subject ,  id , REG_DATE, BHIT,
     ROW_NUMBER() OVER(ORDER BY BOARDIDX DESC) AS rnum FROM BOARD  WHERE ID=#{param3} AND blind='n'AND brdctgidx = 1)
     WHERE rnum BETWEEN #{param1} AND #{param2}
@@ -45,11 +45,11 @@ SELECT  boardIdx , subject ,  id , REG_DATE, BHIT
 <!--내가 작성한 꿀팁게시판  -->
 
 <select id="mywritetipAllCount" resultType="int" parameterType="String">
-	SELECT COUNT(BOARDIDX) FROM BOARD WHERE id = #{param1}
+	SELECT COUNT(BOARDIDX) FROM BOARD WHERE brdctgidx = 3 AND id = #{param1}
 </select>
 	
 <select id="mywritetipList" resultType="com.spring.main.dto.MyDTO">
-SELECT boardIdx , subject ,  id , REG_DATE, BHIT 
+SELECT boardIdx , subject ,  id , REG_DATE, BHIT , rnum 
     FROM (SELECT boardIdx , subject ,  id , REG_DATE, BHIT,
     ROW_NUMBER() OVER(ORDER BY BOARDIDX DESC) AS rnum FROM BOARD  WHERE ID=#{param3} AND blind='n'AND brdctgidx = 3)
     WHERE rnum BETWEEN #{param1} AND #{param2}
@@ -57,11 +57,11 @@ SELECT boardIdx , subject ,  id , REG_DATE, BHIT
 
 <!--내가 작성한 qna게시판  -->
 <select id="mywriteqnaAllCount" resultType="int" parameterType="String">
-	SELECT COUNT(BOARDIDX) FROM BOARD WHERE id = #{param1}
+	SELECT COUNT(BOARDIDX) FROM BOARD WHERE brdctgidx = 4 AND id = #{param1}
 </select>
 
 <select id="mywriteqnaList" resultType="com.spring.main.dto.MyDTO">
-SELECT BOARDIDX , SUBJECT , CONTENT , ID , REG_DATE, BHIT 
+SELECT BOARDIDX , SUBJECT , CONTENT , ID , REG_DATE, BHIT , rnum 
     FROM (SELECT BOARDIDX , SUBJECT , CONTENT , ID , REG_DATE, BHIT,
     ROW_NUMBER() OVER(ORDER BY BOARDIDX DESC) AS rnum FROM BOARD  WHERE ID=#{param3} AND blind='n'AND brdctgidx = 4)
     WHERE rnum BETWEEN #{param1} AND #{param2}
@@ -70,7 +70,7 @@ SELECT BOARDIDX , SUBJECT , CONTENT , ID , REG_DATE, BHIT
 
 <!--내가 작성한 견적서 페이지  -->
 <select id="myestimateAllCount" resultType="int" parameterType="String">
-	SELECT COUNT(estIdx) FROM ESTIMATE WHERE id = #{param1}
+	SELECT COUNT(estIdx) FROM ESTIMATE WHERE  id = #{param1}
 </select>
 
 <select id="myestimateList" resultType="com.spring.main.dto.EstimateDTO">
@@ -123,24 +123,26 @@ SELECT gpIdx ,  subject , content , id , progIdx, reg_date, gHit rnum
 
 <!--꿀팁 스크랩  -->
 <select id="mytipscrapAllCount" resultType="int" parameterType="String">
-	SELECT COUNT(boardIdx) FROM board WHERE id = #{param1}
+	SELECT COUNT(boardIdx) FROM board WHERE brdCtgidx= '3' AND id = #{param1}
 </select>
+
+
 
 <select id="mytipscrapList"  resultType="com.spring.main.dto.BoardDTO">
 	  SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY boardIdx DESC) as RNUM, boardIdx, subject, content, reg_date, id, bHit, blind
-	FROM Board WHERE boardIdx IN (SELECT boardIdx FROM scrap  WHERE id=#{param3}) AND  brdctgIdx IN (SELECT brdctgIdx FROM boardCtg WHERE brdctgIdx='3')) WHERE RNUM BETWEEN #{param1} AND #{param2}
+	FROM Board WHERE boardIdx IN (SELECT boardIdx FROM scrap  WHERE id=#{param3}) AND  brdctgIdx IN (SELECT brdctgIdx FROM boardCtg WHERE brdctgIdx='3'AND blind='n')) WHERE RNUM BETWEEN #{param1} AND #{param2}
 </select>
 
 
 <!--우리집 자랑 스크랩  -->
 <select id="myscrapAllCount" resultType="int" parameterType="String">
-	SELECT COUNT(boardIdx) FROM board WHERE id = #{param1}
+	SELECT COUNT(boardIdx) FROM board WHERE brdCtgidx= '2' AND id = #{param1}
 </select>
 
 
 <select id="myhomescrapList" resultType="com.spring.main.dto.BoardDTO">
-	  SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY boardIdx DESC) as RNUM, boardIdx, subject, content, reg_date, blind
-	FROM Board WHERE boardIdx IN (SELECT boardIdx FROM scrap  WHERE id=#{param3}) AND  brdctgIdx IN (SELECT brdctgIdx FROM boardCtg WHERE brdctgIdx='2')) WHERE RNUM BETWEEN #{param1} AND #{param2}
+	  SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY boardIdx DESC) as RNUM, boardIdx, subject, content, reg_date, id, bHit, blind
+	FROM Board WHERE boardIdx IN (SELECT boardIdx FROM scrap  WHERE id=#{param3}) AND  brdctgIdx IN (SELECT brdctgIdx FROM boardCtg WHERE brdctgIdx='2' AND blind='n')) WHERE RNUM BETWEEN #{param1} AND #{param2}
 </select>
 
 
@@ -153,7 +155,7 @@ SELECT gpIdx ,  subject , content , id , progIdx, reg_date, gHit rnum
 SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY photoidx DESC) AS rnum, b.subject, b.boardIdx, 
 p.newFileName FROM (SELECT photoidx, newfilename, boardidx FROM (SELECT photoidx, newfilename, 
 boardidx FROM photos) where ROWID IN (SELECT MAX(ROWID) FROM photos GROUP BY boardidx)) p , 
-board b WHERE p.boardidx = b.boardIdx AND b.brdCtgIdx=2) WHERE rnum between #{param1} AND #{param2}
+board b WHERE p.boardidx = b.boardIdx AND b.brdCtgIdx=2 and b.id= #{param3}) WHERE rnum between #{param1} AND #{param2}
 </select>
 
 

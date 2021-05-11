@@ -200,7 +200,7 @@ border-top:1px solid lightgray;
 		</c:if>
         <c:if  test="${ dto.id != loginId}">
         <button id="button" style="margin-left: 300;" onclick="boardRec('${dto.boardIdx}')">추천하기</button>
-		<button id="button" style="margin-left: 50;" onclick="location.href='./boardScrap/${dto.boardIdx}/${dto.id}'">스크랩</button>
+		<button id="button" style="margin-left: 50;" onclick="location.href='./boardScrap/${dto.boardIdx}/${sessionScope.loginId}'">스크랩</button>
         	</c:if>
         </div>
     </div>
