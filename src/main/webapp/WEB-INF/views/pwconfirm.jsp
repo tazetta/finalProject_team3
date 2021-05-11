@@ -9,41 +9,42 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <style>
 #main {
-	width: 400px;
+	width: 500px;
 	height: 300px;
-	margin: 200px auto;
+	margin-left: 35% ;
+	margin-top: 18%;
 }
 
 .subject {
-	border: 1px solid;
+	
 	width: 300px;
-	margin: auto;
+
+	
 }
 
-h3 {
-	margin: 5px;
-}
+
 
 div {
 	text-align: center;
 }
 
 input[type="password"] {
-	width: 110%;
+	width: 100%;
 	height: 30px;
 	padding: 5px;
 	margin: 10px;
+	border-radius: 10px;
 }
 
 input[type="button"] {
 	width: 100px;
 	height: 40px;
-	margin: 20px 5px;
+	margin-left: 35px;
 	font-size: 15px;
-	background-color: #94a7be;
-	color: white;
 	border: none;
-	border-radius: 5px;
+	background-color: gray;
+	color: white;
+	border-radius: 10px;
 }
 </style>
 </head>
@@ -53,16 +54,17 @@ input[type="button"] {
 		<div class="subject">
 			<h3>회원 정보 수정</h3>
 		</div>
+	
 		<form action="checkPw" method="POST">
 			<table id="findFields">
-				<tr>
-					<td id="title">비밀번호</td>
-					<td><input type="password" name="pw" id="pw" placeholder="비밀번호를 입력해주세요." /></td>
+			<tr>
+					<td id="title"></td>
+					<td><input type="password" name="pw" id="pw" placeholder=" 현재 비밀번호를 입력해주세요." /></td>
 				</tr>
 				<tr>
 					<td colspan="2">
 						<input type="button" value="수정" id="update"/>
-				
+						<input type="button" value="취소" onclick="location.href='mywrite'" />
 					</td>
 				</tr>
 			</table>

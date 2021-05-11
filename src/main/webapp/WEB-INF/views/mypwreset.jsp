@@ -17,6 +17,7 @@
 	border: 1px solid;
 	width: 300px;
 	margin: auto;
+		border-radius: 10px;
 }
 
 h3 {
@@ -36,6 +37,7 @@ input[type="password"] {
 	height: 30px;
 	padding: 5px;
 	margin: 10px;
+	border-radius: 10px;
 }
 
 button {
@@ -43,10 +45,11 @@ button {
 	height: 40px;
 	margin: 20px 5px;
 	font-size: 15px;
-	background-color: #94a7be;
+	background-color: gray;
 	color: white;
 	border: none;
 	border-radius: 5px;
+	border-radius: 10px;
 }
 </style>
 </head>

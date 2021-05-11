@@ -23,6 +23,7 @@
 			text-align: center;
 			font-size: 18px;
 			background-color: cornflowerblue;
+			border-radius: 7px;
 		}
 body{
     display: flex;
@@ -100,16 +101,23 @@ table{
 	table td{
 		width:100px;
 		
+		
 	}
 	    th{
       border:1px solid black;
       border-collapse: collapse;
       text-align: center;
 	background-color: cornflowerblue;
-            }
+	
+	}
+	
+	
+	
+	
 	.ctn:hover{
 		text-decoration: none;
 		color:black;
+		
 	}
 	   .sideBar {
 	float: left;

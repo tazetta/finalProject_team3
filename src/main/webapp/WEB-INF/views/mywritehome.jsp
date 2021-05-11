@@ -82,6 +82,7 @@ margin-top:50px;
 			font-size: 18px;
 			background-color: cornflowerblue;
 			margin-left:50px;
+			border-radius: 7px;
 			
 		}
 </style>

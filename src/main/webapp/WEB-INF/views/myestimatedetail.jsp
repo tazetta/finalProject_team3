@@ -49,6 +49,7 @@ span {
 h2{
 	color: black;
     margin-left: 7%;
+    
 }
 .content{
     border: 1px solid black;

@@ -17,6 +17,7 @@
 	border: 1px solid;
 	width: 300px;
 	margin: auto;
+	border-radius: 10px;
 }
 
 h3 {
@@ -25,6 +26,7 @@ h3 {
 
 div {
 	text-align: center;
+	
 }
 
 #find_btn {
@@ -36,17 +38,18 @@ input[type="text"] {
 	height: 30px;
 	padding: 5px;
 	margin: 10px;
+	border-radius: 10px;
 }
 
 button {
-	width: 100px;
+	width: 110px;
 	height: 40px;
 	margin: 20px 5px;
 	font-size: 15px;
-	background-color: #94a7be;
+	background-color: gray;
 	color: white;
 	border: none;
-	border-radius: 5px;
+	border-radius: 10px;
 }
 </style>
 </head>
@@ -56,7 +59,7 @@ button {
 			<h3>회원 정보 수정</h3>
 		</div>
 		<form action=myupdate method="POST">
-			<table id="findFields">
+			<table id="findFields" >
 				<tr>
 					<td id="title">아이디</td>
 					<td><input type="text" id="id" name="id" value="${sessionScope.loginId}" readonly /> </td>
@@ -75,11 +78,10 @@ button {
 				</tr>
 			</table>
 					<button class="find_button">수정</button>
+					<button class="find_button" onclick="location.href='mywrite'">취소</button>
 		</form>
 		<div>
-			<li><a href="mypwreset" target="_parent">패스워드 변경</a></li>
-		</div>
-		<button class="find_button" onclick="location.href='mywrite'">취소</button>
+	    	<button class="find_button" onclick="location.href='mypwreset'">패스워드 변경</button>
 		</div>
 </body>
 <script>
