@@ -155,11 +155,11 @@ input.button:hover{
                 </tr>
                 <tr>
                     <th  style=" border: 3px solid rgb(204, 203, 203);">내용</th>
-                    <td  id="editable" style=" border: 3px solid rgb(204, 203, 203);"><textarea id="content" name="content" style="width: 100%;"cols="30" rows="10"></textarea> ${dto.content}</td>
+                    <td  id="editable" style=" border: 3px solid rgb(204, 203, 203);"><textarea id="content" name="content" style="width: 100%;"cols="30" rows="10">${dto.content} </textarea></td>
                 </tr>
                 <tr>
                     <th  style=" border: 3px solid rgb(204, 203, 203);">아이템</th>
-                    <td style=" border: 3px solid rgb(204, 203, 203);"><textarea id="iteme" name="keyitems" style="width: 100%;" cols="30" rows="5"></textarea>${dto.keyitems}</td>
+                    <td style=" border: 3px solid rgb(204, 203, 203);"><textarea id="iteme" name="keyitems" style="width: 100%;" cols="30" rows="5">${dto.keyitems}</textarea></td>
                 </tr>
             </tbody>
         </table>
