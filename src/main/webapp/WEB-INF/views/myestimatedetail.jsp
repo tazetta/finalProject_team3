@@ -12,35 +12,6 @@
 <style>
 
 
-
-.flexBox {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	min-height: 100vh;
-}
-
-
-input[type="button"]:hover, input[type="submit"]:hover {
-	background-color: #acd3fb;
-	cursor: pointer;
-	box-shadow: 0 2px 4px rgba(0, 79, 255, 0.6);
-	border: 2px solid white;
-	color: white;
-}
-
-
-.pagingBtn {
-	text-decoration: none;
-	color: black;
-	font-weight: 600;
-	background-color: lightgray;
-	margin: 1px 2px;
-	margin-top: 0px;
-	padding: 3px;
-	border: 1px white;
-}
-
 .sideBar {
 	float: left;
 }
@@ -64,6 +35,7 @@ table#est {
 	margin: 0 auto;
 	width: 80%;
 	clear: both;
+	font-size: 20px;
 }
 
 span {
@@ -74,9 +46,9 @@ span {
 .btn{
 	float:right;
 }
-h4{
-	color: gray;
-    margin-left: 35%;
+h2{
+	color: black;
+    margin-left: 7%;
 }
 .content{
     border: 1px solid black;
@@ -89,19 +61,17 @@ body {
 .sender{
 	width:200px;
 }
-reg_date{
-	width:100px;
-}
-.delete{
-	width:40px;
-}
+
+
 .content{
 	width:300px;
+
 }
 .center-area{
 	display:flex;
 	text-align:center;
 	padding :50px;
+	
 
 }
 .sidenavi-area{
@@ -112,6 +82,7 @@ table{
 	margin-left:50px;
 	width:450px;
 	table-layout: fixed;
+	
 }
 table th{
 	width:200px;
@@ -155,10 +126,10 @@ color:black;
 		<div class="sidenavi-area">
 			<jsp:include page="sidemenu.jsp"></jsp:include>
 		</div>
-			<div class="sideBar">
+
                 <div id="content">
                     <table id="est">
-						<h4>견적서</h4>
+						<h2>견적서</h2>
                         		 <tr>
 									<th>업체명</th>
 									<td>${info.comId}</td>
@@ -173,13 +144,13 @@ color:black;
 								</tr>
 								<tr>
 									<th>예산</th>
-									<td>${info.budget}</td>
+									<td>${info.budget}만원</td>
 								</tr>
 								<tr>
 									<th>연락처</th>
 									<td>${info.phone}</td>
 								</tr>
-								 <td colspan="2" style="padding-top:15px;padding-bottom:60px;"><hr/>
+								 <td colspan="2" style="padding-top:15px;padding-bottom:50px; color: black;" ><hr/>
 							 	</td>
 								<tr>
 									<th>내용</th><br/><br/>
@@ -192,11 +163,10 @@ color:black;
                  </div>
                  
           </div>
-	</div>
+
 </body>
 <script>
 
 
 </script>
 </html>
-
