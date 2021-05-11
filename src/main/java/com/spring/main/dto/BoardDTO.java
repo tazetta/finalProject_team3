@@ -29,7 +29,18 @@ public class BoardDTO {
 	private int commIdx;
 	private int scrapIdx;
 	private String newfilename;
-	
+	private int gradeIdx;
+
+	public int getGradeIdx() {
+		return gradeIdx;
+	}
+
+
+	public void setGradeIdx(int gradeIdx) {
+		this.gradeIdx = gradeIdx;
+	}
+
+
 	public String getNewfilename() {
 		return newfilename;
 	}

@@ -263,7 +263,7 @@ function listCall1(reqPage,reqPagePerNum){
 					onPageClick:function(evt,page){//각 페이지를 눌렀을 경우
 						console.log(evt);
 						console.log(page);
-						listCall(page,pagePerNum);
+						listCall1(page,pagePerNum);
 					}
 				});
 		 },
@@ -296,7 +296,7 @@ function listCall2(reqPage,reqPagePerNum){
 					onPageClick:function(evt,page){//각 페이지를 눌렀을 경우
 						console.log(evt);
 						console.log(page);
-						listCall(page,pagePerNum);
+						listCall2(page,pagePerNum);
 					}
 				});
 		 },
@@ -327,7 +327,7 @@ function listCall3(reqPage,reqPagePerNum){
 					onPageClick:function(evt,page){//각 페이지를 눌렀을 경우
 						console.log(evt);
 						console.log(page);
-						listCall2(page,pagePerNum);
+						listCall3(page,pagePerNum);
 					}
 				});
 		 },
@@ -358,7 +358,7 @@ function listCall4(reqPage,reqPagePerNum){
 					onPageClick:function(evt,page){//각 페이지를 눌렀을 경우
 						console.log(evt);
 						console.log(page);
-						listCall3(page,pagePerNum);
+						listCall4(page,pagePerNum);
 					}
 				});
 		 },

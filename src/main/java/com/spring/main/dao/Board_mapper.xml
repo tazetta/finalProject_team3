@@ -7,9 +7,8 @@
 <mapper namespace="com.spring.main.dao.BoardDAO">
 	<!--글상세보기 -->
 	<select id="Boarddetail" resultType="board">
-		SELECT
-		BOARDIDX,SUBJECT,CONTENT,ID,REG_DATE,ROOMSIZE,BUDGET,KEYITEMS,BHIT,BLIND,BRDCTGIDX,FORMIDX,EMAIL,CNTRECO
-		FROM BOARD WHERE BOARDIDX=#{boardIdx}
+		SELECT *  FROM board b, (SELECT gradeidx, id FROM generalmember) m 
+		WHERE b.id = m.id AND boardidx = #{param1}
 	</select>
 	<!-- 게시판 목록 전체 개수 조회 -->
 	<select id="getBoardListCount" resultType="int">
@@ -615,4 +614,8 @@
 	<delete id="boardDec">
 		DELETE  FROM recommend WHERE boardIdx=#{param1} AND id=#{param2}
 	</delete>
+	<select id="grand" resultType="String">
+		SELECT *  FROM board b, (SELECT gradeidx, id FROM generalmember) m WHERE b.id = m.id AND boardidx = #{boardIdx};
+
+	</select>
 </mapper>

@@ -45,7 +45,6 @@ public class BoardService {
 		ModelAndView mav = new ModelAndView();
 		logger.info("상세보기 서비스 요청합니다.");
 		BoardDTO dto = boarddao.Boarddetail(boardIdx);
-
 		String category = null;
 		String formcategory = null;
 
