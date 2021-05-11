@@ -48,7 +48,7 @@ public class MemberController {
 		if(mode.equals("member")) {
 			if(service.login(id,pw)) {
 				msg ="로그인에 성공 하였습니다.";
-				page="main";
+				page="redirect:/";
 				session.setAttribute("loginId", id);
 				logger.info("세션 아이디 : {}", session.getAttribute("loginId"));
 			}
@@ -56,7 +56,7 @@ public class MemberController {
 		}else if(mode.equals("company")) {
 			if(service.cLogin(id,pw)) {
 				msg ="로그인에 성공 하였습니다.";
-				page="main";
+				page="redirect:/";
 				session.setAttribute("cLoginId", id);
 				logger.info("세션 아이디 : {}", session.getAttribute("cLoginId"));
 			}
