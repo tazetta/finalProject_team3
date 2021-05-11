@@ -106,7 +106,7 @@ if(msg != ""){
 $("#save").click(function() {
 	var subject = $("#subject").val();
 	var editable = $("#editable").html();
-	if(subject==''|| content==''){
+	if(subject==''|| editable==''){
 		console.log("subject:"+subject);
 		console.log("content:"+content);
 		alert("모든 양식을 작성해주세요");

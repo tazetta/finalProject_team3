@@ -53,9 +53,7 @@ span:hover {
 </head>
 
 <body>
-    <div class="container" style="text-align: center; padding-top: 10px;">
         <jsp:include page="mainnavi.jsp" />
-    </div>
    <br/>
    
    <br/>
