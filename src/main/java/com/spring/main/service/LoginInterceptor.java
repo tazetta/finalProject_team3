@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.main.dao.MemberDAO;
 
@@ -17,7 +18,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	@Autowired MemberDAO dao;
 	
 	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler )
 			throws Exception {
 		System.out.println("controller 요청 전");
 		boolean pass = false; //false가 반환되면 컨트롤러 접근이 불가

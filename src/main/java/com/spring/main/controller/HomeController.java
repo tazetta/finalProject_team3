@@ -28,13 +28,20 @@ public class HomeController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 
-	public ModelAndView home() {
+	public ModelAndView home(HttpSession session, HttpServletRequest request) {
 		logger.info("main");
 		ModelAndView mav = new ModelAndView();
 
 		// 사진 있는 3개 데이터
 		mav.addObject("list", BoardService.getMainhomeListLimit3());
 		mav.setViewName("main");
+		
+		//로그인여부
+		String msg =(String) session.getAttribute("msg");
+		if(msg!=null) { //msg에 값이 있으면
+		 request.setAttribute("msg", msg); //req에 저장
+		 session.removeAttribute("msg"); //세션에선 삭제
+		}
 		
 		return mav;
 	}
@@ -54,15 +61,13 @@ public class HomeController {
 	 * return mav; }
 	 */
 
-	public String home(HttpSession session, HttpServletRequest request) {
-		String msg =(String) session.getAttribute("msg");
-		if(msg!=null) { //msg에 값이 있으면
-		 request.setAttribute("msg", msg); //req에 저장
-		 session.removeAttribute("msg"); //세션에선 삭제
-		}
-		logger.info("메인페이지");
-		return "main";
-
-	}
+	/*
+	 * public String home(HttpSession session, HttpServletRequest request) { String
+	 * msg =(String) session.getAttribute("msg"); if(msg!=null) { //msg에 값이 있으면
+	 * request.setAttribute("msg", msg); //req에 저장 session.removeAttribute("msg");
+	 * //세션에선 삭제 } logger.info("메인페이지"); return "main";
+	 * 
+	 * }
+	 */
 	
 }
