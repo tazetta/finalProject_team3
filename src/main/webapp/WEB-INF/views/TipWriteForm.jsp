@@ -92,18 +92,18 @@ input.button:hover{
                 <td><input type="text" class="form-control" placeholder="제목을 입력해주세요"id="subject" name="subject" maxlength="40"></td>
             </tr>
               <tr>
-                <td><div contenteditable="true" id="editable" style="overflow:scroll; width: 100%; height: 400px; border: 2px solid black; border-radius: 10px;">
-                <input id="content" type="text" class="form-control" placeholder="내용을 입력하세요" name="content" maxlength="1024" style="height: 400px;"  hidden="hidden"/></div></td>
+                <td><input id="content" type="text" class="form-control" placeholder="내용을 입력하세요" name="content" maxlength="1024" style="height: 400px;"  hidden="hidden"/><div contenteditable="true" id="editable" style="overflow:scroll; width: 100%; height: 400px; border: 2px solid black; border-radius: 10px;">
+                </div></td>
             </tr>
         </table>
         <div class="container">
             <!--  a href="#" class="button" style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; ">첨부파일</a>-->
             <input id="button" class="button" style="max-width: 100; margin: 10px ;  padding: 10px 10px; font-weight: bold;" type="button" value="파일업로드" onclick="fileUp()" />
             <div class="row" style="float: right;">
-                <button id="button2" value="내맘쏙에저장" class="button2" style="max-width: 75; margin: 10px ; padding: 10px 10px; font-weight: bold; text-align:center;">저장</button>
+                <input id="button2" value="저장" class="button2" style="max-width: 60px; margin: 10px ; padding: 10px 10px; font-weight: bold; text-align:center;">
             </div>
            
-            <button id="button"  class="button"  style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; float: right;" onclick="location.href='tipMain'" >취소</button>
+            <a id="button"  class="button"  style="max-width: 75; margin: 10px ; padding: 10px 20px; font-weight: bold; float: right;" href="tip" >취소</a>
         </div>
 
     </div> 
