@@ -43,9 +43,7 @@ span:hover {
         box-shadow: rgb(143, 201, 248) 0 0px 0px 40px inset;
     }
 #totaldiv {
-	position: absolute;
-	left: 10%;
-	top: 30%;
+	
 }
 
 	
@@ -95,12 +93,12 @@ span:hover {
    
     <div class="container" style="font-size: large; font-weight: bold; padding-left: 40px;">
         <br />
-        <h4  style=" font-weight: bold; padding-left:70px;">우리 집 자랑</h4>
-        <div class="container" style="padding-top: 100px; ">
+        <h4  style=" font-weight: bold; padding-left:200px;">우리 집 자랑</h4>
+        <div class="container" style="padding-top: 50px; ">
 
 
            <div id="totaldiv" class="container" style="font-size: large; font-weight: bold; padding-left: 40px;">
-			<div id="list" style="display: flex; flex-flow: wrap; padding-left:80px;justify-content: center; border: 1px solid rgb(255, 255, 255);">
+			<div id="list" style="display: flex; flex-flow: wrap; justify-content: center; border: 1px solid rgb(255, 255, 255);">
 
 			</div> 
 		</div>
@@ -199,7 +197,7 @@ $(document).ready(function() {
 							</tr>
 							 */
 							sHtml += "<div style='border-radius:20px; border: 5px solid white; margin: 20px; box-shadow:0 0 5px lightslategray;'>"
-							sHtml += "<img src='${pageContext.request.contextPath}/resources/images/interior1.jpg' width='250' height='250' style=' border-radius:20px;'>"
+							sHtml += "<img  src='${pageContext.request.contextPath}/resources/images/interior1.jpg' width='250' height='250' style=' border-radius:20px;'>"
 							sHtml += "<table class='table'>"
 							sHtml += '<tr>';
 							sHtml += '	<td><a href="boarddetail?boardIdx=' + oInfo.boardIdx +'">'
