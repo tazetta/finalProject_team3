@@ -66,12 +66,11 @@ a.page-link:hover {
 
 
 <body>
-<div class="flexbox">
- <div>
-	            <jsp:include page="helpNavi.jsp"></jsp:include> 
-	           
-            </div>
-        
+
+
+	           <jsp:include page="mainnavi.jsp"></jsp:include> 
+	           <jsp:include page="helpNavi.jsp"></jsp:include> 
+
 
 	<!--  <div class="container" style="text-align: center; padding-top: 10px;">
 		<input type="text" size="75" id="keywordForTotalSearch" name="keyword"
@@ -86,9 +85,8 @@ a.page-link:hover {
 		<span><a href=""
 			style="font-size: small; float: right; color: gray; font-weight: bold;">로그인</a></span>
 	</div>-->
-	<br />
 	<div class="container"
-		style="height: 200px; background-color: rgb(184, 185, 190); text-align: center;">
+		style="height: 200px; background-color: #E6E6E6; text-align: center;">
 		<h2 style="padding-top: 50px; font-weight: bold;">질문 및 답변</h2>
 		<div class="container" style="text-align: center; padding-top: 50px;">
 			<select name="opt" id="searchOpt"

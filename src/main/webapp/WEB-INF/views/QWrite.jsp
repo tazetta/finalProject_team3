@@ -57,10 +57,8 @@ span:hover {
 	
 	
 <body>
-     <div style="min-height: 210px; padding-top:50px;">
-	            <jsp:include page="mainnavi.jsp"></jsp:include> 
-            </div>
- 
+     <jsp:include page="mainnavi.jsp"></jsp:include> 
+	           <jsp:include page="helpNavi.jsp"></jsp:include> 
     
 	<form action="boardWrite" method="POST">
     <input type="hidden" value="4" name="boardCtgIdx"/>
