@@ -114,7 +114,7 @@ margin-top:50px;
 
 		<div class="list-area">
 			<div class="title-area">
-				<h2>내가 작성한 공동구매</h2>
+				<h2>우리집 자랑 스크랩</h2>
 			</div>
 			<div class="table-area">
 				<table>
@@ -135,7 +135,7 @@ margin-top:50px;
 				<br/>
 				<br/>
 				<div class="title-area">
-				<h2>내가 신청한 공동구매</h2>
+				<h2>꿀팁 스크랩</h2>
 				</div>
 				<table>
 						<thead>
@@ -233,7 +233,7 @@ function listPrint(list){
 		content +="<tr>"
 			content +="<td>"+list[i].boardIdx+"</td>"
 			content +="<td>"+list[i].id+"</td>"
-			content +="<td>"<+list[i].subject+"</td>"
+			content +="<td>"+list[i].subject+"</td>"
 			content +="<td>"+list[i].bhit+"</td>"
 
 			var date = new Date(list[i].reg_date);
@@ -253,7 +253,7 @@ function listPrint2(list){
 		content +="<tr>"
 			content +="<td>"+list[i].boardIdx+"</td>"
 			content +="<td>"+list[i].id+"</td>"
-			content +="<td>"<+list[i].subject+"</td>"
+			content +="<td>"+list[i].subject+"</td>"
 			content +="<td>"+list[i].bhit+"</td>"
 		var date = new Date(list[i].reg_date);
 		content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"		

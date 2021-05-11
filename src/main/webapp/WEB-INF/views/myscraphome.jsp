@@ -116,11 +116,11 @@ margin-top:50px;
 						<thead>
 							<tr>
                   		<th style="width:70px">글 번호</th>
+                  		<th style="width:120px">작성자</th>
 						<th style="width:300px">제목</th>
-						<th style="width:120px">작성자</th>
-						<th style="width:60px">조회수</th>
+						<th style="width:80px">조회수</th>
 						<th style="width:100px">작성일</th>
-							</tr>
+						</tr>
 						</thead>
 					<tbody id="list" class="table-content">
 
