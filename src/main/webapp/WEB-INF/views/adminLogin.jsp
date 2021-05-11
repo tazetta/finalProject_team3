@@ -12,7 +12,7 @@
     <div class="loginForm">
         <form action="adminLogin" method="POST">
            <div class="logo-area">
-               <a href="main">
+               <a href="${pageContext.request.contextPath}">
                     <img src="${pageContext.request.contextPath}/resources/css/memberCSS/logo.png">
                </a>
            </div>
