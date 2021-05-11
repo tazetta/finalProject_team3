@@ -57,10 +57,8 @@ span:hover {
 	
 	
 <body>
-     <div style="min-height: 210px; padding-top:50px;">
-	            <jsp:include page="mainnavi.jsp"></jsp:include> 
-            </div>
- 
+     <jsp:include page="mainnavi.jsp"></jsp:include> 
+	           <jsp:include page="helpNavi.jsp"></jsp:include> 
     
 	<form action="boardWrite" method="POST">
     <input type="hidden" value="4" name="boardCtgIdx"/>
@@ -73,12 +71,13 @@ span:hover {
         <h>홈페이지 관련 문의가 필요하시다면 <a href="FAQ">문의하러 가기</a></h>
     </div>
     <br/>
-        <table class="table">
+        <table class="table" style="width:70%; margin-left:280px;">
             <tr>
-                <td><input id="subject" type="text" class="form-control" placeholder="제목을 입력해주세요" name="subject" maxlength="40"></td>
+                <td><input id="subject" type="text" class="form-control" style=""placeholder="제목을 입력해주세요" name="subject" maxlength="40"></td>
             </tr>
             <tr>
-                <td><input id="content" type="text" class="form-control" placeholder="내용을 입력하세요" name="content" maxlength="1024" style="height: 400px;"  hidden="hidden"/><div  class="form-control" contenteditable="true" id="editable" style="overflow:scroll; width: 100%; height: 400px;  border-radius: 10px;">
+                <td><input id="content" type="text" class="form-control" placeholder="내용을 입력하세요" name="content" maxlength="1024"  hidden="hidden"/>
+                <div  class="form-control" contenteditable="true" id="editable" style="overflow:scroll;   height: 400px;  border-radius: 10px;">
                 </div></td>
             </tr>
         </table>

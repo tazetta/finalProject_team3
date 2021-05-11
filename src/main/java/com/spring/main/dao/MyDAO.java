@@ -93,6 +93,8 @@ public interface MyDAO {
 
 	int buyAllCount(String sessionId);
 
+	ArrayList<MyDTO> myhomescrapList(int start, int end, String sessionId);
+
 	
 
 
