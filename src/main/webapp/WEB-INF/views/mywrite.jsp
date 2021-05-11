@@ -384,9 +384,10 @@ function listPrint(list) {
 	var content = "";
 	for (var i = 0; i < list.length; i++) {
 		
-		content += "<div style='border-radius:20px; border: 5px solid white; margin: 20px; box-shadow:0 0 5px lightslategray;'>"
-		content += "<img src='resources/images/interior4.jpg' width='200' height='200' style=' border-radius:20px;'>"
-		content += "</div>"
+			content += "<div style='border-radius:20px; border: 5px solid white; margin: 20px; box-shadow:0 0 5px lightslategray;'>"
+			content +="<a href='${pageContext.request.contextPath}/boarddetail?boardIdx="+list[i].boardIdx+"'>"	
+			content += "<img src='resources/images/interior4.jpg' width='200' height='200' style=' border-radius:20px;'>"
+			content += "</a></div>"
 }
 	$('#list').empty();
 	$('#list').append(content);
