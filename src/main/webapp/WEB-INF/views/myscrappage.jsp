@@ -234,7 +234,7 @@ function listPrint(list){
 		content +="<tr>"
 			content +="<td>"+list[i].boardIdx+"</td>"
 			content +="<td>"+list[i].id+"</td>"
-			content +="<td>"+list[i].subject+"</td>"
+			content +="<td><a href='boarddetail?boardIdx="+list[i].boardIdx+"'>" + list[i].subject + "</td>"
 			content +="<td>"+list[i].bhit+"</td>"
 
 			var date = new Date(list[i].reg_date);
