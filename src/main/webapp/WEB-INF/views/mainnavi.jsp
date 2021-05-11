@@ -101,12 +101,12 @@ span:hover {
 					src="${pageContext.request.contextPath}/resources/css/memberCSS/logo.png"
 					style="height: 50px; width: 80px;">
 			</a></td>
-			<td style="width: 700px"><input type="text" size="75"
+			<!-- <td style="width: 700px"><input type="text" size="75"
 				style="border-radius: 5px; border: 2px solid rgb(203, 228, 248); width:600px; height:30px;"
 				placeholder="검색어를 입력해주세요." >
 				<button id="btn"
 					style="border-radius: 5px; background-color: rgb(203, 228, 248); border: 2px solid rgb(203, 228, 248); font-weight: bold; color: white;">검색</button>
-
+ -->
 
 			</td>
 			<td style="width: 210px"><c:set var="loginId" value="${sessionScope.loginId}" /> <c:set
