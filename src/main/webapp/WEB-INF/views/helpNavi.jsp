@@ -140,7 +140,7 @@ span:hover {
 <div style="text-align: center; position: relative; width: 1000px;" id="mainTop">
 
 	<table id="mainTopTable">
-		<tr >
+		<tr>
 		<td style="width: 150px"></td>
 			<td style="width: 150px"><a href="${pageContext.request.contextPath}"><img
 					src="${pageContext.request.contextPath}/resources/css/memberCSS/logo.png"
@@ -153,7 +153,7 @@ span:hover {
 					style="border-radius: 5px; background-color: rgb(203, 228, 248); border: 2px solid rgb(203, 228, 248); font-weight: bold; color: white;">검색</button> -->
 
 
-			</td>
+
 			<td><c:set var="loginId" value="${sessionScope.loginId}" /> <c:set
 					var="comloginId" value="${sessionScope.cLoginId}" /> <c:if
 					test="${empty loginId and empty comloginId}">

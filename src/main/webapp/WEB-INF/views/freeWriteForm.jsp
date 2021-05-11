@@ -47,6 +47,7 @@ a.button2:hover,.button2:hover {
 	color: rgba(255, 255, 255, 0.85);
 	box-shadow: rgb(255, 210, 180) 0 0px 0px 40px inset;
 }
+
 </style>
 
 
@@ -76,7 +77,7 @@ a.button2:hover,.button2:hover {
                 <td><input type="text" class="form-control" placeholder="제목을 100자 내로 입력해주세요" id="subject" name="subject" maxlength="40"></td>
             </tr>
             <tr>
-                <td><input id="content" type="text" class="form-control" name="content" maxlength="1024" style="height: 400px;"  hidden="hidden"/><div contenteditable="true" id="editable" style="overflow:scroll; width: 100%; height: 400px; border: 2px solid black; border-radius: 10px;">
+                <td><input id="content" type="text" class="form-control" name="content" maxlength="1024" style="height: 400px;"  hidden="hidden"/><div  class="form-control" contenteditable="true" id="editable" style="overflow:scroll; width: 100%; height: 400px;  border-radius: 10px;">
                 </div></td>
             </tr>
         </table>
