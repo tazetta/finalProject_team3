@@ -35,8 +35,8 @@ UPDATE generalmember SET pw=#{pw} WHERE id = #{id}
 </select>
 	
 <select id="mywriteboardList" resultType="com.spring.main.dto.MyDTO">
-SELECT BOARDIDX , SUBJECT , CONTENT , ID , REG_DATE, BHIT rnum 
-    FROM (SELECT BOARDIDX , SUBJECT , CONTENT , ID , REG_DATE, BHIT,
+SELECT  boardIdx , subject ,  id , REG_DATE, BHIT 
+    FROM (SELECT boardIdx , subject ,  id , REG_DATE, BHIT,
     ROW_NUMBER() OVER(ORDER BY BOARDIDX DESC) AS rnum FROM BOARD  WHERE ID=#{param3} AND blind='n'AND brdctgidx = 1)
     WHERE rnum BETWEEN #{param1} AND #{param2}
 </select>
@@ -49,7 +49,7 @@ SELECT BOARDIDX , SUBJECT , CONTENT , ID , REG_DATE, BHIT rnum
 </select>
 	
 <select id="mywritetipList" resultType="com.spring.main.dto.MyDTO">
-SELECT boardIdx , subject ,  id , REG_DATE, BHIT rnum 
+SELECT boardIdx , subject ,  id , REG_DATE, BHIT 
     FROM (SELECT boardIdx , subject ,  id , REG_DATE, BHIT,
     ROW_NUMBER() OVER(ORDER BY BOARDIDX DESC) AS rnum FROM BOARD  WHERE ID=#{param3} AND blind='n'AND brdctgidx = 3)
     WHERE rnum BETWEEN #{param1} AND #{param2}
@@ -61,7 +61,7 @@ SELECT boardIdx , subject ,  id , REG_DATE, BHIT rnum
 </select>
 
 <select id="mywriteqnaList" resultType="com.spring.main.dto.MyDTO">
-SELECT BOARDIDX , SUBJECT , CONTENT , ID , REG_DATE, BHIT rnum 
+SELECT BOARDIDX , SUBJECT , CONTENT , ID , REG_DATE, BHIT 
     FROM (SELECT BOARDIDX , SUBJECT , CONTENT , ID , REG_DATE, BHIT,
     ROW_NUMBER() OVER(ORDER BY BOARDIDX DESC) AS rnum FROM BOARD  WHERE ID=#{param3} AND blind='n'AND brdctgidx = 4)
     WHERE rnum BETWEEN #{param1} AND #{param2}

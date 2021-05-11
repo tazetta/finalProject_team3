@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-<title>나의 질문 답변</title>
+<title>내가 작성한 질문과 답변</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <!-- 반응형 디자인을 위한 css/js 라이브러리 -->
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -63,6 +63,7 @@ table th{
       border-collapse: collapse;
       text-align: center;
       background-color: cornflowerblue;
+       font-size:18px;
 		
 .table-content tr:hover {
 	  background-color:rgb(235, 232, 232);
@@ -73,22 +74,7 @@ table th{
 .list-area{
 margin-top:50px;
 }
-   button{
-      color: white;
-    background-color: #166cea;
-    border:none;
-    border-radius: 2px;
-    font-weight: bold;
-     padding: 2px 2px;
-    }
-    button:hover{
-       background-color: white;
-    color: #166cea;
-    border: 1px solid #166cea;
-    cursor: pointer;
-    box-shadow: 0px 5px 5px rgb(235, 232, 232);
-     transition: all .3s ease;
-    }
+
     .ctn:hover{
 		text-decoration: none;
 		color:black;
@@ -114,15 +100,15 @@ margin-top:50px;
 			<div class="table-area">
 				<table>
 						<thead>
-					<tr>
+							<tr>
 				     	<th style="width:70px">글 번호</th>
 						<th style="width:300px">제목</th>
 						<th style="width:120px">작성자</th>
 						<th style="width:60px">조회수</th>
 						<th style="width:100px">작성일</th>
-                   </tr>
+							</tr>
 						</thead>
-					<tbody id="list" class="table-content">
+					<tbody id="list" class="table-content" style="font-size: 18px; text-align: center;">
 
 					</tbody>
 					<tr>
@@ -180,18 +166,18 @@ function listCall(reqPage,reqPagePerNum){
 function listPrint(list){
 	 var content = "";
 	 for(var i = 0; i<list.length; i++){
-		content +="<tr>"
-		content +="<td>"+list[i].boardidx+"</td>"
-		content +="<td><a href='boarddetail?boardIdx="+list[i].boardidx+"'>" + list[i].subject + "</td>"
-		content +="<td>"+list[i].id+"</td>"
-		content +="<td>"+list[i].bhit+"</td>"
-		var date = new Date(list[i].reg_date);
+		 
+		 
+			content +="<tr>"
+			content +="<td>"+list[i].boardidx+"</td>"
+			content +="<td><a href='boarddetail?boardIdx="+list[i].boardidx+"'>" + list[i].subject + "</td>"
+			content +="<td>"+list[i].id+"</td>"
+			content +="<td>"+list[i].bhit+"</td>"
+			var date = new Date(list[i].reg_date);
 		content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"		
 		
 		content +="</tr>"
 	}
-	
-	
 	$("#list").empty();
 	$("#list").append(content);
 }
