@@ -32,7 +32,7 @@ input[type='text'] {
 
 #box {
 	position: absolute;
-	top: 30%;
+	top: 150px;
 	left: 20%;
 	width: 50%;
 }

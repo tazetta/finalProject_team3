@@ -62,7 +62,7 @@
  
 
     <body>
-        <iframe src="mainnavi" scrolling="no" frameborder="0" style="width: 100%; "></iframe>
+       <jsp:include page="mainnavi.jsp"></jsp:include> 
         <table class="업체정보">
        		 <tr>
             <td style="font-size: 20px; padding-top: 20px;">

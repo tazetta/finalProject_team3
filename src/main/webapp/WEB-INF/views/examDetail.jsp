@@ -16,7 +16,7 @@
 
 #box {
 	position: absolute;
-	top: 30%;
+	margin-top:20px;
 	left: 20%;
 	width: 50%;
 }
@@ -46,20 +46,25 @@ button:hover {
 #table{
 	margin-left: 100px;
 }
-.btn{
-	position: absolute;
-	bottom :-40px;
-	left: 75%;
+.하단버튼{
+	float: right;
+	margin: 10px;
+}
+.container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
 }
 </style>
 </head>
 <body>
 	<jsp:include page="mainnavi.jsp"></jsp:include> 
-    <div id="box">
-    <div style="background-color: #acd3fb; width: 100%; height: 100px; text-align: center;">
+   <div class="container" style="text-align: center; ">
+    <div style="background-color: #acd3fb; width: 1000px; height: 100px; text-align: center;">
     	<br>
     	<h3>시공사례 상세보기</h3>
-    </div>
+    
     <br/>
     <div id="table">
 		<table class="maintable">
@@ -76,14 +81,15 @@ button:hover {
 				<td class="maintable"  style="height: 500px; width: 300px;">${dto.content}</td>
 			</tr>
 		</table>
+		</div>
 		<div class="btn">
 			
 			<c:if test="${dto.comId==sessionScope.cLoginId}">
-				<button onclick="location.href='examUpdateForm/${dto.combrdIdx}'">수정</button>
-				<button onclick="location.href='examDel?combrdIdx=${dto.combrdIdx}'">삭제</button>
+				<button class="하단버튼" onclick="location.href='examUpdateForm/${dto.combrdIdx}'">수정</button>
+				<button class="하단버튼" onclick="location.href='examDel?combrdIdx=${dto.combrdIdx}'">삭제</button>
 			</c:if>
 		</div>
-		</div>
+	</div>
 	</div>
 </body>
 <script>

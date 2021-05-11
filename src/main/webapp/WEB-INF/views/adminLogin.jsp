@@ -13,7 +13,7 @@
         <form action="adminLogin" method="POST">
            <div class="logo-area">
                <a href="main">
-                    <img src="resources/css/memberCSS/logo.png">
+                    <img src="${pageContext.request.contextPath}/resources/css/memberCSS/logo.png">
                </a>
            </div>
             <div class="input-area">

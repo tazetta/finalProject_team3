@@ -54,9 +54,9 @@
         
 </style>
 </head>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <body>
+	
 	<jsp:include page="mainnavi.jsp"></jsp:include> 
     
     <div id="total">
@@ -64,13 +64,7 @@
 			<tr>
 				<td style="font-size: 20px; padding-top: 20px;"><strong>${dto.comId}</strong>
 				</td>
-			</tr>
-			<tr>
-				<td style="color: gainsboro;">─────────</td>
-			</tr>
-			<tr>
-				<td style="color: gray;">종합리모델링 기타</td>
-			</tr>
+				</tr>
 			<tr>
 				<td style="font-size: 25px;"><strong>★ ${rate}</strong></td>
 			</tr>

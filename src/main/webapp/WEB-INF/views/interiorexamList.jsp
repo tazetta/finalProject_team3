@@ -24,13 +24,14 @@ integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroa
 #시공사례쓰기 {
 	position: absolute;
 	right: 32%;
-	top: 25%;
+	top: 15%;
 	height: 40px;
 	border: none;
 	background-color: #acd3fb;
 	cursor: pointer;
 	color: white;
 	font-weight: bold;
+	border-radius: 5px;
 }
 
 #시공사례쓰기:hover {
