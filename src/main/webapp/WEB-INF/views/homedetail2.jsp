@@ -152,6 +152,21 @@ a:link {
 .commDel {
 	color: red;
 }
+#groupTable{
+margin-top:10px;
+width: 1200px;
+
+}
+
+#groupTable table, #groupTable td, #groupTable th {
+	padding: 5px 10px;
+	text-align: center;
+	border-bottom: 1px solid lightgray;
+	border-collapse: collapse;
+}
+#groupTable th{
+border-top:1px solid lightgray;
+}
 
 
 </style>
@@ -189,12 +204,40 @@ a:link {
         	</c:if>
         </div>
     </div>
-    <br/>
     <div class="container" style="float:right; padding-left:15%;">
-        <span class="grade">${writerGrade}</span>&nbsp;&nbsp;${dto.id}&nbsp;&nbsp;${dto.reg_date}&nbsp;&nbsp;조회수${dto.bhit} &nbsp;&nbsp; 추천수 ${dto.CNTRECO}
     </div>
-    <br/>
-       
+    <div class="container">
+            <table id="groupTable" style="width: 100%;">
+					<tr >
+						<th>글번호</th>
+						<th>작성자</th>
+						<th>작성일</th>
+						<th>조회수</th>
+						<th>추천 수</th>
+					</tr>
+					<tr >
+						<td>${dto.boardIdx}</td>
+						<c:if test="${dto.gradeIdx == 1}">
+						<td><span class="grade">초보</span>&nbsp;${dto.id}</td>
+						</c:if> 	
+						<c:if test="${dto.gradeIdx == 2}">
+						<td><span class="grade">중수</span>&nbsp;${dto.id}</td>
+						</c:if> 	
+						<c:if test="${dto.gradeIdx == 3}">
+						<td><span class="grade">고수</span>&nbsp;${dto.id}</td>
+						</c:if> 	
+						<c:if test="${dto.gradeIdx == 4}">
+						<td><span class="grade">초고수</span>&nbsp;${dto.id}</td>
+						</c:if> 	
+						<c:if test="${dto.gradeIdx == 5}">
+						<td><span class="grade">신</span>&nbsp;${dto.id}</td>
+						</c:if> 	
+						<td>${dto.reg_date}</td>
+						<td>${dto.bhit}</td>
+						<td>${dto.CNTRECO}</td>
+					</tr>
+				</table>
+        </div>
     <div class="container">
         <table class="table">
             <div class="container" >
