@@ -150,7 +150,9 @@ input.button:hover{
                 </tr>
                 <tr>
                     <th  style=" border: 3px solid rgb(204, 203, 203);">내용</th>
-                    <td  id="editable" style=" border: 3px solid rgb(204, 203, 203);"><textarea id="content" name="content" style="width: 100%;"cols="30" rows="10" placeholder="내용을 입력해주세요."></textarea></td>
+                   </td>
+                  <td><div contenteditable="true" id="editable" style="overflow:scroll; width: 100%; height: 400px; border: 2px solid black; border-radius: 10px;">
+                <input id="content" type="text" class="form-control" placeholder="내용을 입력하세요" name="content" maxlength="1024" style="height: 400px;"  hidden="hidden"/></div></td>
                 </tr>
                 <tr>
                     <th  style=" border: 3px solid rgb(204, 203, 203);">아이템</th>
@@ -184,7 +186,7 @@ input.button:hover{
     	if($("#formcategory").val()=="0"||$("#roomsize").val()==""||$("#budget").val()==""){
     		alert("주거형태,평수,예산을 작성해주세요");
     		return false;
-    	}else if($("#subject").val()==""||$("#content").val()==""||$("#iteme").val()==""){
+    	}else if($("#subject").val()==""||$("#editable").html()==""||$("#iteme").val()==""){
     		alert("제목,내용, 아이템을 작성해주세요");
     		return false;
     	}else{
