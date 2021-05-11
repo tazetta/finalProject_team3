@@ -262,7 +262,7 @@ public class BoardService {
 		}
 		msg = "삭제되었습니다.";
 		rAttr.addFlashAttribute("msg", msg);
-		mav.setViewName("redirect:/main");
+		mav.setViewName("redirect:/");
 		return mav;
 	}
 

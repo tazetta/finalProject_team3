@@ -97,7 +97,8 @@ span:hover {
 
 	<table id="mainTopTable">
 		<tr >
-			<td style="width: 150px"><a href="${pageContext.request.contextPath}"> <img
+			<td style="width: 150px"></td>
+			<td style="width: 150px"><a href="${pageContext.request.contextPath}"><img
 					src="${pageContext.request.contextPath}/resources/css/memberCSS/logo.png"
 					style="height: 50px; width: 80px;">
 			</a></td>
