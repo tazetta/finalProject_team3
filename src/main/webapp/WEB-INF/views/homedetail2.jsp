@@ -191,7 +191,7 @@ a:link {
     </div>
     <br/>
     <div class="container" style="float:right; padding-left:15%;">
-        <span class="grade">${writerGrade}</span>&nbsp;&nbsp;${dto.id}&nbsp;&nbsp;${dto.reg_date}&nbsp;&nbsp;조회수${dto.bhit}
+        <span class="grade">${writerGrade}</span>&nbsp;&nbsp;${dto.id}&nbsp;&nbsp;${dto.reg_date}&nbsp;&nbsp;조회수${dto.bhit} &nbsp;&nbsp; 추천수 ${dto.CNTRECO}
     </div>
     <br/>
        
