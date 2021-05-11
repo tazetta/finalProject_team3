@@ -2,12 +2,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-<title>나의 공동구매 전체</title>
+<title>우리집 자랑 스크랩</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <!-- 반응형 디자인을 위한 css/js 라이브러리 -->
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>   
-
+ <!-- 페이징 라이브러리(제이쿼리 반드시 필요, 버전도 맞아야 함) -->
+<script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
 <style>
 body {
 	display: flex;
@@ -36,16 +37,13 @@ reg_date{
 	width:190px;
 }
 table{
-	 text-align: center;
+	text-align:left;
 	margin-left:50px;
-	width:320px;
+	width:300px;
 	table-layout: fixed;
-
 }
 table th{
-	width:250px;
-
-	margin: 20px
+	width:200px;
 		
 	
 }
@@ -65,12 +63,9 @@ table th{
       border-collapse: collapse;
       text-align: center;
       background-color: cornflowerblue;
-      font-size:20px;
-      
 		
 .table-content tr:hover {
 	  background-color:rgb(235, 232, 232);
-	 
 }
 .name{
 	font-size:20px;
@@ -114,43 +109,32 @@ margin-top:50px;
 
 		<div class="list-area">
 			<div class="title-area">
-				<h2>내가 작성한 공동구매</h2>
+				<h2>우리집 자랑 스크랩</h2>
 			</div>
 			<div class="table-area">
 				<table>
 						<thead>
 							<tr>
-                     	<th style="width:70px">글 번호</th>
-						<th style="width:100px">현재상태</th>
-						<th style="width:80px">작성자</th>
-						<th style="width:250px">제목</th>
+                  		<th style="width:70px">글 번호</th>
+						<th style="width:300px">제목</th>
+						<th style="width:120px">작성자</th>
+						<th style="width:60px">조회수</th>
 						<th style="width:100px">작성일</th>
 							</tr>
 						</thead>
-					<tbody id="list" class="table-content" style="font-size: 18px; text-align: center;" >
+					<tbody id="list" class="table-content">
 
 					</tbody>
-				</table>
-				<br/>
-				<br/>
-				<br/>
-				<div class="title-area">
-				<h2>내가 신청한 공동구매</h2>
-				</div>
-				<table>
-						<thead>
-							<tr>
-                 		<th style="width:70px">글 번호</th>
-						<th style="width:100px">현재상태</th>
-						<th style="width:80px">작성자</th>
-						<th style="width:250px">제목</th>
-						<th style="width:100px">작성일</th>
-							</tr>
-						</thead>
-					<tbody id="list2" class="table-content" style="font-size: 18px; text-align: center;">
-
-					</tbody>
-			
+					<tr>
+						<td id="paging" colspan="6">
+							<!-- 플러그인 사용 -->
+							<div class="container">
+								<nav aria-label="page navigation" style="text-align: center; width:700px;">
+									<ul class="pagination" id="pagination"></ul>
+								</nav>
+							</div> <!--// 플러그인 사용 -->
+						</td>
+					</tr>
 				</table>
 			</div>
 			</div>
@@ -158,13 +142,12 @@ margin-top:50px;
 </body>
 <script>
 var showPage = 1;
-var pagePerNum = 5;
+var pagePerNum = 10;
 listCall(showPage,pagePerNum);
-listCall2(showPage,pagePerNum);
 
 function listCall(reqPage,reqPagePerNum){
 	 
-	 var reqUrl ='./mygroupwriteList/' + reqPagePerNum + "/" + reqPage;
+	 var reqUrl ='./myhomescrapList/' + reqPagePerNum + "/" + reqPage;
 	 $.ajax({
 		 url:reqUrl
 		 ,type:'GET'
@@ -175,12 +158,12 @@ function listCall(reqPage,reqPagePerNum){
 			 showPage = data.currPage;
 			 console.log(showPage);
 			 console.log(data.list);
-			 //listPrint(data.list);
 			 listPrint(data.list);
+			 
 				$("#pagination").twbsPagination({
 					startPage:data.currPage,//시작 페이지
 					totalPages:data.range,//생성 가능 최대 페이지
-					visiblePages:3,//5개씩 보여 주겠다.(1~5)
+					visiblePages:5,//5개씩 보여 주겠다.(1~5)
 					onPageClick:function(evt,page){//각 페이지를 눌렀을 경우
 						console.log(evt);
 						console.log(page);
@@ -193,95 +176,25 @@ function listCall(reqPage,reqPagePerNum){
 		 }
 	 });
 }
-function listCall2(reqPage,reqPagePerNum){
-	 
-	 var reqUrl ='./mygroupbuyList/' + reqPagePerNum + "/" + reqPage;
-	 $.ajax({
-		 url:reqUrl
-		 ,type:'GET'
-		 ,data:{}
-		 ,dataType:'JSON'
-		 ,success:function(data){
-			 console.log(data);
-			 showPage = data.currPage;
-			 console.log(showPage);
-			 console.log(data.list);
-			 //listPrint(data.list);
-			 listPrint2(data.list);
-				$("#pagination2").twbsPagination({
-					startPage:data.currPage,//시작 페이지
-					totalPages:data.range,//생성 가능 최대 페이지
-					visiblePages:3,//5개씩 보여 주겠다.(1~5)
-					onPageClick:function(evt,page){//각 페이지를 눌렀을 경우
-						console.log(evt);
-						console.log(page);
-						listCall2(page,pagePerNum);
-					}
-				});
-		 },
-		 error:function(error){
-				console.log(error);
-		 }
-	 });
-}
 	 
 function listPrint(list){
 	 var content = "";
 	 for(var i = 0; i<list.length; i++){
-		 
-		 
 		content +="<tr>"
-			content +="<td>"+list[i].gpIdx+"</td>"
-		 if(list[i].progIdx == 1){//현재상태
-				content += "<td style='color:red'>진행중</td>" 
-			}else if(list[i].progIdx == 2){
-				content += "<td >인원부족</td>"
-			}else{
-				content += "<td>마감</td>" 
-			}
-/* 			content +="<td>"+list[i].progIdx+"</td>" */
+			content +="<td>"+list[i].boardIdx+"</td>"
 			content +="<td>"+list[i].id+"</td>"
-			content +="<td>"+list[i].subject+"</td>"
-			var date = new Date(list[i].reg_date);
-		content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"		
-		
+			content +="<td><a href='boarddetail?boardIdx="+list[i].boardIdx+"'>" + list[i].subject + "</td>"
+			content +="<td>"+list[i].bhit+"</td>"
 		content +="</tr>"
 	}
+	
+	
 	$("#list").empty();
 	$("#list").append(content);
-}
-
-function listPrint2(list){
-	 var content = "";
-	 for(var i = 0; i<list.length; i++){
-		 
-		 
-		content +="<tr>"
-			content +="<td>"+list[i].gpIdx+"</td>"
-		 if(list[i].progIdx == 1){//현재상태
-				content += "<td style='color:red'>진행중</td>" 
-			}else if(list[i].progIdx == 2){
-				content += "<td >인원부족</td>"
-			}else{
-				content += "<td>마감</td>" 
-			}
-/* 			content +="<td>"+list[i].progIdx+"</td>" */
-			content +="<td>"+list[i].id+"</td>"
-			content +="<td>"+list[i].subject+"</td>"
-			var date = new Date(list[i].reg_date);
-		content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"		
-		
-		content +="</tr>"
-	}
-	$("#list2").empty();
-	$("#list2").append(content);
 }
 var msg = "${msg}";
 if(msg != ""){
 	 alert(msg);
 }
-	
-
-
 </script>
 </html>

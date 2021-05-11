@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-<title>내가 작성한 공동구매</title>
+<title>꿀팁 스크랩</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <!-- 반응형 디자인을 위한 css/js 라이브러리 -->
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -18,9 +18,7 @@ body {
 .sender{
 	width:200px;
 }
-reg_date{
-	width:100px;
-}
+
 .delete{
 	width:40px;
 }
@@ -31,6 +29,7 @@ reg_date{
 	display:flex;
 	text-align:center;
 	padding :50px;
+	
 
 }
 .sidenavi-area{
@@ -43,7 +42,8 @@ table{
 	table-layout: fixed;
 }
 table th{
-	width:200px;
+	width:220px;
+	
 		
 	
 }
@@ -63,7 +63,8 @@ table th{
       border-collapse: collapse;
       text-align: center;
       background-color: cornflowerblue;
-       font-size:18px;
+      font-size:20px;
+      
 		
 .table-content tr:hover {
 	  background-color:rgb(235, 232, 232);
@@ -73,12 +74,17 @@ table th{
 }
 .list-area{
 margin-top:50px;
-}
 
+
+}
+  
     .ctn:hover{
 		text-decoration: none;
 		color:black;
 	}
+
+	
+	
 	
 }
 </style>
@@ -95,18 +101,18 @@ margin-top:50px;
 
 		<div class="list-area">
 			<div class="title-area">
-				<h2>내가 작성한 공동구매</h2>
+				<h2>꿀팁 스크랩</h2>
 			</div>
 			<div class="table-area">
 				<table>
 						<thead>
-							<tr>
-                    	<th style="width:70px">글 번호</th>
-						<th style="width:100px">현재상태</th>
-						<th style="width:90px">작성자</th>
-						<th style="width:350px">제목</th>
+						<tr>
+                  		<th style="width:70px">글 번호</th>
+                  		<th style="width:120px">작성자</th>
+						<th style="width:300px">제목</th>
+						<th style="width:80px">조회수</th>
 						<th style="width:100px">작성일</th>
-							</tr>
+						</tr>
 						</thead>
 					<tbody id="list" class="table-content" style="font-size: 18px; text-align: center;">
 
@@ -133,7 +139,7 @@ listCall(showPage,pagePerNum);
 
 function listCall(reqPage,reqPagePerNum){
 	 
-	 var reqUrl ='./mygroupwriteList/' + reqPagePerNum + "/" + reqPage;
+	 var reqUrl ='./mytipscrapList/' + reqPagePerNum + "/" + reqPage;
 	 $.ajax({
 		 url:reqUrl
 		 ,type:'GET'
@@ -166,25 +172,20 @@ function listCall(reqPage,reqPagePerNum){
 function listPrint(list){
 	 var content = "";
 	 for(var i = 0; i<list.length; i++){
-		 
-		 
 		content +="<tr>"
-			content +="<td>"+list[i].gpIdx+"</td>"
-		 if(list[i].progIdx == 1){//현재상태
-				content += "<td style='color:red'>진행중</td>" 
-			}else if(list[i].progIdx == 2){
-				content += "<td >인원부족</td>"
-			}else{
-				content += "<td>마감</td>" 
-			}
-/* 			content +="<td>"+list[i].progIdx+"</td>" */
+			
+			content +="<td>"+list[i].boardIdx+"</td>"
 			content +="<td>"+list[i].id+"</td>"
-			content +="<td>"+list[i].subject+"</td>"
-			var date = new Date(list[i].reg_date);
+			content +="<td><a href='boarddetail?boardIdx="+list[i].boardIdx+"'>" + list[i].subject + "</td>"
+			content +="<td>"+list[i].bhit+"</td>"
+	
+		var date = new Date(list[i].reg_date);
 		content +="<td>"+date.toLocaleDateString("ko-KR")+"</td>"		
 		
 		content +="</tr>"
 	}
+	
+	
 	$("#list").empty();
 	$("#list").append(content);
 }

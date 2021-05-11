@@ -142,24 +142,27 @@ public class MyService {
 	
 	
 	
-	/* 나의 스크랩 */
-	public HashMap<String, Object> myscrapList(int pagePerCnt, int page, HttpSession session) {
+	/* 꿀팁 스크랩 */
+	public HashMap<String, Object> mytipscrapList(int pagePerCnt, int page, HttpSession session) {
+		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		String sessionId = (String) session.getAttribute("loginId");
-		int allCount =  MyDAO.myscrapAllCount(sessionId);
+		int allCount =  MyDAO.mytipscrapAllCount(sessionId);
 		logger.info("총 갯수 : "  + allCount);
 		int range = allCount%pagePerCnt > 0 ? Math.round(allCount/pagePerCnt)+1 : Math.round(allCount/pagePerCnt);
 		logger.info("총 페이지(range): " + range);
 		int end = page * pagePerCnt;
 		int start = end - pagePerCnt + 1;
 		
-		map.put("list", MyDAO.myscrapList(start,end,sessionId));
+		map.put("list", MyDAO.mytipscrapList(start,end,sessionId));
 
 		map.put("range", range);
 		map.put("currPage", page);
 		return map;
 	}
 	
+	
+	/* 우리집 자랑 스크랩 */
 	public HashMap<String, Object> myhomescrapList(int pagePerCnt, int page, HttpSession session) {
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -177,6 +180,9 @@ public class MyService {
 		map.put("currPage", page);
 		return map;
 	}
+	
+	
+	
 	/* 우리집 자랑 */
 	public HashMap<String, Object> mywritehomeList(int pagePerCnt, int page, HttpSession session) {
 		HashMap<String, Object> map = new HashMap<String, Object>();

@@ -34,8 +34,8 @@
                 </a>
                 <ul class="scrap-show">
                   	<li><a href="${pageContext.request.contextPath}/myscrappage">내 스크랩북</a></li>
-                    <li><a href="${pageContext.request.contextPath}/myscrappage">우리집 자랑</a></li>
-                    <li><a href="myscrappage">꿀팁</a></li>
+                    <li><a href="${pageContext.request.contextPath}/myscraphome">우리집 자랑</a></li>
+                    <li><a href="${pageContext.request.contextPath}/myscraptip">꿀팁</a></li>
                 </ul>
             </li>
             <li>

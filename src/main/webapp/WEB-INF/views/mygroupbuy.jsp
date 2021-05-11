@@ -63,6 +63,7 @@ table th{
       border-collapse: collapse;
       text-align: center;
       background-color: cornflowerblue;
+      font-size:18px;
 		
 .table-content tr:hover {
 	  background-color:rgb(235, 232, 232);
@@ -73,22 +74,7 @@ table th{
 .list-area{
 margin-top:50px;
 }
-   button{
-      color: white;
-    background-color: #166cea;
-    border:none;
-    border-radius: 2px;
-    font-weight: bold;
-     padding: 2px 2px;
-    }
-    button:hover{
-       background-color: white;
-    color: #166cea;
-    border: 1px solid #166cea;
-    cursor: pointer;
-    box-shadow: 0px 5px 5px rgb(235, 232, 232);
-     transition: all .3s ease;
-    }
+  
     .ctn:hover{
 		text-decoration: none;
 		color:black;
@@ -116,13 +102,13 @@ margin-top:50px;
 						<thead>
 							<tr>
                     	<th style="width:70px">글 번호</th>
-						<th style="width:70px">현재상태</th>
-						<th style="width:70px">작성자</th>
+						<th style="width:100px">현재상태</th>
+						<th style="width:90px">작성자</th>
 						<th style="width:350px">제목</th>
 						<th style="width:100px">작성일</th>
 							</tr>
 						</thead>
-					<tbody id="list" class="table-content">
+					<tbody id="list" class="table-content" style="font-size: 18px; text-align: center;">
 
 					</tbody>
 					<tr>
@@ -187,7 +173,7 @@ function listPrint(list){
 		 if(list[i].progIdx == 1){//현재상태
 				content += "<td style='color:red'>진행중</td>" 
 			}else if(list[i].progIdx == 2){
-				content += "<td >인원부족마감</td>"
+				content += "<td >인원부족</td>"
 			}else{
 				content += "<td>마감</td>" 
 			}

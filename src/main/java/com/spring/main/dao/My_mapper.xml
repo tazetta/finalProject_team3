@@ -49,8 +49,8 @@ SELECT BOARDIDX , SUBJECT , CONTENT , ID , REG_DATE, BHIT rnum
 </select>
 	
 <select id="mywritetipList" resultType="com.spring.main.dto.MyDTO">
-SELECT BOARDIDX , SUBJECT , CONTENT , ID , REG_DATE, BHIT rnum 
-    FROM (SELECT BOARDIDX , SUBJECT , CONTENT , ID , REG_DATE, BHIT,
+SELECT boardIdx , subject ,  id , REG_DATE, BHIT rnum 
+    FROM (SELECT boardIdx , subject ,  id , REG_DATE, BHIT,
     ROW_NUMBER() OVER(ORDER BY BOARDIDX DESC) AS rnum FROM BOARD  WHERE ID=#{param3} AND blind='n'AND brdctgidx = 3)
     WHERE rnum BETWEEN #{param1} AND #{param2}
 </select>
@@ -121,22 +121,26 @@ SELECT gpIdx ,  subject , content , id , progIdx, reg_date, gHit rnum
 
 
 
-<!--나의 스크랩  -->
+<!--꿀팁 스크랩  -->
+<select id="mytipscrapAllCount" resultType="int" parameterType="String">
+	SELECT COUNT(boardIdx) FROM board WHERE id = #{param1}
+</select>
+
+<select id="mytipscrapList"  resultType="com.spring.main.dto.BoardDTO">
+	  SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY boardIdx DESC) as RNUM, boardIdx, subject, content, reg_date, id, bHit, blind
+	FROM Board WHERE boardIdx IN (SELECT boardIdx FROM scrap  WHERE id=#{param3}) AND  brdctgIdx IN (SELECT brdctgIdx FROM boardCtg WHERE brdctgIdx='4')) WHERE RNUM BETWEEN #{param1} AND #{param2}
+</select>
+
+
+<!--우리집 자랑 스크랩  -->
 <select id="myscrapAllCount" resultType="int" parameterType="String">
-	SELECT COUNT(scrapIdx) FROM scrap WHERE id = #{param1}
-</select>
-
-<select id="myscrapList" resultType="com.spring.main.dto.BoardDTO">
-SELECT scrapIdx  , id , boardIdx, rnum 
-    FROM (SELECT scrapIdx   ,  id , boardIdx, 
-    ROW_NUMBER() OVER(ORDER BY scrapIdx DESC) AS rnum FROM scrap  WHERE ID=#{param3})
-    WHERE rnum BETWEEN #{param1} AND #{param2}
+	SELECT COUNT(boardIdx) FROM board WHERE id = #{param1}
 </select>
 
 
-<select id="myhomescrapList">
-	  SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY boardidx DESC) as rnum, boardidx, subject, content, reg_date, blind
-	FROM Board WHERE boardIdx IN (SELECT boardidx FROM scrap  WHERE id=#{param3}) AND  brdCtgIdx IN (SELECT brdCtgIdx FROM boardCtg WHERE brdCtgIdx='2')) WHERE rnum BETWEEN #{param1} AND #{param2} ;
+<select id="myhomescrapList" resultType="com.spring.main.dto.BoardDTO">
+	  SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY boardIdx DESC) as RNUM, boardIdx, subject, content, reg_date, blind
+	FROM Board WHERE boardIdx IN (SELECT boardIdx FROM scrap  WHERE id=#{param3}) AND  brdctgIdx IN (SELECT brdctgIdx FROM boardCtg WHERE brdctgIdx='2')) WHERE RNUM BETWEEN #{param1} AND #{param2}
 </select>
 
 

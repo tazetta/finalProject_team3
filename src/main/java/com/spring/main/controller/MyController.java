@@ -134,6 +134,37 @@ public class MyController {
 		return "mygroupbuy";
 	}
 	
+	/* 공동구매 전체 페이지 */
+	@RequestMapping(value = "/mygrouppage", method = RequestMethod.GET)
+	public String mygrouppage() {
+		logger.info("내 공동구매 페이지");
+		return "mygrouppage";
+	}
+
+	/* 스크랩 전체 페이지 */
+	@RequestMapping(value = "/myscrappage", method = RequestMethod.GET)
+	public String myscrappage() {
+		logger.info("스크랩북 전체페이지");
+		return "myscrappage";
+	}
+	
+	/* 스크랩 우리집 자랑 */
+	@RequestMapping(value = "/myscraphome", method = RequestMethod.GET)
+	public String myscraphome() {
+		logger.info("스크랩북 홈");
+		return "myscraphome";
+	}
+	
+	/* 스크랩 꿀팁 */
+	@RequestMapping(value = "/myscraptip", method = RequestMethod.GET)
+	public String myscraptip() {
+		logger.info("스크랩북 팁");
+		return "myscraptip";
+	}
+	
+	
+	
+	
 	/* 우리집 자랑 */
 	@RequestMapping(value = "/mywritehome", method = RequestMethod.GET)
 	public String mywritehome() {
@@ -141,6 +172,17 @@ public class MyController {
 		return "mywritehome";
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
 	@RequestMapping(value = "/msgpage", method = RequestMethod.GET)
@@ -163,21 +205,6 @@ public class MyController {
 
 
 
-	@RequestMapping(value = "/mygrouppage", method = RequestMethod.GET)
-	public String mygrouppage() {
-		logger.info("내 공동구매 페이지");
-		return "mygrouppage";
-	}
-
-
-
-
-
-	@RequestMapping(value = "/myscrappage", method = RequestMethod.GET)
-	public String myscrappage() {
-		logger.info("스크랩북 페이지");
-		return "myscrappage";
-	}
 	@RequestMapping(value = "/msgsenderpage", method = RequestMethod.GET)
 	public String msgsenderpage() {
 		logger.info("보낸 쪽지 전체페이지");
