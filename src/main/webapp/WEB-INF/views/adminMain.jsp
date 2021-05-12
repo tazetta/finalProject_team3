@@ -114,10 +114,11 @@ select:hover {
 										<span
 											style="color: tomato; border: 1px solid lightgray; border-radius: 2px; background-color: #F7BE81;">신규</span> ${newMemberList.id}<br />
 										<br />
-										<c:if test="${newMemberList == null}">
-									현재 신규회원이 없습니다.
-								</c:if>
-									</c:forEach></td>
+									</c:forEach>
+										<c:if test="${memberCnt < 1}">
+											오늘 신규회원이 없습니다.
+										</c:if>
+									</td>
 								<td><span style="color: #9fa8da"> </span><br />
 								<br /></td>
 								<td colspan="2"><c:forEach items="${adminList}"
@@ -138,20 +139,22 @@ select:hover {
 									style="color: tomato">${reportedCommCnt}</span> 개
 								</th>
 							<tr>
-								<td style="text-align: left;"><c:if
-										test="${reportedBrdList eq null}">
-									현재 신고된 게시글이 없습니다.<br />
-										<br />
-									</c:if> <c:if test="${reportedBrdList ne null}">
+								<td style="text-align: left;">
+									<c:if test="${reportedBrdList eq null}">
+										오늘 신고된 게시글이 없습니다.<br />
+											<br />
+									</c:if>
+									 <c:if test="${reportedBrdList ne null}">
 										<c:forEach items="${reportedBrdList}" var="reportedBrdList">
-											${reportedBrdList.subject}<br />
+											${reportedBrdList.SUBJECT}<br />
 											<br />
 										</c:forEach>
-									</c:if></td>
+									</c:if>
+								</td>
 								<td style="color: lightgray;"></td>
 								<td style="text-align: left;"><c:if
 										test="${reportedCommList eq null}">
-									현재 신고된 댓글이 없습니다.<br />
+									오늘 신고된 댓글이 없습니다.<br />
 										<br />
 									</c:if> <c:if test="${reportedCommList ne null}">
 										<c:forEach items="${reportedCommList}" var="reportedBrdList">

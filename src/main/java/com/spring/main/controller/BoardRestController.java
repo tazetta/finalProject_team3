@@ -153,7 +153,7 @@ public class BoardRestController {
 			@RequestParam(value="orderBy", required=false, defaultValue="reg_date") String orderBy,
 			@RequestParam(value="formcategory", required=false, defaultValue="0")int formcategory,
 			@RequestParam(value="budget", required=false, defaultValue="0")int budget,
-			@RequestParam(value="roomsize", required=false, defaultValue="1") int roomsize
+			@RequestParam(value="roomsize", required=false, defaultValue="0") int roomsize
 			
 			){
 		logger.info("params" + pageNum +" / " +orderBy+" / " +formcategory+" / " +budget+" / " +roomsize);

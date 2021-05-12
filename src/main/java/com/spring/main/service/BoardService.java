@@ -474,12 +474,12 @@ public class BoardService {
 	public Map<String, Object> homeMainList(int pageNum, String orderBy, int formcategory, int budget,int roomsize) {
 		Map<String, Object> map = new HashMap<>();
 		// startNum, endNum 생성
-		int limit = 10; // 최대 10개 게시물 목록 보여줄거
+		int limit = 6; // 최대 10개 게시물 목록 보여줄거
 		int startNum = (pageNum - 1) * limit + 1; // 시작페이지
 		int endNum = pageNum * limit; // 마지막 페이지
 		
 		int totalListCount = boarddao.gethomeMainCount(formcategory, budget,  roomsize);
-
+		int maxPage = (int) Math.ceil(totalListCount / (double) limit);
 		if (totalListCount == 0) {
 			map.put("total_page", totalListCount);
 		} else {
@@ -492,6 +492,7 @@ public class BoardService {
 		
 		ArrayList<BoardDTO> list = boarddao.gethomeMainList(startNum, endNum, orderBy, formcategory, budget, roomsize);
 		logger.info("List Size : {} " , list.size());
+		map.put("maxPage", maxPage);
 		map.put("list", list);
 		
 		return map;
@@ -499,14 +500,14 @@ public class BoardService {
     //메인에 우리집 자랑 데이터 3개
 	public ArrayList<BoardDTO> getMainhomeListLimit3() {
 		// 3개의 목록을 조회
-		ArrayList list = boarddao.getMainhomeLimit3();
+		ArrayList<BoardDTO> list = boarddao.getMainhomeLimit3();
 		System.out.println(list);
 		
 		return list;
 	}
    //팁 자랑 3개
 	public ArrayList<BoardDTO> gettipMainLimit3() {
-		ArrayList list = boarddao.gettipMainLimit3();
+		ArrayList<BoardDTO> list = boarddao.gettipMainLimit3();
 		return list;
 	}
 

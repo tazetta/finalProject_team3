@@ -75,7 +75,7 @@ public class AdminService {
 		logger.info("신고된 게시글 수 : {}", reportedBrdCnt);
 
 		// 오늘 신고된 게시글 제목, 카테고리 불러오기
-		HashMap<String, Object> reportedBrdList = dao.reportedBrdList(sqlDate);
+		ArrayList<BoardDTO> reportedBrdList = dao.reportedBrdList(sqlDate);
 		logger.info("신고된 게시글 : {}", reportedBrdList);
 		mav.addObject("reportedBrdCnt", reportedBrdCnt);
 		mav.addObject("reportedBrdList", reportedBrdList);
@@ -88,7 +88,7 @@ public class AdminService {
 		HashMap<String, Object> reportedCommList = dao.reportedCommList(sqlDate);
 		logger.info("신고된 댓글 : {}", reportedCommList);
 		mav.addObject("reportedCommCnt", reportedCommCnt);
-		mav.addObject("reportedBrdList", reportedCommList);
+		mav.addObject("reportedCommList", reportedCommList);
 
 		mav.setViewName("adminMain");
 		return mav;
@@ -190,6 +190,7 @@ public class AdminService {
 			} else if (stateIdx.equals("2")) {
 				logger.info("작성금지 3일");
 				msg += "작성금지 3일 패널티가 부여되었습니다.";
+				
 			} else if (stateIdx.equals("3")) {
 				logger.info("작성금지 5일");
 				msg += "작성금지 5일 패널티가 부여되었습니다.";
@@ -207,6 +208,7 @@ public class AdminService {
 				msg = "패널티가 해제되었습니다.";
 			}
 		}
+		logger.info(msg);
 		map.put("msg", msg);
 		return map;
 	}

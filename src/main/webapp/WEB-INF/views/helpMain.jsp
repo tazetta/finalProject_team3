@@ -150,7 +150,6 @@ a.page-link:hover {
 
 				</c:forEach>-->
 			</tbody>
-
 		</table>
 	</div>
 	<div class="row">
@@ -159,7 +158,7 @@ a.page-link:hover {
 		</div>
 	</div>
 	
-	<div id="pagination-div" style="padding-left:40%; margin-top:15px;"></div>
+	<div id="pagination-div" style="padding-left:42%; margin-top:15px;"></div>
 			<!-- <ul class="pagination justify-content-center">
 				<li class="page-item"><a class="page-link" href="#">이전</a></li>
 				<li class="page-item"><a class="page-link" href="#">1</a></li>

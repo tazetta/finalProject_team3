@@ -72,6 +72,7 @@ a.page-link:hover {
 	color: rgba(255, 255, 255, 0.85);
 	box-shadow: rgb(173, 170, 169) 0 0px 0px 40px inset;
 }
+
 </style>
 
 
@@ -116,13 +117,14 @@ a.page-link:hover {
 
             <br />
 
- 			<div style="display: flex;  justify-content: center; border: 1px solid rgb(255, 255, 255); height: 100%;">
+ 			<div style="display: flex;  justify-content: center; border: 1px solid rgb(255, 255, 255); height: 100%; text-align: center;">
 						<c:forEach var="tipdetail" items="${list}" begin="0" end="2" step="1" varStatus="status">
 							<div style="border: 5px solid white; margin-right: 90px; box-shadow:0 0 5px lightslategray;" >
 	                        	<a href="/main/boarddetail?boardIdx=${tipdetail.boardIdx}">
 	                        		<!-- <img src="resources/images/interior1.jpg" width="250" height="250"> -->
-	                        		<img src="${tipdetail.newfilename}" width="250" height="250">
+	                        		<img src="/photo/${tipdetail.newfilename}" width="250" height="250" style="margin-bottom: 5px;">
 	                        	</a>
+	                        	<h5>${tipdetail.subject}</h5>
 	                        </div>
 						</c:forEach>
 						
@@ -216,7 +218,7 @@ a.page-link:hover {
   
     <div class="container" >
       
-           <div id="pagination-div"  style="padding-left:33%; margin-top:15px;"></div>
+           <div id="pagination-div"  style="padding-left:35%; margin-top:15px;"></div>
         
     </div>
 

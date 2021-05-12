@@ -60,19 +60,19 @@
            
          
             <div class="container">
-            <div style="min-height: 210px;">
+            <div style="min-height: 100px;">
 	            <jsp:include page="mainnavi.jsp"></jsp:include> 
             </div>
               
                 <br/>
                 <div class="container">
                 <h3 style="font-weight:bold;padding-bottom:50px;">오늘의 땃쥐 룸</h3>
-                  <div style="display: flex;  justify-content: center; border: 1px solid rgb(255, 255, 255); height: 100%;">
+                  <div style="display: flex;  justify-content:space-between; border: 1px solid rgb(255, 255, 255); height: 100%;">
 						<c:forEach var="homedetail" items="${list}" begin="0" end="2" step="1" varStatus="status">
-							<div style="border: 5px solid white; margin-right: 90px; box-shadow:0 0 5px lightslategray;" >
+							<div style="border: 5px solid white;  box-shadow:0 0 5px lightslategray;" >
 	                        	<a href="/main/homedetail?boardIdx=${homedetail.boardIdx}">
 	                        		<!-- <img src="resources/images/interior1.jpg" width="250" height="250"> -->
-	                        		<img src="${homedetail.newfilename}" width="250" height="250">
+	                        		<img src="/photo/${homedetail.newfilename}" width="350" height="350">
 	                        	</a>
 	                        </div>
 						</c:forEach>
@@ -119,7 +119,7 @@
                             <tr>
                                 <th>제목</th>
                                 <th>작성자</th>
-                                <th>조회수</th>
+                                <th>추천수</th>
                             </tr>
                         </thead>
                                    

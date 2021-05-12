@@ -66,6 +66,7 @@ position:relative;
 display: flex; 
 justify-content: center;
 margin-top: 70px;
+margin-left: -70px;
 
 }
 #groupList table {

@@ -38,7 +38,7 @@ public class MemberController {
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public  ModelAndView login(Model model, @RequestParam String id, @RequestParam String pw 
-			,@RequestParam String mode , HttpSession session) {
+			,@RequestParam String mode , HttpSession session, RedirectAttributes rAttr) {
 		logger.info("로그인  요청");
 		logger.info("id : " + id  + "pw :" + pw +"mode :" + mode);
 		ModelAndView mav = new ModelAndView();
@@ -61,7 +61,7 @@ public class MemberController {
 				logger.info("세션 아이디 : {}", session.getAttribute("cLoginId"));
 			}
 		}
-		
+		rAttr.addFlashAttribute("msg", msg);
 		mav.addObject("msg", msg);
 		mav.setViewName(page);
 		return mav;

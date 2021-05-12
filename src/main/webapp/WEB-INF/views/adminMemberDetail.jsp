@@ -177,18 +177,18 @@ $("#penaltyBtn").click(()=>{
 		url: "../adminPenaltyCfm/"+id+"/"+penalty
 		,data:{}
 		,type:'GET'
-
 		,success:(data)=>{ 
-			console.log(data);
+			console.log(data.msg);
 			if(data.msg!=""){
 				alert(data.msg);
+				location.reload(); 
+				opener.parent.location.reload();
 			}
 		}
 		,error:(data)=>{
 			console.log(data);
 		}
 	});
-	location.reload();
 }); 
 </script>
 </html>

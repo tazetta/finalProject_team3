@@ -102,7 +102,12 @@ a.page-link:hover {
 </body>
 
 <script>
-	var msg = "${msg}";
+	var msg = "";
+	if(${sessionScope.msg ne null}){
+		msg = "${sessionScope.msg}";
+	} else {
+		msg = "${msg}";
+	}
 	if(msg != ""){
 		alert(msg);
 		msg = "";

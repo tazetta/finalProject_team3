@@ -7,8 +7,7 @@
         <title>고객의소리보내기</title>
     </head>
     <style>
-        table{
-            border-collapse: collapse;
+        .flexBox table{
             border: 2px solid gray;
          
         }
@@ -120,7 +119,12 @@
 		overflow: auto;
 		padding: 5px;
 		}
-
+	.flexBox {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+}
 
 
     </style>
@@ -129,62 +133,69 @@
 
 
     <body>
-        <iframe src="mainnavi" scrolling="no" frameborder="0" style="width: 100%; "></iframe>
+        <jsp:include page="mainnavi.jsp"/>
        
         
-        <hr style="margin-bottom: 2%;"/>
-
-        <div style="margin-left: 2%;font-size: 50px;"><strong style="color: coral;">고객의 소리</strong> </div>
-
-		<form action="boardWrite" method="post">
-        <input type="hidden" name="boardCtgIdx" value="5"/>
-        <table style="width: 700px; margin-top: 3%; margin-left: 15%;">
-            <tr>
-                <td  style="width: 100px; text-align: center;"><strong>접 수 종 류</strong></td>
-                    <td>
-                    	<select name="sgtctg">
-                    		<option value="게시판">게시판관련</option>
-                    		<option value="유저">유저관련</option>
-                    		<option value="신고">신고관련</option>
-                    		<option value="기타">기타</option>
- 	               		</select>
- 	               </td>
-            </tr>
-            <tr>
-                <td style="width: 90px; text-align: center; height: 50px;"><strong>아이디</strong></td>
-                <td><input style="width: 250px;" type="text" value="${sessionScope.loginId}" name="id" readonly></td>
-            </tr>
-            <tr>
-                <td style="width: 90px; text-align: center; height: 50px;"><strong>이메일</strong></td>
-                   <td> <input style="width: 250px;" type="email" id="email" name="email" placeholder="이 메 일"></td>
-            </tr>
-            <tr>
-                <td style="width: 90px; text-align: center; height: 50px;"><strong> 제 목</strong></td>
-                    <td><input style="width: 250px;" type="text" id="subject" name="subject" placeholder="제 목"></td>
-            </tr>
-            <tr> 
-                <td style="width: 90px; text-align: center; height: 500px;"><strong>글 내 용</strong></td>
-                <td colspan="2" style="width: 250px; text-align: center; height: 500px;">
-					<div contenteditable="true" id="editable" ></div> 
-					<input id="content" name="content" type="hidden" />
-				</td>  	
-            </tr>
-            <tr>
-            	<td colspan="2">
-					<input type="button" value="파일업로드" onclick="fileUp()" />	
-            	</td>
-               <!--  <td>
-                    <div class="filebox preview-image">
-                        <input class="upload-name" value="업로드된 파일" disabled="disabled" >
-                        <label for="input-file">업로드</label>
-                         <input type="file" id="input-file" class="upload-hidden">
-                         </div>                      
-               </td> -->
-            </tr>
-        </table>
-        </form>
-		<button onclick="location.href='interiorexamList'">취소</button>
-		<button id="save">작성완료</button>
+		<div class="flexBox">
+	
+			<form action="boardWrite" method="post">
+	        <input type="hidden" name="boardCtgIdx" value="5"/>
+	        <table style="width: 700px; margin-top: 2vh;">
+	        	<tr>
+	        		<td colspan="2">
+	        			<h4 style="color: coral; font-size: 35px;">고객의 소리</h4>
+	        		</td>
+	        	</tr>
+	            <tr>
+	                <td  style="width: 100px; text-align: center;"><strong>접 수 종 류</strong></td>
+	                    <td>
+	                    	<select name="sgtctg">
+	                    		<option value="게시판">게시판관련</option>
+	                    		<option value="유저">유저관련</option>
+	                    		<option value="신고">신고관련</option>
+	                    		<option value="기타">기타</option>
+	 	               		</select>
+	 	               </td>
+	            </tr>
+	            <tr>
+	                <td style="width: 90px; text-align: center; height: 50px;"><strong>아이디</strong></td>
+	                <td><input style="width: 250px;" type="text" value="${sessionScope.loginId}" name="id" readonly></td>
+	            </tr>
+	            <tr>
+	                <td style="width: 90px; text-align: center; height: 50px;"><strong>이메일</strong></td>
+	                   <td> <input style="width: 250px;" type="email" id="email" name="email" placeholder="이 메 일"></td>
+	            </tr>
+	            <tr>
+	                <td style="width: 90px; text-align: center; height: 50px;"><strong> 제 목</strong></td>
+	                    <td><input style="width: 250px;" type="text" id="subject" name="subject" placeholder="제 목"></td>
+	            </tr>
+	            <tr> 
+	                <td style="width: 90px; text-align: center; height: 500px;"><strong>글 내 용</strong></td>
+	                <td colspan="2" style="width: 250px; text-align: center; height: 500px;">
+						<div contenteditable="true" id="editable" ></div> 
+						<input id="content" name="content" type="hidden" />
+					</td>  	
+	            </tr>
+	            <tr>
+	            	<td>
+						<input type="button" value="파일업로드" onclick="fileUp()" />	
+	            	</td>
+	               <!--  <td>
+	                    <div class="filebox preview-image">
+	                        <input class="upload-name" value="업로드된 파일" disabled="disabled" >
+	                        <label for="input-file">업로드</label>
+	                         <input type="file" id="input-file" class="upload-hidden">
+	                         </div>                      
+	               </td> -->
+	            	<td style="text-align: right;">
+	            		<button onclick="location.href='interiorexamList'">취소</button>
+						<button id="save">작성완료</button>
+	            	</td>
+	            </tr>
+					
+	        </table>
+	        </form>
+		</div>
       
     </body>
     <script>

@@ -156,7 +156,7 @@ function getTodos (reqPage, id){
 	/* $.get(`https://jsonplaceholder.typicode.com/todos/${num}`, data => {
 		addTodoCard({ data, target: '.something' });
 	}); */
-	var reqUrl = 'myPhotos'+'/'+3+'/'+reqPage+'/'+id;
+	var reqUrl = 'myPhotos'+'/'+4+'/'+reqPage+'/'+id;
 	$.ajax({
 		url:reqUrl
 		,data:{}

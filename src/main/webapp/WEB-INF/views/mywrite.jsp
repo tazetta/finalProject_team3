@@ -266,16 +266,7 @@ function listCall(reqPage,reqPagePerNum){
 			 console.log(data.list);
 			 listPrint(data.list);
 			 
-				$("#pagination").twbsPagination({
-					startPage:data.currPage,//시작 페이지
-					totalPages:data.range,//생성 가능 최대 페이지
-					visiblePages:3,//5개씩 보여 주겠다.(1~5)
-					onPageClick:function(evt,page){//각 페이지를 눌렀을 경우
-						console.log(evt);
-						console.log(page);
-						listCall(page,pagePerNum);
-					}
-				});
+
 		 },
 		 error:function(error){
 				console.log(error);
@@ -298,17 +289,7 @@ function listCall2(reqPage,reqPagePerNum){
 			 console.log(showPage);
 			 console.log(data.list);
 			 listPrint2(data.list);
-			 
-				$("#pagination2").twbsPagination({
-					startPage:data.currPage,//시작 페이지
-					totalPages:data.range,//생성 가능 최대 페이지
-					visiblePages:3,//5개씩 보여 주겠다.(1~5)
-					onPageClick:function(evt,page){//각 페이지를 눌렀을 경우
-						console.log(evt);
-						console.log(page);
-						listCall2(page,pagePerNum);
-					}
-				});
+
 		 },
 		 error:function(error){
 				console.log(error);
@@ -330,16 +311,6 @@ function listCall3(reqPage,reqPagePerNum){
 			 console.log(data.list);
 			 //listPrint(data.list);
 			 listPrint3(data.list);
-				$("#pagination3").twbsPagination({
-					startPage:data.currPage,//시작 페이지
-					totalPages:data.range,//생성 가능 최대 페이지
-					visiblePages:3,//5개씩 보여 주겠다.(1~5)
-					onPageClick:function(evt,page){//각 페이지를 눌렀을 경우
-						console.log(evt);
-						console.log(page);
-						listCall3(page,pagePerNum);
-					}
-				});
 		 },
 		 error:function(error){
 				console.log(error);
@@ -361,16 +332,6 @@ function listCall4(reqPage,reqPagePerNum){
 			 console.log(data.list);
 			 //listPrint(data.list);
 			 listPrint4(data.list);
-				$("#pagination4").twbsPagination({
-					startPage:data.currPage,//시작 페이지
-					totalPages:data.range,//생성 가능 최대 페이지
-					visiblePages:3,//5개씩 보여 주겠다.(1~5)
-					onPageClick:function(evt,page){//각 페이지를 눌렀을 경우
-						console.log(evt);
-						console.log(page);
-						listCall4(page,pagePerNum);
-					}
-				});
 		 },
 		 error:function(error){
 				console.log(error);
@@ -386,7 +347,7 @@ function listPrint(list) {
 		
 			content += "<div style='border-radius:20px; border: 5px solid white; margin: 20px; box-shadow:0 0 5px lightslategray;'>"
 			content +="<a href='${pageContext.request.contextPath}/boarddetail?boardIdx="+list[i].boardIdx+"'>"	
-			content += "<img src='resources/images/interior4.jpg' width='200' height='200' style=' border-radius:20px;'>"
+			content += "<img src='/photo/"+list[i].newfilename+"' width='200' height='200' style=' border-radius:20px;'>"
 			content += "</a></div>"
 }
 	$('#list').empty();

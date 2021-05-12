@@ -16,6 +16,7 @@ body {
 /*네비*/
 #네비ul{
 height:71px;
+padding-left: 0;
 }
 
 .네비li {

@@ -29,14 +29,8 @@
                 </ul>
             </li>
             <li>
-                <a href="#" class="scrap-btn">스크랩북
-                    <span class="fas fa-caret-down scrap"></span>
+                <a href="${pageContext.request.contextPath}/myscrappage" class="scrap-btn">스크랩북
                 </a>
-                <ul class="scrap-show">
-                  	<li><a href="${pageContext.request.contextPath}/myscrappage">내 스크랩북</a></li>
-                    <li><a href="${pageContext.request.contextPath}/myscraphome">우리집 자랑</a></li>
-                    <li><a href="${pageContext.request.contextPath}/myscraptip">꿀팁</a></li>
-                </ul>
             </li>
             <li>
                 <a href="#" class="msg-btn">쪽지

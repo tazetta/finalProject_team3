@@ -151,7 +151,7 @@ SELECT gpIdx ,  subject , content , id , progIdx, reg_date, gHit rnum
 	SELECT COUNT(photoIdx) FROM PHOTOS WHERE id = #{param1}
 </select>
 
-<select id="mywritehomeList" resultType="com.spring.main.dto.PhotoDTO">
+<select id="mywritehomeList" resultType="board">
 SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY photoidx DESC) AS rnum, b.subject, b.boardIdx, 
 p.newFileName FROM (SELECT photoidx, newfilename, boardidx FROM (SELECT photoidx, newfilename, 
 boardidx FROM photos) where ROWID IN (SELECT MAX(ROWID) FROM photos GROUP BY boardidx)) p , 

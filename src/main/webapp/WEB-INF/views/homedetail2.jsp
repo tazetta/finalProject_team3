@@ -198,9 +198,9 @@ border-top:1px solid lightgray;
 				<button id="button" style="margin-left: 300;" onclick="location.href='./boardUpdateForm/${dto.boardIdx}'">수정</button>
 				<button id="button" style="margin-left: 50;" onclick="location.href='./boardDel/${dto.boardIdx}'">삭제</button>
 		</c:if>
-        <c:if  test="${ dto.id != loginId}">
-        <button id="button" style="margin-left: 300;" onclick="boardRec('${dto.boardIdx}')">추천하기</button>
-		<button id="button" style="margin-left: 50;" onclick="location.href='./boardScrap/${dto.boardIdx}/${sessionScope.loginId}'">스크랩</button>
+		    <c:if  test="${ dto.id != loginId}">
+		        <button id="button" style="margin-left: 300;" onclick="boardRec('${dto.boardIdx}')">추천하기</button>
+				<button id="button" style="margin-left: 50;" onclick="location.href='./boardScrap/${dto.boardIdx}/${sessionScope.loginId}'">스크랩</button>
         	</c:if>
         </div>
     </div>

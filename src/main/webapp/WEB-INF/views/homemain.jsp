@@ -141,8 +141,15 @@ var msg = "${msg}";
 if(msg != ""){
 	alert(msg);
 }
-	
+
 $(document).ready(function() {
+var pageNum = 1;
+$(window).scroll(function () {
+	if ($(window).scrollTop() == $(document).height()-1007) {
+		pageNum++;
+		getList(pageNum);
+	} 
+});
 	// 목록을 조회하는 함수.
 	function getList(pageNum, orderBy,formcategory,budget,roomsize) {
 		/*
@@ -173,7 +180,6 @@ $(document).ready(function() {
 			dataType : 'JSON',
 			success : function(data) {
 				appendList(data.list); //화면에 뿌려주기 위함
-				createPagination(data.total_page, pageNum);
 			},
 			error : function(error) {
 				console.log(error);
@@ -197,7 +203,7 @@ $(document).ready(function() {
 							</tr>
 							 */
 							
-							sHtml += "<div style='border-radius:20px; border: 5px solid white; margin: 20px; box-shadow:0 0 5px lightslategray;'>"
+							sHtml += "<div style='border-radius:20px; border: 5px solid white; margin: 20px; box-shadow:0 0 5px lightslategray; max-width:260px;'>"
 							sHtml += "<img  src='/photo/"+oInfo.newfilename+"' width='250' height='250' style=' border-radius:20px;'>"
 							sHtml += "<table class='table'>"
 							sHtml += '<tr>';
@@ -213,14 +219,10 @@ $(document).ready(function() {
 							sHtml += "</div>"
 						
 						});
-		} else {
-			sHtml += "<div style='border-radius:20px; border: 5px solid white; margin: 20px; box-shadow:0 0 5px lightslategray;'>"
-			sHtml += "해당하는 게시물이 없습니다.</div>"
 		}
-	
 		
 	
-		$("#list").empty();
+		
 		$("#list").append(sHtml);
 	}
 	
@@ -263,20 +265,24 @@ $(document).ready(function() {
 	$('#orderBy').on('change', function(){
 		orderBy =$(this).val();
 		$('#formcategory').off('change');
+		$("#list").empty();
 		getList(1,orderBy);
 	});
 	
 	$('#formcategory').on('change', function(){
 		formcategory = $(this).val();
+		$("#list").empty();
 		getList(1,orderBy,formcategory);
 	});
 	
 	$('#budget').on('change', function(){
 		budget = $(this).val();
+		$("#list").empty();
 		getList(1,orderBy,formcategory, budget);
 	});
 	$('#roomsize').on('change', function(){
 		roomsize = $(this).val();
+		$("#list").empty();
 		getList(1,orderBy,formcategory, budget,roomsize);
 	});
 	
@@ -287,9 +293,9 @@ $(document).ready(function() {
 	
 	
 	
+
 	getList();
 });
-
 
 
 	

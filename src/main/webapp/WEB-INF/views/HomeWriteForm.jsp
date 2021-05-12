@@ -165,7 +165,7 @@ input.button:hover {
 					<tr>
 						<th style="border: 3px solid rgb(204, 203, 203);">내용</th>
 						<td style="border: 3px solid rgb(204, 203, 203);">
-							<div  class="form-control" contenteditable="true" id="editable" style="width: 100%; height: 300px"></div>
+							<div  class="form-control" contenteditable="true" id="editable" style="width: 100%; overflow:auto; height: 300px"></div>
 							<input name="content" type="hidden" id="content" />
 						</td>
 					</tr>

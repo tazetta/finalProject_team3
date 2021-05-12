@@ -104,7 +104,7 @@
         <div class="btn-area">
             <button class="btn">비밀번호 재설정</button>
         </div>
-        ></form>
+        </form>
     </div>
 </body>
 <script>

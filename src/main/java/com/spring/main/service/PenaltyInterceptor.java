@@ -3,14 +3,18 @@ package com.spring.main.service;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.main.dao.AdminDAO;
 import com.spring.main.dao.MemberDAO;
@@ -40,9 +44,14 @@ public class PenaltyInterceptor extends HandlerInterceptorAdapter {
 				pass = true;
 			} else {
 				String referer = request.getHeader("Referer");
+				session.setMaxInactiveInterval(3);
+				session.setAttribute("msg", msg);
 				response.sendRedirect(referer);
 			}
 		} else {
+			String msg = "로그인 후 사용해주세요";
+			session.setMaxInactiveInterval(3);
+			session.setAttribute("msg", msg);
 			response.sendRedirect("./membership");
 		}
 		return pass;

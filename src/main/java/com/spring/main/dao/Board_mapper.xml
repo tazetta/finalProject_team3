@@ -116,9 +116,9 @@
 		
 	</select>
 	<select id="gettipMainLimit3" resultType="board">
-        SELECT board.boardidx, photos.newfilename
+        SELECT board.boardidx, board.subject, board.id, board.CNTRECO, photos.newfilename
 		FROM (
-		  SELECT ROW_NUMBER() OVER(ORDER BY cntreco DESC) AS rnum, BOARDIDX
+		  SELECT ROW_NUMBER() OVER(ORDER BY cntreco DESC) AS rnum, BOARDIDX, subject, id, CNTRECO
 		  FROM BOARD
 		  WHERE brdctgidx = 3
 		) board
@@ -243,8 +243,10 @@
 	 SELECT COUNT(boardidx)
 	 FROM board
 	 WHERE blind = 'n' AND brdctgidx = 2
+	 <if test="param3 != 0">
 	   AND roomsize <![CDATA[ <= ]]> #{param3}
-	 <if test="!param1 == 0">
+	 </if>
+	 <if test="param1 != 0">
        AND formidx = #{param1}
 	 </if>
 	<choose>
@@ -291,34 +293,37 @@
 	
 	SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY b.${param3} DESC) AS rnum, b.boardidx, subject, id, reg_date, roomsize, budget, bhit, cntreco, formidx, blind, brdctgidx, newfilename FROM 
 (SELECT boardidx, subject, id, reg_date, roomsize, budget, bhit, cntreco, formidx, blind, brdctgidx FROM board WHERE brdctgidx = 2 AND blind='n') b
-,(SELECT * FROM(SELECT photoidx, newfilename, boardidx FROM photos) WHERE ROWID IN (SELECT MAX(ROWID) FROM photos GROUP BY boardidx)) p WHERE b.boardidx = p.boardidx)WHERE rnum BETWEEN #{param1} AND #{param2}
-	<if test="!param4 == 0">
-      AND formidx = #{param4}
+,(SELECT * FROM(SELECT photoidx, newfilename, boardidx FROM photos) WHERE ROWID IN (SELECT MAX(ROWID) FROM photos GROUP BY boardidx)) p WHERE b.boardidx = p.boardidx
+	<if test="param4 == 0 and param5 == 0 and param6 == 0">
+		)WHERE rnum BETWEEN #{param1} AND #{param2}
+	</if>
+	<if test="param4 != 0">
+      AND formidx = #{param4} )WHERE rnum BETWEEN #{param1} AND #{param2}
 	</if>
 	<choose>
 		<when test="param6 != 0">
-	    AND roomsize <![CDATA[ <= ]]> #{param6}
+	    AND roomsize <![CDATA[ <= ]]> #{param6} )WHERE rnum BETWEEN #{param1} AND #{param2}
 		</when>
 	  <when test="param5 == 100">
-        AND budget <![CDATA[ < ]]> 100
+        AND budget <![CDATA[ < ]]> 100 )WHERE rnum BETWEEN #{param1} AND #{param2}
 	  </when>
 	  <when test="param5 == 200">
-        AND budget <![CDATA[ >= ]]> 100 AND budget <![CDATA[ < ]]> 200
+        AND budget <![CDATA[ >= ]]> 100 AND budget <![CDATA[ < ]]> 200 )WHERE rnum BETWEEN #{param1} AND #{param2}
 	  </when>
 	  <when test="param5 == 300">
-	    AND budget <![CDATA[ >= ]]> 200 AND budget <![CDATA[ < ]]> 300
+	    AND budget <![CDATA[ >= ]]> 200 AND budget <![CDATA[ < ]]> 300 )WHERE rnum BETWEEN #{param1} AND #{param2}
 	  </when>
 	  <when test="param5 == 400">
-	    AND budget <![CDATA[ >= ]]> 300 AND budget <![CDATA[ < ]]> 400
+	    AND budget <![CDATA[ >= ]]> 300 AND budget <![CDATA[ < ]]> 400 )WHERE rnum BETWEEN #{param1} AND #{param2}
 	  </when>
 	  <when test="param5 == 500">
-	    AND budget <![CDATA[ >= ]]> 400 AND budget <![CDATA[ < ]]> 500
+	    AND budget <![CDATA[ >= ]]> 400 AND budget <![CDATA[ < ]]> 500 )WHERE rnum BETWEEN #{param1} AND #{param2}
 	  </when>
 	  <when test="param5 == 600">
-	    AND budget <![CDATA[ >= ]]> 500 AND budget <![CDATA[ < ]]> 1000
+	    AND budget <![CDATA[ >= ]]> 500 AND budget <![CDATA[ < ]]> 1000 )WHERE rnum BETWEEN #{param1} AND #{param2}
 	  </when>
 	  <when test="param5 == 1000">
-	    AND budget <![CDATA[ >= ]]> 1000 
+	    AND budget <![CDATA[ >= ]]> 1000  )WHERE rnum BETWEEN #{param1} AND #{param2}
 	  </when>
 	  <otherwise>
 	  </otherwise>

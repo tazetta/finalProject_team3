@@ -33,6 +33,7 @@ a:hover {
 			<tr><td id="reportedBrd" class="right"><a href="adminReportedBrdList">신고된 게시글</a></td></tr>
 			<tr><td id="reportedComm" class="right"><a href="adminReportedCommList">신고된 댓글</a></td></tr>
 			<tr><td id="reportedGroup" class="right"><a href="adminReportedGroupList">신고된 공동구매</a></td></tr>
+			<tr><td class="right"><a href="../main">로그아웃</a></td></tr>
 		</table>
 	</div>
 </body>

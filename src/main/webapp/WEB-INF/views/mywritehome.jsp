@@ -124,7 +124,7 @@ margin-top:50px;
 </body>
 <script>
 var showPage = 1;
-var pagePerNum = 10;
+var pagePerNum = 9;
 listCall(showPage,pagePerNum);
 
 function listCall(reqPage,reqPagePerNum){
@@ -145,8 +145,12 @@ function listCall(reqPage,reqPagePerNum){
 				$("#pagination").twbsPagination({
 					startPage:data.currPage,//시작 페이지
 					totalPages:data.range,//생성 가능 최대 페이지
-					visiblePages:5,//5개씩 보여 주겠다.(1~5)
-					onPageClick:function(evt,page){//각 페이지를 눌렀을 경우
+					visiblePages:5//5개씩 보여 주겠다.(1~5)
+					,first : '<span aria-hidden="true"><<</span>'
+					,prev : "이전"
+					,next : "다음"
+					,last : '<span aria-hidden="true">>></span>'
+					,onPageClick:function(evt,page){//각 페이지를 눌렀을 경우
 						console.log(evt);
 						console.log(page);
 						listCall(page,pagePerNum);
@@ -164,7 +168,7 @@ function listPrint(list){
 	 for(var i = 0; i<list.length; i++){
 			content += "<div style='border-radius:20px; border: 5px solid white; margin: 20px; box-shadow:0 0 5px lightslategray;'>"
 			content +="<a href='${pageContext.request.contextPath}/boarddetail?boardIdx="+list[i].boardIdx+"'>"	
-			content += "<img src='resources/images/interior4.jpg' width='200' height='200' style=' border-radius:20px;'>"
+			content += "<img src='/photo/"+list[i].newfilename+"' width='200' height='200' style=' border-radius:20px;'>"
 			content += "</a></div>"
 	}
 	

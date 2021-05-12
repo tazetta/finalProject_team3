@@ -145,9 +145,9 @@
 	<select id="adminReportedBrdList" resultType="com.spring.main.dto.ReportDTO"> 
 		SELECT b.subject, r.repctgidx, r.targetid, r.reg_date, b.blind 
     		FROM (SELECT ROW_NUMBER() OVER(ORDER BY reg_date DESC) AS rnum, repctgidx, targetid, reg_date, boardidx FROM reports) r
-        , board b WHERE r.boardidx = b.boardidx AND r.rnum BETWEEN ${param1} AND ${param2}
+        , board b WHERE r.boardidx = b.boardidx AND r.rnum BETWEEN ${param1} AND ${param2} 
 		<if test = "param3 != 0">
-			AND repctgidx = ${param3}
+			AND repctgidx = ${param3} 
 		</if>
 	</select>
 	

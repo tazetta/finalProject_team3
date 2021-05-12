@@ -20,7 +20,7 @@ public interface AdminDAO {
 
 	int reportedBrdCnt(String sqlDate);
 
-	HashMap<String, Object> reportedBrdList(String sqlDate);
+	ArrayList<BoardDTO> reportedBrdList(String sqlDate);
 
 	int reportedCommCnt(String string);
 

@@ -26,7 +26,8 @@ public class ChkPenaltyInterceptor extends HandlerInterceptorAdapter {
 		HttpSession session = request.getSession();
 		String loginId = (String) session.getAttribute("loginId");
 		System.out.println("loginId:" + loginId);
-
+		String cloginId = (String) session.getAttribute("cLoginId");
+		
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat df = new SimpleDateFormat("yy/MM/dd");
 		cal.setTime(new Date(System.currentTimeMillis()));
@@ -50,9 +51,9 @@ public class ChkPenaltyInterceptor extends HandlerInterceptorAdapter {
 			  }
 			 
 		}
-		} else {
-			response.sendRedirect("./membership");
-		}
+		} else if(cloginId != null){
+			System.out.println("업체로그인");
+		} 
 	}
 
 }
