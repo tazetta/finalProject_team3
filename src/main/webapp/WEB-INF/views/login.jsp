@@ -45,7 +45,10 @@
     </div>
 </body>
 <script>
+
+
 	var msg = "${msg}";
+	console.log(msg);
 	if(msg != ""){
 		alert(msg);
 	}
