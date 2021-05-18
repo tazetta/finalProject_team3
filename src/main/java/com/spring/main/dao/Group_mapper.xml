@@ -229,7 +229,7 @@
 	</select>
 	
 	<insert id="groupRepComm">
-		INSERT INTO  reports (repIdx,id,targetId,commIdx,repCtgIdx) VALUES (reports_seq.NEXTVAL,#{id},#{targetId},#{commIdx},#{repCtgIdx})
+		INSERT INTO  reports (repIdx, id, targetId, commIdx, repCtgIdx) VALUES (reports_seq.NEXTVAL, #{id}, #{targetId}, #{commIdx}, #{repCtgIdx})
 	</insert>
 	
 	<!-- 대댓글 신고 -->

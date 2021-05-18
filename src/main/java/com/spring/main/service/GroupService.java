@@ -687,14 +687,17 @@ public class GroupService {
 		return mav;
 	}
 
+
 	public HashMap<String, Object> groupRepComm(HashMap<String, String> params) {
-		logger.info("공동구매 댓글/답글 신고 서비스");
+		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		int result = 0;
 		String success= "fail";
-		if(params.get("branch").equals(1)) { //댓글신고
-			result = groupdao.groupRepComm(params); 
+		if(params.get("branch").equals("1")) { //댓글신고
+			logger.info("공동구매 댓글 신고 서비스");
+			result = groupdao.groupRepComm(params);
 		}else { //대댓글 신고
+			logger.info("공동구매 답글 신고 서비스");
 			result = groupdao.groupRepRecomm(params);
 		}
 		logger.info("result:"+result);
