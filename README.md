@@ -26,5 +26,6 @@
 - ajax, JQuery를 이용하여 댓글 등록, 삭제, 추천/취소, 신고 하는 기능
 - ajax, JQuery를 이용하여 해당하는 댓글의 대댓글 리스트를 불러오는 기능
 - ajax, JQuery를 이용하여 대댓글 등록, 삭제, 신고 하는 기능
+- webSocket을 이용한 공동구매 신청자들 간 다대다 채팅기능
 ![ezgif com-gif-maker (2)](https://user-images.githubusercontent.com/79694352/120543787-acfd9280-c427-11eb-98bb-2aa3ea1c47fb.gif)
 
