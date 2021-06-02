@@ -10,7 +10,7 @@
 #monitor {
 	margin: 5px;
 	width: 600px;
-	height: 200px;
+	height: 500px;
 	overflow: auto;
 	border: 1px solid;
 	resize: none; 

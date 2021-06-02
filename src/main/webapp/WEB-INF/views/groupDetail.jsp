@@ -279,7 +279,7 @@ background-color: #E6E6E6;
 	
 	/* 채팅창 새창*/
 	function groupChatForm(){
-		window.open("groupChatForm","groupChatForm","width=500, height=600");
+		window.open("groupChatForm","groupChatForm","width=500, height=500");
 		//요청url,타이틀,옵션
 	}
 	
