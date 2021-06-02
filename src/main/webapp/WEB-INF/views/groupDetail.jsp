@@ -220,11 +220,13 @@ background-color: #E6E6E6;
 			</tr>
 			<tr>
 				<td colspan="7" style="border-top:1px dashed dodgerblue; border-width:2px;"><br/><b>신청자</b>
+				<input type="button" value="채팅하기" onclick="groupChatForm()"/>
 					<div id="applicant">
 						<!-- 신청자 명단 불러올 영역 -->
 						<c:if test="${dto.currUser==0 }">
 							<span>현재 신청자가 없습니다</span>
 						</c:if>
+						
 					</div></td>
 			</tr>
 		</c:if>
@@ -274,7 +276,14 @@ background-color: #E6E6E6;
 	}
 	
 	groupCommentList(); //댓글리스트 호출
-	/*삭제버튼*/
+	
+	/* 채팅창 새창*/
+	function groupChatForm(){
+		window.open("groupChatForm","groupChatForm","width=500, height=600");
+		//요청url,타이틀,옵션
+	}
+	
+	/*글삭제버튼*/
 	function groupDel(gpIdx){
 		 if(confirm("정말로 삭제하시겠습니까?")){
 			location.href="./groupDel/"+gpIdx;

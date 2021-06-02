@@ -198,6 +198,12 @@ public class GroupController {
 		return groupService.groupRepComm(params);
 	}
 	
+	@RequestMapping(value = "/groupChatForm", method = RequestMethod.GET)
+	public String groupChat( HttpSession session) {
+		logger.info("공동구매 채팅 폼 요청");
+		 return "groupChatForm";
+	}
+	
 	
 
 }
